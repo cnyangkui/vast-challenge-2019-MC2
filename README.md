@@ -1,40 +1,45 @@
 # vast-challenge-2019-MC2
 VAST Challenge 2019: Mini-Challenge 2
 
-# backend
+使用 Django 和 Vue 实现前后端分离。
 
-**将csv文件导入数据库**
+## backend - 后台
+
+**将 csv 文件导入 MySQL 数据库**
 ```
 load data infile 'csvfilename.csv' into table tablename fields terminated by ',' enclosed by '"' lines terminated by '\r\n';
 ```
 
-# frontend
+## frontend - 前端
 
-## Project setup
+**Project setup**
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+**Compiles and hot-reloads for development**
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+**Compiles and minifies for production**
 ```
 npm run build
 ```
 
-### Run your tests
+**Run your tests**
 ```
 npm run test
 ```
 
-### Lints and fixes files
+**Lints and fixes files**
 ```
 npm run lint
 ```
 
-### Customize configuration
+## sql.zip
+SQL 文件，用于创建数据库和添加数据。
+
+**Customize configuration**
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
