@@ -5,9 +5,14 @@ VAST Challenge 2019: Mini-Challenge 2
 
 ## backend - 后台
 
-**将 csv 文件导入 MySQL 数据库**
+1. 根据 Excel 表头创建数据
+2. 将 csv 文件导入 MySQL 数据库
 ```
 load data infile 'csvfilename.csv' into table tablename fields terminated by ',' enclosed by '"' lines terminated by '\r\n';
+```
+3. 根据数据库表，自动在 Django 的 Model
+```
+python manage.py inspectdb > appname/models.py
 ```
 
 ## frontend - 前端
