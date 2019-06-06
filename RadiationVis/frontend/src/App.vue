@@ -65,9 +65,13 @@ export default {
   padding:0;
   margin:0;
 }
-html, body, #app .el-row, .el-col{
+html, body, #app {
   width: 100%;
   height: 100%;
+  overflow: hidden;
+}
+.el-row {
+  display: block; 
 }
 .grid-content {
   border-radius: 4px;
