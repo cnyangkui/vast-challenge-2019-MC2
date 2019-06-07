@@ -43,7 +43,6 @@ export default {
       let bodyHeight = document.body.clientHeight
       let leftdivs = document.querySelectorAll(".left")
       for(let i=0; i<leftdivs.length; i++) {
-        console.log(leftdivs[i].style)
         leftdivs[i].style.minHeight = Math.floor(bodyHeight / 3 - 5) + "px";
       }
     }
