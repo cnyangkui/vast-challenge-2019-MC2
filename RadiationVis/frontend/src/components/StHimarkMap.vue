@@ -150,6 +150,9 @@ export default {
       })
     },
     drawSquare() {
+      /**
+       * 框选数据
+       */
       let rect = this.svg.append("rect")
         .attr("width", 0)
         .attr("height", 0)

@@ -5,7 +5,7 @@
     <el-row :gutter="3">
       <el-col :span="12">
         <el-row><el-col :span="24"><div class="grid-content left"></div></el-col></el-row>
-        <el-row><el-col :span="24"><div class="grid-content left"></div></el-col></el-row>
+        <el-row><el-col :span="24"><div class="grid-content left"><ScatterPlot></ScatterPlot></div></el-col></el-row>
         <el-row><el-col :span="24"><div class="grid-content left"></div></el-col></el-row>
       </el-col>
       <el-col :span="12">
@@ -20,12 +20,14 @@
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
 import StHimarkmap from './components/StHimarkMap.vue'
+import ScatterPlot from './components/ScatterPlot.vue'
 import * as d3 from 'd3'
 
 export default {
   name: 'app',
   components: {
-    StHimarkmap
+    StHimarkmap,
+    ScatterPlot
   },
   data() {
     return {
