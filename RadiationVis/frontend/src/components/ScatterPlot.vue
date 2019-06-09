@@ -5,7 +5,7 @@
       <el-input size="mini" v-model="minInput" placeholder="min"></el-input> &nbsp;<span>-</span>&nbsp;
       <el-input size="mini" v-model="maxInput" placeholder="max"></el-input>
     </div>
-    <div id="scatterContainer">
+    <div id="scatterplot">
     </div>
   </div>
 </template>
@@ -21,7 +21,7 @@ export default {
   data() {
     return {
       minInput: 0,
-      maxInput: 80,
+      maxInput: 60,
       minValue: null,
       maxValue: null,
       svgWidth: 0,
@@ -46,7 +46,7 @@ export default {
       this.svgHeight = parentHeight - control.clientHeight;
     },
     drawSvg() {
-      this.svg = d3.select("#scatterContainer").append("svg")
+      this.svg = d3.select("#scatterplot").append("svg")
         .attr("width", this.svgWidth)
         .attr("height", this.svgHeight);
     },
@@ -56,7 +56,7 @@ export default {
       let height = this.svgHeight - margin.top - margin.bottom;
       // console.log(this.svgWidth, this.svgHeight)
 
-      let container = d3.select('#scatterContainer');
+      let container = d3.select('#scatterplot');
 
       // Init SVG
       let g = this.svg.append('g')
@@ -71,7 +71,7 @@ export default {
           .attr('class', 'canvas-plot');
 
       let context = canvasChart.node().getContext('2d');
-
+      let _this = this;
       axios.post("/findSensorReadingsBySid/", {
         category: this.category,
         sid: this.sid,
@@ -79,10 +79,10 @@ export default {
       .then(function (response) {
         // console.log(response.data);
         let responseData = response.data;
-        // console.log(this.maxInput)
+        
         // Init Scales
         let x = d3.scaleTime().domain([new Date(2020, 3, 6), new Date(2020, 3, 10)]).range([0, width]);
-        let y = d3.scaleLinear().domain([0, 80]).range([height, 0]);
+        let y = d3.scaleLinear().domain([0, _this.maxInput]).range([height, 0]);
 
         // Init Axis
         let xAxis = d3.axisBottom(x).ticks(5);
@@ -120,7 +120,7 @@ export default {
             const px = x(new Date(point.timestamp));
             const py = y(point.value);
 
-            context.arc(px, py, 1, 0, 2 * Math.PI,true);
+            context.arc(px, py, 0.5, 0, 2 * Math.PI,true);
             context.fill();
         }
 
@@ -138,13 +138,16 @@ export default {
 /* #scatterContainer {
   position: absolute;
 } */
-.el-input {
+#scatterContainer #scatterplot {
+  position: relative;
+}
+#scatterContainer .el-input {
   width: 60px;
 }
-span {
+#scatterContainer span {
   font-size: 12px;
 }
-.canvas-plot {
+#scatterContainer .canvas-plot {
   position: absolute;
   left: 0;
   top: 0;

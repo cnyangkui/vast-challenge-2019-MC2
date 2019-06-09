@@ -9,10 +9,8 @@ logger = logging.getLogger(__name__)
 
 # Create your views here.
 def testdb(request):
-	# if request.method == 'POST':
 	all = StaticSensorLocations.objects.all().values()
-	# responseData = StaticSensorReadings.objects.get(sid=1)
-	# logger.info(responseData)
+	# logger.info(type(all))
 	return HttpResponse(json.dumps({'data': list(all)}), content_type='application/json')
 
 def findSensorReadingsBySid(request):
@@ -25,9 +23,6 @@ def findSensorReadingsBySid(request):
 			responseData = MobileSensorReadings.objects.filter(sid=params['sid']).values()
 		elif category == 'static':
 			responseData =StaticSensorReadings.objects.filter(sid=params['sid']).values()
-		tmp = StaticSensorLocations.objects.filter(sid=params['sid'])
-		# logger.info(list(responseData))
-		# return HttpResponse(json.dumps(responseData), content_type='application/json')
 		return HttpResponse(json.dumps(list(responseData), cls=DateEncoder), content_type='application/json')
 
 

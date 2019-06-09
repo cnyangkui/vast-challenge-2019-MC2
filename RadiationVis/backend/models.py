@@ -18,7 +18,7 @@ class MobileSensorReadings(models.Model):
     uid = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return "timestamp: {0}, sid: {1}, longitude: {2}, latitude: {3}, value: {4}, units: {5}, uid: {6}. ".format(self.timestamp, self.sid, self.longitude, self.latitude, self.value, self.units, self.uid)
+        return "{" + "timestamp: {0}, sid: {1}, longitude: {2}, latitude: {3}, value: {4}, units: {5}, uid: {6}".format(self.timestamp, self.sid, self.longitude, self.latitude, self.value, self.units, self.uid) + "}"
 
     class Meta:
         managed = False
@@ -31,7 +31,7 @@ class StaticSensorLocations(models.Model):
     longitude = models.FloatField(blank=True, null=True)
 
     def __str__(self):
-        return "sid: {0}, latitude: {1}, longitude: {2}. ".format(self.sid, self.latitude, self.longitude)
+        return "{" + "sid: {0}, latitude: {1}, longitude: {2}".format(self.sid, self.latitude, self.longitude) + "}"
 
     class Meta:
         managed = False
@@ -46,7 +46,7 @@ class StaticSensorReadings(models.Model):
     units = models.CharField(max_length=45, blank=True, null=True)
 
     def __str__(self):
-        return "timestamp: {0}, sid: {1}, value: {2}, units: {3}. ".format(self.timestamp, self.sid, self.value, self.units)
+        return "{" +  "timestamp: {0}, sid: {1}, value: {2}, units: {3}".format(self.timestamp, self.sid, self.value, self.units) + "}"
 
     class Meta:
         managed = False
