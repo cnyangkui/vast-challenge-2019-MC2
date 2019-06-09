@@ -3,8 +3,7 @@ import * as d3 from 'd3';
 
 class CityMap {
 
-  constructor(imageSrc, longitudeRange, latitudeRange) {
-    this.imageSrc = imageSrc || '/static/images/StHimarkMapBlank.png';
+  constructor(longitudeRange, latitudeRange) {
     this.longitudeRange = longitudeRange || [-120.0, -119.711751];
     this.latitudeRange = latitudeRange || [0.238585, 0.0];
     this.width = null;

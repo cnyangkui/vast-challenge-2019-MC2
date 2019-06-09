@@ -1,13 +1,13 @@
 <template>
   <div id="mapContainer">
     <div id="heatmap">
-      <img ref="geomap" :src="himarkmap.imageSrc">
+      <img ref="geomap" :src="imgsrc">
     </div>
   </div>
 </template>
 
 <script>
-import CityMap from "../../public/static/js/citymap";
+import CityMap from "../assets/js/citymap";
 import * as d3 from "d3"
 import * as h337 from "heatmap.js"
 export default {
@@ -18,6 +18,7 @@ export default {
   data() {
     return {
       himarkmap: new CityMap(),
+      imgsrc: require('../assets/img/StHimarkMapBlank.png'),
       svg: null,
       squareSelect: {
         clickTime: "",
@@ -94,7 +95,7 @@ export default {
       let voronoi = d3.voronoi()
 				.extent([[0, 0], [this.himarkmap.width, this.himarkmap.height]]);
         
-      d3.csv("static/data/StaticSensorLocations.csv").then(csvdata => {
+      d3.csv("/static/data/StaticSensorLocations.csv").then(csvdata => {
         
         let coordinateData = csvdata.map(d => {
           return this.himarkmap.mappingToCoordinate(parseFloat(d.lat), parseFloat(d.long));
@@ -139,7 +140,7 @@ export default {
         container: document.querySelector('#heatmap')
       });
 
-      d3.csv("static/data/StaticSensorReadingsExample.csv").then(csvdata => {
+      d3.csv("/static/data/StaticSensorReadingsExample.csv").then(csvdata => {
         let points = [];
         csvdata.forEach(d => {
           let coordinate = this.himarkmap.mappingToCoordinate(parseFloat(d.lat), parseFloat(d.long));

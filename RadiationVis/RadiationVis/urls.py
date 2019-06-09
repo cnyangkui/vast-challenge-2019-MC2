@@ -21,5 +21,6 @@ from backend import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name="index.html")),
-    path('testdb/', views.testdb)
+    path('testdb/', views.testdb),
+    path('findSensorReadingsBySid/', views.findSensorReadingsBySid)
 ]

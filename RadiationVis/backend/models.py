@@ -8,7 +8,8 @@
 from django.db import models
 
 class MobileSensorReadings(models.Model):
-    timestamp = models.DateTimeField(blank=True, null=True)
+    id = models.AutoField(primary_key=True)
+    timestamp = models.DateTimeField(blank=True, null=True, serialize=True)
     sid = models.IntegerField(blank=True, null=True)
     longitude = models.FloatField(blank=True, null=True)
     latitude = models.FloatField(blank=True, null=True)
@@ -18,7 +19,7 @@ class MobileSensorReadings(models.Model):
 
     def __str__(self):
         return "timestamp: {0}, sid: {1}, longitude: {2}, latitude: {3}, value: {4}, units: {5}, uid: {6}. ".format(self.timestamp, self.sid, self.longitude, self.latitude, self.value, self.units, self.uid)
-        
+
     class Meta:
         managed = False
         db_table = 'mobilesensorreadings'
@@ -38,8 +39,9 @@ class StaticSensorLocations(models.Model):
 
 
 class StaticSensorReadings(models.Model):
-    timestamp = models.DateTimeField(blank=True, null=True)
-    sid = models.ForeignKey(StaticSensorLocations, models.DO_NOTHING, db_column='sid', blank=True, null=True)
+    id = models.AutoField(primary_key=True)
+    timestamp = models.DateTimeField(blank=True, null=True, serialize=True)
+    sid = models.IntegerField(blank=True, null=True)
     value = models.FloatField(blank=True, null=True)
     units = models.CharField(max_length=45, blank=True, null=True)
 
@@ -49,3 +51,4 @@ class StaticSensorReadings(models.Model):
     class Meta:
         managed = False
         db_table = 'staticsensorreadings'
+
