@@ -72,7 +72,7 @@ export default {
 
       let context = canvasChart.node().getContext('2d');
       let _this = this;
-      axios.post("/findSensorReadingsBySid/", {
+      axios.post("/findSrBySid/", {
         category: this.category,
         sid: this.sid,
       })
