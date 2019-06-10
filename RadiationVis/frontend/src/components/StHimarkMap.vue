@@ -10,6 +10,7 @@
       <div id="heatmap">
         <img ref="geomap" :src="imgsrc">
       </div>
+      <div class="tooltip"></div>
     </div>
   </div>
 </template>
@@ -193,13 +194,6 @@ export default {
         .style("top", 0)
         .style("left", 0)
 
-      // d3.select("#heatmap_container").on("mousemove",  (event) => {
-      //   console.log("move....")
-      //   let x = event.layerX;
-      //   let y = event.layerY;
-      //   console.log(x, y)
-      // })
-
       this.heatmapInstance = h337.create({
         // only container is required, the rest will be defaults
         container: document.querySelector('#heatmap'),
@@ -244,6 +238,8 @@ export default {
       let begin = '2020-04-06 00:00:00';
       let end = '2020-04-06 01:00:00';
       this.paintHeatmapByTimeRange({begintime: begin, endtime: end}, {begintime: begin, endtime: end})
+
+      this.drawTooltip();
 
 
     },
@@ -325,6 +321,30 @@ export default {
           let nodes = d3.selectAll(".staticSensorPoint").classed("selected", false);
         }
       })  
+    },
+    drawTooltip() {
+      let heatmapContainer = document.querySelector("#heatmap_container");
+      
+      heatmapContainer.onmousemove = (event) => {
+        if(!this.squareSelect.flag) {
+          let x = event.layerX;
+          let y = event.layerY;
+          // console.log(x, y)
+          let value = this.heatmapInstance.getValueAt({
+            x: x, 
+            y: y
+          });
+          let tooltip = document.querySelector('#heatmap_container .tooltip');
+          tooltip.style.display = 'block';
+          let transl = 'translate(' + (x + 15) + 'px, ' + (y + 15) + 'px)';
+          tooltip.style.webkitTransform = transl;
+          tooltip.innerHTML = value;
+        }
+      }
+      heatmapContainer.onmouseout = () => {
+        let tooltip = document.querySelector('#heatmap_container .tooltip');
+        tooltip.style.display = 'none';
+      };
     },
     playAnimation() {
       this.animationPlayer.isPlaying = !this.animationPlayer.isPlaying;
@@ -432,5 +452,16 @@ export default {
 }
 .selected {
   fill: orange;
+}
+.tooltip {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: rgba(0,0,0,.8);
+  color: white;
+  font-size: 14px;
+  padding: 5px;
+  line-height: 18px;
+  display: none;
 }
 </style>
