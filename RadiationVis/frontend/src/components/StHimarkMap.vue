@@ -170,7 +170,7 @@ export default {
             return d ? "M" + d.join("L") + "Z" : null; 
           })
         
-        this.svg.selectAll(".staticSensorPoint")
+        voronoiGroup.selectAll(".staticSensorPoint")
           .data(csvdata)
           .enter()
           .append("circle")
@@ -197,15 +197,15 @@ export default {
       this.heatmapInstance = h337.create({
         // only container is required, the rest will be defaults
         container: document.querySelector('#heatmap'),
-        gradient: {
-          // enter n keys between 0 and 1 here
-          // for gradient color customization
-          '0': 'blue',
-          '.25': 'green',
-          '.50': 'orange',
-          '.75': 'red',
-          '1': 'white'
-        }
+        // gradient: {
+        //   // enter n keys between 0 and 1 here
+        //   // for gradient color customization
+        //   '0': 'blue',
+        //   '.25': 'green',
+        //   '.50': 'orange',
+        //   '.75': 'red',
+        //   '1': 'white'
+        // }
       });
       
       this.heatmapInstance.setDataMin(0);
@@ -235,8 +235,8 @@ export default {
       //   .catch((error) => {
       //     console.log(error);
       //   });
-      let begin = '2020-04-06 00:00:00';
-      let end = '2020-04-06 01:00:00';
+      let begin = '2020-04-08 09:00:00';
+      let end = '2020-04-08 10:00:00';
       this.paintHeatmapByTimeRange({begintime: begin, endtime: end}, {begintime: begin, endtime: end})
 
       this.drawTooltip();
@@ -385,9 +385,9 @@ export default {
           })
           response2.data.forEach(d => {
             let coordinate = this.himarkmap.mappingToCoordinate(parseFloat(d.latitude), parseFloat(d.longitude));
-            points.push({"x": Math.round(coordinate[0]), "y": Math.round(coordinate[1]), 'value': parseFloat(d.value), "radius": 5});
+            points.push({"x": Math.round(coordinate[0]), "y": Math.round(coordinate[1]), 'value': parseFloat(d.value), "radius": 10});
           })
-          let data = {"min": 0, "max": 100, "data": points};
+          let data = {"min": 0, "max": 500, "data": points};
           this.heatmapInstance.setData(data);
         }));
     }
@@ -447,13 +447,13 @@ export default {
 #heatmap_container {
   position: relative;
 }
-.staticSensorPoint {
+#map_container .staticSensorPoint {
   fill: black;
 }
-.selected {
+#map_container .selected {
   fill: orange;
 }
-.tooltip {
+#map_container .tooltip {
   position: absolute;
   left: 0;
   top: 0;

@@ -8,7 +8,6 @@ class CityMap {
     this.latitudeRange = latitudeRange || [0.238585, 0.0];
     this.width = null;
     this.height = null;
-    this.timeRange = null;
     this.data = null;
     this.girdsize = null;
   }
@@ -20,10 +19,6 @@ class CityMap {
 
   loadData(data) {
     this.data = data;
-  }
-
-  setTimeRange(timeRange) {
-    this.timeRange = timeRange;
   }
 
   setGridSize(girdsize) {

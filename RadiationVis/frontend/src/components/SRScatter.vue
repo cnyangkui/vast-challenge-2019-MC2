@@ -14,7 +14,7 @@
 import * as d3 from 'd3'
 import axios from '../assets/js/http'
 export default {
-  name: 'HelloWorld',
+  name: 'SRScatter',
   // props: {
   //   msg: String
   // }
@@ -32,16 +32,19 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      this.selfAdaptionSvgSize();
-      this.drawSvg();
-      this.drawScatter(this.sid)
+      this.loadChart();
     })
   },
   methods: {
+    loadChart() {
+      this.selfAdaptionSvgSize();
+      this.drawSvg();
+      this.drawScatter(this.sid)
+    },
     selfAdaptionSvgSize() {
-      let parentNode = document.getElementById("scatterContainer").parentNode;
+      let parentNode = document.querySelector("#scatterContainer").parentNode;
       let parentHeight = parentNode.clientHeight;
-      let control = document.getElementById("scatterControl");
+      let control = document.querySelector("#scatterControl");
       this.svgWidth = control.clientWidth;
       this.svgHeight = parentHeight - control.clientHeight;
     },
@@ -58,7 +61,7 @@ export default {
 
       let container = d3.select('#scatterplot');
 
-      // Init SVG
+      // Init g
       let g = this.svg.append('g')
         .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
@@ -98,17 +101,6 @@ export default {
             .attr("class", "y axis")
             .call(yAxis);
 
-        // Add labels
-        // g.append('text')
-        //     .attr('x', `${-height/2}`)
-        //     .attr('dy', '-3.5em')
-        //     .attr('transform', 'rotate(-90)')
-        //     .text('Axis Y');
-        // g.append('text')
-        //     .attr('x', `${width/2}`)
-        //     .attr('y', `${height + 40}`)
-        //     .text('Axis X');
-
         // Draw on canvas
         responseData.forEach( point => {
             drawPoint(point);
@@ -120,6 +112,7 @@ export default {
             const px = x(new Date(point.timestamp));
             const py = y(point.value);
 
+            context.fillStyle = 'steelblue';  
             context.arc(px, py, 0.5, 0, 2 * Math.PI,true);
             context.fill();
         }
@@ -135,9 +128,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-/* #scatterContainer {
-  position: absolute;
-} */
+#scatterContainer {
+  position: relative;
+}
 #scatterContainer #scatterplot {
   position: relative;
 }
