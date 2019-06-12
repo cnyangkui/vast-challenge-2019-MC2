@@ -3,3 +3,8 @@
 [2019-06-10 22:28:40,516][MainThread:4432][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
 [2019-06-10 23:43:51,253][MainThread:664][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
 [2019-06-11 12:40:14,726][MainThread:18376][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-11 14:39:14,723][MainThread:8832][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-11 16:27:19,613][Thread-16:21420][task_id:django.request][log.py:228][WARNING][Not Found: /favicon.ico]
+[2019-06-11 17:16:05,498][MainThread:5996][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-12 13:35:26,115][MainThread:21460][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-12 20:40:58,832][MainThread:15568][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]

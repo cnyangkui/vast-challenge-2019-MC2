@@ -10,6 +10,7 @@ class CityMap {
     this.height = null;
     this.data = null;
     this.girdsize = null;
+    this.gridMatrix = [];
   }
 
   setMapSize(width, height) {
@@ -25,18 +26,24 @@ class CityMap {
     this.girdsize = girdsize;
   }
 
-  assignGrid() {
-    n = Math.ceil(Math.abs(this.width / (this.longitudeRange[1] - this.longitudeRange[0])))
-    m = Math.ceil(Math.abs(this.height / (this.latitudeRange[1] - this.latitudeRange[0])))
+  setGridMatrix() {
+    let n = Math.ceil(Math.abs(this.width / (this.longitudeRange[1] - this.longitudeRange[0])))
+    let m = Math.ceil(Math.abs(this.height / (this.latitudeRange[1] - this.latitudeRange[0])))
+    
+    return [n, m];
   }
 
-  mappingToCoordinate(latitude, longtitude) {
+  assignGird(longitude, latitude) {
+
+  }
+
+  mappingToCoordinate(latitude, longitude) {
     /**
      * 将经纬度映射成坐标
      */
     let xScale = d3.scaleLinear().domain(this.longitudeRange).range([0, this.width]);
     let yScale = d3.scaleLinear().domain(this.latitudeRange).range([0, this.height]);
-    return [xScale(longtitude), yScale(latitude)];
+    return [xScale(longitude), yScale(latitude)];
   }
 
   mappingToPostion(x, y) {

@@ -41,7 +41,8 @@ export default {
         isPlaying: false,
         currentFrame: 0,
         speed: 3000,
-      }
+      },
+      colorScale: d3.scaleLinear().domain([20, 30, 60, 100]).range(["rgb(0,0,255)", "rgb(0,255,0)", "yellow", "rgb(255,0,0)"])
     }
   },
   created() {
@@ -198,18 +199,15 @@ export default {
         // only container is required, the rest will be defaults
         container: document.querySelector('#heatmap'),
         // gradient: {
-        //   // enter n keys between 0 and 1 here
-        //   // for gradient color customization
-        //   '0': 'blue',
-        //   '.25': 'green',
-        //   '.50': 'orange',
-        //   '.75': 'red',
-        //   '1': 'white'
+          // enter n keys between 0 and 1 here
+          // for gradient color customization
+          // 0.25: "rgb(0,0,255)", 
+          // 0.55: "rgb(0,255,0)", 
+          // 0.95: "yellow", 
+          // 1.0: "rgb(255,0,0)"
         // }
       });
       
-      this.heatmapInstance.setDataMin(0);
-      this.heatmapInstance.setDataMax(100);
 
       let _this = this
 
@@ -381,13 +379,62 @@ export default {
           let points = []
           response1.data.forEach(d => {
             let coordinate = this.himarkmap.mappingToCoordinate(parseFloat(d.latitude), parseFloat(d.longitude));
-            points.push({"x": Math.round(coordinate[0]), "y": Math.round(coordinate[1]), 'value': parseFloat(d.value), "radius": 30});
+            points.push({"x": Math.round(coordinate[0]), "y": Math.round(coordinate[1]), 'value': parseFloat(d.value), "radius": 100});
           })
           response2.data.forEach(d => {
             let coordinate = this.himarkmap.mappingToCoordinate(parseFloat(d.latitude), parseFloat(d.longitude));
-            points.push({"x": Math.round(coordinate[0]), "y": Math.round(coordinate[1]), 'value': parseFloat(d.value), "radius": 10});
+            points.push({"x": Math.round(coordinate[0]), "y": Math.round(coordinate[1]), 'value': parseFloat(d.value), "radius": 5});
           })
-          let data = {"min": 0, "max": 500, "data": points};
+          let data = {"min": 0, "max": 100, "data": points};
+          let max = d3.max(points, d => d.value);
+          console.log(max)
+          if (max >= 100) {
+            let config = {
+              gradient: {
+                // enter n keys between 0 and 1 here
+                // for gradient color customization
+                0.20: "rgb(0,0,255)", 
+                0.30: "rgb(0,255,0)", 
+                0.60: "yellow", 
+                1: "rgb(255,0,0)"
+              }
+            };
+            this.heatmapInstance.configure(config);
+          } else if(max >= 60){
+            let config = {
+              gradient: {
+                // enter n keys between 0 and 1 here
+                // for gradient color customization
+                0.20: "rgb(0,0,255)", 
+                0.30: "rgb(0,255,0)", 
+                0.60: "yellow", 
+              }
+            };
+            config.gradient[max/100] = this.colorScale(max);
+            this.heatmapInstance.configure(config);
+          } else if(max >= 30) {
+            let config = {
+              gradient: {
+                // enter n keys between 0 and 1 here
+                // for gradient color customization
+                0.20: "rgb(0,0,255)", 
+                0.30: "rgb(0,255,0)", 
+              }
+            };
+            config.gradient[max/100] = this.colorScale(max);
+            // console.log(config)
+            this.heatmapInstance.configure(config);
+
+          } else if (max >= 20) {
+            let config = {
+              gradient: {
+                // enter n keys between 0 and 1 here
+                // for gradient color customization
+                0.20: "rgb(0,0,255)", 
+              }
+            };
+            config.gradient[max/100] = this.colorScale(max);
+          }
           this.heatmapInstance.setData(data);
         }));
     }

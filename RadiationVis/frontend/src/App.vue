@@ -9,7 +9,7 @@
         <el-row><el-col :span="24"><div class="grid-content left"></div></el-col></el-row>
       </el-col>
       <el-col :span="13">
-        <el-row><el-col :span="24"><div class="grid-content bg-purple-dark"><StHimarkmap></StHimarkmap></div></el-col></el-row>
+        <el-row><el-col :span="24"><div class="grid-content bg-purple-dark"><StHimarkMap></StHimarkMap></div></el-col></el-row>
         
       </el-col>
     </el-row>
@@ -19,7 +19,8 @@
 
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
-import StHimarkmap from './components/StHimarkMap.vue'
+import StHimarkMap from './components/StHimarkMap.vue'
+// import StHimarkGridMap from './components/StHimarkGridMap.vue'
 import SRScatter from './components/SRScatter.vue'
 import SimilarityScatter from './components/SimilarityScatter.vue'
 import * as d3 from 'd3'
@@ -27,7 +28,8 @@ import * as d3 from 'd3'
 export default {
   name: 'app',
   components: {
-    StHimarkmap,
+    StHimarkMap,
+    // StHimarkGridMap,
     SRScatter,
     SimilarityScatter
   },
