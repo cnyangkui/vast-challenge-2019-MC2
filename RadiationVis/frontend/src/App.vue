@@ -9,7 +9,7 @@
         <el-row><el-col :span="24"><div class="grid-content left"></div></el-col></el-row>
       </el-col>
       <el-col :span="13">
-        <el-row><el-col :span="24"><div class="grid-content bg-purple-dark"><StHimarkMap></StHimarkMap></div></el-col></el-row>
+        <el-row><el-col :span="24"><div class="grid-content right"><Openlayers></Openlayers></div></el-col></el-row>
         
       </el-col>
     </el-row>
@@ -23,13 +23,14 @@ import StHimarkMap from './components/StHimarkMap.vue'
 // import StHimarkGridMap from './components/StHimarkGridMap.vue'
 import SRScatter from './components/SRScatter.vue'
 import SimilarityScatter from './components/SimilarityScatter.vue'
+import Openlayers from './components/Openlayers.vue'
 import * as d3 from 'd3'
 
 export default {
   name: 'app',
   components: {
-    StHimarkMap,
-    // StHimarkGridMap,
+    // StHimarkMap,
+    Openlayers,
     SRScatter,
     SimilarityScatter
   },
@@ -51,6 +52,7 @@ export default {
       for(let i=0; i<leftdivs.length; i++) {
         leftdivs[i].style.minHeight = Math.floor(bodyHeight / 3 - 8) + "px";
       }
+      document.querySelector(".right").style.minHeight = (bodyHeight -8 )+ "px";
     }
   }
 }

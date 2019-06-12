@@ -36,7 +36,7 @@ export default {
     },
     selfAdaptionSvgSize() {
       let parentNode = document.querySelector("#similarity_scatter_container").parentNode;
-      console.log(parentNode.clientWidth, parentNode.clientHeight)
+      // console.log(parentNode.clientWidth, parentNode.clientHeight)
       this.svgWidth = parentNode.clientWidth;
       this.svgHeight = parentNode.clientHeight;
     },
