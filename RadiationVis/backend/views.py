@@ -43,7 +43,7 @@ def findAggSrrByTimeRange(request):
 		cursor = connection.cursor()
 		
 		# Data retrieval operation - no commit required
-		cursor.execute("select latitude, longitude, avg(value) as value from staticsensorreadings left join staticsensorlocations on staticsensorreadings.sid = staticsensorlocations.sid where timestamp between '{0}' and '{1}' group by staticsensorreadings.sid;".format(params['begintime'], params['endtime']))
+		cursor.execute("select latitude, longitude, avg(value) as value from staticsensorreadings left join staticsensorlocations on staticsensorreadings.sid = staticsensorlocations.sid where timestamp between '{0}' and '{1}' group by staticsensorreadings.sid order by avg(value) desc;".format(params['begintime'], params['endtime']))
 		desc = cursor.description
 		alldata = cursor.fetchall()
 		data = [dict(zip([col[0] for col in desc], row)) for row in alldata]
