@@ -2,8 +2,8 @@
   <div id="openlayers_container">
     <div class="sidepanel">
         <!-- <span class="sidepanel-title">Side Panel</span> -->
-        <el-checkbox v-model="checked1" @change="ssILayerUpdate">Static</el-checkbox>
-        <el-checkbox v-model="checked2">Mobile</el-checkbox>
+        <el-checkbox v-model="checked1" @change="krigingLayerUpdate">Static</el-checkbox>
+        <el-checkbox v-model="checked2" @change="idwLayerUpdate">Mobile</el-checkbox>
     </div>
     <div id="himarkmap"></div>
   </div>
@@ -12,6 +12,7 @@
 import CityMap from "../assets/js/citymap";
 import axios from '../assets/js/http'
 import kriging from '../assets/js/kriging'
+import idw from '../assets/js/idw'
 import * as d3 from 'd3'
 import 'ol/ol.css';
 // import ol from 'ol'
@@ -25,7 +26,7 @@ import ImageCanvas from 'ol/source/ImageCanvas'
 import VectorSource from 'ol/source/Vector'
 import {getCenter} from 'ol/extent';
 import Projection from 'ol/proj/Projection';
-import {Point, LineString} from 'ol/geom'
+import {Point, LineString, Polygon} from 'ol/geom'
 import {Style, Circle, Fill, Stroke} from 'ol/style'
 import Select from 'ol/interaction/Select'
 import {defaults as defaultControls, FullScreen} from 'ol/control';
@@ -58,7 +59,7 @@ export default {
       this.addSSLayer(); //添加静态传感器
       this.drawKrigingLayer();
       // this.drawIdwLayer();
-      this.drawGridLayer();
+      this.drawIdwLayer();
     },
     selfAdaptionSize() {
       let width = document.querySelector("#openlayers_container").clientWidth;
@@ -173,7 +174,7 @@ export default {
           console.log(error);
         });
     },
-    drawGridLayer() {
+    drawIdwLayer() {
       let span = 0.01;
       
       let m = Math.ceil(Math.abs(this.imageExtent[1] - this.imageExtent[3]) / span);
@@ -191,30 +192,17 @@ export default {
       yRange.push(0);
 
       for(let i=1; i<m; i++) {
-        let lineFeature = new Feature(new LineString([[this.imageExtent[0], this.imageExtent[3] - i * span], [this.imageExtent[2], this.imageExtent[3] - i * span]]));
-        features.push(lineFeature);
+        // let lineFeature = new Feature(new LineString([[this.imageExtent[0], this.imageExtent[3] - i * span], [this.imageExtent[2], this.imageExtent[3] - i * span]]));
+        // features.push(lineFeature);
 
         yRange.push(i);
       }
       for(let j=1; j<n; j++) {
-        let lineFeature = new Feature(new LineString([[this.imageExtent[0] + j * span, this.imageExtent[1]], [this.imageExtent[0] + j * span, this.imageExtent[3]]]));
-        features.push(lineFeature);
+        // let lineFeature = new Feature(new LineString([[this.imageExtent[0] + j * span, this.imageExtent[1]], [this.imageExtent[0] + j * span, this.imageExtent[3]]]));
+        // features.push(lineFeature);
 
         xRange.push(j);
       }
-
-      let vectorLayer = new VectorLayer({
-        source: new VectorSource({
-          features: features
-        }),
-        style: new Style({
-          stroke: new Stroke({
-            width: 1,
-            color: "red"
-          })
-        })
-      })
-      this.map.addLayer(vectorLayer)
 
       let xScale = d3.scaleQuantize().domain([this.imageExtent[0], right]).range(xRange);
       let yScale = d3.scaleQuantize().domain([bottom, this.imageExtent[3]]).range(yRange.reverse());
@@ -231,7 +219,9 @@ export default {
         return dim2Arr;
       }
 
-      axios.post("/findAggMrrByTimeRange/", {begintime: '2020-04-06 06:00:00', endtime: '2020-04-06 07:00:00'})
+      let colorScale = d3.scaleLinear().domain([20, 30, 50, 100]).range(["rgb(0,0,255,0.3)", "rgb(0,255,0,0.3)", "rgb(225,225,0,0.3)", "rgb(255,0,0,0.3)"])
+
+      axios.post("/findAggMrrByTimeRange/", {begintime: '2020-04-08 08:00:00', endtime: '2020-04-08 09:00:00'})
       .then((response) => {
         let responseData = response.data;
 
@@ -244,7 +234,7 @@ export default {
 
           dim2Arr[y][x].sum += d.value;
           dim2Arr[y][x].count ++;
-        })
+        }) 
 
         for(let i=0; i<m; i++) {
           for(let j=0; j<n; j++) {
@@ -256,8 +246,45 @@ export default {
           }
         }
 
-        let griddata = dim2Arr.map(row => row.map(d => d.value));
-        console.log(griddata);
+        // let result = dim2Arr.map((row, i) => row.map((d, j) => {
+        //   let lngEx = xScale.invertExtent(j)
+        //   let latEx = yScale.invertExtent(i);
+        //   return {latEx: latEx, lngEx: lngEx, lat: d3.mean(latEx), lng: d3.mean(lngEx), value: d.value}
+        // }));
+
+        let griddata = [];
+        for(let i=0, len=dim2Arr.length; i<len; i++) {
+          for(let j=0, len2=dim2Arr[i].length; j<len2; j++) {
+            let lngEx = xScale.invertExtent(j)
+            let latEx = yScale.invertExtent(i);
+            griddata.push({latEx: latEx, lngEx: lngEx, lat: d3.mean(latEx), lng: d3.mean(lngEx), value: dim2Arr[i][j].value});
+          }
+        }
+
+        let idwdata = idw(griddata);
+        
+        idwdata.forEach(d => {
+          if(d.value != null) {
+            let polygonFeature = new Feature(new Polygon([[[d.lngEx[0], d.latEx[0]], [d.lngEx[0], d.latEx[1]], [d.lngEx[1], d.latEx[1]], [d.lngEx[1], d.latEx[0]], [d.lngEx[0], d.latEx[0]]]]));
+            polygonFeature.setStyle(new Style({fill: new Fill({
+              color: colorScale(d.value)//[0, 0, 255, 0.6]
+            })}))
+            features.push(polygonFeature)
+          }
+        })
+
+        this.idwLayer = new VectorLayer({
+        source: new VectorSource({
+          features: features
+        }),
+        style: new Style({
+          stroke: new Stroke({
+            width: 1,
+            color: "red"
+          })
+        })
+      })
+      // this.map.addLayer(this.idwLayer)
       })
       .catch((error) => {
         console.log(error);
@@ -314,12 +341,20 @@ export default {
     //       console.log(error);
     //     });
     // },
-    ssILayerUpdate() {
+    krigingLayerUpdate() {
       if(this.checked1) {
         //向map添加图层
         this.map.addLayer(this.krigingLayer);
       } else {
         this.map.removeLayer(this.krigingLayer);
+      }
+    },
+    idwLayerUpdate() {
+      if(this.checked2) {
+        //向map添加图层
+        this.map.addLayer(this.idwLayer);
+      } else {
+        this.map.removeLayer(this.idwLayer);
       }
     }
   },

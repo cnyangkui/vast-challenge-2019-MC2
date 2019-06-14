@@ -15,3 +15,6 @@
 [2019-06-13 17:10:23,006][MainThread:18352][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
 [2019-06-13 17:10:31,735][MainThread:17008][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
 [2019-06-13 19:00:18,556][Thread-17:3028][task_id:django.request][log.py:228][WARNING][Not Found: /favicon.ico]
+[2019-06-14 10:35:01,285][MainThread:7400][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-14 10:39:20,055][MainThread:12984][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-14 16:21:07,818][MainThread:12772][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]

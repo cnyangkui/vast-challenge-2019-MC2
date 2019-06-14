@@ -10,7 +10,6 @@
       </el-col>
       <el-col :span="13">
         <el-row><el-col :span="24"><div class="grid-content right"><Openlayers></Openlayers></div></el-col></el-row>
-        
       </el-col>
     </el-row>
     

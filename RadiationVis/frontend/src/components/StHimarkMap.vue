@@ -233,8 +233,8 @@ export default {
       //   .catch((error) => {
       //     console.log(error);
       //   });
-      let begin = '2020-04-08 09:00:00';
-      let end = '2020-04-08 10:00:00';
+      let begin = '2020-04-06 06:00:00';
+      let end = '2020-04-06 07:00:00';
       this.paintHeatmapByTimeRange({begintime: begin, endtime: end}, {begintime: begin, endtime: end})
 
       this.drawTooltip();
