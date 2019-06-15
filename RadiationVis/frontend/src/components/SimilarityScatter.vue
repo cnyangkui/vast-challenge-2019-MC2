@@ -1,5 +1,5 @@
 <template>
-  <div id="similarity_scatter_container">
+  <div :id=cid>
     <div class="scatter">
     </div>
     <div class="tooltip"></div>
@@ -12,7 +12,7 @@ import * as d3 from "d3"
 export default {
   name: 'SimilarityScatter',
   props: {
-    // msg: String
+    cid: String
   },
   data() {
     return {
@@ -21,8 +21,14 @@ export default {
       svgHeight: 0,
     }
   },
-  created() {
-  },
+  created: function () {
+      this.$root.eventHub.$on('timeRangeUpdate', this.timeRangeUpdate);
+   },
+   // 最好在组件销毁前
+   // 清除事件监听
+   beforeDestroy: function () {
+      this.$root.eventHub.$off('timeRangeUpdate', this.timeRangeUpdate);
+   },
   mounted() {
     this.$nextTick(() => {
       this.loadChart();
@@ -32,20 +38,22 @@ export default {
     loadChart() {
       this.selfAdaptionSvgSize();
       this.drawSvg();
-      this.drawVoronoi();
+      this.drawScatter();
     },
     selfAdaptionSvgSize() {
-      let parentNode = document.querySelector("#similarity_scatter_container").parentNode;
+      let container = document.querySelector(`#${this.cid}`);
+      container.style.position = "relative";
+      let parentNode = container.parentNode;
       // console.log(parentNode.clientWidth, parentNode.clientHeight)
       this.svgWidth = parentNode.clientWidth;
       this.svgHeight = parentNode.clientHeight;
     },
     drawSvg() {
-      this.svg = d3.select("#similarity_scatter_container .scatter").append("svg")
+      this.svg = d3.select(`#${this.cid} .scatter`).append("svg")
         .attr("width", this.svgWidth)
         .attr("height", this.svgHeight);
     },
-    drawVoronoi() {
+    drawScatter(params) {
       let margin = {top: 10, right: 10, bottom: 10, left: 10};
       let width = this.svgWidth - margin.left - margin.right;
       let height = this.svgHeight - margin.top - margin.bottom;
@@ -55,9 +63,13 @@ export default {
       // let voronoi = d3.voronoi()
       //   .extent([[0, 0], [width, height]]);
         
-      let tooltip = document.querySelector("#similarity_scatter_container .tooltip");
+      let tooltip = document.querySelector(`#${this.cid} .tooltip`);
 
-      d3.csv("/static/data/SensorSimilarity.csv").then(csvdata => {
+      // d3.csv("/static/data/SensorSimilarity.csv").then(csvdata => {
+      axios.post("/calSensorSimilarity/", params || {begintime: '2020-04-06 00:00:00', endtime: '2020-04-11 00:00:00'})
+        .then((response) => {
+        let csvdata = response.data;
+       
         let xExtent = d3.extent(csvdata, d => parseFloat(d.x))
         let yExtent = d3.extent(csvdata, d => parseFloat(d.y))
         xExtent = [Math.floor(xExtent[0]), Math.ceil(xExtent[1])];
@@ -67,12 +79,11 @@ export default {
         let x = d3.scaleLinear().domain(xExtent).range([0, width]);
         let y = d3.scaleLinear().domain(yExtent).range([height, 0]);
 
+        console.log(typeof(csvdata))
+
         let points = csvdata.map(d => {
           return [x(parseFloat(d.x)), x(parseFloat(d.y))];
         })
-
-        // console.log(points)
-
         // g.selectAll("path")
         //   .data(voronoi(points).polygons())
         //   .enter()
@@ -81,13 +92,12 @@ export default {
         //   .style('fill', 'none')
         //   .attr("d", d =>  { 
         //     return d ? "M" + d.join("L") + "Z" : null; 
-        //   })
-        
-        g.selectAll("#similarity_scatter_container .sensor_node")
+        //   })  
+        g.selectAll(`#${this.cid} .sensor_node`)
           .data(csvdata)
           .enter()
           .append("circle")
-          .attr("class", d => "sensor_node " + d.sensor)
+          .attr("class", d => `sensor_node ${d.sensor}`)
           .attr("cx", d => {
             return x(d.x)
           })
@@ -95,10 +105,10 @@ export default {
             return y(d.y)
           })
           .attr("r", d => {
-            return Math.sqrt(d.mean / Math.PI)
+            return Math.sqrt(d.mean / Math.PI);
           })
           .attr("fill", d => {
-            return d.type == 1 ? 'steelblue': 'orange';
+            return d.sensor.startsWith('m') ? 'steelblue': 'orange';
           })
           .style("opacity", d => {
 
@@ -112,21 +122,48 @@ export default {
           .on("mouseout", (d, i) => {
             tooltip.style.display = 'none';
           })
+
+          g.selectAll(`#${this.cid} .sensor_text`)
+            .data(csvdata)
+            .enter()
+            .append("text")
+            .attr("class", "sensor_text")
+            .attr("x", d => {
+              return x(d.x)
+            })
+            .attr("y", d => {
+              return y(d.y)
+            })
+            .attr("dx", "-.5em")
+            .attr("dy", ".5em")
+            .text(d => d.sensor.substring(1, d.sensor.length))
+            .style("font-size", 8)
+            .on("mouseover", (d, i) => {
+              tooltip.style.display = 'block';
+              let transl = 'translate(' + (x(d.x)) + 'px, ' + (y(d.y) + 15) + 'px)';
+              tooltip.style.webkitTransform = transl;
+              tooltip.innerHTML = d.sensor;
+            })
+            .on("mouseout", (d, i) => {
+              tooltip.style.display = 'none';
+            });
       })
+    },
+    timeRangeUpdate(params) {
+      console.log(params)
+      d3.select(`#${this.cid} svg g`).remove();
+      this.drawScatter(params);
     }
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
-#similarity_scatter_container {
-  position: relative;
-}
-#similarity_scatter_container .selected {
+<style scoped>
+.selected {
   fill: orange;
 }
-#similarity_scatter_container .tooltip {
+.tooltip {
   position: absolute;
   left: 0;
   top: 0;

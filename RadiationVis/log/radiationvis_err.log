@@ -1,0 +1,211 @@
+[2019-06-15 22:34:45,852][Thread-1:22556][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorSimilarity/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 54, in calSensorSimilarity
+    all = calCorrlelation('2020-04-06 00:00:00', '2020-04-11 00:00:00')
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py", line 137, in calCorrlelation
+    cursor.execute("select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'),':00'), sid, avg(value) from mobilesensorreadings where timestamp between '{}' and '{}' GROUP BY concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'), sid)".format(begintime, endtime))
+NameError: name 'endtime' is not defined
+[2019-06-15 22:35:08,240][Thread-1:23496][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorSimilarity/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 54, in calSensorSimilarity
+    all = calCorrlelation('2020-04-06 00:00:00', '2020-04-11 00:00:00')
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py", line 174, in calCorrlelation
+    cursor.execute("select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'),':00'), sid, avg(value) from staticsensorreadings where timestamp between '{}' and '{}' GROUP BY concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'), sid)".format(starttime, endtime))
+NameError: name 'starttime' is not defined
+[2019-06-16 00:19:59,793][Thread-1:22820][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorSimilarity/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 54, in calSensorSimilarity
+    all = calCorrlelation('2020-04-06 00:00:00', '2020-04-11 00:00:00')
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py", line 145, in calCorrlelation
+    begin_timestamp = time.mktime(begin.timetuple())
+UnboundLocalError: local variable 'begin' referenced before assignment
+[2019-06-16 00:22:08,394][Thread-1:8248][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorSimilarity/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 54, in calSensorSimilarity
+    all = calCorrlelation('2020-04-06 00:00:00', '2020-04-11 00:00:00')
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py", line 144, in calCorrlelation
+    end = datetime.datetime.strptime(end, '%Y-%m-%d %H:%M:%S')
+UnboundLocalError: local variable 'end' referenced before assignment
+[2019-06-16 00:23:03,910][Thread-1:17144][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorSimilarity/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 54, in calSensorSimilarity
+    all = calCorrlelation('2020-04-06 00:00:00', '2020-04-11 00:00:00')
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py", line 145, in calCorrlelation
+    begin_timestamp = time.mktime(begin.timetuple())
+NameError: name 'begin' is not defined
+[2019-06-16 00:25:05,380][Thread-1:17144][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorSimilarity/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 54, in calSensorSimilarity
+    all = calCorrlelation('2020-04-06 00:00:00', '2020-04-11 00:00:00')
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py", line 145, in calCorrlelation
+    begin_timestamp = time.mktime(begin.timetuple())
+NameError: name 'begin' is not defined
+[2019-06-16 01:50:13,329][Thread-1:13392][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorSimilarity/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 56, in calSensorSimilarity
+    data = calCorrlelation(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py", line 158, in calCorrlelation
+    obs1[d['time']][d['sid']] = d['value']
+KeyError: '2020-04-07 02:00'
+[2019-06-16 01:57:57,825][Thread-1:13416][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorSimilarity/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 56, in calSensorSimilarity
+    data = calCorrlelation(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py", line 160, in calCorrlelation
+    obs1[d['time']][d['sid']] = d['value']
+KeyError: '2020-04-07 02:00'
+[2019-06-16 01:58:50,733][Thread-1:25108][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorSimilarity/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 56, in calSensorSimilarity
+    data = calCorrlelation(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py", line 161, in calCorrlelation
+    obs1[d['time']][d['sid']] = d['value']
+KeyError: '2020-04-07 02:00'
+[2019-06-16 02:02:40,991][Thread-1:17968][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorSimilarity/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 56, in calSensorSimilarity
+    data = calCorrlelation(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py", line 161, in calCorrlelation
+    obs1[d['time']][d['sid']] = d['value']
+KeyError: '2020-04-07 02:00'
+[2019-06-16 02:04:29,400][Thread-1:22372][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorSimilarity/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 56, in calSensorSimilarity
+    data = calCorrlelation(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py", line 150, in calCorrlelation
+    current = datetime.datetime.strptime(begintime, '%Y-%m-%d %H:%M')
+  File "C:\Softwares\Anaconda3\envs\django\lib\_strptime.py", line 565, in _strptime_datetime
+    tt, fraction = _strptime(data_string, format)
+  File "C:\Softwares\Anaconda3\envs\django\lib\_strptime.py", line 365, in _strptime
+    data_string[found.end():])
+ValueError: unconverted data remains: :31
+[2019-06-16 02:05:52,521][Thread-1:11384][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorSimilarity/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 56, in calSensorSimilarity
+    data = calCorrlelation(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py", line 150, in calCorrlelation
+    current = time.mktime(datetime.datetime.strptime(begintime, '%Y-%m-%d %H:%M'))
+  File "C:\Softwares\Anaconda3\envs\django\lib\_strptime.py", line 565, in _strptime_datetime
+    tt, fraction = _strptime(data_string, format)
+  File "C:\Softwares\Anaconda3\envs\django\lib\_strptime.py", line 365, in _strptime
+    data_string[found.end():])
+ValueError: unconverted data remains: :31
+[2019-06-16 02:10:23,190][Thread-1:15804][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorSimilarity/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 56, in calSensorSimilarity
+    data = calCorrlelation(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py", line 150, in calCorrlelation
+    current = time.mktime(datetime.datetime.strptime(begintime, '%Y-%m-%d %H:%M').timetuple())
+  File "C:\Softwares\Anaconda3\envs\django\lib\_strptime.py", line 565, in _strptime_datetime
+    tt, fraction = _strptime(data_string, format)
+  File "C:\Softwares\Anaconda3\envs\django\lib\_strptime.py", line 365, in _strptime
+    data_string[found.end():])
+ValueError: unconverted data remains: :31
+[2019-06-16 02:20:15,338][Thread-3:10148][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorSimilarity/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 56, in calSensorSimilarity
+    data = calCorrlelation(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py", line 214, in calCorrlelation
+    mn = Matrix_Completion_2(mn)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py", line 59, in Matrix_Completion_2
+    m[index[i, 0], index[i, 1]] = -200
+IndexError: index 1 is out of bounds for axis 1 with size 1
+[2019-06-16 02:21:08,795][Thread-1:20284][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorSimilarity/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 56, in calSensorSimilarity
+    data = calCorrlelation(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py", line 230, in calCorrlelation
+    feature_matrix = Distance_Metric_Cos(mn)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py", line 88, in Distance_Metric_Cos
+    tmp2 = m[:, j].T.tolist()
+IndexError: index 58 is out of bounds for axis 1 with size 58

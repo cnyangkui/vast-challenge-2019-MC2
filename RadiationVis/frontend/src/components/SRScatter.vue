@@ -1,11 +1,11 @@
 <template>
-  <div id="scatterContainer">
-    <div id="scatterControl">
+  <div :id="cid">
+    <div class="scatterControl">
       <span>SendorId: {{sid}}</span> &nbsp;
       <el-input size="mini" v-model="minInput" placeholder="min"></el-input> &nbsp;<span>-</span>&nbsp;
       <el-input size="mini" v-model="maxInput" placeholder="max"></el-input>
     </div>
-    <div id="scatterplot">
+    <div class="scatterplot">
     </div>
   </div>
 </template>
@@ -15,9 +15,9 @@ import * as d3 from 'd3'
 import axios from '../assets/js/http'
 export default {
   name: 'SRScatter',
-  // props: {
-  //   msg: String
-  // }
+  props: {
+    cid: String
+  },
   data() {
     return {
       minInput: 0,
@@ -42,14 +42,14 @@ export default {
       this.drawScatter(this.sid)
     },
     selfAdaptionSvgSize() {
-      let parentNode = document.querySelector("#scatterContainer").parentNode;
+      let parentNode = document.querySelector(`#${this.cid}`).parentNode;
       let parentHeight = parentNode.clientHeight;
-      let control = document.querySelector("#scatterControl");
+      let control = document.querySelector(`#${this.cid} .scatterControl`);
       this.svgWidth = control.clientWidth;
       this.svgHeight = parentHeight - control.clientHeight;
     },
     drawSvg() {
-      this.svg = d3.select("#scatterplot").append("svg")
+      this.svg = d3.select(`#${this.cid} .scatterplot`).append("svg")
         .attr("width", this.svgWidth)
         .attr("height", this.svgHeight);
     },
@@ -59,7 +59,7 @@ export default {
       let height = this.svgHeight - margin.top - margin.bottom;
       // console.log(this.svgWidth, this.svgHeight)
 
-      let container = d3.select('#scatterplot');
+      let container = d3.select(`#${this.cid} .scatterplot`);
 
       // Init g
       let g = this.svg.append('g')
@@ -128,21 +128,18 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-#scatterContainer {
+.scatterplot {
   position: relative;
 }
-#scatterContainer #scatterplot {
-  position: relative;
-}
-#scatterContainer .el-input {
-  width: 60px;
-}
-#scatterContainer span {
-  font-size: 12px;
-}
-#scatterContainer .canvas-plot {
+.scatterplot .canvas-plot {
   position: absolute;
   left: 0;
   top: 0;
+}
+.scatterControl .el-input {
+  width: 60px;
+}
+.scatterControl span {
+  font-size: 12px;
 }
 </style>

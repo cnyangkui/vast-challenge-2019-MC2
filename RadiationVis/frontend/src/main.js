@@ -8,4 +8,7 @@ Vue.use(ElementUI);
 
 new Vue({
   render: h => h(App),
+  data: {
+    eventHub: new Vue()
+  }
 }).$mount('#app')

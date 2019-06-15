@@ -137,10 +137,16 @@ export default {
         krigingSigma2: 0,
         krigingAlpha: 100,
         canvasAlpha: 0.20,
-        colors:["#006837", "#1a9850", "#66bd63", "#a6d96a", "#d9ef8b", "#ffffbf", "#fee08b", "#fdae61", "#f46d43", "#d73027", "#a50026"],
+        // colors:["#006837", "#1a9850", "#66bd63", "#a6d96a", "#d9ef8b", "#ffffbf", "#fee08b", "#fdae61", "#f46d43", "#d73027", "#a50026"],
+      }
+
+      let colorScale = d3.scaleLinear().domain([20, 30, 50, 100]).range(["rgb(0,0,255)", "rgb(0,255,0)", "rgb(225,225,0)", "rgb(255,0,0)"]);
+      let colors = [];
+      for(let i=20; i<=100; i++) {
+        colors.push(colorScale(i));
       }
       
-      axios.post("/findAggSrrByTimeRange/", {begintime: '2020-04-06 06:00:00', endtime: '2020-04-06 07:00:00'})
+      axios.post("/findAggSrrByTimeRange/", {begintime: '2020-04-08 08:00:00', endtime: '2020-04-08 09:00:00'})
         .then((response) => {
           let responseData = response.data;
           
@@ -149,7 +155,7 @@ export default {
           let lats = responseData.map(d => parseFloat(d.latitude));
 
           let letiogram = kriging.train(values, lngs, lats, params.krigingModel, params.krigingSigma2, params.krigingAlpha);
-          let grid = kriging.grid(this.coords, letiogram, (this.imageExtent[2] - this.imageExtent[0]) / 100);
+          let grid = kriging.grid(this.coords, letiogram, (this.imageExtent[2] - this.imageExtent[0]) / 75);
           
           //创建新图层
           this.krigingLayer = new Image({
@@ -160,15 +166,16 @@ export default {
                   canvas.height = size[1];
                   canvas.style.display = 'block';
                   //设置canvas透明度
-                  canvas.getContext('2d').globalAlpha = params.canvasAlpha;
+                  // canvas.getContext('2d').globalAlpha = params.canvasAlpha;
                   //使用分层设色渲染
                   kriging.plot(canvas, grid,
-                      [extent[0], extent[2]], [extent[1], extent[3]], params.colors);
+                      [extent[0], extent[2]], [extent[1], extent[3]], colors);
                   return canvas;
               },
               projection: this.getProjection()
             })
           });
+          this.krigingLayer.setOpacity(0.3);
         })
         .catch((error) => {
           console.log(error);
@@ -219,7 +226,7 @@ export default {
         return dim2Arr;
       }
 
-      let colorScale = d3.scaleLinear().domain([20, 30, 50, 100]).range(["rgb(0,0,255,0.3)", "rgb(0,255,0,0.3)", "rgb(225,225,0,0.3)", "rgb(255,0,0,0.3)"])
+      let colorScale = d3.scaleLinear().domain([20, 30, 50, 100]).range(["rgb(0,0,255)", "rgb(0,255,0)", "rgb(225,225,0)", "rgb(255,0,0)"])
 
       axios.post("/findAggMrrByTimeRange/", {begintime: '2020-04-08 08:00:00', endtime: '2020-04-08 09:00:00'})
       .then((response) => {
@@ -274,16 +281,17 @@ export default {
         })
 
         this.idwLayer = new VectorLayer({
-        source: new VectorSource({
-          features: features
-        }),
-        style: new Style({
-          stroke: new Stroke({
-            width: 1,
-            color: "red"
+          source: new VectorSource({
+            features: features
+          }),
+          style: new Style({
+            stroke: new Stroke({
+              width: 1,
+              color: "red"
+            })
           })
         })
-      })
+        this.idwLayer.setOpacity(0.3);
       // this.map.addLayer(this.idwLayer)
       })
       .catch((error) => {
@@ -378,7 +386,7 @@ export default {
 }
 #himarkmap {
   width: 100%;
-  height: 70%;
+  height: 80%;
   position: absolute;
   top: 10%;
 }

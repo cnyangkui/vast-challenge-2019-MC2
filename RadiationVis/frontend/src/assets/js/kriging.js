@@ -466,7 +466,7 @@ Array.prototype.pip = function(x, y) {
 		if(z>1.0) z = 1.0;
 
 		ctx.fillStyle = colors[Math.floor((colors.length-1)*z)];
-		ctx.fillRect(Math.round(x-wx/2), Math.round(y-wy/2), wx, wy);
+		ctx.fillRect((x-wx/2), (y-wy/2), wx, wy);
 	    }
 
 		};
