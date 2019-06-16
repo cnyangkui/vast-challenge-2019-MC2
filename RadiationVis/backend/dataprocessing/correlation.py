@@ -139,8 +139,16 @@ def calCorrlelation(begintime, endtime):
 	cursor = connection.cursor()
 	cursor.execute("select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'),':00'), sid, avg(value) from mobilesensorreadings where timestamp between '{}' and '{}' GROUP BY concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'), sid)".format(begintime, endtime))
 	alldata = cursor.fetchall()
-	data = [{'time': i[0], 'sid': i[1], 'value': i[2]} for i in alldata]
-	
+	data = []
+	sensors1 = set()
+	for i in alldata:
+		data.append({'time': i[0], 'sid': i[1], 'value': i[2]})
+		sensors1.add(i[1])
+	sensors_title1 = set()
+	for i in sensors1:
+		str1 = 'm' + str(i)
+		sensors_title1.add(str1)
+	sensors_title1 = list(sensors_title1)
 	# begin = datetime.date(2020, 4, 6)
 	# end = datetime.date(2020, 4, 11)
 	begin = datetime.datetime.strptime(begintime, '%Y-%m-%d %H:%M:%S')
@@ -152,7 +160,7 @@ def calCorrlelation(begintime, endtime):
 	while current <= end_timestamp:
 		date_str = datetime.datetime.fromtimestamp(current).strftime('%Y-%m-%d %H:%M')
 		obs1[date_str] = {}
-		for i in range(1, 51):
+		for i in list(sensors1):
 			obs1[date_str][i] = math.nan
 		current += 3600
 	# print(obs)
@@ -178,11 +186,17 @@ def calCorrlelation(begintime, endtime):
 	cursor.execute("select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'),':00'), sid, avg(value) from staticsensorreadings where timestamp between '{}' and '{}' GROUP BY concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'), sid)".format(begintime, endtime))
 	alldata = cursor.fetchall()
 	data = []
-	sensors = set()
+	sensors2 = set()
 	for i in alldata:
 		data.append({'time': i[0], 'sid': i[1], 'value': i[2]})
-		sensors.add(i[1])
-	# begin = datetime.date(2020, 4, 6)
+		sensors2.add(i[1])
+	sensors_title2 = set()
+	for i in sensors2:
+		str2 = 's' + str(i)
+		sensors_title2.add(str2)
+	sensors_title2 = list(sensors_title2)
+
+# begin = datetime.date(2020, 4, 6)
 	# end = datetime.date(2020, 4, 11)
 	# begin_timestamp = time.mktime(begin.timetuple())
 	# end_timestamp = time.mktime((end.timetuple()))
@@ -191,7 +205,7 @@ def calCorrlelation(begintime, endtime):
 	while current <= end_timestamp:
 		date_str = datetime.datetime.fromtimestamp(current).strftime('%Y-%m-%d %H:%M')
 		obs2[date_str] = {}
-		for i in list(sensors):
+		for i in list(sensors2):
 			obs2[date_str][i] = math.nan
 		current += 3600
 	for d in data:
@@ -211,6 +225,10 @@ def calCorrlelation(begintime, endtime):
 	        不确定性指标
 	    '''
 	col_mean = np.nanmean(mn, axis=0).tolist()  # 均值
+	index_col = np.argwhere(np.isnan(col_mean))
+	if len(index_col) > 0:
+		for i in range(len(index_col)):
+			col_mean[index_col[i][0]] = 0
 	mn = Matrix_Completion_2(mn)
 	[a, b] = mn.shape
 	
@@ -251,16 +269,17 @@ def calCorrlelation(begintime, endtime):
 	# Draw_plot(jitter_result)
 	# print(jitter_result)
 	cluster = Cluster_DBSCAN(result, jitter_result)
-
+	sensors_title = sensors_title1 + sensors_title2
 	detectorS = []
 	i = 0
 	for data in result:
 		detectorS.append(
-			{'x': data[0], 'y': data[1], 'mean': col_mean[i]})
+			{'id':sensors_title[i], 'x': data[0], 'y': data[1], 'mean': col_mean[i]})
 		i = i + 1
 	return detectorS
 
 if __name__ == '__main__':
-	timestr = '2020-04-09 20:00:00'
-	d = datetime.datetime.strptime(timestr, '%Y-%m-%d %H:%M:%S')
-	print(time.mktime(d.timetuple()))
+	# timestr = '2020-04-09 20:00:00'
+	# d = datetime.datetime.strptime(timestr, '%Y-%m-%d %H:%M:%S')
+	# print(time.mktime(d.timetuple()))\
+	calCorrlelation('2020-04-06 00:00:00', '2020-04-06 01:00:00')
