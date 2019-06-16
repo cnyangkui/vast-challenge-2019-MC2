@@ -44,8 +44,17 @@ export default {
       idwLayer: null,
       checkList: null,
       checked1: false,
-      checked2: false
+      checked2: true,
+      timeRange: {begintime: '2020-04-06 00:00:00', endtime: '2020-04-11 00:00:00'}
     }
+  },
+  created: function () {
+      this.$root.eventHub.$on('timeRangeUpdated', this.timeRangeUpdated);
+  },
+   // 最好在组件销毁前
+   // 清除事件监听
+  beforeDestroy: function () {
+      this.$root.eventHub.$off('timeRangeUpdated', this.timeRangeUpdated);
   },
   mounted() {
     this.$nextTick(() => {
@@ -54,12 +63,28 @@ export default {
   },
   methods: {
     loadMap() {
-      // this.selfAdaptionSize();
       this.initMap();
       this.addSSLayer(); //添加静态传感器
       this.drawKrigingLayer();
-      // this.drawIdwLayer();
       this.drawIdwLayer();
+      console.log(this.krigingLayer, this.idwLayer)
+      
+      if(this.checked1) {
+        let interval1 = setInterval(() => {
+          if(this.krigingLayer != null) {
+            this.krigingLayer.setVisible(true);
+            clearInterval(interval1);
+          }
+        }, 100)
+      }
+      if(this.checked2) {
+        let interval2 = setInterval(() => {
+          if(this.idwLayer != null) {
+            this.idwLayer.setVisible(true);
+            clearInterval(interval2);
+          }
+        }, 100)
+      }
     },
     selfAdaptionSize() {
       let width = document.querySelector("#openlayers_container").clientWidth;
@@ -146,7 +171,7 @@ export default {
         colors.push(colorScale(i));
       }
       
-      axios.post("/findAggSrrByTimeRange/", {begintime: '2020-04-08 08:00:00', endtime: '2020-04-08 09:00:00'})
+      axios.post("/findAggSrrByTimeRange/", this.timeRange)
         .then((response) => {
           let responseData = response.data;
           
@@ -176,6 +201,8 @@ export default {
             })
           });
           this.krigingLayer.setOpacity(0.3);
+          this.map.addLayer(this.krigingLayer);
+          this.krigingLayer.setVisible(false);
         })
         .catch((error) => {
           console.log(error);
@@ -228,7 +255,7 @@ export default {
 
       let colorScale = d3.scaleLinear().domain([20, 30, 50, 100]).range(["rgb(0,0,255)", "rgb(0,255,0)", "rgb(225,225,0)", "rgb(255,0,0)"])
 
-      axios.post("/findAggMrrByTimeRange/", {begintime: '2020-04-08 08:00:00', endtime: '2020-04-08 09:00:00'})
+      axios.post("/findAggMrrByTimeRange/", this.timeRange)
       .then((response) => {
         let responseData = response.data;
 
@@ -292,7 +319,8 @@ export default {
           })
         })
         this.idwLayer.setOpacity(0.3);
-      // this.map.addLayer(this.idwLayer)
+        this.map.addLayer(this.idwLayer);
+        this.idwLayer.setVisible(false);
       })
       .catch((error) => {
         console.log(error);
@@ -350,19 +378,34 @@ export default {
     //     });
     // },
     krigingLayerUpdate() {
-      if(this.checked1) {
-        //向map添加图层
-        this.map.addLayer(this.krigingLayer);
-      } else {
-        this.map.removeLayer(this.krigingLayer);
-      }
+      this.krigingLayer.setVisible(this.checked1);
     },
     idwLayerUpdate() {
+      this.idwLayer.setVisible(this.checked2);
+    },
+    timeRangeUpdated(params) {
+      this.timeRange = params;
+      this.map.removeLayer(this.krigingLayer);
+      this.map.removeLayer(this.idwLayer);
+      this.krigingLayer = null;
+      this.idwLayer = null;
+      this.drawKrigingLayer()
+      this.drawIdwLayer();
+      if(this.checked1) {
+        let interval1 = setInterval(() => {
+          if(this.krigingLayer != null) {
+            this.krigingLayer.setVisible(true);
+            clearInterval(interval1);
+          }
+        }, 100)
+      }
       if(this.checked2) {
-        //向map添加图层
-        this.map.addLayer(this.idwLayer);
-      } else {
-        this.map.removeLayer(this.idwLayer);
+        let interval2 = setInterval(() => {
+          if(this.idwLayer != null) {
+            this.idwLayer.setVisible(true);
+            clearInterval(interval2);
+          }
+        }, 100)
       }
     }
   },

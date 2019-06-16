@@ -42,7 +42,6 @@ export default {
     },
     selfAdaptionSvgSize() {
       let container = document.querySelector(`#${this.cid}`);
-      container.style.position = "relative";
       let parentNode = container.parentNode;
       // console.log(parentNode.clientWidth, parentNode.clientHeight)
       this.svgWidth = parentNode.clientWidth;

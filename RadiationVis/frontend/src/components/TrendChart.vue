@@ -22,11 +22,13 @@ export default {
   },
   created: function () {
       this.$root.eventHub.$on('timeRangeUpdated', this.timeRangeUpdated);
+      this.$root.eventHub.$on('sensorSelected', this.sensorSelected);
    },
    // 最好在组件销毁前
    // 清除事件监听
    beforeDestroy: function () {
       this.$root.eventHub.$off('timeRangeUpdated', this.timeRangeUpdated);
+      this.$root.eventHub.$off('sensorSelected', this.sensorSelected);
    },
   mounted() {
     this.$nextTick(() => {
@@ -284,11 +286,122 @@ export default {
           })
       }
     },
+    drawChartBySid(params) {
+
+      let _this = this;
+
+      function addAxesAndLegend (g, xAxis, yAxis, margin, chartWidth, chartHeight) {
+        var legendWidth  = 200,
+            legendHeight = 100;
+
+        var axes = g.append('g')
+          .attr('clip-path', 'url(#axes-clip)');
+
+        axes.append('g')
+          .attr('class', 'x axis')
+          .attr('transform', 'translate(0,' + chartHeight + ')')
+          .call(xAxis);
+
+        axes.append('g')
+          .attr('class', 'y axis')
+          .call(yAxis)
+          .append('text')
+            .attr('transform', 'rotate(-90)')
+            .attr('y', 6)
+            .attr('dy', '.71em')
+            .style('text-anchor', 'end')
+            .text('(cpm)');
+      }
+
+      function drawPaths (g, data, x, y, styleClass) {
+        var upperInnerArea = d3.area()
+          .x (function (d) { return x(d.time) || 1; })
+          .y0(function (d) { return y(d.upper95); })
+          .y1(function (d) { return y(d.avg); });
+
+        var medianLine = d3.line()
+          .x(function (d) { return x(d.time); })
+          .y(function (d) { return y(d.avg); });
+
+        var lowerInnerArea = d3.area()
+          .x (function (d) { return x(d.time) || 1; })
+          .y0(function (d) { return y(d.avg); })
+          .y1(function (d) { return y(d.lower95); });
+
+        g.datum(data);
+
+        g.append('path')
+          .attr('class', 'area upper ' + styleClass)
+          .attr('d', upperInnerArea)
+          .attr('clip-path', 'url(#rect-clip)');
+
+        g.append('path')
+          .attr('class', 'area lower ' + styleClass)
+          .attr('d', lowerInnerArea)
+          .attr('clip-path', 'url(#rect-clip)');
+
+        g.append('path')
+          .attr('class', 'median-line')
+          .attr('d', medianLine)
+          .attr('clip-path', 'url(#rect-clip)');
+      }
+
+
+      function makeChart (data) {
+        var margin = { top: 10, right: 20, bottom: 30, left: 30 },
+            chartWidth  = _this.svgWidth  - margin.left - margin.right,
+            chartHeight = _this.svgHeight - margin.top  - margin.bottom;
+
+        var x = d3.scaleTime().range([0, chartWidth])
+                  .domain(d3.extent(data, function (d) { return d.time; })),
+            y = d3.scaleLinear().range([chartHeight, 0])
+                  .domain([0, d3.max(data, function (d) { return d.upper95; })]);
+
+        var xAxis = d3.axisBottom(x)
+                      .tickSizeInner(-chartHeight).tickSizeOuter(0).tickPadding(10).ticks(10),//.tickFormat(d => d.getHours()),
+            yAxis = d3.axisLeft(y)
+                      .tickSizeInner(-chartWidth).tickSizeOuter(0).tickPadding(10);
+
+        var g = _this.svg.append('g')
+            .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+        addAxesAndLegend(g, xAxis, yAxis, margin, chartWidth, chartHeight);
+        
+        let lineStyle = "inner";
+        if(params.category == "static") {
+          lineStyle = "inner2";
+        }
+        drawPaths(g, data, x, y, lineStyle);
+      }
+      
+      /***************************************************************************************/
+      
+      
+      let parseDate = d3.timeParse('%Y-%m-%d %H:%M:%S');
+      axios.post("/calTimeSeriesBySid/", params)
+        .then((response) => {
+          var data = response.data.map(function (d) {
+            return {
+              time:  parseDate(d.time),
+              lower95: parseFloat(d.lower95),
+              avg: parseFloat(d.avg),
+              upper95: parseFloat(d.upper95)
+            };
+          });
+          makeChart(data);
+        })
+    },
     timeRangeUpdated(params) {
       console.log("TrendChart updated...", params);
       this.timeRange = params;
-      d3.select(`#${this.cid} svg g`).remove();
+      d3.select(`#${this.cid} svg`).selectAll('g').remove();
       this.drawChart(params);
+    },
+    sensorSelected(params) {
+      let newParams = Object.assign({}, params, this.timeRange);
+      console.log(newParams);
+      d3.select(`#${this.cid} svg`).selectAll('g').remove();
+      this.drawChartBySid(newParams);
     }
   }
 }

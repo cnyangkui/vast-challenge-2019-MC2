@@ -25,17 +25,17 @@
         <el-row class="left2">
           <el-col :span="12">
             <div class="grid-content">
-              <div class="nav">
+              <!-- <div class="nav">
                 <el-button type="text" @click="similarityScatterVisible = true">点击打开 Dialog</el-button>
               </div>
               <div class="main">
                 <similarity-scatter cid="similarity_scatter_container"></similarity-scatter>
-              </div>
+              </div> -->
+              <treemap cid="treemap-container"></treemap>
             </div>
           </el-col>
           <el-col :span="12">
             <div class="grid-content">
-              <!-- <SimilarityScatter cid="similarity_scatter_container2"></SimilarityScatter> -->
             </div>
           </el-col>
         </el-row>
@@ -90,6 +90,8 @@ import SimilarityScatter from './components/SimilarityScatter.vue'
 import Openlayers from './components/Openlayers.vue'
 import TrendChart from './components/TrendChart.vue'
 import TrendChartWithTimeBrush from './components/TrendChartWithTimeBrush.vue'
+// import PackageChart from './components/PackageChart.vue'
+import Treemap from './components/Treemap.vue'
 import * as d3 from 'd3'
 
 export default {
@@ -99,7 +101,9 @@ export default {
     SrScatter,
     SimilarityScatter,
     TrendChart,
-    TrendChartWithTimeBrush
+    TrendChartWithTimeBrush,
+    // PackageChart,
+    Treemap,
   },
   data() {
     return {

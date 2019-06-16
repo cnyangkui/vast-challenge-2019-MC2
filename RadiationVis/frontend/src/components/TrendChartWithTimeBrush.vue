@@ -16,6 +16,7 @@ export default {
       svg: null,
       svgWidth: null,
       svgHeight: null,
+      defaultTimeRange: {begintime: '2020-04-06 00:00:00', endtime: '2020-04-11 00:00:00'},
       timeRange: null,
     }
   },
@@ -196,6 +197,8 @@ export default {
             let timeFormat = d3.timeFormat('%Y-%m-%d %H:%M:%S');
             // console.log(timeFormat(sx[0]), timeFormat(sx[1]))
             _this.$root.eventHub.$emit("timeRangeUpdated", {begintime: timeFormat(sx[0]), endtime: timeFormat(sx[1])});
+          } else {
+            _this.$root.eventHub.$emit("timeRangeUpdated", _this.defaultTimeRange);
           }
         }
 
