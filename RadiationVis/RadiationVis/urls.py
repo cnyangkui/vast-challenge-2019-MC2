@@ -25,5 +25,6 @@ urlpatterns = [
     path('findSrBySid/', views.findSrBySid),
     path('findAggMrrByTimeRange/', views.findAggMrrByTimeRange),
     path('findAggSrrByTimeRange/', views.findAggSrrByTimeRange),
-    path('calSensorSimilarity/', views.calSensorSimilarity)
+    path('calSensorSimilarity/', views.calSensorSimilarity),
+    path('calTimeSeries/', views.calTimeSeries)
 ]

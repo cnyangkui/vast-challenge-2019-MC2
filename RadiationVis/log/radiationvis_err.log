@@ -209,3 +209,89 @@ Traceback (most recent call last):
   File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py", line 88, in Distance_Metric_Cos
     tmp2 = m[:, j].T.tolist()
 IndexError: index 58 is out of bounds for axis 1 with size 58
+[2019-06-16 15:23:05,792][Thread-3:20904][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorSimilarity/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 56, in calSensorSimilarity
+    data = calCorrlelation(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py", line 248, in calCorrlelation
+    feature_matrix = Distance_Metric_Cos(mn)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py", line 88, in Distance_Metric_Cos
+    tmp2 = m[:, j].T.tolist()
+IndexError: index 58 is out of bounds for axis 1 with size 58
+[2019-06-16 15:37:37,768][Thread-1:24880][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorSimilarity/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 56, in calSensorSimilarity
+    data = calCorrlelation(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py", line 199, in calCorrlelation
+    sensor_length = len(sensor_title)
+NameError: name 'sensor_title' is not defined
+[2019-06-16 17:44:19,458][Thread-2:19504][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calTimeSeries/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 88, in calTimeSeries
+    cursor.execute("select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i'),':00') as time, avg(value) as avg, avg(value) - 1.96*(std(value)/sqrt(count(*))) as lower95, avg(value) + 1.96 * (std(value)/ sqrt(count(value))) as upper95 from mobilesensorreadings where timestamp >= '{0}' and timestamp < '{1}' group by DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i')".format(begintime_str, endtime_str))
+NameError: name 'cursor' is not defined
+[2019-06-16 17:51:31,017][Thread-4:11620][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorSimilarity/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 57, in calSensorSimilarity
+    data = calCorrlelation(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py", line 234, in calCorrlelation
+    [a, b] = mn.shape
+ValueError: not enough values to unpack (expected 2, got 1)
+[2019-06-16 18:03:47,914][Thread-3:10420][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorSimilarity/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 57, in calSensorSimilarity
+    data = calCorrlelation(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py", line 251, in calCorrlelation
+    result = Dimension_Reduction_MDS(feature_matrix)  # 降维
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py", line 107, in Dimension_Reduction_MDS
+    mds = MDS(n_components=2).fit_transform(feature_matrix)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\manifold\mds.py", line 419, in fit_transform
+    X = check_array(X)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 542, in check_array
+    allow_nan=force_all_finite == 'allow-nan')
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 56, in _assert_all_finite
+    raise ValueError(msg_err.format(type_err, X.dtype))
+ValueError: Input contains NaN, infinity or a value too large for dtype('float64').
+[2019-06-16 18:08:11,225][Thread-3:10420][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorSimilarity/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 57, in calSensorSimilarity
+    data = calCorrlelation(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py", line 234, in calCorrlelation
+    [a, b] = mn.shape
+ValueError: not enough values to unpack (expected 2, got 1)

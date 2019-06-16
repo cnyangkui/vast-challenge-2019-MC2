@@ -6,6 +6,7 @@
 
 <script>
 import * as d3 from "d3"
+import axios from '../assets/js/http';
 export default {
   name: 'TrendChart',
   props: {
@@ -16,8 +17,17 @@ export default {
       svg: null,
       svgWidth: null,
       svgHeight: null,
+      timeRange: null,
     }
   },
+  created: function () {
+      this.$root.eventHub.$on('timeRangeUpdated', this.timeRangeUpdated);
+   },
+   // 最好在组件销毁前
+   // 清除事件监听
+   beforeDestroy: function () {
+      this.$root.eventHub.$off('timeRangeUpdated', this.timeRangeUpdated);
+   },
   mounted() {
     this.$nextTick(() => {
       this.loadChart();
@@ -40,7 +50,11 @@ export default {
         .attr("width", this.svgWidth)
         .attr("height", this.svgHeight);
     },
-    drawChart() {
+    // params: {begintime: xxx, endtime: xxx}
+    drawChart(params) {
+
+      let _this = this;
+
       function addAxesAndLegend (g, xAxis, yAxis, margin, chartWidth, chartHeight) {
         var legendWidth  = 200,
             legendHeight = 100;
@@ -72,7 +86,7 @@ export default {
             .attr('y', 6)
             .attr('dy', '.71em')
             .style('text-anchor', 'end')
-            .text('radition (cpm)');
+            .text('(cpm)');
 
         // var legend = g.append('g')
         //   .attr('class', 'legend')
@@ -126,18 +140,18 @@ export default {
 
         var upperInnerArea = d3.area()
           // .interpolate('basis')
-          .x (function (d) { return x(d.date) || 1; })
+          .x (function (d) { return x(d.time) || 1; })
           .y0(function (d) { return y(d.upper95); })
           .y1(function (d) { return y(d.avg); });
 
         var medianLine = d3.line()
           // .interpolate('basis')
-          .x(function (d) { return x(d.date); })
+          .x(function (d) { return x(d.time); })
           .y(function (d) { return y(d.avg); });
 
         var lowerInnerArea = d3.area()
           // .interpolate('basis')
-          .x (function (d) { return x(d.date) || 1; })
+          .x (function (d) { return x(d.time) || 1; })
           .y0(function (d) { return y(d.avg); })
           .y1(function (d) { return y(d.lower95); });
 
@@ -187,17 +201,15 @@ export default {
         // });
       }
 
-      let _this = this;
-
-      function makeChart (data1, data2) {
+      function makeChart (staticData, mobileData) {
         var margin = { top: 10, right: 20, bottom: 30, left: 30 },
             chartWidth  = _this.svgWidth  - margin.left - margin.right,
             chartHeight = _this.svgHeight - margin.top  - margin.bottom;
 
         var x = d3.scaleTime().range([0, chartWidth])
-                  .domain(d3.extent(data2, function (d) { return d.date; })),
+                  .domain(d3.extent(mobileData, function (d) { return d.time; })),
             y = d3.scaleLinear().range([chartHeight, 0])
-                  .domain([0, d3.max(data2, function (d) { return d.upper95; })]);
+                  .domain([0, d3.max(mobileData, function (d) { return d.upper95; })]);
 
         var xAxis = d3.axisBottom(x)
                       .tickSizeInner(-chartHeight).tickSizeOuter(0).tickPadding(10).ticks(10),//.tickFormat(d => d.getHours()),
@@ -215,34 +227,68 @@ export default {
         //     .attr('height', chartHeight);
 
         addAxesAndLegend(g, xAxis, yAxis, margin, chartWidth, chartHeight);
-        drawPaths(g, data1, x, y, "inner2");
-        drawPaths(g, data2, x, y, "inner");
+        drawPaths(g, mobileData, x, y, "inner");
+        drawPaths(g, staticData, x, y, "inner2");
         // startTransitions(g, chartWidth, chartHeight, rectClip, x);
       }
-      var parseDate  = d3.timeParse('%Y-%m-%d %H:%M');
-      d3.csv('/static/data/StaticSequenceStatistics.csv').then(staticData => {
+      
+      /***************************************************************************************/
+      
+      if (_this.timeRange == null) {
+        var parseDate  = d3.timeParse('%Y-%m-%d %H:%M');
+        d3.csv('/static/data/StaticSequenceStatistics.csv').then(staticData => {
 
-        var data1 = staticData.map(function (d) {
-          return {
-            date:  parseDate(d.time),
-            lower95: parseFloat(d.lower95),
-            avg: parseFloat(d.avg),
-            upper95: parseFloat(d.upper95)
-          };
-        });
+          var staticData = staticData.map(function (d) {
+            return {
+              time:  parseDate(d.time),
+              lower95: parseFloat(d.lower95),
+              avg: parseFloat(d.avg),
+              upper95: parseFloat(d.upper95)
+            };
+          });
 
-        d3.csv('/static/data/MobileSequenceStatistics.csv').then(mobileData => {
-          var data2 = mobileData.map(function (d) {
-          return {
-            date:  parseDate(d.time),
-            lower95: parseFloat(d.lower95),
-            avg: parseFloat(d.avg),
-            upper95: parseFloat(d.upper95)
-          };
+          d3.csv('/static/data/MobileSequenceStatistics.csv').then(mobileData => {
+            var mobileData = mobileData.map(function (d) {
+              return {
+                time:  parseDate(d.time),
+                lower95: parseFloat(d.lower95),
+                avg: parseFloat(d.avg),
+                upper95: parseFloat(d.upper95)
+              };
+            });
+            makeChart(staticData, mobileData);
+          })
         });
-          makeChart(data1, data2);
-        })
-      });
+      } else {
+        let parseDate = d3.timeParse('%Y-%m-%d %H:%M:%S');
+        axios.post("/calTimeSeries/", params)
+          .then((response) => {
+            let data = response.data;
+            var staticData = data.static.map(function (d) {
+              return {
+                time:  parseDate(d.time),
+                lower95: parseFloat(d.lower95),
+                avg: parseFloat(d.avg),
+                upper95: parseFloat(d.upper95)
+              };
+            });
+            var mobileData = data.mobile.map(function (d) {
+              return {
+                time:  parseDate(d.time),
+                lower95: parseFloat(d.lower95),
+                avg: parseFloat(d.avg),
+                upper95: parseFloat(d.upper95)
+              };
+            });
+            makeChart(staticData, mobileData);
+          })
+      }
+    },
+    timeRangeUpdated(params) {
+      console.log("TrendChart updated...", params);
+      this.timeRange = params;
+      d3.select(`#${this.cid} svg g`).remove();
+      this.drawChart(params);
     }
   }
 }

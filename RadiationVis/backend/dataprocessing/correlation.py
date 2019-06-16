@@ -60,7 +60,7 @@ def Matrix_Completion_2(m):
     return m
 
 '''
-    余弦距离
+    欧式距离
 '''
 def Distance_Metric_Euclidean(m):
     feature_matrix = np.eye(59)
@@ -77,10 +77,10 @@ def Distance_Metric_Euclidean(m):
     return feature_matrix
 
 '''
-    欧式距离
+    余弦距离
 '''
-def Distance_Metric_Cos(m):
-    feature_matrix = np.eye(59)
+def Distance_Metric_Cos(m, 	sensor_length):
+    feature_matrix = np.eye(sensor_length)
     [rows2, cols2] = feature_matrix.shape
     for i in range(rows2):
         for j in range(cols2):
@@ -195,7 +195,8 @@ def calCorrlelation(begintime, endtime):
 		str2 = 's' + str(i)
 		sensors_title2.add(str2)
 	sensors_title2 = list(sensors_title2)
-
+	sensors_title = sensors_title1 + sensors_title2
+	sensor_length = len(sensors_title)
 # begin = datetime.date(2020, 4, 6)
 	# end = datetime.date(2020, 4, 11)
 	# begin_timestamp = time.mktime(begin.timetuple())
@@ -245,7 +246,7 @@ def calCorrlelation(begintime, endtime):
 	# 	col_confidence_interval.append(stats.norm.interval(0.95, col_mean[i], col_std[i]))
 	# # print(col_confidence_interval)
 
-	feature_matrix = Distance_Metric_Cos(mn)
+	feature_matrix = Distance_Metric_Cos(mn, sensor_length)
 
 	result = Dimension_Reduction_MDS(feature_matrix)  # 降维
 	'''
@@ -260,7 +261,7 @@ def calCorrlelation(begintime, endtime):
 	'''
     添加抖动： 按列抖动，设置抖动因子
     '''
-	jitter_factor = 3
+	jitter_factor = 50
 	jitter_col_x = Jitter(col_x, jitter_factor)
 	jitter_col_y = Jitter(col_y, jitter_factor)
 	jitter_result = np.vstack((jitter_col_x, jitter_col_y))
@@ -269,7 +270,6 @@ def calCorrlelation(begintime, endtime):
 	# Draw_plot(jitter_result)
 	# print(jitter_result)
 	cluster = Cluster_DBSCAN(result, jitter_result)
-	sensors_title = sensors_title1 + sensors_title2
 	detectorS = []
 	i = 0
 	for data in result:

@@ -73,7 +73,7 @@ export default {
             .attr('y', 6)
             .attr('dy', '.71em')
             .style('text-anchor', 'end')
-            .text('radition (cpm)');
+            .text('(cpm)');
 
         // var legend = g.append('g')
         //   .attr('class', 'legend')
@@ -170,9 +170,17 @@ export default {
                   .domain([0, d3.max(data2, function (d) { return d.upper95; })]);
 
         var xAxis = d3.axisBottom(x)
-                      .tickSizeInner(-chartHeight).tickSizeOuter(0).tickPadding(10).ticks(10),//.tickFormat(d => d.getHours()),
+                      .tickSizeInner(-chartHeight).tickSizeOuter(0).tickPadding(10).ticks(120).tickFormat((d, i) => {
+                        if(i % 2 == 0) {
+                          if(i == 0 || data1[i].date.getDay() != data1[i-1].date.getDay()) {
+                            return `${d.getMonth()+1}/${d.getDay()}`;
+                          } else {
+                            return `${d.getHours()}`
+                          }
+                        }
+                      }),
             yAxis = d3.axisLeft(y)
-                      .tickSizeInner(-chartWidth).tickSizeOuter(0).tickPadding(10);
+                      .tickSizeInner(-chartWidth).tickSizeOuter(0).tickPadding(10).ticks(3);
 
         var g = _this.svg.append('g')
             .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
@@ -187,7 +195,7 @@ export default {
             var sx = s.map(x.invert);
             let timeFormat = d3.timeFormat('%Y-%m-%d %H:%M:%S');
             // console.log(timeFormat(sx[0]), timeFormat(sx[1]))
-            _this.$root.eventHub.$emit("timeRangeUpdate", {begintime: timeFormat(sx[0]), endtime: timeFormat(sx[1])});
+            _this.$root.eventHub.$emit("timeRangeUpdated", {begintime: timeFormat(sx[0]), endtime: timeFormat(sx[1])});
           }
         }
 

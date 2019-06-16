@@ -22,12 +22,12 @@ export default {
     }
   },
   created: function () {
-      this.$root.eventHub.$on('timeRangeUpdate', this.timeRangeUpdate);
+      this.$root.eventHub.$on('timeRangeUpdated', this.timeRangeUpdated);
    },
    // 最好在组件销毁前
    // 清除事件监听
    beforeDestroy: function () {
-      this.$root.eventHub.$off('timeRangeUpdate', this.timeRangeUpdate);
+      this.$root.eventHub.$off('timeRangeUpdated', this.timeRangeUpdated);
    },
   mounted() {
     this.$nextTick(() => {
@@ -79,7 +79,6 @@ export default {
         let x = d3.scaleLinear().domain(xExtent).range([0, width]);
         let y = d3.scaleLinear().domain(yExtent).range([height, 0]);
 
-        console.log(typeof(csvdata))
 
         let points = csvdata.map(d => {
           return [x(parseFloat(d.x)), x(parseFloat(d.y))];
@@ -97,7 +96,7 @@ export default {
           .data(csvdata)
           .enter()
           .append("circle")
-          .attr("class", d => `sensor_node ${d.sensor}`)
+          .attr("class", d => `sensor_node ${d.id}`)
           .attr("cx", d => {
             return x(d.x)
           })
@@ -105,23 +104,24 @@ export default {
             return y(d.y)
           })
           .attr("r", d => {
-            return Math.sqrt(d.mean / Math.PI);
+            let r = Math.sqrt(d.mean / Math.PI);
+            return r;
           })
           .attr("fill", d => {
-            return d.sensor.startsWith('m') ? 'steelblue': 'orange';
+            return d.id.startsWith('m') ? 'steelblue': 'orange';
           })
           .style("opacity", d => {
 
           })
-          .on("mouseover", (d, i) => {
-            tooltip.style.display = 'block';
-            let transl = 'translate(' + (x(d.x)) + 'px, ' + (y(d.y) + 15) + 'px)';
-            tooltip.style.webkitTransform = transl;
-            tooltip.innerHTML = d.sensor;
-          })
-          .on("mouseout", (d, i) => {
-            tooltip.style.display = 'none';
-          })
+          // .on("mouseover", (d, i) => {
+          //   tooltip.style.display = 'block';
+          //   let transl = 'translate(' + (x(d.x)) + 'px, ' + (y(d.y) + 15) + 'px)';
+          //   tooltip.style.webkitTransform = transl;
+          //   tooltip.innerHTML = d.id;
+          // })
+          // .on("mouseout", (d, i) => {
+          //   tooltip.style.display = 'none';
+          // })
 
           g.selectAll(`#${this.cid} .sensor_text`)
             .data(csvdata)
@@ -136,20 +136,20 @@ export default {
             })
             .attr("dx", "-.5em")
             .attr("dy", ".5em")
-            .text(d => d.sensor.substring(1, d.sensor.length))
+            .text(d => d.id.substring(1, d.id.length))
             .style("font-size", 8)
-            .on("mouseover", (d, i) => {
-              tooltip.style.display = 'block';
-              let transl = 'translate(' + (x(d.x)) + 'px, ' + (y(d.y) + 15) + 'px)';
-              tooltip.style.webkitTransform = transl;
-              tooltip.innerHTML = d.sensor;
-            })
-            .on("mouseout", (d, i) => {
-              tooltip.style.display = 'none';
-            });
+            // .on("mouseover", (d, i) => {
+            //   tooltip.style.display = 'block';
+            //   let transl = 'translate(' + (x(d.x)) + 'px, ' + (y(d.y) + 15) + 'px)';
+            //   tooltip.style.webkitTransform = transl;
+            //   tooltip.innerHTML = d.id;
+            // })
+            // .on("mouseout", (d, i) => {
+            //   tooltip.style.display = 'none';
+            // });
       })
     },
-    timeRangeUpdate(params) {
+    timeRangeUpdated(params) {
       console.log(params)
       d3.select(`#${this.cid} svg g`).remove();
       this.drawScatter(params);

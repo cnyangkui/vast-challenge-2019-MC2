@@ -1,8 +1,15 @@
 <template>
   <div id="app">
+    <el-row class="top">
+      <el-col :span="24">
+        <div class="grid-content">
+          <trend-chart-with-time-brush cid="trend_chart_container"></trend-chart-with-time-brush>
+        </div>
+      </el-col>
+    </el-row>
     <el-row :gutter="3">
-      <el-col :span="10">
-        <el-row class="left1">
+      <el-col :span="12">
+        <!-- <el-row class="left1">
           <el-col :span="24">
             <div class="grid-content">
               <div class="nav">
@@ -14,11 +21,16 @@
               </div>
             </div>
           </el-col>
-        </el-row>
+        </el-row> -->
         <el-row class="left2">
           <el-col :span="12">
             <div class="grid-content">
-              <SimilarityScatter cid="similarity_scatter_container"></SimilarityScatter>
+              <div class="nav">
+                <el-button type="text" @click="similarityScatterVisible = true">点击打开 Dialog</el-button>
+              </div>
+              <div class="main">
+                <similarity-scatter cid="similarity_scatter_container"></similarity-scatter>
+              </div>
             </div>
           </el-col>
           <el-col :span="12">
@@ -30,21 +42,26 @@
         <el-row class="left3">
           <el-col :span="24">
             <div class="grid-content">
-              <el-button type="text" @click="dialogVisible = true">点击打开 Dialog</el-button>
+              <div class="nav">
+                <el-button type="text" @click="dialogVisible = true">点击打开 Dialog</el-button>
+              </div>
+              <div class="main">
+                <trend-chart cid="trend_chart_container3"></trend-chart>
+              </div>
             </div>
           </el-col>
         </el-row>
       </el-col>
-      <el-col :span="13">
-        <el-row class="right"><el-col :span="24"><div class="grid-content"><Openlayers></Openlayers></div></el-col></el-row>
+      <el-col :span="12">
+        <el-row class="right"><el-col :span="24"><div class="grid-content"><openlayers></openlayers></div></el-col></el-row>
       </el-col>
     </el-row>
     <el-dialog
       title="提示"
       :visible.sync="timeAxisVisible"
       width="70%">
-      <div style="height: 300px;"><TrendChartWithTimeBrush cid="trend_chart_container2"></TrendChartWithTimeBrush></div>
-      <div style="height: 300px;"><TrendChart cid="trend_chart_container3"></TrendChart></div>
+      <div style="height: 300px;"><trend-chart-with-time-brush cid="trend_chart_container2"></trend-chart-with-time-brush></div>
+      <div style="height: 300px;"><trend-chart cid="trend_chart_container3"></trend-chart></div>
       <span slot="footer" class="dialog-footer">
       </span>
     </el-dialog>
@@ -52,7 +69,15 @@
       title="提示"
       :visible.sync="dialogVisible"
       width="70%">
-      <div style="height: 300px;"><SRScatter cid="SR_scatter_container"></SRScatter></div>
+      <div style="height: 300px;"><sr-scatter cid="SR_scatter_container"></sr-scatter></div>
+      <span slot="footer" class="dialog-footer">
+      </span>
+    </el-dialog>
+    <el-dialog
+      title="提示"
+      :visible.sync="similarityScatterVisible"
+      width="70%">
+      <div style="height: 400px;"><similarity-scatter cid="similarity_scatter_container2"></similarity-scatter></div>
       <span slot="footer" class="dialog-footer">
       </span>
     </el-dialog>
@@ -60,7 +85,7 @@
 </template>
 
 <script>
-import SRScatter from './components/SRScatter.vue'
+import SrScatter from './components/SrScatter.vue'
 import SimilarityScatter from './components/SimilarityScatter.vue'
 import Openlayers from './components/Openlayers.vue'
 import TrendChart from './components/TrendChart.vue'
@@ -71,7 +96,7 @@ export default {
   name: 'app',
   components: {
     Openlayers,
-    SRScatter,
+    SrScatter,
     SimilarityScatter,
     TrendChart,
     TrendChartWithTimeBrush
@@ -80,6 +105,7 @@ export default {
     return {
       timeAxisVisible: false,
       dialogVisible: false,
+      similarityScatterVisible: false,
     }
   },
   mounted() {
@@ -138,11 +164,14 @@ html, body, #app {
   border: 1px solid black;
   height: 100%;
 }
+.top {
+  height: 80px;
+}
 .left1, .left2, .left3 {
   height: 230px;
 }
 .right {
-  height: 700px;
+  height: 600px;
 }
 .nav {
   height: 10%;

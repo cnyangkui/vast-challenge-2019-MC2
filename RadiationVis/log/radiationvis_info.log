@@ -346,3 +346,158 @@ Traceback (most recent call last):
   File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py", line 88, in Distance_Metric_Cos
     tmp2 = m[:, j].T.tolist()
 IndexError: index 58 is out of bounds for axis 1 with size 58
+[2019-06-16 14:41:16,322][MainThread:744][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-16 15:22:06,450][MainThread:744][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py changed, reloading.]
+[2019-06-16 15:22:14,614][MainThread:9960][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-16 15:23:05,792][Thread-3:20904][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorSimilarity/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 56, in calSensorSimilarity
+    data = calCorrlelation(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py", line 248, in calCorrlelation
+    feature_matrix = Distance_Metric_Cos(mn)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py", line 88, in Distance_Metric_Cos
+    tmp2 = m[:, j].T.tolist()
+IndexError: index 58 is out of bounds for axis 1 with size 58
+[2019-06-16 15:34:58,067][MainThread:9960][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py changed, reloading.]
+[2019-06-16 15:34:58,920][MainThread:23628][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-16 15:35:57,827][MainThread:23628][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py changed, reloading.]
+[2019-06-16 15:35:58,684][MainThread:16844][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-16 15:36:26,685][MainThread:16844][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py changed, reloading.]
+[2019-06-16 15:36:27,505][MainThread:12732][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-16 15:36:39,681][MainThread:12732][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py changed, reloading.]
+[2019-06-16 15:36:40,447][MainThread:14376][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-16 15:37:04,577][MainThread:14376][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py changed, reloading.]
+[2019-06-16 15:37:05,413][MainThread:24912][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-16 15:37:37,768][Thread-1:24880][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorSimilarity/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 56, in calSensorSimilarity
+    data = calCorrlelation(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py", line 199, in calCorrlelation
+    sensor_length = len(sensor_title)
+NameError: name 'sensor_title' is not defined
+[2019-06-16 15:38:38,064][MainThread:24912][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py changed, reloading.]
+[2019-06-16 15:38:38,894][MainThread:17728][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-16 15:39:32,621][MainThread:17728][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py changed, reloading.]
+[2019-06-16 15:39:33,598][MainThread:13696][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-16 15:40:02,757][MainThread:13696][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py changed, reloading.]
+[2019-06-16 15:40:03,728][MainThread:22932][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-16 15:40:31,650][MainThread:22932][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py changed, reloading.]
+[2019-06-16 15:40:32,691][MainThread:7644][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-16 17:24:36,645][MainThread:7644][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-06-16 17:24:41,718][MainThread:6004][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-16 17:25:22,889][MainThread:6004][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-06-16 17:25:23,695][MainThread:23792][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-16 17:29:31,788][MainThread:23792][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-06-16 17:29:34,690][MainThread:11964][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-16 17:34:09,157][MainThread:11964][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-06-16 17:34:10,001][MainThread:25272][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-16 17:35:19,611][MainThread:25272][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-06-16 17:35:20,361][MainThread:24984][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-16 17:35:46,324][MainThread:24984][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-06-16 17:35:47,115][MainThread:252][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-16 17:37:12,223][MainThread:252][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-06-16 17:37:13,012][MainThread:3616][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-16 17:37:19,769][MainThread:3616][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-06-16 17:37:20,561][MainThread:22368][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-16 17:37:28,514][MainThread:22368][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-06-16 17:37:29,253][MainThread:12760][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-16 17:37:50,051][MainThread:12760][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-06-16 17:37:50,874][MainThread:16784][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-16 17:38:20,941][MainThread:16784][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-06-16 17:38:21,708][MainThread:11704][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-16 17:38:56,648][MainThread:11704][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-06-16 17:38:57,336][MainThread:15788][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-16 17:39:16,840][MainThread:15788][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-06-16 17:39:17,552][MainThread:16968][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-16 17:39:25,422][MainThread:16968][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-06-16 17:39:26,089][MainThread:24980][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-16 17:39:31,906][MainThread:24980][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-06-16 17:39:32,804][MainThread:14800][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-16 17:39:38,262][MainThread:14800][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-06-16 17:39:39,109][MainThread:8508][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-16 17:40:29,633][MainThread:8508][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-06-16 17:40:30,441][MainThread:15108][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-16 17:40:42,796][MainThread:15108][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-06-16 17:40:43,613][MainThread:23896][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-16 17:41:22,712][MainThread:23896][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-06-16 17:41:23,620][MainThread:18768][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-16 17:41:57,367][MainThread:18768][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-06-16 17:41:58,230][MainThread:18568][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-16 17:44:19,458][Thread-2:19504][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calTimeSeries/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 88, in calTimeSeries
+    cursor.execute("select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i'),':00') as time, avg(value) as avg, avg(value) - 1.96*(std(value)/sqrt(count(*))) as lower95, avg(value) + 1.96 * (std(value)/ sqrt(count(value))) as upper95 from mobilesensorreadings where timestamp >= '{0}' and timestamp < '{1}' group by DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i')".format(begintime_str, endtime_str))
+NameError: name 'cursor' is not defined
+[2019-06-16 17:44:46,056][MainThread:18568][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-06-16 17:44:49,503][MainThread:6528][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-16 17:44:52,643][MainThread:6528][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-06-16 17:44:53,630][MainThread:20300][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-16 17:51:31,017][Thread-4:11620][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorSimilarity/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 57, in calSensorSimilarity
+    data = calCorrlelation(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py", line 234, in calCorrlelation
+    [a, b] = mn.shape
+ValueError: not enough values to unpack (expected 2, got 1)
+[2019-06-16 18:03:47,914][Thread-3:10420][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorSimilarity/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 57, in calSensorSimilarity
+    data = calCorrlelation(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py", line 251, in calCorrlelation
+    result = Dimension_Reduction_MDS(feature_matrix)  # 降维
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py", line 107, in Dimension_Reduction_MDS
+    mds = MDS(n_components=2).fit_transform(feature_matrix)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\manifold\mds.py", line 419, in fit_transform
+    X = check_array(X)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 542, in check_array
+    allow_nan=force_all_finite == 'allow-nan')
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 56, in _assert_all_finite
+    raise ValueError(msg_err.format(type_err, X.dtype))
+ValueError: Input contains NaN, infinity or a value too large for dtype('float64').
+[2019-06-16 18:08:11,225][Thread-3:10420][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorSimilarity/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 57, in calSensorSimilarity
+    data = calCorrlelation(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\correlation.py", line 234, in calCorrlelation
+    [a, b] = mn.shape
+ValueError: not enough values to unpack (expected 2, got 1)
+[2019-06-16 18:08:30,112][MainThread:20300][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-06-16 18:08:33,469][MainThread:7504][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-16 18:09:49,276][MainThread:7504][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-06-16 18:09:50,169][MainThread:15784][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]

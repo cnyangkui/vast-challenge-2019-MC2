@@ -14,7 +14,7 @@
 import * as d3 from 'd3'
 import axios from '../assets/js/http'
 export default {
-  name: 'SRScatter',
+  name: 'SrScatter',
   props: {
     cid: String
   },
@@ -80,7 +80,6 @@ export default {
         sid: this.sid,
       })
       .then(function (response) {
-        // console.log(response.data);
         let responseData = response.data;
         
         // Init Scales
