@@ -173,8 +173,8 @@ export default {
         var xAxis = d3.axisBottom(x)
                       .tickSizeInner(-chartHeight).tickSizeOuter(0).tickPadding(10).ticks(120).tickFormat((d, i) => {
                         if(i % 2 == 0) {
-                          if(i == 0 || data1[i].date.getDay() != data1[i-1].date.getDay()) {
-                            return `${d.getMonth()+1}/${d.getDay()}`;
+                          if(i == 0 || data1[i].date.getDate() != data1[i-1].date.getDate()) {
+                            return `${d.getMonth()+1}/${d.getDate()}`;
                           } else {
                             return `${d.getHours()}`
                           }

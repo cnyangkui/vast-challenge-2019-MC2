@@ -554,3 +554,81 @@ Traceback (most recent call last):
   File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 116, in calTimeSeriesBySid
     begintime_str = params['begintime']
 KeyError: 'begintime'
+[2019-06-17 15:38:55,274][Thread-4:23416][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calTimeSeriesBySid/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 116, in calTimeSeriesBySid
+    begintime_str = params['begintime']
+KeyError: 'begintime'
+[2019-06-17 15:47:42,810][Thread-5:5608][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calTimeSeriesBySid/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 116, in calTimeSeriesBySid
+    begintime_str = params['begintime']
+KeyError: 'begintime'
+[2019-06-17 16:03:45,609][Thread-10:24128][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calTimeSeriesBySid/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 116, in calTimeSeriesBySid
+    begintime_str = params['begintime']
+KeyError: 'begintime'
+[2019-06-17 16:05:49,636][Thread-10:24128][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calTimeSeries/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 69, in calTimeSeries
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-17 16:06:04,110][Thread-12:24444][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calTimeSeries/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 69, in calTimeSeries
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-17 16:20:19,006][Thread-1:3508][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calTimeSeriesBySid/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 120, in calTimeSeriesBySid
+    begin_timestamp = time.mktime(begin_date.timetuple())
+NameError: name 'time' is not defined

@@ -1,9 +1,9 @@
 <template>
   <div :id="cid">
     <div class="scatterControl">
-      <span>SendorId: {{sid}}</span> &nbsp;
-      <el-input size="mini" v-model="minInput" placeholder="min"></el-input> &nbsp;<span>-</span>&nbsp;
-      <el-input size="mini" v-model="maxInput" placeholder="max"></el-input>
+      <span>sid: {{sid}}, category: {{category}}, min: {{minValue}}, max: {{maxValue}}</span> &nbsp;<br>
+      <el-input size="mini" v-model="minInput" placeholder="min" @change="minChanged"></el-input> &nbsp;<span>-</span>&nbsp;
+      <el-input size="mini" v-model="maxInput" placeholder="max" @change="maxChanged"></el-input>
     </div>
     <div class="scatterplot">
     </div>
@@ -30,6 +30,14 @@ export default {
       sid: 1,
     }
   },
+  created: function () {
+      this.$root.eventHub.$on('sensorSelected', this.sensorSelected);
+   },
+   // 最好在组件销毁前
+   // 清除事件监听
+   beforeDestroy: function () {
+      this.$root.eventHub.$off('sensorSelected', this.sensorSelected);
+   },
   mounted() {
     this.$nextTick(() => {
       this.loadChart();
@@ -53,8 +61,8 @@ export default {
         .attr("width", this.svgWidth)
         .attr("height", this.svgHeight);
     },
-    drawScatter(sid) {
-      let margin = {top: 5, right: 15, bottom: 20, left: 25};
+    drawScatter() {
+      let margin = {top: 5, right: 15, bottom: 20, left: 30};
       let width = this.svgWidth - margin.left - margin.right;
       let height = this.svgHeight - margin.top - margin.bottom;
       // console.log(this.svgWidth, this.svgHeight)
@@ -81,13 +89,29 @@ export default {
       })
       .then(function (response) {
         let responseData = response.data;
+
+        _this.maxValue = d3.max(responseData, d => d.value);
+        _this.minValue = d3.min(responseData, d => d.value);
         
         // Init Scales
         let x = d3.scaleTime().domain([new Date(2020, 3, 6), new Date(2020, 3, 10)]).range([0, width]);
         let y = d3.scaleLinear().domain([0, _this.maxInput]).range([height, 0]);
 
         // Init Axis
-        let xAxis = d3.axisBottom(x).ticks(5);
+        let tmp = null;
+        let xAxis = d3.axisBottom(x).ticks(120).tickFormat((d, i) => {
+                        if(i % 4 == 0) {
+                          if(i == 0) {
+                            return `${d.getMonth()+1}/${d.getDate()}`;
+                          } else if(tmp && tmp.getDate() != d.getDate()) {
+                            return `${d.getMonth()+1}/${d.getDate()}`;
+                          } else {
+                            return `${d.getHours()}`
+                          }
+                        }
+
+                        tmp = d;
+                      });;
         let yAxis = d3.axisLeft(y);
 
         // // Add Axis
@@ -112,7 +136,7 @@ export default {
             const py = y(point.value);
 
             context.fillStyle = 'steelblue';  
-            context.arc(px, py, 0.5, 0, 2 * Math.PI,true);
+            context.arc(px, py, 1, 0, 2 * Math.PI,true);
             context.fill();
         }
 
@@ -120,6 +144,27 @@ export default {
       .catch(function (error) {
         console.log(error);
       });
+    },
+    maxChanged(value) {
+      this.maxInput = value;
+      d3.select(`#${this.cid} .scatterplot svg`).selectAll('g').remove();
+      d3.select(`#${this.cid} .scatterplot`).selectAll('canvas').remove();
+      this.drawScatter();
+      
+    },
+    minChanged(value) {
+      this.minValue = value;
+      d3.select(`#${this.cid} .scatterplot svg`).selectAll('g').remove();
+      d3.select(`#${this.cid} .scatterplot`).selectAll('canvas').remove();
+      this.drawScatter();
+    },
+    sensorSelected(params) {
+      console.log('SrScatter updated...', params);
+      this.sid = params.sid;
+      this.category = params.category;
+      d3.select(`#${this.cid} .scatterplot svg`).selectAll('g').remove();
+      d3.select(`#${this.cid} .scatterplot`).selectAll('canvas').remove();
+      this.drawScatter();
     }
   }
 }
@@ -129,6 +174,7 @@ export default {
 <style>
 .scatterplot {
   position: relative;
+  margin-top: 10px;
 }
 .scatterplot .canvas-plot {
   position: absolute;

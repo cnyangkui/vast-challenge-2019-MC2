@@ -43,7 +43,7 @@
           <el-col :span="24">
             <div class="grid-content">
               <div class="nav">
-                <el-button type="text" @click="dialogVisible = true">点击打开 Dialog</el-button>
+                <el-button type="text" @click="srScatterVisible = true">点击打开 Dialog</el-button>
               </div>
               <div class="main">
                 <trend-chart cid="trend_chart_container3"></trend-chart>
@@ -66,10 +66,9 @@
       </span>
     </el-dialog>
     <el-dialog
-      title="提示"
-      :visible.sync="dialogVisible"
+      :visible.sync="srScatterVisible"
       width="70%">
-      <div style="height: 300px;"><sr-scatter cid="SR_scatter_container"></sr-scatter></div>
+      <div style="height: 400px;"><sr-scatter cid="SR_scatter_container"></sr-scatter></div>
       <span slot="footer" class="dialog-footer">
       </span>
     </el-dialog>
@@ -108,7 +107,7 @@ export default {
   data() {
     return {
       timeAxisVisible: false,
-      dialogVisible: false,
+      srScatterVisible: false,
       similarityScatterVisible: false,
     }
   },

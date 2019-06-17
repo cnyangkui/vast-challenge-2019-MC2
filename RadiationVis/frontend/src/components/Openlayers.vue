@@ -4,6 +4,7 @@
         <!-- <span class="sidepanel-title">Side Panel</span> -->
         <el-checkbox v-model="checked1" @change="krigingLayerUpdate">Static</el-checkbox>
         <el-checkbox v-model="checked2" @change="idwLayerUpdate">Mobile</el-checkbox>
+        <el-checkbox v-model="checked3" @change="heatmapLayerUpdate">Heatmap</el-checkbox>
     </div>
     <div id="himarkmap"></div>
   </div>
@@ -20,6 +21,7 @@ import {Map, View, Feature, Graticule} from 'ol';
 // import {Image as ImageLayer, Vector as VectorLayer} from 'ol/layer';
 import Image from 'ol/layer/Image'
 import VectorLayer from 'ol/layer/Vector'
+import Heatmap from 'ol/layer/Heatmap'
 // import {ImageStatic, Vector as VectorSource} from 'ol/source';
 import ImageStatic from 'ol/source/ImageStatic'
 import ImageCanvas from 'ol/source/ImageCanvas'
@@ -42,10 +44,12 @@ export default {
       ssILayer: null,
       krigingLayer: null,
       idwLayer: null,
+      heatmapLayer: null,
       checkList: null,
       checked1: false,
-      checked2: true,
-      timeRange: {begintime: '2020-04-06 00:00:00', endtime: '2020-04-11 00:00:00'}
+      checked2: false,
+      checked3: false,
+      timeRange: {begintime: '2020-04-06 06:00:00', endtime: '2020-04-06 07:00:00'}
     }
   },
   created: function () {
@@ -67,7 +71,6 @@ export default {
       this.addSSLayer(); //添加静态传感器
       this.drawKrigingLayer();
       this.drawIdwLayer();
-      console.log(this.krigingLayer, this.idwLayer)
       
       if(this.checked1) {
         let interval1 = setInterval(() => {
@@ -82,6 +85,14 @@ export default {
           if(this.idwLayer != null) {
             this.idwLayer.setVisible(true);
             clearInterval(interval2);
+          }
+        }, 100)
+      }
+      if(this.checked3) {
+        let interval3 = setInterval(() => {
+          if(this.heatmapLayer != null) {
+            this.heatmapLayer.setVisible(true);
+            clearInterval(interval3);
           }
         }, 100)
       }
@@ -328,6 +339,36 @@ export default {
 
 
     },
+    drawHeatmapLayer() {
+      let vectorSource = new VectorSource();
+      this.heatmapLayer = new Heatmap({
+        source: vectorSource,
+        radius: 1,
+      });
+
+      axios.all([this.getAggSrrByTimeRange(this.timeRange), this.getAggMrrByTimeRange(this.timeRange)])
+        .then(axios.spread((response1, response2) => {
+          let features = [];
+          
+          response1.data.forEach(d => {
+            let feature = new Feature({
+              geometry: new Point([parseFloat(d.longitude), parseFloat(d.latitude)]),
+              weight: d.value
+            });
+            features.push(feature);
+          })
+          response2.data.forEach(d => {
+            let feature = new Feature({
+              geometry: new Point([parseFloat(d.longitude), parseFloat(d.latitude)]),
+              weight: d.value
+            });
+            features.push(feature);
+          })
+          vectorSource.addFeatures(features);
+          this.heatmapLayer.setVisible(false);
+          this.map.addLayer(this.heatmapLayer)
+        }))
+    },
     // drawIdwLayer() {
     //   axios.post("/findAggMrrByTimeRange/", {begintime: '2020-04-06 06:00:00', endtime: '2020-04-06 07:00:00'})
     //     .then((response) => {
@@ -383,14 +424,19 @@ export default {
     idwLayerUpdate() {
       this.idwLayer.setVisible(this.checked2);
     },
+    heatmapLayerUpdate() {
+      this.heatmapLayer.setVisible(this.checked3);
+    },
     timeRangeUpdated(params) {
       this.timeRange = params;
       this.map.removeLayer(this.krigingLayer);
       this.map.removeLayer(this.idwLayer);
+      this.map.removeLayer(this.heatmapLayer);
       this.krigingLayer = null;
       this.idwLayer = null;
       this.drawKrigingLayer()
       this.drawIdwLayer();
+      this.drawHeatmapLayer();
       if(this.checked1) {
         let interval1 = setInterval(() => {
           if(this.krigingLayer != null) {
@@ -407,7 +453,21 @@ export default {
           }
         }, 100)
       }
-    }
+      if(this.checked3) {
+        let interval3 = setInterval(() => {
+          if(this.heatmapLayer != null) {
+            this.heatmapLayer.setVisible(true);
+            clearInterval(interval3);
+          }
+        }, 100)
+      }
+    },
+    getAggMrrByTimeRange(params) {
+      return axios.post('/findAggMrrByTimeRange/', params);
+    },
+    getAggSrrByTimeRange(params) {
+      return axios.post('/findAggSrrByTimeRange/', params);
+    },
   },
   computed: {
     coords: function() {

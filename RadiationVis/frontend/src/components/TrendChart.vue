@@ -18,6 +18,10 @@ export default {
       svgWidth: null,
       svgHeight: null,
       timeRange: null,
+      defaultTimeRange: {
+        begintime: '2020-04-06 00:00:00',
+        endtime: '2020-04-11 00:00:00'
+      }
     }
   },
   created: function () {
@@ -53,7 +57,7 @@ export default {
         .attr("height", this.svgHeight);
     },
     // params: {begintime: xxx, endtime: xxx}
-    drawChart(params) {
+    drawChart() {
 
       let _this = this;
 
@@ -204,7 +208,7 @@ export default {
       }
 
       function makeChart (staticData, mobileData) {
-        var margin = { top: 10, right: 20, bottom: 30, left: 30 },
+        var margin = { top: 10, right: 20, bottom: 30, left: 35 },
             chartWidth  = _this.svgWidth  - margin.left - margin.right,
             chartHeight = _this.svgHeight - margin.top  - margin.bottom;
 
@@ -263,7 +267,7 @@ export default {
         });
       } else {
         let parseDate = d3.timeParse('%Y-%m-%d %H:%M:%S');
-        axios.post("/calTimeSeries/", params)
+        axios.post("/calTimeSeries/", _this.timeRange)
           .then((response) => {
             let data = response.data;
             var staticData = data.static.map(function (d) {
@@ -348,7 +352,7 @@ export default {
 
 
       function makeChart (data) {
-        var margin = { top: 10, right: 20, bottom: 30, left: 30 },
+        var margin = { top: 10, right: 20, bottom: 30, left: 35 },
             chartWidth  = _this.svgWidth  - margin.left - margin.right,
             chartHeight = _this.svgHeight - margin.top  - margin.bottom;
 
@@ -395,10 +399,16 @@ export default {
       console.log("TrendChart updated...", params);
       this.timeRange = params;
       d3.select(`#${this.cid} svg`).selectAll('g').remove();
-      this.drawChart(params);
+      this.drawChart();
     },
     sensorSelected(params) {
-      let newParams = Object.assign({}, params, this.timeRange);
+      let newParams = null;
+      if(this.timeRange == null) {
+        newParams = Object.assign({}, params, this.defaultTimeRange);
+      } else {
+        newParams = Object.assign({}, params, this.timeRange);
+      }
+      
       console.log(newParams);
       d3.select(`#${this.cid} svg`).selectAll('g').remove();
       this.drawChartBySid(newParams);
