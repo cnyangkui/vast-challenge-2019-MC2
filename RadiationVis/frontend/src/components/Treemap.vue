@@ -17,10 +17,12 @@ export default {
       svg: null,
       svgWidth: null,
       svgHeight: null,
-      timeRange: {
+      timeRange: null,
+      defaultTimeRange: {
         begintime: '2020-04-06 00:00:00',
         endtime: '2020-04-11 00:00:00'
       },
+      sidList: [],
     }
   },
   created: function () {
@@ -70,7 +72,7 @@ export default {
           .round(true)
           .paddingInner(1);
 
-      axios.post("/calSensorClusters/", this.timeRange).then(response => {
+      axios.post("/calSensorClusters/", this.timeRange || this.defaultTimeRange).then(response => {
 
         let data = response.data;
         
@@ -94,7 +96,11 @@ export default {
                 category = "static";
               }
               sid = parseInt(d.data.name.substring(1, d.data.name.length));
-              console.log({category: category, sid: sid})
+              if(this.sidList.length > 3) {
+                this.sidList = [];
+                alert("最多三个...")
+              }
+              this.sidList.push({category: category, sid: sid});
               this.$root.eventHub.$emit("sensorSelected", {category: category, sid: sid});
             })
 
@@ -127,7 +133,7 @@ export default {
     timeRangeUpdated(params) {
       console.log("Treemap updated")
       this.timeRange = params;
-      d3.select(`#${this.cid} svg g`).remove();
+      d3.select(`#${this.cid} svg`).selectAll('g').remove();
       this.drawChart();
     }
   }

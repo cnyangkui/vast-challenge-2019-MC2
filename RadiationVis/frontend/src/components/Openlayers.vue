@@ -1,10 +1,25 @@
 <template>
   <div id="openlayers_container">
     <div class="sidepanel">
-        <!-- <span class="sidepanel-title">Side Panel</span> -->
-        <el-checkbox v-model="checked1" @change="krigingLayerUpdate">Static</el-checkbox>
-        <el-checkbox v-model="checked2" @change="idwLayerUpdate">Mobile</el-checkbox>
-        <el-checkbox v-model="checked3" @change="heatmapLayerUpdate">Heatmap</el-checkbox>
+      <el-tabs type="card">
+        <el-tab-pane label="用户管理">
+          <div style="margin-left:5px;">
+            <el-checkbox v-model="checked1" @change="krigingLayerUpdate" size="mini">Static</el-checkbox>
+            <el-checkbox v-model="checked2" @change="idwLayerUpdate" size="mini">Mobile</el-checkbox>
+            <el-checkbox v-model="checked3" @change="heatmapLayerUpdate" size="mini">Heatmap</el-checkbox>
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="配置管理">配置管理</el-tab-pane>
+        <el-tab-pane label="角色管理">角色管理</el-tab-pane>
+        <el-tab-pane label="定时任务补偿">定时任务补偿</el-tab-pane>
+      </el-tabs>
+      <!-- <div class="nav">
+        <a class="nav-link active" href="#">Active</a>
+        <a class="nav-link" href="#">Link</a>
+        <a class="nav-link" href="#">Link</a>
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+      </div> -->
+        
     </div>
     <div id="himarkmap"></div>
   </div>
@@ -49,7 +64,8 @@ export default {
       checked1: false,
       checked2: false,
       checked3: false,
-      timeRange: {begintime: '2020-04-06 06:00:00', endtime: '2020-04-06 07:00:00'}
+      timeRange: null,
+      defaultTimeRange: {begintime: '2020-04-06 06:00:00', endtime: '2020-04-06 07:00:00'}
     }
   },
   created: function () {
@@ -182,7 +198,7 @@ export default {
         colors.push(colorScale(i));
       }
       
-      axios.post("/findAggSrrByTimeRange/", this.timeRange)
+      axios.post("/findAggSrrByTimeRange/", this.timeRange || this.defaultTimeRange)
         .then((response) => {
           let responseData = response.data;
           
@@ -266,7 +282,7 @@ export default {
 
       let colorScale = d3.scaleLinear().domain([20, 30, 50, 100]).range(["rgb(0,0,255)", "rgb(0,255,0)", "rgb(225,225,0)", "rgb(255,0,0)"])
 
-      axios.post("/findAggMrrByTimeRange/", this.timeRange)
+      axios.post("/findAggMrrByTimeRange/", this.timeRange|| this.defaultTimeRange)
       .then((response) => {
         let responseData = response.data;
 
@@ -346,7 +362,7 @@ export default {
         radius: 1,
       });
 
-      axios.all([this.getAggSrrByTimeRange(this.timeRange), this.getAggMrrByTimeRange(this.timeRange)])
+      axios.all([this.getAggSrrByTimeRange(this.timeRange || this.defaultTimeRange), this.getAggMrrByTimeRange(this.timeRange || this.defaultTimeRange)])
         .then(axios.spread((response1, response2) => {
           let features = [];
           
@@ -484,14 +500,17 @@ export default {
 }
 .sidepanel {
   width: 100%;
-  height: 10%;
-  position: absolute;
+  height: 15%;
+  /* position: absolute; */
 }
 #himarkmap {
   width: 100%;
-  height: 80%;
-  position: absolute;
-  top: 10%;
+  height: 500px;
+  /* position: absolute;
+  top: 10%; */
+}
+.el-tabs {
+  height: 30px;
 }
 </style>
 

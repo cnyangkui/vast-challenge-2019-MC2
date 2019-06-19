@@ -916,3 +916,868 @@ NameError: name 'time' is not defined
 [2019-06-17 16:22:48,249][MainThread:15924][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
 [2019-06-17 16:22:57,122][MainThread:15924][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
 [2019-06-17 16:22:58,008][MainThread:19372][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-18 15:45:17,538][MainThread:24864][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-18 15:46:40,304][Thread-4:22688][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 64, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 233, in calCluster
+    cluster = Cluster_DBSCAN(result)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 129, in Cluster_DBSCAN
+    cluster_res = DBSCAN(eps=0.05, min_samples=3).fit_predict(result)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\cluster\dbscan_.py", line 383, in fit_predict
+    self.fit(X, sample_weight=sample_weight)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\cluster\dbscan_.py", line 349, in fit
+    X = check_array(X, accept_sparse='csr')
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 542, in check_array
+    allow_nan=force_all_finite == 'allow-nan')
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 56, in _assert_all_finite
+    raise ValueError(msg_err.format(type_err, X.dtype))
+ValueError: Input contains NaN, infinity or a value too large for dtype('float64').
+[2019-06-18 15:46:49,732][Thread-6:2808][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 64, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 233, in calCluster
+    cluster = Cluster_DBSCAN(result)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 129, in Cluster_DBSCAN
+    cluster_res = DBSCAN(eps=0.05, min_samples=3).fit_predict(result)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\cluster\dbscan_.py", line 383, in fit_predict
+    self.fit(X, sample_weight=sample_weight)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\cluster\dbscan_.py", line 349, in fit
+    X = check_array(X, accept_sparse='csr')
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 542, in check_array
+    allow_nan=force_all_finite == 'allow-nan')
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 56, in _assert_all_finite
+    raise ValueError(msg_err.format(type_err, X.dtype))
+ValueError: Input contains NaN, infinity or a value too large for dtype('float64').
+[2019-06-18 16:00:44,717][Thread-15:3424][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 64, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 220, in calCluster
+    [a, b] = mn.shape
+ValueError: not enough values to unpack (expected 2, got 1)
+[2019-06-19 15:27:59,372][Thread-62:21600][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 64, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 220, in calCluster
+    [a, b] = mn.shape
+ValueError: not enough values to unpack (expected 2, got 1)
+[2019-06-19 16:31:21,588][Thread-70:20692][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findAggSrrByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 45, in findAggSrrByTimeRange
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 16:31:21,697][Thread-67:3524][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findAggSrrByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 45, in findAggSrrByTimeRange
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 16:31:21,740][Thread-68:22472][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 63, in calSensorClusters
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 16:31:21,749][Thread-71:4452][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findAggMrrByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 33, in findAggMrrByTimeRange
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 16:31:21,778][Thread-72:24028][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findAggMrrByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 33, in findAggMrrByTimeRange
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 16:52:29,522][Thread-92:11056][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findAggMrrByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 33, in findAggMrrByTimeRange
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 16:52:29,528][Thread-89:12332][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 63, in calSensorClusters
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 16:52:29,556][Thread-88:22500][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findAggSrrByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 45, in findAggSrrByTimeRange
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 16:52:29,561][Thread-91:19976][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findAggMrrByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 33, in findAggMrrByTimeRange
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 16:52:29,579][Thread-90:15888][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findAggSrrByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 45, in findAggSrrByTimeRange
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 16:53:54,576][Thread-101:2924][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 63, in calSensorClusters
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 16:53:54,638][Thread-102:9452][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findAggSrrByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 45, in findAggSrrByTimeRange
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 16:53:54,689][Thread-103:9328][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findAggMrrByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 33, in findAggMrrByTimeRange
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 16:53:54,737][Thread-104:7564][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findAggSrrByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 45, in findAggSrrByTimeRange
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 16:53:54,765][Thread-105:16432][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findAggMrrByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 33, in findAggMrrByTimeRange
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 16:58:42,875][Thread-109:16116][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 63, in calSensorClusters
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 16:58:43,008][Thread-107:8700][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findAggSrrByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 45, in findAggSrrByTimeRange
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 16:58:43,020][Thread-110:22444][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findAggSrrByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 45, in findAggSrrByTimeRange
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 16:58:43,065][Thread-108:20532][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findAggMrrByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 33, in findAggMrrByTimeRange
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 16:58:43,070][Thread-106:2140][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findAggMrrByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 33, in findAggMrrByTimeRange
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 16:59:15,739][Thread-108:20532][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findAggSrrByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 45, in findAggSrrByTimeRange
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 16:59:15,851][Thread-111:508][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findAggMrrByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 33, in findAggMrrByTimeRange
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 16:59:15,865][Thread-110:22444][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findAggSrrByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 45, in findAggSrrByTimeRange
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 16:59:15,866][Thread-109:16116][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findAggMrrByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 33, in findAggMrrByTimeRange
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 16:59:15,878][Thread-106:2140][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 63, in calSensorClusters
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 17:00:26,980][Thread-106:2140][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 63, in calSensorClusters
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 17:00:27,045][Thread-109:16116][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 63, in calSensorClusters
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 17:01:10,697][Thread-109:16116][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findAggSrrByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 45, in findAggSrrByTimeRange
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 17:01:10,723][Thread-107:8700][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findAggSrrByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 45, in findAggSrrByTimeRange
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 17:01:10,752][Thread-106:2140][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findAggMrrByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 33, in findAggMrrByTimeRange
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 17:01:10,757][Thread-110:22444][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findAggMrrByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 33, in findAggMrrByTimeRange
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 17:03:06,875][Thread-110:22444][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findAggSrrByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 45, in findAggSrrByTimeRange
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 17:03:06,877][Thread-106:2140][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findAggMrrByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 33, in findAggMrrByTimeRange
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 17:03:07,132][Thread-106:2140][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findAggMrrByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 33, in findAggMrrByTimeRange
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 17:03:07,137][Thread-110:22444][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findAggSrrByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 45, in findAggSrrByTimeRange
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 17:03:29,908][Thread-110:22444][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findAggSrrByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 45, in findAggSrrByTimeRange
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 17:03:29,927][Thread-107:8700][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findAggSrrByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 45, in findAggSrrByTimeRange
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 17:03:29,951][Thread-108:20532][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findAggMrrByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 33, in findAggMrrByTimeRange
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 17:03:29,960][Thread-106:2140][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findAggMrrByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 33, in findAggMrrByTimeRange
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 17:03:47,501][Thread-106:2140][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findAggSrrByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 45, in findAggSrrByTimeRange
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 17:03:47,511][Thread-107:8700][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findAggSrrByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 45, in findAggSrrByTimeRange
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-19 23:03:46,300][MainThread:12344][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-19 23:05:12,269][MainThread:10320][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-19 23:05:18,666][Thread-2:5132][task_id:django.request][log.py:228][WARNING][Not Found: /favicon.ico]
+[2019-06-19 23:13:44,330][MainThread:10320][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-06-19 23:13:45,118][MainThread:12708][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-19 23:14:13,126][Thread-6:3432][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calTimeSeriesBySid/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 117, in calTimeSeriesBySid
+    sid = params['sidList']
+KeyError: 'sidList'
+[2019-06-19 23:15:21,504][Thread-6:3432][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calTimeSeriesBySid/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 117, in calTimeSeriesBySid
+    sid = params['sidList']
+KeyError: 'sidList'
+[2019-06-19 23:15:28,466][Thread-6:3432][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calTimeSeriesBySid/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 117, in calTimeSeriesBySid
+    sid = params['sidList']
+KeyError: 'sidList'
+[2019-06-19 23:18:11,132][Thread-6:3432][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calTimeSeriesBySid/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 116, in calTimeSeriesBySid
+    category = params['category']
+KeyError: 'category'
+[2019-06-19 23:18:25,768][Thread-6:3432][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calTimeSeriesBySid/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 116, in calTimeSeriesBySid
+    category = params['category']
+KeyError: 'category'
+[2019-06-19 23:20:58,898][MainThread:12708][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-06-19 23:21:01,208][MainThread:9660][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-19 23:34:26,998][Thread-4:6312][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calTimeSeriesBySid/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 116, in calTimeSeriesBySid
+    category = params['category']
+KeyError: 'category'
+[2019-06-19 23:37:22,623][Thread-14:11024][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calTimeSeriesBySid/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 118, in calTimeSeriesBySid
+    begintime_str = params['begintime']
+KeyError: 'begintime'
+[2019-06-19 23:37:24,287][Thread-14:11024][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calTimeSeriesBySid/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 118, in calTimeSeriesBySid
+    begintime_str = params['begintime']
+KeyError: 'begintime'

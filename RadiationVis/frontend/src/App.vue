@@ -3,80 +3,46 @@
     <el-row class="top">
       <el-col :span="24">
         <div class="grid-content">
-          <trend-chart-with-time-brush cid="trend_chart_container"></trend-chart-with-time-brush>
+          <time-series-chart cid="time_series_chart_container"></time-series-chart>
         </div>
       </el-col>
     </el-row>
     <el-row :gutter="3">
       <el-col :span="12">
-        <!-- <el-row class="left1">
+        <el-row class="left1">
           <el-col :span="24">
             <div class="grid-content">
-              <div class="nav">
-                TimeRange: {{}}
-                <el-button type="text" @click="timeAxisVisible = true">点击打开 Dialog</el-button>
-              </div>
-              <div class="main">
-                <TrendChart cid="trend_chart_container"></TrendChart>
-              </div>
-            </div>
-          </el-col>
-        </el-row> -->
-        <el-row class="left2">
-          <el-col :span="12">
-            <div class="grid-content">
-              <!-- <div class="nav">
-                <el-button type="text" @click="similarityScatterVisible = true">点击打开 Dialog</el-button>
-              </div>
-              <div class="main">
-                <similarity-scatter cid="similarity_scatter_container"></similarity-scatter>
-              </div> -->
               <treemap cid="treemap-container"></treemap>
             </div>
           </el-col>
-          <el-col :span="12">
-            <div class="grid-content">
-            </div>
-          </el-col>
         </el-row>
-        <el-row class="left3">
+        <el-row class="left2">
           <el-col :span="24">
             <div class="grid-content">
               <div class="nav">
                 <el-button type="text" @click="srScatterVisible = true">点击打开 Dialog</el-button>
               </div>
               <div class="main">
-                <trend-chart cid="trend_chart_container3"></trend-chart>
+                <trend-chart cid="trend_chart_container2"></trend-chart>
               </div>
             </div>
           </el-col>
         </el-row>
       </el-col>
       <el-col :span="12">
-        <el-row class="right"><el-col :span="24"><div class="grid-content"><openlayers></openlayers></div></el-col></el-row>
+        <el-row class="right">
+          <el-col :span="24">
+            <div class="grid-content">
+              <openlayers></openlayers>
+            </div>
+          </el-col>
+        </el-row>
       </el-col>
     </el-row>
     <el-dialog
-      title="提示"
-      :visible.sync="timeAxisVisible"
-      width="70%">
-      <div style="height: 300px;"><trend-chart-with-time-brush cid="trend_chart_container2"></trend-chart-with-time-brush></div>
-      <div style="height: 300px;"><trend-chart cid="trend_chart_container3"></trend-chart></div>
-      <span slot="footer" class="dialog-footer">
-      </span>
-    </el-dialog>
-    <el-dialog
       :visible.sync="srScatterVisible"
       width="70%">
-      <div style="height: 400px;"><sr-scatter cid="SR_scatter_container"></sr-scatter></div>
-      <span slot="footer" class="dialog-footer">
-      </span>
-    </el-dialog>
-    <el-dialog
-      title="提示"
-      :visible.sync="similarityScatterVisible"
-      width="70%">
-      <div style="height: 400px;"><similarity-scatter cid="similarity_scatter_container2"></similarity-scatter></div>
+      <div style="height: 400px;"><sr-scatter cid="Sr_scatter_container"></sr-scatter></div>
       <span slot="footer" class="dialog-footer">
       </span>
     </el-dialog>
@@ -85,11 +51,9 @@
 
 <script>
 import SrScatter from './components/SrScatter.vue'
-import SimilarityScatter from './components/SimilarityScatter.vue'
 import Openlayers from './components/Openlayers.vue'
 import TrendChart from './components/TrendChart.vue'
-import TrendChartWithTimeBrush from './components/TrendChartWithTimeBrush.vue'
-// import PackageChart from './components/PackageChart.vue'
+import TimeSeriesChart from './components/TimeSeriesChart.vue'
 import Treemap from './components/Treemap.vue'
 import * as d3 from 'd3'
 
@@ -98,17 +62,13 @@ export default {
   components: {
     Openlayers,
     SrScatter,
-    SimilarityScatter,
     TrendChart,
-    TrendChartWithTimeBrush,
-    // PackageChart,
+    TimeSeriesChart,
     Treemap,
   },
   data() {
     return {
-      timeAxisVisible: false,
       srScatterVisible: false,
-      similarityScatterVisible: false,
     }
   },
   mounted() {

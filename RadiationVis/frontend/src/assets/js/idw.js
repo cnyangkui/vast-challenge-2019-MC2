@@ -1,5 +1,18 @@
 //idw算法
 //输入[{x:0,y:0,v:0},{x:0,y:0,v:0},{x:0,y:0,v:0}]
+function getRad(d) {
+    return d * Math.PI / 180.0;
+}
+function distanceByLnglat(lat1, lng1, lat2, lng2) {
+    var radLat1 = getRad(lat1);
+    var radLat2 = getRad(lat2);
+    var a = radLat1 - radLat2;
+    var b = getRad(lng1) - getRad(lng2);
+    var s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) + Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
+    s = s * 6378137.0; // 取WGS84标准参考椭球中的地球长半径(单位:m)
+    s = Math.round(s * 10000) / 10000;
+    return s
+}
 export default function idw(griddata) {
     /**
      * griddata 原始网格数据，每个网格都有一个value，有的value有值，有的为null，idw将为null的网格进行插值
@@ -19,7 +32,7 @@ export default function idw(griddata) {
 
     for(var i=0;i<m1;i++){
         for(var j=0;j<m0;j++){
-            var tmpDis = Math.sqrt(Math.pow(nullPoints[i].lat - points[j].lat, 2) + Math.pow(nullPoints[i].lng - points[j].lng, 2));
+            var tmpDis = distanceByLnglat(nullPoints[i].lat, nullPoints[i].lng, points[j].lat, points[j].lng);//Math.sqrt(Math.pow(nullPoints[i].lat - points[j].lat, 2) + Math.pow(nullPoints[i].lng - points[j].lng, 2));
             r.push(tmpDis);
         }
     }
