@@ -1781,3 +1781,27 @@ Traceback (most recent call last):
   File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 118, in calTimeSeriesBySid
     begintime_str = params['begintime']
 KeyError: 'begintime'
+[2019-06-23 16:47:47,771][MainThread:13460][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-23 17:04:13,576][Thread-1:13696][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 64, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 233, in calCluster
+    cluster = Cluster_DBSCAN(result)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 129, in Cluster_DBSCAN
+    cluster_res = DBSCAN(eps=0.05, min_samples=3).fit_predict(result)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\cluster\dbscan_.py", line 383, in fit_predict
+    self.fit(X, sample_weight=sample_weight)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\cluster\dbscan_.py", line 349, in fit
+    X = check_array(X, accept_sparse='csr')
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 542, in check_array
+    allow_nan=force_all_finite == 'allow-nan')
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 56, in _assert_all_finite
+    raise ValueError(msg_err.format(type_err, X.dtype))
+ValueError: Input contains NaN, infinity or a value too large for dtype('float64').

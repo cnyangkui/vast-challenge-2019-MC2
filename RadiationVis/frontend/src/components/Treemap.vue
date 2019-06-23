@@ -96,10 +96,10 @@ export default {
                 category = "static";
               }
               sid = parseInt(d.data.name.substring(1, d.data.name.length));
-              if(this.sidList.length > 3) {
-                this.sidList = [];
-                alert("最多三个...")
-              }
+              // if(this.sidList.length > 3) {
+              //   this.sidList = [];
+              //   alert("最多三个...")
+              // }
               this.sidList.push({category: category, sid: sid});
               this.$root.eventHub.$emit("sensorSelected", {category: category, sid: sid});
             })

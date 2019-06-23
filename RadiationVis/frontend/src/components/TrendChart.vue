@@ -136,7 +136,11 @@ export default {
     },
     addLegend (g, chartWidth) {
       let legendWidth  = 70,
-          legendHeight = 45;
+          legendHeight = 45,
+          rectWidth = 20,
+          rectHeight = 10;
+
+      let legendMargin = {left: 5, top: 5, right: 5, bottom: 5};
 
       let legend = g.append('g')
         .attr('class', 'legend')
@@ -149,26 +153,30 @@ export default {
 
       legend.append('rect')
         .attr('class', 'mobile_uncertainty')
-        .attr('width',  20)
-        .attr('height', 10)
-        .attr('x', 5)
-        .attr('y', 5);
+        .attr('width',  rectWidth)
+        .attr('height', rectHeight)
+        .attr('x', legendMargin.left)
+        .attr('y', legendMargin.top);
 
       legend.append('text')
-        .attr('x', 30)
-        .attr('y', 15)
+        .attr('x', legendMargin.left + rectWidth)
+        .attr('y', legendMargin.top)
+        .attr('dx', '.5em')
+        .attr('dy', '1em')
         .text('mobile');
 
       legend.append('rect')
         .attr('class', 'static_uncertainty')
-        .attr('width',  20)
-        .attr('height', 10)
-        .attr('x', 5)
-        .attr('y', 25);
+        .attr('width',  rectWidth)
+        .attr('height', rectHeight)
+        .attr('x', legendMargin.left)
+        .attr('y', legendMargin.top + rectHeight * 2);
 
       legend.append('text')
-        .attr('x', 30)
-        .attr('y', 35)
+        .attr('x', legendMargin.left + rectWidth)
+        .attr('y', legendMargin.top + rectHeight * 2)
+        .attr('dx', '.5em')
+        .attr('dy', '1em')
         .text('static');
 
       // legend.append('path')
@@ -270,63 +278,6 @@ export default {
 
       let _this = this;
 
-      // function addAxesAndLegend (g, xAxis, yAxis, margin, chartWidth, chartHeight) {
-      //   var legendWidth  = 200,
-      //       legendHeight = 100;
-
-      //   var axes = g.append('g')
-      //     .attr('clip-path', 'url(#axes-clip)');
-
-      //   axes.append('g')
-      //     .attr('class', 'x axis')
-      //     .attr('transform', 'translate(0,' + chartHeight + ')')
-      //     .call(xAxis);
-
-      //   axes.append('g')
-      //     .attr('class', 'y axis')
-      //     .call(yAxis)
-      //     .append('text')
-      //       .attr('transform', 'rotate(-90)')
-      //       .attr('y', 6)
-      //       .attr('dy', '.71em')
-      //       .style('text-anchor', 'end')
-      //       .text('(cpm)');
-      // }
-
-      // function drawPaths (g, data, x, y, styleClass) {
-      //   var upperInnerArea = d3.area()
-      //     .x (function (d) { return x(d.time) || 1; })
-      //     .y0(function (d) { return y(d.upper95); })
-      //     .y1(function (d) { return y(d.avg); });
-
-      //   var medianLine = d3.line()
-      //     .x(function (d) { return x(d.time); })
-      //     .y(function (d) { return y(d.avg); });
-
-      //   var lowerInnerArea = d3.area()
-      //     .x (function (d) { return x(d.time) || 1; })
-      //     .y0(function (d) { return y(d.avg); })
-      //     .y1(function (d) { return y(d.lower95); });
-
-      //   g.datum(data);
-
-      //   g.append('path')
-      //     .attr('class', 'area upper ' + styleClass)
-      //     .attr('d', upperInnerArea)
-      //     .attr('clip-path', 'url(#rect-clip)');
-
-      //   g.append('path')
-      //     .attr('class', 'area lower ' + styleClass)
-      //     .attr('d', lowerInnerArea)
-      //     .attr('clip-path', 'url(#rect-clip)');
-
-      //   g.append('path')
-      //     .attr('class', 'median-line')
-      //     .attr('d', medianLine)
-      //     .attr('clip-path', 'url(#rect-clip)');
-      // }
-
-
       function makeChartBySid (dataList) {
         var margin = { top: 10, right: 20, bottom: 30, left: 35 },
             chartWidth  = _this.svgWidth  - margin.left - margin.right,
@@ -334,25 +285,36 @@ export default {
 
         let begin = null, end = null;
         if(_this.timeRange != null) {
-          begin = _this.timeRange.begintime;
-          end = _this.timeRange.endtime;
+          begin = new Date(_this.timeRange.begintime);
+          end = new Date(_this.timeRange.endtime);
         } else {
-          begin = _this.defaultTimeRange.begintime;
-          end = _this.defaultTimeRange.endtime;
+          begin = new Date(_this.defaultTimeRange.begintime);
+          end = new Date(_this.defaultTimeRange.endtime);
         }
 
         let max = 0;
         dataList.forEach(data => {
-          let tmp = d3.max(data, d => d.upper95);
+          let tmp = d3.max(data.data, d => d.upper95);
           if(tmp > max) {
             max = tmp;
           }
         })
 
-        var x = d3.scaleTime().range([0, chartWidth])
-                  .domain([new Date(begin), new Date(end)]),
-            y = d3.scaleLinear().range([chartHeight, 0])
-                  .domain([0, max]);
+        let x, y;
+
+        if(end.getTime() - begin.getTime() > 12 * 3600 * 1000) {
+          x = d3.scaleTime()
+            .range([0, chartWidth])
+            .domain([new Date(begin.getFullYear(), begin.getMonth(), begin.getDate(), begin.getHours()), new Date(end.getFullYear(), end.getMonth(), end.getDate(), end.getHours())]);
+        } else {
+          x = d3.scaleTime()
+            .range([0, chartWidth])
+            .domain([new Date(begin.getFullYear(), begin.getMonth(), begin.getDate(), begin.getHours(), begin.getMinutes()), new Date(end.getFullYear(), end.getMonth(), end.getDate(), end.getHours(), end.getMinutes())]);
+        }
+
+        y = d3.scaleLinear().range([chartHeight, 0])
+              .domain([0, max]);
+
 
         var xAxis = d3.axisBottom(x)
                       .tickSizeInner(-chartHeight).tickSizeOuter(0).tickPadding(10).ticks(10),//.tickFormat(d => d.getHours()),
@@ -368,17 +330,23 @@ export default {
         // if(params.category == "static") {
         //   lineStyle = "inner2";
         // }
-        
+        let color = d3.scaleOrdinal(d3.schemeCategory10);
+
         dataList.forEach(data => {
-          _this.drawPaths(g, data, x, y, lineStyle);
+          _this.drawSidPaths(g, data.data, x, y, color(data.category + String(data.sid)));
         })
+
+        _this.addSidLegend(g, chartWidth, dataList, color)
+        
+
       }
       
       /***************************************************************************************/
       
       
       let parseDate = d3.timeParse('%Y-%m-%d %H:%M:%S');
-      axios.post("/calTimeSeriesBySid/", Object.assign({}, this.timeRange || this.defaultTimeRange, this.sidList[this.sidList.length-1]))
+      let sensor_info = this.sidList[this.sidList.length-1];
+      axios.post("/calTimeSeriesBySid/", Object.assign({}, this.timeRange || this.defaultTimeRange, sensor_info))
         .then((response) => {
           var data = response.data.map(function (d) {
             return {
@@ -388,25 +356,90 @@ export default {
               upper95: parseFloat(d.upper95)
             };
           });
-          this.sidDataList.push(data)
+          this.sidDataList.push(Object.assign({}, sensor_info, {data: data}))
           makeChartBySid(this.sidDataList);
         })
     },
+    addSidLegend(g, chartWidth, dataList, color) {
+      let legendWidth  = 70,
+          legendHeight = dataList.length * 15 + 5,
+          rectWidth = 20,
+          rectHeight = 10;
+
+      let legendMargin = {left: 5, top: 5, right: 5, bottom: 5};
+
+      let legend = g.append('g')
+        .attr('class', 'legend')
+        .attr('transform', 'translate(' + (chartWidth - legendWidth) + ', -10)');
+
+      legend.append('rect')
+        .attr('class', 'legend-bg')
+        .attr('width',  legendWidth)
+        .attr('height', legendHeight);
+
+      dataList.forEach((data, index) => {
+
+        legend.append('rect')
+          .attr('width',  rectWidth)
+          .attr('height', rectHeight)
+          .attr('x', legendMargin.left)
+          .attr('y', legendMargin.top + (rectHeight+5) * index)
+          .style('fill', color(data.category + String(data.sid)));
+
+        legend.append('text')
+          .attr('x', legendMargin.left + rectWidth)
+          .attr('y', legendMargin.top + (rectHeight+5) * index)
+          .attr('dx', '.5em')
+          .attr('dy', '1em')
+          .text(data.category[0] + String(data.sid));
+      })
+    },
+    drawSidPaths(g, data, x, y, color) {
+      let upperInnerArea = d3.area()
+        .x (function (d) { return x(d.time); })
+        .y0(function (d) { return y(d.upper95); })
+        .y1(function (d) { return y(d.avg); });
+
+      let medianLine = d3.line()
+        .x(function (d) { return x(d.time); })
+        .y(function (d) { return y(d.avg); });
+
+      let lowerInnerArea = d3.area()
+        .x (function (d) { return x(d.time); })
+        .y0(function (d) { return y(d.avg); })
+        .y1(function (d) { return y(d.lower95); });
+
+      g.datum(data);
+
+      g.append('path')
+        .attr('d', upperInnerArea)
+        .style('fill', color)
+        .style('stroke', color);
+
+      g.append('path')
+        .attr('d', lowerInnerArea)
+        .style('fill', color)
+        .style('stroke', color);
+        
+
+      g.append('path')
+        .attr('class', 'median-line')
+        .attr('d', medianLine);
+
+    },
     timeRangeUpdated(params) {
       console.log("TrendChart updated...", params);
+      this.sidList = [];
+      this.sidDataList = [];
       this.timeRange = params;
       d3.select(`#${this.cid} svg`).selectAll('g').remove();
       this.drawChart();
     },
     sensorSelected(params) {
-      // let newParams = null;
-      // if(this.timeRange == null) {
-      //   newParams = Object.assign({}, params, this.defaultTimeRange);
-      // } else {
-      //   newParams = Object.assign({}, params, this.timeRange);
-      // }
-      
-      // console.log(newParams);
+      if(this.sidList.length >= 5) {
+        this.sidList = [];
+        this.sidDataList = [];
+      }
       this.sidList.push(params)
       d3.select(`#${this.cid} svg`).selectAll('g').remove();
       this.drawChartBySid();
