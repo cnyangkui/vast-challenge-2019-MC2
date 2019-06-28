@@ -65,7 +65,6 @@ export default {
       let margin = {top: 5, right: 15, bottom: 20, left: 30};
       let width = this.svgWidth - margin.left - margin.right;
       let height = this.svgHeight - margin.top - margin.bottom;
-      // console.log(this.svgWidth, this.svgHeight)
 
       let container = d3.select(`#${this.cid} .scatterplot`);
 
@@ -159,7 +158,6 @@ export default {
       this.drawScatter();
     },
     sensorSelected(params) {
-      console.log('SrScatter updated...', params);
       this.sid = params.sid;
       this.category = params.category;
       d3.select(`#${this.cid} .scatterplot svg`).selectAll('g').remove();

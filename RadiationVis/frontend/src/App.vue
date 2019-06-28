@@ -7,7 +7,7 @@
         </div>
       </el-col>
     </el-row>
-    <el-row :gutter="3">
+    <el-row class="bottom" :gutter="3">
       <el-col :span="12">
         <el-row class="left1">
           <el-col :span="24">
@@ -19,9 +19,9 @@
         <el-row class="left2">
           <el-col :span="24">
             <div class="grid-content">
-              <div class="nav">
+              <!-- <div class="nav">
                 <el-button type="text" @click="srScatterVisible = true">点击打开 Dialog</el-button>
-              </div>
+              </div> -->
               <div class="main">
                 <trend-chart cid="trend_chart_container2"></trend-chart>
               </div>
@@ -128,13 +128,16 @@ html, body, #app {
   height: 100%;
 }
 .top {
-  height: 80px;
+  height: 20%;
+}
+.bottom {
+  height: 85%;
 }
 .left1, .left2, .left3 {
-  height: 230px;
+  height: 42.5%;
 }
 .right {
-  height: 600px;
+  height: 85%;
 }
 .nav {
   height: 10%;

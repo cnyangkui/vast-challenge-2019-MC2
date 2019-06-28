@@ -43,7 +43,6 @@ export default {
     selfAdaptionSvgSize() {
       let container = document.querySelector(`#${this.cid}`);
       let parentNode = container.parentNode;
-      // console.log(parentNode.clientWidth, parentNode.clientHeight)
       this.svgWidth = parentNode.clientWidth;
       this.svgHeight = parentNode.clientHeight;
     },
@@ -149,7 +148,6 @@ export default {
       })
     },
     timeRangeUpdated(params) {
-      console.log(params)
       d3.select(`#${this.cid} svg g`).remove();
       this.drawScatter(params);
     }
