@@ -46,11 +46,18 @@ export default {
       himarkmap: new CityMap(),
       imageExtent: [-120.0, 0, -119.711751, 0.238585], //[left, bottom, right, top]
       map: null, 
-      staticPointLayer: null, //静态传感器层
-      mobilePointLayer: null,
-      krigingLayer: null,
-      idwLayer: null,
-      heatmapLayer: null,
+      layers: {
+        staticPointLayer: null, //静态传感器层
+        mobilePointLayer: null,
+        krigingLayer: null,
+        idwLayer: null,
+        heatmapLayer: null,
+      },
+      dataCollection: {
+        mobileSensorReadings: null,
+        staticSensorReadings: null,
+      },
+      zoom: 1,
       checkList: null,
       checked1: false,
       checked2: false,
@@ -82,28 +89,27 @@ export default {
       }
       this.drawKrigingLayer();
       this.drawIdwLayer();
-      // this.drawPies();
-      
+
       if(this.checked1) {
         let interval1 = setInterval(() => {
-          if(this.krigingLayer != null) {
-            this.krigingLayer.setVisible(true);
+          if(this.layers.krigingLayer != null) {
+            this.layers.krigingLayer.setVisible(true);
             clearInterval(interval1);
           }
         }, 100)
       }
       if(this.checked2) {
         let interval2 = setInterval(() => {
-          if(this.idwLayer != null) {
-            this.idwLayer.setVisible(true);
+          if(this.layers.idwLayer != null) {
+            this.layers.idwLayer.setVisible(true);
             clearInterval(interval2);
           }
         }, 100)
       }
       if(this.checked3) {
         let interval3 = setInterval(() => {
-          if(this.heatmapLayer != null) {
-            this.heatmapLayer.setVisible(true);
+          if(this.layers.heatmapLayer != null) {
+            this.layers.heatmapLayer.setVisible(true);
             clearInterval(interval3);
           }
         }, 100)
@@ -134,10 +140,17 @@ export default {
           projection: this.getProjection(),
           center: getCenter(this.imageExtent),
           zoom: 1,
-          // minZoom: 1.2,
-          maxZoom: 5,
+          minZoom: 1,
+          maxZoom: 4,
         })
       });
+
+      let _this = this;
+
+      this.map.on("moveend",function(e){
+        _this.zoom = _this.map.getView().getZoom();  //获取当前地图的缩放级别
+        // console.log(zoom);
+      }); 
     },
     getProjection() {
       return new Projection({
@@ -148,7 +161,7 @@ export default {
     },
     drawStaticPointLayer() {
       let vectorSource = new VectorSource();
-      this.staticPointLayer = new VectorLayer({
+      this.layers.staticPointLayer = new VectorLayer({
         source: vectorSource,
       });
 
@@ -175,7 +188,7 @@ export default {
           }
         });
       })
-      this.map.addLayer(this.staticPointLayer);
+      this.map.addLayer(this.layers.staticPointLayer);
     },
     // 静态传感器插值层
     drawKrigingLayer() {
@@ -206,7 +219,7 @@ export default {
           let grid = kriging.grid(this.coords, letiogram, (this.imageExtent[2] - this.imageExtent[0]) / 75);
           
           //创建新图层
-          this.krigingLayer = new Image({
+          this.layers.krigingLayer = new Image({
             extent: this.imageExtent,
             source: new ImageCanvas({
               canvasFunction: (extent, resolution, pixelRatio, size, projection) => {
@@ -224,9 +237,9 @@ export default {
               // projection: this.getProjection()
             })
           });
-          this.krigingLayer.setOpacity(0.3);
-          this.map.addLayer(this.krigingLayer);
-          this.krigingLayer.setVisible(false);
+          this.layers.krigingLayer.setOpacity(0.3);
+          this.map.addLayer(this.layers.krigingLayer);
+          this.layers.krigingLayer.setVisible(false);
         })
         .catch((error) => {
           console.log(error);
@@ -234,13 +247,24 @@ export default {
     },
     drawIdwLayer() {
 
+      let _this = this;
+
       let colorScale = d3.scaleLinear().domain([20, 30, 50, 100]).range(["rgb(0,0,255)", "rgb(0,255,0)", "rgb(225,225,0)", "rgb(255,0,0)"])
+      if(this.dataCollection.mobileSensorReadings != null) {
+        render(this.dataCollection.mobileSensorReadings);
+      } else {
+        axios.post("/findMrrByTimeRange/", this.timeRange|| this.defaultTimeRange)
+        .then((response) => {
+          this.dataCollection.mobileSensorReadings = response.data;
+          render(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      }
 
-      axios.post("/findAggMrrByTimeRange/", this.timeRange|| this.defaultTimeRange)
-      .then((response) => {
-        let responseData = response.data;
-
-        let griddata = this.convertGridData(responseData);
+      function render(data) {
+        let griddata = _this.convertGridData(data);
         let aggGridData = griddata.map(d => {
           let value;
           if(d.list.length == 0) {
@@ -275,7 +299,7 @@ export default {
           }
         })
 
-        this.idwLayer = new VectorLayer({
+        _this.layers.idwLayer = new VectorLayer({
           source: new VectorSource({
             features: features
           }),
@@ -286,19 +310,16 @@ export default {
             })
           })
         })
-        this.idwLayer.setOpacity(0.3);
-        this.map.addLayer(this.idwLayer);
-        this.idwLayer.setVisible(false);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+        _this.layers.idwLayer.setOpacity(0.3);
+        _this.map.addLayer(_this.layers.idwLayer);
+        _this.layers.idwLayer.setVisible(false);
+      }
 
 
     },
     drawHeatmapLayer() {
       let vectorSource = new VectorSource();
-      this.heatmapLayer = new Heatmap({
+      this.layers.heatmapLayer = new Heatmap({
         source: vectorSource,
         radius: 1,
       });
@@ -322,16 +343,16 @@ export default {
             features.push(feature);
           })
           vectorSource.addFeatures(features);
-          this.heatmapLayer.setVisible(false);
-          this.map.addLayer(this.heatmapLayer)
+          this.layers.heatmapLayer.setVisible(false);
+          this.map.addLayer(this.layers.heatmapLayer)
         }))
     },
     drawMobilePointLayer() {
       let vectorSource = new VectorSource();
-      this.mobilePointLayer = new VectorLayer({
+      this.layers.mobilePointLayer = new VectorLayer({
         source: vectorSource,
       });
-      axios.post("/findAggMrrByTimeRange/", (this.timeRange || this.defaultTimeRange)).then((response) => {
+      axios.post("/findMrrByTimeRange/", (this.timeRange || this.defaultTimeRange)).then((response) => {
         let pointData = response.data;
         pointData.forEach(point => {
           let feature = new Feature({
@@ -345,55 +366,62 @@ export default {
           }));
           vectorSource.addFeature(feature);
         })
-        this.map.addLayer(this.mobilePointLayer);
+        this.map.addLayer(this.layers.mobilePointLayer);
       })
     },
     drawPies() {
-      axios.post("/findMrrByTimeRange/", this.timeRange || this.defaultTimeRange)
+      let _this = this;
+
+      if(this.dataCollection.mobileSensorReadings != null) {
+        render(this.dataCollection.mobileSensorReadings);
+      } else {
+        axios.post("/findMrrByTimeRange/", this.timeRange || this.defaultTimeRange)
         .then((response) => {
-          let responseData = response.data;
-          
-          let griddata = this.convertGridData(responseData);
-          
-          griddata.forEach(d => {
-            if(d.list.length != 0) {
-              let level_1 = d.list.filter(v => v<=15).length;
-              let level_2 = d.list.filter(v => v>15 && v<=40).length;
-              let level_3 = d.list.filter(v => v>40 && v<=60).length;
-              let level_4 = d.list.filter(v => v>60 && v<=100).length;
-              let level_5 = d.list.filter(v => v>100).length;
-
-              let domid = `${d.i}_${d.j}`;
-              
-              this.drawPie(domid, [level_1, level_2, level_3, level_4, level_5]);
-              
-              let overlay = new Overlay({
-                id: domid,
-                element: document.getElementById(domid),
-                position: [d.lngEx[0], d.latEx[1]],
-                // positioning: "bottom-center", //统计图和渲染点位的位置关系
-                // offset: [0, 18],//如果统计图相对于点位又偏移，可以通过此属性将统计图移回来
-                stopEvent: false  //overlay也支持滚珠放大缩小
-              });
-              this.map.addOverlay(overlay);
-
-            }
-          })
-          
-          // this.map.addLayer(this.idwLayer)
+          this.dataCollection.mobileSensorReadings = response.data;
+          render(response.data);
         })
         .catch((error) => {
           console.log(error);
         });
+      }
+
+      function render(data) {
+        let griddata = _this.convertGridData(data);
+          
+        griddata.forEach(d => {
+          if(d.list.length != 0) {
+            let level_1 = d.list.filter(v => v<=15).length;
+            let level_2 = d.list.filter(v => v>15 && v<=40).length;
+            let level_3 = d.list.filter(v => v>40 && v<=60).length;
+            let level_4 = d.list.filter(v => v>60 && v<=100).length;
+            let level_5 = d.list.filter(v => v>100).length;
+
+            let domid = `${d.i}_${d.j}`;
+            
+            _this.drawPie(domid, [level_1, level_2, level_3, level_4, level_5]);
+            
+            let overlay = new Overlay({
+              id: domid,
+              element: document.getElementById(domid),
+              position: [d.lngEx[0], d.latEx[1]],
+              // positioning: "bottom-center", //统计图和渲染点位的位置关系
+              // offset: [0, 18],//如果统计图相对于点位又偏移，可以通过此属性将统计图移回来
+              stopEvent: false  //overlay也支持滚珠放大缩小
+            });
+            _this.map.addOverlay(overlay);
+
+          }
+        })
+      }
     },
     drawPie(domid, data) {
       var colors = d3.scaleOrdinal(d3.schemeCategory10); //maps integers to colors
       // var data = [1, 1, 2, 3, 5, 8, 13, 21]; //data we want to turn into a pie chart
       var pies = d3.pie()(data); // turns into data for pie chart with start and end angles
-      
+      let radius = 8 * this.zoom;
       var arc = d3.arc()
                   .innerRadius(0) //means full circle. if not 0, would be donut
-                  .outerRadius(8) //size of circle
+                  .outerRadius(radius) //size of circle
                   .startAngle(d =>d.startAngle) //how does it get d???
                   .endAngle(d=> d.endAngle);
 
@@ -402,7 +430,7 @@ export default {
                   .append('svg')
                   .attr("id", domid)
                   .append('g')
-                  .attr('transform', 'translate(8,8)');
+                  .attr('transform', `translate(${radius},${radius})`);
       
       svg.selectAll('path')
         .data(pies).enter().append('path')
@@ -475,14 +503,26 @@ export default {
     color() {
       return d3.scaleLinear().domain([20, 30, 50, 100]).range(["rgb(0,0,255)", "rgb(0,255,0)", "rgb(225,225,0)", "rgb(255,0,0)"]);
     },
+    clearDataCollection() {
+      this.dataCollection.mobileSensorReadings = null;
+      this.dataCollection.staticSensorReadings = null;
+    },
+    clearLayers() {
+      this.map.removeLayer(this.layers.krigingLayer);
+      this.map.removeLayer(this.layers.idwLayer);
+      this.map.removeLayer(this.layers.heatmapLayer);
+      this.layers.krigingLayer = null;
+      this.layers.idwLayer = null;
+      this.layers.heatmapLayer  = null;
+    },
     krigingLayerUpdate() {
-      this.krigingLayer.setVisible(this.checked1);
+      this.layers.krigingLayer.setVisible(this.checked1);
     },
     idwLayerUpdate() {
-      this.idwLayer.setVisible(this.checked2);
+      this.layers.idwLayer.setVisible(this.checked2);
     },
     heatmapLayerUpdate() {
-      this.heatmapLayer.setVisible(this.checked3);
+      this.layers.heatmapLayer.setVisible(this.checked3);
     },
     piesUpdate() {
       if(this.checked4) {
@@ -496,36 +536,32 @@ export default {
       if(params == null) {
         return;
       }
-      this.map.removeLayer(this.krigingLayer);
-      this.map.removeLayer(this.idwLayer);
-      this.map.removeLayer(this.heatmapLayer);
+      this.clearDataCollection();
+      this.clearLayers();
       this.clearPies();
-      this.krigingLayer = null;
-      this.idwLayer = null;
-      this.heatmapLayer  = null;
       this.drawKrigingLayer()
       this.drawIdwLayer();
       this.drawHeatmapLayer();
       if(this.checked1) {
         let interval1 = setInterval(() => {
-          if(this.krigingLayer != null) {
-            this.krigingLayer.setVisible(true);
+          if(this.layers.krigingLayer != null) {
+            this.layers.krigingLayer.setVisible(true);
             clearInterval(interval1);
           }
         }, 100)
       }
       if(this.checked2) {
         let interval2 = setInterval(() => {
-          if(this.idwLayer != null) {
-            this.idwLayer.setVisible(true);
+          if(this.layers.idwLayer != null) {
+            this.layers.idwLayer.setVisible(true);
             clearInterval(interval2);
           }
         }, 100)
       }
       if(this.checked3) {
         let interval3 = setInterval(() => {
-          if(this.heatmapLayer != null) {
-            this.heatmapLayer.setVisible(true);
+          if(this.layers.heatmapLayer != null) {
+            this.layers.heatmapLayer.setVisible(true);
             clearInterval(interval3);
           }
         }, 100)
@@ -540,6 +576,14 @@ export default {
     getAggSrrByTimeRange(params) {
       return axios.post('/findAggSrrByTimeRange/', params);
     },
+  },
+  watch: {
+    zoom(newValue, oldValue) {
+      if(this.checked4) {
+        this.clearPies();
+        this.drawPies();
+      }
+    }
   },
   computed: {
     coords: function() {
