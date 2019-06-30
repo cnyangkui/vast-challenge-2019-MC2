@@ -1,17 +1,29 @@
 <template>
   <div id="openlayers_container">
     <div class="sidepanel">
-      <el-checkbox v-model="checked1" @change="krigingLayerUpdate" size="mini">Static</el-checkbox>
-            <el-checkbox v-model="checked2" @change="idwLayerUpdate" size="mini">Mobile</el-checkbox>
-            <el-checkbox v-model="checked3" @change="heatmapLayerUpdate" size="mini">Heatmap</el-checkbox>
-            <el-checkbox v-model="checked4" @change="piesUpdate" size="mini">Pies</el-checkbox>
-      <!-- <div class="nav">
-        <a class="nav-link active" href="#">Active</a>
-        <a class="nav-link" href="#">Link</a>
-        <a class="nav-link" href="#">Link</a>
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-      </div> -->
-        
+      <div class="nav">
+        <div class="nav-select">
+            <el-select v-model="currentSelectValue" placeholder="请选择" size="mini" style="width: 110px;" @change="selectChanged">
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+        </div>
+        <div class="nav-checkbox-group" v-if="currentSelectValue=='radiation'">
+          <el-checkbox v-model="r_si_check" @change="krigingLayerUpdate" size="mini">SS Interpolation</el-checkbox>
+          <el-checkbox v-model="r_mi_check" @change="idwLayerUpdate" size="mini">MS Interpolation</el-checkbox>
+        </div>
+        <div class="nav-checkbox-group" v-else-if="currentSelectValue=='uncertainty'">
+          <el-checkbox v-model="u_mi_check" @change="uncertaintyIdwLayerUpdate" size="mini">MS Interpolation</el-checkbox>
+          <el-checkbox v-model="u_pie_check" @change="piesUpdate" size="mini">Pies</el-checkbox>
+        </div>
+        <div class="nav-checkbox-group" v-else-if="currentSelectValue=='track'">
+          <el-checkbox v-model="t_heatmap_check" @change="heatmapLayerUpdate" size="mini">Heatmap</el-checkbox>
+        </div>
+      </div> 
     </div>
     <div id="himarkmap"></div>
   </div>
@@ -43,6 +55,17 @@ export default {
   name: 'Openlayers',
   data() {
     return {
+      options: [{
+        value: 'radiation',
+        label: 'radiation'
+      }, {
+        value: 'uncertainty',
+        label: 'uncertainty'
+      }, {
+        value: 'track',
+        label: 'track'
+      }],
+      currentSelectValue: 'radiation',
       himarkmap: new CityMap(),
       imageExtent: [-120.0, 0, -119.711751, 0.238585], //[left, bottom, right, top]
       map: null, 
@@ -52,29 +75,33 @@ export default {
         krigingLayer: null,
         idwLayer: null,
         heatmapLayer: null,
+        idwUncertaintyLayer: null,
       },
       dataCollection: {
         mobileSensorReadings: null,
         staticSensorReadings: null,
       },
-      zoom: 1,
-      checkList: null,
-      checked1: false,
-      checked2: false,
-      checked3: false,
-      checked4: false,
+      zoom: 2,
+      sid: null,
+      r_si_check: false,
+      r_mi_check: false,
+      t_heatmap_check: false,
+      u_pie_check: false,
+      u_mi_check: false,
       timeRange: null,
-      defaultTimeRange: null,//{begintime: '2020-04-06 06:00:00', endtime: '2020-04-06 07:00:00'}
+      defaultTimeRange: {begintime: '2020-04-06 00:00:00', endtime: '2020-04-11 00:00:00'}
     }
   },
   created: function () {
       this.$root.eventHub.$on('timeRangeUpdated', this.timeRangeUpdated);
-  },
+      this.$root.eventHub.$on('sensorSelected', this.sensorSelected);
+   },
    // 最好在组件销毁前
    // 清除事件监听
-  beforeDestroy: function () {
+   beforeDestroy: function () {
       this.$root.eventHub.$off('timeRangeUpdated', this.timeRangeUpdated);
-  },
+      this.$root.eventHub.$off('sensorSelected', this.sensorSelected);
+   },
   mounted() {
     this.$nextTick(() => {
       this.loadMap();
@@ -84,36 +111,13 @@ export default {
     loadMap() {
       this.initMap();
       this.drawStaticPointLayer(); //添加静态传感器
-      if(this.timeRange == null) {
-        return;
-      }
-      this.drawKrigingLayer();
-      this.drawIdwLayer();
-
-      if(this.checked1) {
-        let interval1 = setInterval(() => {
-          if(this.layers.krigingLayer != null) {
-            this.layers.krigingLayer.setVisible(true);
-            clearInterval(interval1);
-          }
-        }, 100)
-      }
-      if(this.checked2) {
-        let interval2 = setInterval(() => {
-          if(this.layers.idwLayer != null) {
-            this.layers.idwLayer.setVisible(true);
-            clearInterval(interval2);
-          }
-        }, 100)
-      }
-      if(this.checked3) {
-        let interval3 = setInterval(() => {
-          if(this.layers.heatmapLayer != null) {
-            this.layers.heatmapLayer.setVisible(true);
-            clearInterval(interval3);
-          }
-        }, 100)
-      }
+      // this.drawKrigingLayer()
+      // this.drawIdwLayer();
+      // this.drawHeatmapLayer();
+      // this.drawIdwUncertaintyLayer();
+      // if(this.u_pie_check) {
+      //   this.drawPies();
+      // }
     },
     selfAdaptionSize() {
       let width = document.querySelector("#openlayers_container").clientWidth;
@@ -139,8 +143,8 @@ export default {
         view: new View({
           projection: this.getProjection(),
           center: getCenter(this.imageExtent),
-          zoom: 1,
-          minZoom: 1,
+          zoom: 2,
+          minZoom: 2,
           maxZoom: 4,
         })
       });
@@ -239,7 +243,7 @@ export default {
           });
           this.layers.krigingLayer.setOpacity(0.3);
           this.map.addLayer(this.layers.krigingLayer);
-          this.layers.krigingLayer.setVisible(false);
+          this.layers.krigingLayer.setVisible(this.r_si_check);
         })
         .catch((error) => {
           console.log(error);
@@ -253,14 +257,22 @@ export default {
       if(this.dataCollection.mobileSensorReadings != null) {
         render(this.dataCollection.mobileSensorReadings);
       } else {
-        axios.post("/findMrrByTimeRange/", this.timeRange|| this.defaultTimeRange)
-        .then((response) => {
-          this.dataCollection.mobileSensorReadings = response.data;
-          render(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+        let url;
+        let params = this.timeRange || this.defaultTimeRange;
+        if(this.sid == null) {
+          url = "/findMrrByTimeRange/";
+        } else {
+          url = "/findMrrByTimeRangeAndSid/"
+          params = Object.assign({}, params, this.sid)
+        } 
+        axios.post(url, params)
+          .then((response) => {
+            this.dataCollection.mobileSensorReadings = response.data;
+            render(response.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       }
 
       function render(data) {
@@ -278,8 +290,15 @@ export default {
         let idwdata = idw(aggGridData);
 
         let features = [];
+
+        let usedData;
+        if(_this.sid == null) {
+          usedData = idwdata;
+        } else {
+          usedData = aggGridData;
+        }
         
-        idwdata.forEach(d => {
+        usedData.forEach(d => {
           if(d.value != null) {
             let polygon = new Polygon([[[d.lngEx[0], d.latEx[0]], [d.lngEx[0], d.latEx[1]], [d.lngEx[1], d.latEx[1]], [d.lngEx[1], d.latEx[0]], [d.lngEx[0], d.latEx[0]]]]);
             let polygonFeature = new Feature(polygon);
@@ -312,7 +331,87 @@ export default {
         })
         _this.layers.idwLayer.setOpacity(0.3);
         _this.map.addLayer(_this.layers.idwLayer);
-        _this.layers.idwLayer.setVisible(false);
+        _this.layers.idwLayer.setVisible(_this.r_mi_check);
+      }
+
+
+    },
+    drawIdwUncertaintyLayer() {
+      let _this = this;
+
+      let colorScale = d3.scaleLinear().domain([20, 50, 100, 500]).range(["rgb(0,0,255)", "rgb(0,255,0)", "rgb(225,225,0)", "rgb(255,0,0)"])
+      if(this.dataCollection.mobileSensorReadings != null) {
+        render(this.dataCollection.mobileSensorReadings);
+      } else {
+        axios.post("/findMrrByTimeRange/", this.timeRange|| this.defaultTimeRange)
+        .then((response) => {
+          this.dataCollection.mobileSensorReadings = response.data;
+          render(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      }
+
+      function render(data) {
+        let griddata = _this.convertGridData(data);
+        let aggGridData = griddata.map(d => {
+          let value;
+          if(d.list.length == 0) {
+            value = null;
+          } else {
+            value = d3.variance(d.list);
+          }
+          return Object.assign({}, d, {value:value})
+        })
+
+        // console.log(aggGridData.map(d => d.value))
+
+        let idwdata = idw(aggGridData);
+
+        let features = [];
+
+        let usedData;
+        if(_this.sid != null) {
+          usedData = idwdata;
+        } else {
+          usedData = aggGridData;
+        }
+        
+        usedData.forEach(d => {
+          if(d.value != null) {
+            let polygon = new Polygon([[[d.lngEx[0], d.latEx[0]], [d.lngEx[0], d.latEx[1]], [d.lngEx[1], d.latEx[1]], [d.lngEx[1], d.latEx[0]], [d.lngEx[0], d.latEx[0]]]]);
+            let polygonFeature = new Feature(polygon);
+            let style = new Style({
+              fill: new Fill({
+                color: colorScale(d.value),//[0, 0, 255, 0.6]
+              })
+            })
+            if(d.list.length != 0) {
+              style.stroke_ = new Stroke({
+                color: 'white',
+                width: 2
+              })
+            }
+            polygonFeature.setStyle(style);
+            features.push(polygonFeature)
+          }
+        })
+
+        _this.layers.idwUncertaintyLayer = new VectorLayer({
+          source: new VectorSource({
+            features: features
+          }),
+          style: new Style({
+            stroke: new Stroke({
+              width: 1,
+              color: "red"
+            })
+          })
+        })
+        _this.layers.idwUncertaintyLayer.setOpacity(0.3);
+        _this.map.addLayer(_this.layers.idwUncertaintyLayer);
+        _this.layers.idwUncertaintyLayer.setVisible(_this.u_mi_check);
       }
 
 
@@ -343,7 +442,7 @@ export default {
             features.push(feature);
           })
           vectorSource.addFeatures(features);
-          this.layers.heatmapLayer.setVisible(false);
+          this.layers.heatmapLayer.setVisible(this.t_heatmap_check);
           this.map.addLayer(this.layers.heatmapLayer)
         }))
     },
@@ -390,15 +489,16 @@ export default {
           
         griddata.forEach(d => {
           if(d.list.length != 0) {
-            let level_1 = d.list.filter(v => v<=15).length;
-            let level_2 = d.list.filter(v => v>15 && v<=40).length;
-            let level_3 = d.list.filter(v => v>40 && v<=60).length;
-            let level_4 = d.list.filter(v => v>60 && v<=100).length;
-            let level_5 = d.list.filter(v => v>100).length;
+            let level_1 = d.list.filter(v => v<=8).length;
+            let level_2 = d.list.filter(v => v>8 && v<=25).length;
+            let level_3 = d.list.filter(v => v>25 && v<=60).length;
+            let level_4 = d.list.filter(v => v>60 && v<=500).length;
+            let level_5 = d.list.filter(v => v>500 && v<=1600).length;
+            let level_6 = d.list.filter(v => v>1600).length;
 
             let domid = `${d.i}_${d.j}`;
             
-            _this.drawPie(domid, [level_1, level_2, level_3, level_4, level_5]);
+            _this.drawPie(domid, [level_1, level_2, level_3, level_4, level_5, level_6]);
             
             let overlay = new Overlay({
               id: domid,
@@ -511,25 +611,33 @@ export default {
       this.map.removeLayer(this.layers.krigingLayer);
       this.map.removeLayer(this.layers.idwLayer);
       this.map.removeLayer(this.layers.heatmapLayer);
+      this.map.removeLayer(this.layers.idwUncertaintyLayer);
       this.layers.krigingLayer = null;
       this.layers.idwLayer = null;
       this.layers.heatmapLayer  = null;
+      this.layers.idwUncertaintyLayer = null;
     },
     krigingLayerUpdate() {
-      this.layers.krigingLayer.setVisible(this.checked1);
+      this.layers.krigingLayer.setVisible(this.r_si_check);
     },
     idwLayerUpdate() {
-      this.layers.idwLayer.setVisible(this.checked2);
+      this.layers.idwLayer.setVisible(this.r_mi_check);
     },
     heatmapLayerUpdate() {
-      this.layers.heatmapLayer.setVisible(this.checked3);
+      this.layers.heatmapLayer.setVisible(this.t_heatmap_check);
+    },
+    uncertaintyIdwLayerUpdate() {
+      this.layers.idwUncertaintyLayer.setVisible(this.u_mi_check);
     },
     piesUpdate() {
-      if(this.checked4) {
+      if(this.u_pie_check) {
         this.drawPies();
       } else {
         this.clearPies();
       }
+    },
+    selectChanged(value) {
+      this.currentSelectValue = value;
     },
     timeRangeUpdated(params) {
       this.timeRange = params;
@@ -542,31 +650,8 @@ export default {
       this.drawKrigingLayer()
       this.drawIdwLayer();
       this.drawHeatmapLayer();
-      if(this.checked1) {
-        let interval1 = setInterval(() => {
-          if(this.layers.krigingLayer != null) {
-            this.layers.krigingLayer.setVisible(true);
-            clearInterval(interval1);
-          }
-        }, 100)
-      }
-      if(this.checked2) {
-        let interval2 = setInterval(() => {
-          if(this.layers.idwLayer != null) {
-            this.layers.idwLayer.setVisible(true);
-            clearInterval(interval2);
-          }
-        }, 100)
-      }
-      if(this.checked3) {
-        let interval3 = setInterval(() => {
-          if(this.layers.heatmapLayer != null) {
-            this.layers.heatmapLayer.setVisible(true);
-            clearInterval(interval3);
-          }
-        }, 100)
-      }
-      if(this.checked4) {
+      this.drawIdwUncertaintyLayer();
+      if(this.u_pie_check) {
         this.drawPies();
       }
     },
@@ -576,10 +661,24 @@ export default {
     getAggSrrByTimeRange(params) {
       return axios.post('/findAggSrrByTimeRange/', params);
     },
+    sensorSelected(params) {
+      this.sid = params;
+      console.log(params)
+      this.clearDataCollection();
+      this.clearLayers();
+      this.clearPies();
+      this.drawKrigingLayer()
+      this.drawIdwLayer();
+      this.drawHeatmapLayer();
+      this.drawIdwUncertaintyLayer();
+      if(this.u_pie_check) {
+        this.drawPies();
+      }
+    }
   },
   watch: {
     zoom(newValue, oldValue) {
-      if(this.checked4) {
+      if(this.u_pie_check) {
         this.clearPies();
         this.drawPies();
       }
@@ -594,18 +693,47 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
+<style scoped>
 #openlayers_container {
   height: 100%;
 }
-.sidepanel {
+#openlayers_container .sidepanel {
   width: 100%;
-  height: 5%;
+  height: 8%;
+  background-color: #ccc;
+  opacity: 0.8;
   /* position: absolute; */
+}
+#openlayers_container .nav {
+  height: 100%;
+  position: relative;
+}
+#openlayers_container .nav-select {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+}
+#openlayers_container .nav-checkbox-group {
+  position: absolute;
+  top: 50%;
+  left: 180px;
+}
+#openlayers_container .el-select {
+  top: -14px;
+}
+#openlayers_container .el-checkbox {
+  top: -9px;
+}
+#openlayers_container  >>> span {
+  font-size: 12px;
+}
+.el-select-dropdown__item >>> span {
+  font-size: 12px;
 }
 #himarkmap {
   width: 100%;
-  height: 500px;
+  height: 90%;
+  margin-top: 5px;
   /* position: absolute;
   top: 10%; */
 }

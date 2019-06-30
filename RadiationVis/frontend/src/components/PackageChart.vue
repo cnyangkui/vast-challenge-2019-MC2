@@ -21,8 +21,17 @@ export default {
         begintime: '2020-04-06 00:00:00',
         endtime: '2020-04-11 00:00:00'
       },
+      sidList: [],
     }
   },
+  created: function () {
+      this.$root.eventHub.$on('timeRangeUpdated', this.timeRangeUpdated);
+   },
+   // 最好在组件销毁前
+   // 清除事件监听
+   beforeDestroy: function () {
+      this.$root.eventHub.$off('timeRangeUpdated', this.timeRangeUpdated);
+   },
   mounted() {
     this.$nextTick(() => {
       this.loadChart();
@@ -48,7 +57,7 @@ export default {
     drawChart() {
       let margin = 5;
 
-      let diameter = d3.min([this.svgWidth, this.svgHeight]) / 2;
+      let diameter = d3.min([this.svgWidth, this.svgHeight]) ;
 
       let g = this.svg.append("g").attr("transform", "translate(" + (this.svgWidth/2) + "," + (this.svgHeight/2) + ")");
 
@@ -85,7 +94,24 @@ export default {
                 return d.data.name.startsWith('m') ? 'steelblue': 'orange';
               } 
             })
-            .on("dblclick", function(d) { if (focus !== d) zoom(d), d3.event.stopPropagation(); });
+            .style("cursor", "pointer")
+            .on("dblclick", function(d) { if (focus !== d) zoom(d), d3.event.stopPropagation(); })
+            .on("click", (d, i) => {
+              let category = null;
+              let sid = null;
+              if(d.data.name.startsWith("m")) {
+                category = "mobile";
+              } else {
+                category = "static";
+              }
+              sid = parseInt(d.data.name.substring(1, d.data.name.length));
+              // if(this.sidList.length > 3) {
+              //   this.sidList = [];
+              //   alert("最多三个...")
+              // }
+              this.sidList.push({category: category, sid: sid});
+              this.$root.eventHub.$emit("sensorSelected", {category: category, sid: sid});
+            });
 
         var text = g.selectAll("text")
           .data(nodes)
@@ -99,7 +125,24 @@ export default {
               if(!d.children){
                 return d.data.name.substring(1, d.data.name.length);
               }
-             });
+             })
+             .style("cursor", "pointer")
+             .on("click", (d, i) => {
+              let category = null;
+              let sid = null;
+              if(d.data.name.startsWith("m")) {
+                category = "mobile";
+              } else {
+                category = "static";
+              }
+              sid = parseInt(d.data.name.substring(1, d.data.name.length));
+              // if(this.sidList.length > 3) {
+              //   this.sidList = [];
+              //   alert("最多三个...")
+              // }
+              this.sidList.push({category: category, sid: sid});
+              this.$root.eventHub.$emit("sensorSelected", {category: category, sid: sid});
+            });
 
         var node = g.selectAll("circle,text");
 
@@ -131,6 +174,12 @@ export default {
           circle.attr("r", function(d) { return d.r * k; });
         }
       });
+    },
+    timeRangeUpdated(params) {
+      console.log("Treemap updated")
+      this.timeRange = params;
+      d3.select(`#${this.cid} svg`).selectAll('g').remove();
+      this.drawChart();
     }
   }
 }

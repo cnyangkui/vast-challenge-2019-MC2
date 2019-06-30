@@ -52,6 +52,20 @@ def findMrrByTimeRange(request):
 		data = [dict(zip([col[0] for col in desc], row)) for row in alldata]
 		return HttpResponse(json.dumps(data), content_type='application/json')
 
+def findMrrByTimeRangeAndSid(request):
+	if request.method == 'POST':
+		params = json.loads(request.body)
+		cursor = connection.cursor()
+
+		logger.info(type(params['sid']))
+		
+		# Data retrieval operation - no commit required
+		cursor.execute("select longitude, latitude, value from mobilesensorreadings where timestamp > '{0}'  and timestamp < '{1}' and sid = {2}".format(params['begintime'], params['endtime'], params['sid']))
+		desc = cursor.description
+		alldata = cursor.fetchall()
+		data = [dict(zip([col[0] for col in desc], row)) for row in alldata]
+		return HttpResponse(json.dumps(data), content_type='application/json')
+
 def findAggSrrByTimeRange(request):
 	if request.method == 'POST':
 		params = json.loads(request.body)
