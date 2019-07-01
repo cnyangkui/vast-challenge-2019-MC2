@@ -285,3 +285,980 @@ ValueError: Input contains NaN, infinity or a value too large for dtype('float64
 [2019-06-30 12:47:52,699][Thread-7:18048][task_id:backend.views][views.py:60][INFO][<class 'int'>]
 [2019-06-30 12:47:57,960][Thread-10:15924][task_id:backend.views][views.py:60][INFO][<class 'int'>]
 [2019-06-30 12:48:03,174][Thread-11:15564][task_id:backend.views][views.py:60][INFO][<class 'int'>]
+[2019-06-30 15:34:52,419][Thread-16:4280][task_id:backend.views][views.py:60][INFO][<class 'int'>]
+[2019-06-30 15:34:56,425][Thread-18:19728][task_id:backend.views][views.py:60][INFO][<class 'int'>]
+[2019-06-30 15:35:14,177][Thread-14:8556][task_id:backend.views][views.py:60][INFO][<class 'int'>]
+[2019-06-30 15:37:07,606][Thread-24:15392][task_id:backend.views][views.py:60][INFO][<class 'int'>]
+[2019-06-30 15:37:09,415][Thread-29:2836][task_id:backend.views][views.py:60][INFO][<class 'int'>]
+[2019-06-30 15:37:13,226][Thread-28:10820][task_id:backend.views][views.py:60][INFO][<class 'int'>]
+[2019-06-30 15:37:18,228][Thread-24:15392][task_id:backend.views][views.py:60][INFO][<class 'int'>]
+[2019-06-30 15:37:20,519][Thread-25:15564][task_id:backend.views][views.py:60][INFO][<class 'int'>]
+[2019-06-30 15:38:52,441][Thread-24:15392][task_id:backend.views][views.py:60][INFO][<class 'int'>]
+[2019-06-30 15:38:54,432][Thread-29:2836][task_id:backend.views][views.py:60][INFO][<class 'int'>]
+[2019-06-30 15:38:56,926][Thread-27:17736][task_id:backend.views][views.py:60][INFO][<class 'int'>]
+[2019-06-30 15:46:26,579][Thread-29:2836][task_id:backend.views][views.py:60][INFO][<class 'int'>]
+[2019-06-30 15:46:29,387][Thread-30:14892][task_id:backend.views][views.py:60][INFO][<class 'int'>]
+[2019-06-30 15:46:30,828][Thread-28:10820][task_id:backend.views][views.py:60][INFO][<class 'int'>]
+[2019-06-30 15:46:45,259][Thread-28:10820][task_id:backend.views][views.py:60][INFO][<class 'int'>]
+[2019-06-30 15:46:55,883][Thread-29:2836][task_id:backend.views][views.py:60][INFO][<class 'int'>]
+[2019-06-30 15:46:56,935][Thread-27:17736][task_id:backend.views][views.py:60][INFO][<class 'int'>]
+[2019-06-30 15:48:17,721][Thread-30:14892][task_id:backend.views][views.py:60][INFO][<class 'int'>]
+[2019-06-30 15:48:19,848][Thread-27:17736][task_id:backend.views][views.py:60][INFO][<class 'int'>]
+[2019-06-30 15:49:26,936][Thread-27:17736][task_id:backend.views][views.py:60][INFO][<class 'int'>]
+[2019-06-30 15:51:02,144][Thread-28:10820][task_id:backend.views][views.py:60][INFO][<class 'int'>]
+[2019-06-30 15:51:05,721][Thread-27:17736][task_id:backend.views][views.py:60][INFO][<class 'int'>]
+[2019-06-30 15:51:55,298][Thread-27:17736][task_id:backend.views][views.py:60][INFO][<class 'int'>]
+[2019-06-30 15:52:26,287][Thread-30:14892][task_id:backend.views][views.py:60][INFO][<class 'int'>]
+[2019-06-30 15:52:28,124][Thread-29:2836][task_id:backend.views][views.py:60][INFO][<class 'int'>]
+[2019-06-30 15:52:31,177][Thread-30:14892][task_id:backend.views][views.py:60][INFO][<class 'int'>]
+[2019-06-30 15:56:57,747][Thread-24:15392][task_id:backend.views][views.py:60][INFO][<class 'int'>]
+[2019-06-30 15:57:00,741][Thread-27:17736][task_id:backend.views][views.py:60][INFO][<class 'int'>]
+[2019-06-30 15:57:55,403][Thread-25:15564][task_id:backend.views][views.py:60][INFO][<class 'int'>]
+[2019-06-30 15:57:58,133][Thread-28:10820][task_id:backend.views][views.py:60][INFO][<class 'int'>]
+[2019-06-30 15:58:03,930][Thread-27:17736][task_id:backend.views][views.py:60][INFO][<class 'int'>]
+[2019-06-30 15:58:11,132][Thread-31:984][task_id:backend.views][views.py:60][INFO][<class 'int'>]
+[2019-06-30 16:17:38,009][Thread-35:14980][task_id:backend.views][views.py:60][INFO][<class 'int'>]
+[2019-06-30 16:17:53,005][Thread-34:7316][task_id:backend.views][views.py:60][INFO][<class 'int'>]
+[2019-06-30 16:18:16,729][Thread-38:10424][task_id:backend.views][views.py:60][INFO][<class 'int'>]
+[2019-06-30 16:19:35,358][Thread-35:14980][task_id:backend.views][views.py:60][INFO][<class 'int'>]
+[2019-06-30 16:48:13,342][MainThread:11436][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-06-30 16:48:19,870][MainThread:7068][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-30 16:48:42,937][MainThread:7068][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\RadiationVis\urls.py changed, reloading.]
+[2019-06-30 16:48:44,516][MainThread:8872][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-30 16:49:01,818][MainThread:8872][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\RadiationVis\urls.py changed, reloading.]
+[2019-06-30 16:49:03,334][MainThread:9264][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-30 16:53:48,155][Thread-17:11084][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findSrrByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 82, in _execute
+    return self.cursor.execute(sql)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\mysql\base.py", line 71, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 255, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\connections.py", line 50, in defaulterrorhandler
+    raise errorvalue
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 252, in execute
+    res = self._query(query)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 378, in _query
+    db.query(q)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+_mysql_exceptions.OperationalError: (1054, "Unknown column 'longitude' in 'field list'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 87, in findSrrByTimeRange
+    cursor.execute("select longitude, latitude, value from staticsensorreadings where timestamp > '{0}'  and timestamp < '{1}'".format(params['begintime'], params['endtime']))
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 99, in execute
+    return super().execute(sql, params)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 67, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 76, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\utils.py", line 89, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 82, in _execute
+    return self.cursor.execute(sql)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\mysql\base.py", line 71, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 255, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\connections.py", line 50, in defaulterrorhandler
+    raise errorvalue
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 252, in execute
+    res = self._query(query)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 378, in _query
+    db.query(q)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+django.db.utils.OperationalError: (1054, "Unknown column 'longitude' in 'field list'")
+[2019-06-30 16:54:16,688][Thread-17:11084][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findSrrByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 82, in _execute
+    return self.cursor.execute(sql)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\mysql\base.py", line 71, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 255, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\connections.py", line 50, in defaulterrorhandler
+    raise errorvalue
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 252, in execute
+    res = self._query(query)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 378, in _query
+    db.query(q)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+_mysql_exceptions.OperationalError: (1054, "Unknown column 'longitude' in 'field list'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 87, in findSrrByTimeRange
+    cursor.execute("select longitude, latitude, value from staticsensorreadings where timestamp > '{0}'  and timestamp < '{1}'".format(params['begintime'], params['endtime']))
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 99, in execute
+    return super().execute(sql, params)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 67, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 76, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\utils.py", line 89, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 82, in _execute
+    return self.cursor.execute(sql)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\mysql\base.py", line 71, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 255, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\connections.py", line 50, in defaulterrorhandler
+    raise errorvalue
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 252, in execute
+    res = self._query(query)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 378, in _query
+    db.query(q)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+django.db.utils.OperationalError: (1054, "Unknown column 'longitude' in 'field list'")
+[2019-06-30 16:56:27,210][MainThread:9264][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-06-30 16:56:32,026][MainThread:14908][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-06-30 17:13:01,762][Thread-9:20036][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 102, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 220, in calCluster
+    [a, b] = mn.shape
+ValueError: not enough values to unpack (expected 2, got 1)
+[2019-06-30 17:16:23,114][Thread-9:20036][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 102, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 220, in calCluster
+    [a, b] = mn.shape
+ValueError: not enough values to unpack (expected 2, got 1)
+[2019-06-30 17:27:34,980][Thread-17:15984][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 101, in calSensorClusters
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-30 17:27:39,120][Thread-18:12796][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 102, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 220, in calCluster
+    [a, b] = mn.shape
+ValueError: not enough values to unpack (expected 2, got 1)
+[2019-06-30 17:27:52,286][Thread-14:7712][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 101, in calSensorClusters
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-30 17:42:23,532][Thread-25:4528][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 102, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 233, in calCluster
+    cluster = Cluster_DBSCAN(result)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 129, in Cluster_DBSCAN
+    cluster_res = DBSCAN(eps=0.05, min_samples=3).fit_predict(result)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\cluster\dbscan_.py", line 383, in fit_predict
+    self.fit(X, sample_weight=sample_weight)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\cluster\dbscan_.py", line 349, in fit
+    X = check_array(X, accept_sparse='csr')
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 542, in check_array
+    allow_nan=force_all_finite == 'allow-nan')
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 56, in _assert_all_finite
+    raise ValueError(msg_err.format(type_err, X.dtype))
+ValueError: Input contains NaN, infinity or a value too large for dtype('float64').
+[2019-06-30 18:00:06,259][Thread-37:7584][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 102, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 233, in calCluster
+    cluster = Cluster_DBSCAN(result)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 129, in Cluster_DBSCAN
+    cluster_res = DBSCAN(eps=0.05, min_samples=3).fit_predict(result)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\cluster\dbscan_.py", line 383, in fit_predict
+    self.fit(X, sample_weight=sample_weight)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\cluster\dbscan_.py", line 349, in fit
+    X = check_array(X, accept_sparse='csr')
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 542, in check_array
+    allow_nan=force_all_finite == 'allow-nan')
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 56, in _assert_all_finite
+    raise ValueError(msg_err.format(type_err, X.dtype))
+ValueError: Input contains NaN, infinity or a value too large for dtype('float64').
+[2019-06-30 18:00:06,282][Thread-36:19804][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 102, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 233, in calCluster
+    cluster = Cluster_DBSCAN(result)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 129, in Cluster_DBSCAN
+    cluster_res = DBSCAN(eps=0.05, min_samples=3).fit_predict(result)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\cluster\dbscan_.py", line 383, in fit_predict
+    self.fit(X, sample_weight=sample_weight)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\cluster\dbscan_.py", line 349, in fit
+    X = check_array(X, accept_sparse='csr')
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 542, in check_array
+    allow_nan=force_all_finite == 'allow-nan')
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 56, in _assert_all_finite
+    raise ValueError(msg_err.format(type_err, X.dtype))
+ValueError: Input contains NaN, infinity or a value too large for dtype('float64').
+[2019-06-30 18:18:49,895][Thread-50:20844][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 101, in calSensorClusters
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-30 18:18:49,895][Thread-54:10504][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 101, in calSensorClusters
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-30 22:40:46,923][Thread-80:888][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calTimeSeriesBySid/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 82, in _execute
+    return self.cursor.execute(sql)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\mysql\base.py", line 71, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 255, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\connections.py", line 50, in defaulterrorhandler
+    raise errorvalue
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 252, in execute
+    res = self._query(query)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 378, in _query
+    db.query(q)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+_mysql_exceptions.OperationalError: (1054, "Unknown column 'None' in 'where clause'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 195, in calTimeSeriesBySid
+    cursor.execute("select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i'),':00') as time, avg(value) as avg, avg(value) - 1.96*(std(value)/sqrt(count(*))) as lower95, avg(value) + 1.96 * (std(value)/ sqrt(count(value))) as upper95 from staticsensorreadings where timestamp >= '{0}' and timestamp < '{1}' and sid = {2} group by DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i')".format(begintime_str, endtime_str, sid))
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 99, in execute
+    return super().execute(sql, params)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 67, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 76, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\utils.py", line 89, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 82, in _execute
+    return self.cursor.execute(sql)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\mysql\base.py", line 71, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 255, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\connections.py", line 50, in defaulterrorhandler
+    raise errorvalue
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 252, in execute
+    res = self._query(query)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 378, in _query
+    db.query(q)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+django.db.utils.OperationalError: (1054, "Unknown column 'None' in 'where clause'")
+[2019-06-30 22:47:04,471][Thread-79:4648][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calTimeSeriesBySid/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 82, in _execute
+    return self.cursor.execute(sql)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\mysql\base.py", line 71, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 255, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\connections.py", line 50, in defaulterrorhandler
+    raise errorvalue
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 252, in execute
+    res = self._query(query)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 378, in _query
+    db.query(q)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+_mysql_exceptions.OperationalError: (1054, "Unknown column 'None' in 'where clause'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 195, in calTimeSeriesBySid
+    cursor.execute("select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i'),':00') as time, avg(value) as avg, avg(value) - 1.96*(std(value)/sqrt(count(*))) as lower95, avg(value) + 1.96 * (std(value)/ sqrt(count(value))) as upper95 from staticsensorreadings where timestamp >= '{0}' and timestamp < '{1}' and sid = {2} group by DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i')".format(begintime_str, endtime_str, sid))
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 99, in execute
+    return super().execute(sql, params)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 67, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 76, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\utils.py", line 89, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 82, in _execute
+    return self.cursor.execute(sql)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\mysql\base.py", line 71, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 255, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\connections.py", line 50, in defaulterrorhandler
+    raise errorvalue
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 252, in execute
+    res = self._query(query)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 378, in _query
+    db.query(q)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+django.db.utils.OperationalError: (1054, "Unknown column 'None' in 'where clause'")
+[2019-06-30 22:47:28,896][Thread-80:888][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 101, in calSensorClusters
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-30 22:47:29,166][Thread-76:17796][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 101, in calSensorClusters
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-30 22:47:32,710][Thread-83:16604][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 101, in calSensorClusters
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-06-30 22:47:32,727][Thread-82:5680][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 101, in calSensorClusters
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-07-01 01:11:44,871][Thread-134:15888][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calTimeSeriesBySid/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 82, in _execute
+    return self.cursor.execute(sql)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\mysql\base.py", line 71, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 255, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\connections.py", line 50, in defaulterrorhandler
+    raise errorvalue
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 252, in execute
+    res = self._query(query)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 378, in _query
+    db.query(q)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+_mysql_exceptions.OperationalError: (1054, "Unknown column 'None' in 'where clause'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 195, in calTimeSeriesBySid
+    cursor.execute("select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i'),':00') as time, avg(value) as avg, avg(value) - 1.96*(std(value)/sqrt(count(*))) as lower95, avg(value) + 1.96 * (std(value)/ sqrt(count(value))) as upper95 from staticsensorreadings where timestamp >= '{0}' and timestamp < '{1}' and sid = {2} group by DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i')".format(begintime_str, endtime_str, sid))
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 99, in execute
+    return super().execute(sql, params)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 67, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 76, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\utils.py", line 89, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 82, in _execute
+    return self.cursor.execute(sql)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\mysql\base.py", line 71, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 255, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\connections.py", line 50, in defaulterrorhandler
+    raise errorvalue
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 252, in execute
+    res = self._query(query)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 378, in _query
+    db.query(q)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+django.db.utils.OperationalError: (1054, "Unknown column 'None' in 'where clause'")
+[2019-07-01 01:15:23,237][Thread-137:9856][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 101, in calSensorClusters
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-07-01 01:15:23,239][Thread-136:6660][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 101, in calSensorClusters
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-07-01 09:57:59,725][MainThread:20300][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-07-01 11:16:51,034][MainThread:20300][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-07-01 11:16:57,011][MainThread:18340][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-07-01 11:23:55,197][MainThread:18340][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-07-01 11:23:56,158][MainThread:5700][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-07-01 11:24:50,887][MainThread:5700][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-07-01 11:24:52,418][MainThread:13184][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-07-01 11:29:06,195][MainThread:13184][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-07-01 11:29:07,424][MainThread:18008][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-07-01 11:35:12,610][MainThread:18008][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-07-01 11:35:13,609][MainThread:10344][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-07-01 11:36:10,604][MainThread:10344][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-07-01 11:36:12,217][MainThread:21280][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-07-01 11:36:55,281][Thread-5:4784][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findSensorByTimeRangeAndCoords/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 207, in findSensorByTimeRangeAndCoords
+    cursor.execute("select distict sid from mobilesensorreadings where timestamp > '{0}'  and timestamp < '{1}' and longitude > {2} and longitude < {3} and latitude > {4} and latitude < {5}".format(params['begintime'], params['endtime'], params['coords'][0], params['coords'][2], params['coords'][1], params['coords'][3]))
+KeyError: 'begintime'
+[2019-07-01 11:37:53,313][Thread-5:4784][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findSensorByTimeRangeAndCoords/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 82, in _execute
+    return self.cursor.execute(sql)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\mysql\base.py", line 71, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 255, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\connections.py", line 50, in defaulterrorhandler
+    raise errorvalue
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 252, in execute
+    res = self._query(query)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 378, in _query
+    db.query(q)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+_mysql_exceptions.OperationalError: (1054, "Unknown column 'distict' in 'field list'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 207, in findSensorByTimeRangeAndCoords
+    cursor.execute("select distict sid from mobilesensorreadings where timestamp > '{0}'  and timestamp < '{1}' and longitude > {2} and longitude < {3} and latitude > {4} and latitude < {5}".format(params['begintime'], params['endtime'], params['coords'][0], params['coords'][2], params['coords'][1], params['coords'][3]))
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 99, in execute
+    return super().execute(sql, params)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 67, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 76, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\utils.py", line 89, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 82, in _execute
+    return self.cursor.execute(sql)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\mysql\base.py", line 71, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 255, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\connections.py", line 50, in defaulterrorhandler
+    raise errorvalue
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 252, in execute
+    res = self._query(query)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 378, in _query
+    db.query(q)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+django.db.utils.OperationalError: (1054, "Unknown column 'distict' in 'field list'")
+[2019-07-01 11:38:29,667][MainThread:21280][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-07-01 11:38:33,002][MainThread:412][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-07-01 11:38:41,475][Thread-4:18084][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findSensorByTimeRangeAndCoords/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 211, in findSensorByTimeRangeAndCoords
+    return HttpResponse(json.dumps(data), content_type='application/json')
+UnboundLocalError: local variable 'data' referenced before assignment
+[2019-07-01 12:27:15,596][MainThread:412][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-07-01 12:27:16,778][MainThread:14184][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-07-01 12:27:22,646][Thread-5:19148][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findSensorByTimeRangeAndCoords/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 82, in _execute
+    return self.cursor.execute(sql)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\mysql\base.py", line 71, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 255, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\connections.py", line 50, in defaulterrorhandler
+    raise errorvalue
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 252, in execute
+    res = self._query(query)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 378, in _query
+    db.query(q)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+_mysql_exceptions.OperationalError: (1052, "Column 'sid' in field list is ambiguous")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 212, in findSensorByTimeRangeAndCoords
+    cursor.execute("select distinct sid from staticsensorreadings left join staticsensorlocations on staticsensorreadings.sid = staticsensorlocations.sid where timestamp > '{0}'  and timestamp < '{1}' and longitude > {2} and longitude < {3} and latitude > {4} and latitude < {5}".format(params['begintime'], params['endtime'], params['coords'][0], params['coords'][2], params['coords'][1], params['coords'][3]))
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 99, in execute
+    return super().execute(sql, params)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 67, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 76, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\utils.py", line 89, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 82, in _execute
+    return self.cursor.execute(sql)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\mysql\base.py", line 71, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 255, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\connections.py", line 50, in defaulterrorhandler
+    raise errorvalue
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 252, in execute
+    res = self._query(query)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 378, in _query
+    db.query(q)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+django.db.utils.OperationalError: (1052, "Column 'sid' in field list is ambiguous")
+[2019-07-01 12:27:39,298][MainThread:14184][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-07-01 12:27:40,189][MainThread:20160][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-07-01 12:27:43,070][MainThread:20160][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-07-01 12:27:43,973][MainThread:16692][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-07-01 12:43:19,983][Thread-11:15192][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 102, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 220, in calCluster
+    [a, b] = mn.shape
+ValueError: not enough values to unpack (expected 2, got 1)
+[2019-07-01 12:43:20,023][Thread-8:11032][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 102, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 220, in calCluster
+    [a, b] = mn.shape
+ValueError: not enough values to unpack (expected 2, got 1)
+[2019-07-01 12:43:36,118][Thread-10:3480][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 102, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 220, in calCluster
+    [a, b] = mn.shape
+ValueError: not enough values to unpack (expected 2, got 1)
+[2019-07-01 12:43:36,118][Thread-13:14448][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 102, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 220, in calCluster
+    [a, b] = mn.shape
+ValueError: not enough values to unpack (expected 2, got 1)
+[2019-07-01 12:43:40,749][Thread-12:20276][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 102, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 220, in calCluster
+    [a, b] = mn.shape
+ValueError: not enough values to unpack (expected 2, got 1)
+[2019-07-01 12:43:40,767][Thread-11:15192][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 102, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 220, in calCluster
+    [a, b] = mn.shape
+ValueError: not enough values to unpack (expected 2, got 1)
+[2019-07-01 14:46:11,455][Thread-43:2804][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 102, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 220, in calCluster
+    [a, b] = mn.shape
+ValueError: not enough values to unpack (expected 2, got 1)
+[2019-07-01 14:46:11,462][Thread-42:7716][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 102, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 220, in calCluster
+    [a, b] = mn.shape
+ValueError: not enough values to unpack (expected 2, got 1)
+[2019-07-01 15:08:47,623][Thread-72:15852][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 102, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 220, in calCluster
+    [a, b] = mn.shape
+ValueError: not enough values to unpack (expected 2, got 1)
+[2019-07-01 15:08:47,627][Thread-71:12044][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 102, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 220, in calCluster
+    [a, b] = mn.shape
+ValueError: not enough values to unpack (expected 2, got 1)
+[2019-07-01 15:09:39,745][Thread-75:10192][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 102, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 220, in calCluster
+    [a, b] = mn.shape
+ValueError: not enough values to unpack (expected 2, got 1)
+[2019-07-01 15:09:39,947][Thread-73:2656][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 102, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 220, in calCluster
+    [a, b] = mn.shape
+ValueError: not enough values to unpack (expected 2, got 1)
+[2019-07-01 15:44:34,900][Thread-118:10792][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findSensorByTimeRangeAndCoords/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 207, in findSensorByTimeRangeAndCoords
+    cursor.execute("select distinct sid from mobilesensorreadings where timestamp > '{0}'  and timestamp < '{1}' and longitude > {2} and longitude < {3} and latitude > {4} and latitude < {5}".format(params['begintime'], params['endtime'], params['coords'][0], params['coords'][2], params['coords'][1], params['coords'][3]))
+KeyError: 'begintime'
+[2019-07-01 15:44:38,910][Thread-118:10792][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findSensorByTimeRangeAndCoords/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 207, in findSensorByTimeRangeAndCoords
+    cursor.execute("select distinct sid from mobilesensorreadings where timestamp > '{0}'  and timestamp < '{1}' and longitude > {2} and longitude < {3} and latitude > {4} and latitude < {5}".format(params['begintime'], params['endtime'], params['coords'][0], params['coords'][2], params['coords'][1], params['coords'][3]))
+KeyError: 'begintime'
+[2019-07-01 15:45:27,268][Thread-114:8928][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findSensorByTimeRangeAndCoords/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 207, in findSensorByTimeRangeAndCoords
+    cursor.execute("select distinct sid from mobilesensorreadings where timestamp > '{0}'  and timestamp < '{1}' and longitude > {2} and longitude < {3} and latitude > {4} and latitude < {5}".format(params['begintime'], params['endtime'], params['coords'][0], params['coords'][2], params['coords'][1], params['coords'][3]))
+KeyError: 'begintime'
+[2019-07-01 15:47:29,342][Thread-118:10792][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findSensorByTimeRangeAndCoords/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 207, in findSensorByTimeRangeAndCoords
+    cursor.execute("select distinct sid from mobilesensorreadings where timestamp > '{0}'  and timestamp < '{1}' and longitude > {2} and longitude < {3} and latitude > {4} and latitude < {5}".format(params['begintime'], params['endtime'], params['coords'][0], params['coords'][2], params['coords'][1], params['coords'][3]))
+KeyError: 'begintime'
+[2019-07-01 16:08:26,841][Thread-138:18584][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 101, in calSensorClusters
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-07-01 16:08:26,847][Thread-137:2016][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 101, in calSensorClusters
+    params = json.loads(request.body)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)

@@ -16,6 +16,13 @@
               <package-chart cid="package-container"></package-chart>
             </div>
           </el-col>
+          <el-col :span="12">
+            <div class="grid-content">
+              <treemap cid="treemap-container"></treemap>
+              <!-- <SimilarityScatter></SimilarityScatter> -->
+              <!-- <package-chart cid="package-container222"></package-chart> -->
+            </div>
+          </el-col>
         </el-row>
         <el-row class="left2">
           <el-col :span="24">
@@ -55,8 +62,9 @@ import SrScatter from './components/SrScatter.vue'
 import Openlayers from './components/Openlayers.vue'
 import TrendChart from './components/TrendChart.vue'
 import TimeSeriesChart from './components/TimeSeriesChart.vue'
-// import Treemap from './components/Treemap.vue'
+import Treemap from './components/Treemap.vue'
 import PackageChart from './components/PackageChart.vue'
+// import SimilarityScatter from './components/SimilarityScatter'
 import * as d3 from 'd3'
 
 export default {
@@ -66,8 +74,9 @@ export default {
     SrScatter,
     TrendChart,
     TimeSeriesChart,
-    // Treemap,
-    PackageChart
+    Treemap,
+    PackageChart,
+    // SimilarityScatter
   },
   data() {
     return {

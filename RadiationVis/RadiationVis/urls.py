@@ -26,9 +26,11 @@ urlpatterns = [
     path('findAggMrrByTimeRange/', views.findAggMrrByTimeRange),
     path('findAggSrrByTimeRange/', views.findAggSrrByTimeRange),
     path('findMrrByTimeRange/', views.findMrrByTimeRange),
+    path('findSrrByTimeRange/', views.findSrrByTimeRange),
     path('findMrrByTimeRangeAndSid/', views.findMrrByTimeRangeAndSid),
     path('calSensorSimilarity/', views.calSensorSimilarity),
     path('calSensorClusters/', views.calSensorClusters),
     path('calTimeSeries/', views.calTimeSeries),
-    path('calTimeSeriesBySid/', views.calTimeSeriesBySid)
+    path('calTimeSeriesBySid/', views.calTimeSeriesBySid),
+    path('findSensorByTimeRangeAndCoords/', views.findSensorByTimeRangeAndCoords)
 ]

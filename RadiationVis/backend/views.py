@@ -78,6 +78,18 @@ def findAggSrrByTimeRange(request):
 		data = [dict(zip([col[0] for col in desc], row)) for row in alldata]
 		return HttpResponse(json.dumps(data), content_type='application/json')
 
+def findSrrByTimeRange(request):
+	if request.method == 'POST':
+		params = json.loads(request.body)
+		cursor = connection.cursor()
+		
+		# Data retrieval operation - no commit required
+		cursor.execute("select latitude, longitude, value from staticsensorreadings left join staticsensorlocations on staticsensorreadings.sid = staticsensorlocations.sid where timestamp between '{0}' and '{1}'".format(params['begintime'], params['endtime']))
+		desc = cursor.description
+		alldata = cursor.fetchall()
+		data = [dict(zip([col[0] for col in desc], row)) for row in alldata]
+		return HttpResponse(json.dumps(data), content_type='application/json')
+
 def calSensorSimilarity(request):
 	if request.method == 'POST':
 		params = json.loads(request.body)
@@ -187,5 +199,23 @@ def calTimeSeriesBySid(request):
 
 		return HttpResponse(json.dumps(data), content_type='application/json')
 
+def findSensorByTimeRangeAndCoords(request):
+	if request.method == 'POST':
+		params = json.loads(request.body)
+		cursor = connection.cursor()
+		
+		cursor.execute("select distinct sid from mobilesensorreadings where timestamp > '{0}'  and timestamp < '{1}' and longitude > {2} and longitude < {3} and latitude > {4} and latitude < {5}".format(params['begintime'], params['endtime'], params['coords'][0], params['coords'][2], params['coords'][1], params['coords'][3]))
+		desc = cursor.description
+		alldata = cursor.fetchall()
+		mobile_data = [row[0] for row in alldata]
+	
+		cursor.execute("select distinct staticsensorreadings.sid as sid from staticsensorreadings left join staticsensorlocations on staticsensorreadings.sid = staticsensorlocations.sid where timestamp > '{0}'  and timestamp < '{1}' and longitude > {2} and longitude < {3} and latitude > {4} and latitude < {5}".format(params['begintime'], params['endtime'], params['coords'][0], params['coords'][2], params['coords'][1], params['coords'][3]))
 
+		desc = cursor.description
+		alldata = cursor.fetchall()
+		static_data = [row[0] for row in alldata]
+
+		data = {'mobile': mobile_data, 'static': static_data}
+		
+		return HttpResponse(json.dumps(data), content_type='application/json')
 

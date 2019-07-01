@@ -13,8 +13,10 @@
             </el-select>
         </div>
         <div class="nav-checkbox-group" v-if="currentSelectValue=='radiation'">
-          <el-checkbox v-model="r_si_check" @change="krigingLayerUpdate" size="mini">SS Interpolation</el-checkbox>
-          <el-checkbox v-model="r_mi_check" @change="idwLayerUpdate" size="mini">MS Interpolation</el-checkbox>
+          <el-checkbox v-model="r_si_check" @change="krigingLayerUpdate" size="mini">SI</el-checkbox>
+          <el-checkbox v-model="r_mi_check" @change="idwLayerUpdate" size="mini">MI</el-checkbox>
+          <el-checkbox v-model="r_s_check" @change="SRLayerUpdate" size="mini">S</el-checkbox>
+          <el-checkbox v-model="r_m_check" @change="MRLayerUpdate" size="mini">M</el-checkbox>
         </div>
         <div class="nav-checkbox-group" v-else-if="currentSelectValue=='uncertainty'">
           <el-checkbox v-model="u_mi_check" @change="uncertaintyIdwLayerUpdate" size="mini">MS Interpolation</el-checkbox>
@@ -26,6 +28,10 @@
       </div> 
     </div>
     <div id="himarkmap"></div>
+    <!-- <div id="popup" class="ol-popup">
+      <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+      <div id="popup-content"></div>
+    </div> -->
   </div>
 </template>
 <script>
@@ -71,25 +77,34 @@ export default {
       map: null, 
       layers: {
         staticPointLayer: null, //静态传感器层
+        SRLayer: null,
         mobilePointLayer: null,
         krigingLayer: null,
         idwLayer: null,
         heatmapLayer: null,
         idwUncertaintyLayer: null,
+        MRLayer: null,
       },
       dataCollection: {
         mobileSensorReadings: null,
         staticSensorReadings: null,
       },
-      zoom: 2,
+      zoom: 1,
       sid: null,
       r_si_check: false,
       r_mi_check: false,
+      r_s_check: false,
+      r_m_check: false,
       t_heatmap_check: false,
       u_pie_check: false,
       u_mi_check: false,
       timeRange: null,
-      defaultTimeRange: {begintime: '2020-04-06 00:00:00', endtime: '2020-04-11 00:00:00'}
+      defaultTimeRange: {begintime: '2020-04-06 00:00:00', endtime: '2020-04-11 00:00:00'},
+      popon: {
+        container: null,
+        content: null,
+        closer: null,
+      }
     }
   },
   created: function () {
@@ -111,19 +126,15 @@ export default {
     loadMap() {
       this.initMap();
       this.drawStaticPointLayer(); //添加静态传感器
-      // this.drawKrigingLayer()
-      // this.drawIdwLayer();
-      // this.drawHeatmapLayer();
-      // this.drawIdwUncertaintyLayer();
-      // if(this.u_pie_check) {
-      //   this.drawPies();
-      // }
     },
     selfAdaptionSize() {
       let width = document.querySelector("#openlayers_container").clientWidth;
       let img = document.createElement("img");
       img.src = require('../assets/img/StHimarkMapBlank.png');
       document.querySelector("#himarkmap").style.height = width * img.height / img.width  + "px";
+
+    },
+    loadData() {
 
     },
     initMap() {
@@ -143,8 +154,8 @@ export default {
         view: new View({
           projection: this.getProjection(),
           center: getCenter(this.imageExtent),
-          zoom: 2,
-          minZoom: 2,
+          zoom: 1,
+          minZoom: 1,
           maxZoom: 4,
         })
       });
@@ -153,8 +164,39 @@ export default {
 
       this.map.on("moveend",function(e){
         _this.zoom = _this.map.getView().getZoom();  //获取当前地图的缩放级别
-        // console.log(zoom);
       }); 
+
+      // this.map.on('click', function(evt) {
+      //   var feature = _this.map.forEachFeatureAtPixel(evt.pixel,
+      //     function(feature) {
+      //       return feature;
+      //     });
+      //   console.log(feature)
+      // });
+
+      // let selectSingleClick = new Select();
+      // this.map.addInteraction(selectSingleClick);
+      // selectSingleClick.on('select', function(e) {
+      //   var features = e.target.getFeatures().getArray();
+      //   if(features.length > 0) {
+      //     let element = document.getElementById('popup');
+      //     let popup = _this.map.getOverlayById('popup');
+      //     popup.setPosition(undefined);
+      //     let geo = features[0].getGeometry();
+      //     let extent = geo.getExtent()
+      //     axios.post('/findSensorByTimeRangeAndCoords/', Object.assign({}, _this.timeRange, {coords: extent}))
+      //       .then((response) => {
+      //         let coordinates = geo.getCoordinates();
+      //         popup.setPosition(coordinates[0][1]);
+      //         let content = document.getElementById('popup-content');
+      //         content.innerHTML = JSON.stringify(response.data)
+      //       })
+      //       .catch((error) => {
+      //         console.log(error);
+      //       });
+      //   }
+      // });
+
     },
     getProjection() {
       return new Projection({
@@ -162,6 +204,9 @@ export default {
         // unites: 'pixels',
         extent: this.imageExtent
       })
+    },
+    addSelectEvent() {
+
     },
     drawStaticPointLayer() {
       let vectorSource = new VectorSource();
@@ -183,16 +228,42 @@ export default {
           vectorSource.addFeature(feature);
         })
         // 点击事件
-        let selectSingleClick = new Select();
-        this.map.addInteraction(selectSingleClick);
-        selectSingleClick.on('select', function(e) {
-          var features = e.target.getFeatures().getArray();
-          if(features.length > 0) {
-            console.log(features[0].getGeometry());
-          }
-        });
+        // let selectSingleClick = new Select();
+        // this.map.addInteraction(selectSingleClick);
+        // selectSingleClick.on('select', function(e) {
+        //   var features = e.target.getFeatures().getArray();
+        //   if(features.length > 0) {
+        //     console.log(features[0].getGeometry());
+        //   }
+        // });
       })
       this.map.addLayer(this.layers.staticPointLayer);
+    },
+    drawSRLayer() {
+      let vectorSource = new VectorSource();
+      this.layers.SRLayer = new VectorLayer({
+        source: vectorSource,
+      });
+
+      let colorScale = d3.scaleLinear().domain([20, 30, 50, 100]).range(["rgb(0,0,255)", "rgb(0,255,0)", "rgb(225,225,0)", "rgb(255,0,0)"])
+
+      axios.post("/findAggSrrByTimeRange/", this.timeRange || this.defaultTimeRange).then(response => {
+        response.data.forEach(point => {
+          let feature = new Feature({
+            geometry: new Point([parseFloat(point.longitude), parseFloat(point.latitude)])
+          });
+          feature.setStyle(new Style({
+            image: new Circle({
+                radius: 15 * this.zoom,
+                fill: new Fill({ color: colorScale(point.value) })
+            })
+          }));
+          vectorSource.addFeature(feature);
+        })
+        this.layers.SRLayer.setOpacity(0.3);
+        this.layers.SRLayer.setVisible(this.r_s_check);
+        this.map.addLayer(this.layers.SRLayer);
+      })
     },
     // 静态传感器插值层
     drawKrigingLayer() {
@@ -202,12 +273,12 @@ export default {
         krigingSigma2: 0,
         krigingAlpha: 100,
         canvasAlpha: 0.20,
-        // colors:["#006837", "#1a9850", "#66bd63", "#a6d96a", "#d9ef8b", "#ffffbf", "#fee08b", "#fdae61", "#f46d43", "#d73027", "#a50026"],
+        colors:["#006837", "#1a9850", "#66bd63", "#a6d96a", "#d9ef8b", "#ffffbf", "#fee08b", "#fdae61", "#f46d43", "#d73027", "#a50026"],
       }
 
       let colorScale = this.color();
       let colors = [];
-      for(let i=20; i<=100; i++) {
+      for(let i=0; i<=100; i++) {
         colors.push(colorScale(i));
       }
       
@@ -235,7 +306,7 @@ export default {
                   // canvas.getContext('2d').globalAlpha = params.canvasAlpha;
                   //使用分层设色渲染
                   kriging.plot(canvas, grid,
-                      [extent[0], extent[2]], [extent[1], extent[3]], colors);
+                      [extent[0], extent[2]], [extent[1], extent[3]], params.colors);
                   return canvas;
               },
               // projection: this.getProjection()
@@ -250,22 +321,80 @@ export default {
         });
     },
     drawIdwLayer() {
+      if(this.dataCollection.mobileSensorReadings != null) {
+        this.renderIdwLayer(this.dataCollection.mobileSensorReadings);
+      } else {
+        axios.post("/findMrrByTimeRange/", this.timeRange || this.defaultTimeRange)
+          .then((response) => {
+            this.dataCollection.mobileSensorReadings = response.data;
+            this.renderIdwLayer(response.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    },
+    renderIdwLayer(data) {
+        let griddata = this.convertGridData(data);
+        let aggGridData = griddata.map(d => {
+          let value;
+          if(d.list.length == 0) {
+            value = null;
+          } else {
+            value = d3.mean(d.list);
+          }
+          return Object.assign({}, d, {value:value})
+        })
+
+        let idwdata = idw(aggGridData);
+
+        let features = [];
+
+        let colorScale = d3.scaleLinear().domain([20, 30, 50, 100]).range(["rgb(0,0,255)", "rgb(0,255,0)", "rgb(225,225,0)", "rgb(255,0,0)"])
+        
+        idwdata.forEach(d => {
+          if(d.value != null) {
+            let polygon = new Polygon([[[d.lngEx[0], d.latEx[0]], [d.lngEx[0], d.latEx[1]], [d.lngEx[1], d.latEx[1]], [d.lngEx[1], d.latEx[0]], [d.lngEx[0], d.latEx[0]]]]);
+            let polygonFeature = new Feature(polygon);
+            let style = new Style({
+              fill: new Fill({
+                color: colorScale(d.value),//[0, 0, 255, 0.6]
+              })
+            })
+            if(d.list.length != 0) {
+              style.stroke_ = new Stroke({
+                color: 'white',
+                width: 2
+              })
+            } 
+            polygonFeature.setStyle(style);
+            features.push(polygonFeature)
+          }
+        })
+
+        this.layers.idwLayer = new VectorLayer({
+          source: new VectorSource({
+            features: features
+          }),
+          style: new Style({
+            stroke: new Stroke({
+              width: 1,
+              color: "red"
+            })
+          })
+        })
+        this.layers.idwLayer.setOpacity(0.3);
+        this.map.addLayer(this.layers.idwLayer);
+        this.layers.idwLayer.setVisible(this.r_mi_check);
+      },
+    drawMRLayer() {
 
       let _this = this;
 
-      let colorScale = d3.scaleLinear().domain([20, 30, 50, 100]).range(["rgb(0,0,255)", "rgb(0,255,0)", "rgb(225,225,0)", "rgb(255,0,0)"])
       if(this.dataCollection.mobileSensorReadings != null) {
         render(this.dataCollection.mobileSensorReadings);
       } else {
-        let url;
-        let params = this.timeRange || this.defaultTimeRange;
-        if(this.sid == null) {
-          url = "/findMrrByTimeRange/";
-        } else {
-          url = "/findMrrByTimeRangeAndSid/"
-          params = Object.assign({}, params, this.sid)
-        } 
-        axios.post(url, params)
+        axios.post("/findMrrByTimeRange/", this.timeRange || this.defaultTimeRange)
           .then((response) => {
             this.dataCollection.mobileSensorReadings = response.data;
             render(response.data);
@@ -274,6 +403,14 @@ export default {
             console.log(error);
           });
       }
+
+      // axios.all([
+      //   axios.post("/findMrrByTimeRange/", this.timeRange),
+      //   axios.post("/findSrrByTimeRange/", this.timeRange),
+      // ]).then(axios.spread((response1, response2) => {
+      //   let data = response1.data.concat(response2.data);
+      //   render(data);
+      // })) 
 
       function render(data) {
         let griddata = _this.convertGridData(data);
@@ -291,130 +428,123 @@ export default {
 
         let features = [];
 
-        let usedData;
-        if(_this.sid == null) {
-          usedData = idwdata;
-        } else {
-          usedData = aggGridData;
-        }
+        let colorScale = d3.scaleLinear().domain([20, 30, 50, 100]).range(["rgb(0,0,255)", "rgb(0,255,0)", "rgb(225,225,0)", "rgb(255,0,0)"])
         
-        usedData.forEach(d => {
+        idwdata.forEach(d => {
           if(d.value != null) {
             let polygon = new Polygon([[[d.lngEx[0], d.latEx[0]], [d.lngEx[0], d.latEx[1]], [d.lngEx[1], d.latEx[1]], [d.lngEx[1], d.latEx[0]], [d.lngEx[0], d.latEx[0]]]]);
             let polygonFeature = new Feature(polygon);
-            let style = new Style({
-              fill: new Fill({
-                color: colorScale(d.value),//[0, 0, 255, 0.6]
-              })
-            })
+            let style;
             if(d.list.length != 0) {
-              style.stroke_ = new Stroke({
-                color: 'white',
-                width: 2
+              style = new Style({
+                fill: new Fill({
+                  color: colorScale(d.value),//[0, 0, 255, 0.6]
+                })
               })
-            }
+            } 
+            // else {
+            //   style = new Style({
+            //     fill: new Fill({
+            //       color: [0, 0, 0, 0]
+            //     })
+            //   })
+            // }
             polygonFeature.setStyle(style);
             features.push(polygonFeature)
           }
         })
 
-        _this.layers.idwLayer = new VectorLayer({
+        _this.layers.MRLayer = new VectorLayer({
           source: new VectorSource({
             features: features
           }),
           style: new Style({
             stroke: new Stroke({
               width: 1,
-              color: "red"
+              color: "white"
             })
           })
         })
-        _this.layers.idwLayer.setOpacity(0.3);
-        _this.map.addLayer(_this.layers.idwLayer);
-        _this.layers.idwLayer.setVisible(_this.r_mi_check);
+        _this.layers.MRLayer.setOpacity(0.3);
+        _this.map.addLayer(_this.layers.MRLayer);
+        _this.layers.MRLayer.setVisible(_this.r_m_check);
       }
 
 
     },
     drawIdwUncertaintyLayer() {
-      let _this = this;
-
-      let colorScale = d3.scaleLinear().domain([20, 50, 100, 500]).range(["rgb(0,0,255)", "rgb(0,255,0)", "rgb(225,225,0)", "rgb(255,0,0)"])
       if(this.dataCollection.mobileSensorReadings != null) {
-        render(this.dataCollection.mobileSensorReadings);
+        this.renderIdwUncertaintyLayer(this.dataCollection.mobileSensorReadings);
       } else {
         axios.post("/findMrrByTimeRange/", this.timeRange|| this.defaultTimeRange)
         .then((response) => {
           this.dataCollection.mobileSensorReadings = response.data;
-          render(response.data);
+          this.renderIdwUncertaintyLayer(response.data);
         })
         .catch((error) => {
           console.log(error);
         });
       }
-
-      function render(data) {
-        let griddata = _this.convertGridData(data);
-        let aggGridData = griddata.map(d => {
-          let value;
-          if(d.list.length == 0) {
-            value = null;
-          } else {
-            value = d3.variance(d.list);
-          }
-          return Object.assign({}, d, {value:value})
-        })
-
-        // console.log(aggGridData.map(d => d.value))
-
-        let idwdata = idw(aggGridData);
-
-        let features = [];
-
-        let usedData;
-        if(_this.sid != null) {
-          usedData = idwdata;
+    },
+    renderIdwUncertaintyLayer(data) {
+      let griddata = this.convertGridData(data);
+      let aggGridData = griddata.map(d => {
+        let value;
+        if(d.list.length == 0) {
+          value = null;
         } else {
-          usedData = aggGridData;
+          value = d3.variance(d.list);
         }
-        
-        usedData.forEach(d => {
-          if(d.value != null) {
-            let polygon = new Polygon([[[d.lngEx[0], d.latEx[0]], [d.lngEx[0], d.latEx[1]], [d.lngEx[1], d.latEx[1]], [d.lngEx[1], d.latEx[0]], [d.lngEx[0], d.latEx[0]]]]);
-            let polygonFeature = new Feature(polygon);
-            let style = new Style({
-              fill: new Fill({
-                color: colorScale(d.value),//[0, 0, 255, 0.6]
-              })
-            })
-            if(d.list.length != 0) {
-              style.stroke_ = new Stroke({
-                color: 'white',
-                width: 2
-              })
-            }
-            polygonFeature.setStyle(style);
-            features.push(polygonFeature)
-          }
-        })
+        return Object.assign({}, d, {value:value})
+      })
 
-        _this.layers.idwUncertaintyLayer = new VectorLayer({
-          source: new VectorSource({
-            features: features
-          }),
-          style: new Style({
-            stroke: new Stroke({
-              width: 1,
-              color: "red"
+      // console.log(aggGridData.map(d => d.value))
+
+      let idwdata = idw(aggGridData);
+
+      let features = [];
+
+      let colorScale = d3.scaleLinear().domain([20, 50, 100, 500]).range(["rgb(0,0,255)", "rgb(0,255,0)", "rgb(225,225,0)", "rgb(255,0,0)"])
+
+      let scale = d3.scaleLinear().domain([0, 100]).range([0, 1]);
+
+      idwdata.forEach(d => {
+        if(d.value != null) {
+          let polygon = new Polygon([[[d.lngEx[0], d.latEx[0]], [d.lngEx[0], d.latEx[1]], [d.lngEx[1], d.latEx[1]], [d.lngEx[1], d.latEx[0]], [d.lngEx[0], d.latEx[0]]]]);
+          let polygonFeature = new Feature(polygon);
+          let color = colorScale(d.value).replace("rgb(", "").replace(")", "");
+          color = color.split(",");
+          let grey = parseInt(color[0])*0.3+parseInt(color[1])*0.59+parseInt(color[2])*0.11;
+          let style = new Style({
+            fill: new Fill({
+              color: [grey, grey, grey]
             })
           })
+          if(d.list.length != 0) {
+            style.stroke_ = new Stroke({
+              color: 'white',
+              width: 2
+            })
+          }
+          polygonFeature.setStyle(style);
+          features.push(polygonFeature)
+        }
+      })
+
+      this.layers.idwUncertaintyLayer = new VectorLayer({
+        source: new VectorSource({
+          features: features
+        }),
+        style: new Style({
+          stroke: new Stroke({
+            width: 1,
+            color: "red"
+          })
         })
-        _this.layers.idwUncertaintyLayer.setOpacity(0.3);
-        _this.map.addLayer(_this.layers.idwUncertaintyLayer);
-        _this.layers.idwUncertaintyLayer.setVisible(_this.u_mi_check);
-      }
-
-
+      })
+      this.layers.idwUncertaintyLayer.setOpacity(0.3);
+      this.map.addLayer(this.layers.idwUncertaintyLayer);
+      this.layers.idwUncertaintyLayer.setVisible(this.u_mi_check);
     },
     drawHeatmapLayer() {
       let vectorSource = new VectorSource();
@@ -601,7 +731,7 @@ export default {
       return griddata;
     },
     color() {
-      return d3.scaleLinear().domain([20, 30, 50, 100]).range(["rgb(0,0,255)", "rgb(0,255,0)", "rgb(225,225,0)", "rgb(255,0,0)"]);
+      return d3.scaleLinear().domain([0, 10, 20, 30]).range(["rgb(0,0,255)", "rgb(0,255,0)", "rgb(225,225,0)", "rgb(255,0,0)"]);
     },
     clearDataCollection() {
       this.dataCollection.mobileSensorReadings = null;
@@ -612,10 +742,14 @@ export default {
       this.map.removeLayer(this.layers.idwLayer);
       this.map.removeLayer(this.layers.heatmapLayer);
       this.map.removeLayer(this.layers.idwUncertaintyLayer);
+      this.map.removeLayer(this.layers.MRLayer);
+      this.map.removeLayer(this.layers.SRLayer);
       this.layers.krigingLayer = null;
       this.layers.idwLayer = null;
       this.layers.heatmapLayer  = null;
       this.layers.idwUncertaintyLayer = null;
+      this.layers.MRLayer = null;
+      this.layers.SRLayer = null;
     },
     krigingLayerUpdate() {
       this.layers.krigingLayer.setVisible(this.r_si_check);
@@ -629,6 +763,12 @@ export default {
     uncertaintyIdwLayerUpdate() {
       this.layers.idwUncertaintyLayer.setVisible(this.u_mi_check);
     },
+    MRLayerUpdate() {
+      this.layers.MRLayer.setVisible(this.r_m_check);
+    },
+    SRLayerUpdate() {
+      this.layers.SRLayer.setVisible(this.r_s_check);
+    },
     piesUpdate() {
       if(this.u_pie_check) {
         this.drawPies();
@@ -641,16 +781,38 @@ export default {
     },
     timeRangeUpdated(params) {
       this.timeRange = params;
+      this.sid = null;
       if(params == null) {
         return;
       }
       this.clearDataCollection();
       this.clearLayers();
       this.clearPies();
+
+      // let element = document.getElementById('popup');
+      // let closer = document.getElementById('popup-closer');
+
+      // let popup = new Overlay({
+      //   id: 'popup',
+      //   element: element,
+      //   positioning: 'bottom-center',
+      //   stopEvent: false,
+      //   // offset: [0, -50]
+      // });
+      // closer.onclick = function() {
+      //   popup.setPosition(undefined);
+      //   closer.blur();
+      //   return false;
+      // };
+      
+      // this.map.addOverlay(popup);
+
       this.drawKrigingLayer()
       this.drawIdwLayer();
       this.drawHeatmapLayer();
       this.drawIdwUncertaintyLayer();
+      this.drawMRLayer();
+      this.drawSRLayer();
       if(this.u_pie_check) {
         this.drawPies();
       }
@@ -662,18 +824,19 @@ export default {
       return axios.post('/findAggSrrByTimeRange/', params);
     },
     sensorSelected(params) {
-      this.sid = params;
-      console.log(params)
-      this.clearDataCollection();
-      this.clearLayers();
-      this.clearPies();
-      this.drawKrigingLayer()
-      this.drawIdwLayer();
-      this.drawHeatmapLayer();
-      this.drawIdwUncertaintyLayer();
-      if(this.u_pie_check) {
-        this.drawPies();
-      }
+      // this.sid = params;
+      // console.log(params, this.sid)
+      // this.clearDataCollection();
+      // this.clearLayers();
+      // this.clearPies();
+      // this.drawKrigingLayer()
+      // this.drawIdwLayer();
+      // this.drawHeatmapLayer();
+      // this.drawIdwUncertaintyLayer();
+      // this.drawMRLayer();
+      // if(this.u_pie_check) {
+      //   this.drawPies();
+      // }
     }
   },
   watch: {
@@ -681,6 +844,11 @@ export default {
       if(this.u_pie_check) {
         this.clearPies();
         this.drawPies();
+      }
+      if(this.r_s_check) {
+        this.map.removeLayer(this.layers.SRLayer);
+        this.layers.SRLayer = null;
+        this.drawSRLayer();
       }
     }
   },
@@ -739,6 +907,49 @@ export default {
 }
 .el-tabs {
   height: 30px;
+}
+.ol-popup {
+  position: absolute;
+  background-color: white;
+  -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+  filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #cccccc;
+  bottom: 12px;
+  left: -50px;
+  min-width: 200px;
+  font-size: 12px;
+}
+.ol-popup:after, .ol-popup:before {
+  top: 100%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.ol-popup:after {
+  border-top-color: white;
+  border-width: 10px;
+  left: 48px;
+  margin-left: -10px;
+}
+.ol-popup:before {
+  border-top-color: #cccccc;
+  border-width: 11px;
+  left: 48px;
+  margin-left: -11px;
+}
+.ol-popup-closer {
+  text-decoration: none;
+  position: absolute;
+  top: 2px;
+  right: 8px;
+}
+.ol-popup-closer:after {
+  content: "x";
 }
 </style>
 
