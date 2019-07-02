@@ -191,23 +191,26 @@ export default {
       let upperInnerArea = d3.area()
         .x (function (d) { return x(d.time); })
         .y0(function (d) { return y(d.upper95); })
-        .y1(function (d) { return y(d.avg); });
+        .y1(function (d) { return y(d.avg); })
+        .curve(d3.curveMonotoneX);
 
       let medianLine = d3.line()
         .x(function (d) { return x(d.time); })
-        .y(function (d) { return y(d.avg); });
+        .y(function (d) { return y(d.avg); })
+        .curve(d3.curveMonotoneX);
 
       let lowerInnerArea = d3.area()
         .x (function (d) { return x(d.time); })
         .y0(function (d) { return y(d.avg); })
-        .y1(function (d) { return y(d.lower95); });
+        .y1(function (d) { return y(d.lower95); })
+        .curve(d3.curveMonotoneX);
 
       g.datum(data);
 
       g.append('path')
         .attr('class', 'area upper ' + styleClass)
         .attr('d', upperInnerArea)
-        .attr('clip-path', 'url(#rect-clip)');
+        .attr('clip-path', 'url(#rect-clip)')
 
       g.append('path')
         .attr('class', 'area lower ' + styleClass)
@@ -397,27 +400,32 @@ export default {
       let upperInnerArea = d3.area()
         .x (function (d) { return x(d.time); })
         .y0(function (d) { return y(d.upper95); })
-        .y1(function (d) { return y(d.avg); });
+        .y1(function (d) { return y(d.avg); })
+        .curve(d3.curveMonotoneX);
 
       let medianLine = d3.line()
         .x(function (d) { return x(d.time); })
-        .y(function (d) { return y(d.avg); });
+        .y(function (d) { return y(d.avg); })
+        .curve(d3.curveMonotoneX);
 
       let lowerInnerArea = d3.area()
         .x (function (d) { return x(d.time); })
         .y0(function (d) { return y(d.avg); })
-        .y1(function (d) { return y(d.lower95); });
+        .y1(function (d) { return y(d.lower95); })
+        .curve(d3.curveMonotoneX);
 
       g.datum(data);
 
       g.append('path')
         .attr('d', upperInnerArea)
         .style('fill', color)
+        .style("opacity", 0.5)
         .style('stroke', color);
 
       g.append('path')
         .attr('d', lowerInnerArea)
         .style('fill', color)
+        .style("opacity", 0.5)
         .style('stroke', color);
         
 
@@ -427,7 +435,6 @@ export default {
 
     },
     timeRangeUpdated(params) {
-      console.log("TrendChart updated...", params);
       this.sidList = [];
       this.sidDataList = [];
       this.timeRange = params;
@@ -476,11 +483,13 @@ export default {
 .trendchart >>> .mobile_uncertainty {
   fill: rgba(127, 127, 255, 0.8);
   stroke: rgba(96, 96, 255, 0.8);
+  opacity: 0.6;
 }
 
 .trendchart >>> .static_uncertainty {
   fill: rgba(255, 127, 0, 0.8);
   stroke: rgba(255, 127, 0, 0.8);
+  opacity: 0.6;
 }
 
 .trendchart >>> .median-line,

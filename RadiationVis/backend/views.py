@@ -8,6 +8,7 @@ from backend.utils.dateencoder import DateEncoder
 from backend.dataprocessing.correlation import calCorrlelation
 from backend.dataprocessing.cluster import calCluster
 import time, datetime
+from backend.dataprocessing.gridmap import add_grid_info, idw, getLastPointInGrid
 
 logger = logging.getLogger(__name__)
 
@@ -204,12 +205,12 @@ def findSensorByTimeRangeAndCoords(request):
 		params = json.loads(request.body)
 		cursor = connection.cursor()
 		
-		cursor.execute("select distinct sid from mobilesensorreadings where timestamp > '{0}'  and timestamp < '{1}' and longitude > {2} and longitude < {3} and latitude > {4} and latitude < {5}".format(params['begintime'], params['endtime'], params['coords'][0], params['coords'][2], params['coords'][1], params['coords'][3]))
+		cursor.execute("select distinct sid from mobilesensorreadings where timestamp > '{0}'  and timestamp < '{1}' and longitude >= {2} and longitude <= {3} and latitude >= {4} and latitude <= {5}".format(params['begintime'], params['endtime'], params['coords'][0], params['coords'][2], params['coords'][1], params['coords'][3]))
 		desc = cursor.description
 		alldata = cursor.fetchall()
 		mobile_data = [row[0] for row in alldata]
 	
-		cursor.execute("select distinct staticsensorreadings.sid as sid from staticsensorreadings left join staticsensorlocations on staticsensorreadings.sid = staticsensorlocations.sid where timestamp > '{0}'  and timestamp < '{1}' and longitude > {2} and longitude < {3} and latitude > {4} and latitude < {5}".format(params['begintime'], params['endtime'], params['coords'][0], params['coords'][2], params['coords'][1], params['coords'][3]))
+		cursor.execute("select distinct staticsensorreadings.sid as sid from staticsensorreadings left join staticsensorlocations on staticsensorreadings.sid = staticsensorlocations.sid where timestamp > '{0}'  and timestamp < '{1}' and longitude >= {2} and longitude <= {3} and latitude >= {4} and latitude <= {5}".format(params['begintime'], params['endtime'], params['coords'][0], params['coords'][2], params['coords'][1], params['coords'][3]))
 
 		desc = cursor.description
 		alldata = cursor.fetchall()
@@ -219,3 +220,38 @@ def findSensorByTimeRangeAndCoords(request):
 		
 		return HttpResponse(json.dumps(data), content_type='application/json')
 
+def getMobileIdwDataByTimeRange(request):
+	if request.method == 'POST':
+		params = json.loads(request.body)
+		cursor = connection.cursor()
+		cursor.execute("select longitude, latitude, value from mobilesensorreadings where timestamp > '{0}'  and timestamp < '{1}'".format(params['begintime'], params['endtime']))
+		desc = cursor.description
+		alldata = cursor.fetchall()
+		data = [dict(zip([col[0] for col in desc], row)) for row in alldata]
+		griddata = add_grid_info(data)
+		idwdata = idw(griddata)
+		return HttpResponse(json.dumps(idwdata), content_type='application/json')
+
+def getStaticIdwDataByTimeRange(request):
+	if request.method == 'POST':
+		params = json.loads(request.body)
+		cursor = connection.cursor()
+		cursor.execute("select longitude, latitude, value from staticsensorreadings left join staticsensorlocations on staticsensorreadings.sid = staticsensorlocations.sid where timestamp > '{0}'  and timestamp < '{1}'".format(params['begintime'], params['endtime']))
+		desc = cursor.description
+		alldata = cursor.fetchall()
+		data = [dict(zip([col[0] for col in desc], row)) for row in alldata]
+		griddata = add_grid_info(data)
+		idwdata = idw(griddata)
+		return HttpResponse(json.dumps(idwdata), content_type='application/json')
+
+def getLastCoordsByTimeRange(request):
+	if request.method == 'POST':
+		params = json.loads(request.body)
+		cursor = connection.cursor()
+		cursor.execute("select longitude, latitude, sid from mobilesensorreadings where timestamp > '{0}'  and timestamp < '{1}'".format(params['begintime'], params['endtime']))
+		desc = cursor.description
+		alldata = cursor.fetchall()
+		origin_data = [dict(zip([col[0] for col in desc], row)) for row in alldata]
+		data = getLastPointInGrid(origin_data)
+		logger.info(data)
+		return HttpResponse(json.dumps(data), content_type='application/json')

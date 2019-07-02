@@ -1155,3 +1155,464 @@ Traceback (most recent call last):
   File "C:\Softwares\Anaconda3\envs\django\lib\json\decoder.py", line 357, in raw_decode
     raise JSONDecodeError("Expecting value", s, err.value) from None
 json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2019-07-01 23:47:44,000][Thread-1:13908][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 102, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 228, in calCluster
+    result = Dimension_Reduction_PCA(result)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 133, in Dimension_Reduction_PCA
+    pca = PCA(n_components=2)
+NameError: name 'PCA' is not defined
+[2019-07-02 09:50:48,924][Thread-13:10444][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 102, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 229, in calCluster
+    result = Dimension_Reduction_PCA(result)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 135, in Dimension_Reduction_PCA
+    pca = pca.fit_transform(feature_matrix)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\decomposition\pca.py", line 360, in fit_transform
+    U, S, V = self._fit(X)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\decomposition\pca.py", line 382, in _fit
+    copy=self.copy)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 542, in check_array
+    allow_nan=force_all_finite == 'allow-nan')
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 56, in _assert_all_finite
+    raise ValueError(msg_err.format(type_err, X.dtype))
+ValueError: Input contains NaN, infinity or a value too large for dtype('float64').
+[2019-07-02 12:41:29,432][Thread-29:10516][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calTimeSeriesBySid/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 82, in _execute
+    return self.cursor.execute(sql)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\mysql\base.py", line 71, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 255, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\connections.py", line 50, in defaulterrorhandler
+    raise errorvalue
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 252, in execute
+    res = self._query(query)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 378, in _query
+    db.query(q)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+_mysql_exceptions.OperationalError: (1054, "Unknown column 'None' in 'where clause'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 195, in calTimeSeriesBySid
+    cursor.execute("select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i'),':00') as time, avg(value) as avg, avg(value) - 1.96*(std(value)/sqrt(count(*))) as lower95, avg(value) + 1.96 * (std(value)/ sqrt(count(value))) as upper95 from staticsensorreadings where timestamp >= '{0}' and timestamp < '{1}' and sid = {2} group by DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i')".format(begintime_str, endtime_str, sid))
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 99, in execute
+    return super().execute(sql, params)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 67, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 76, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\utils.py", line 89, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\utils.py", line 82, in _execute
+    return self.cursor.execute(sql)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\db\backends\mysql\base.py", line 71, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 255, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\connections.py", line 50, in defaulterrorhandler
+    raise errorvalue
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 252, in execute
+    res = self._query(query)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\cursors.py", line 378, in _query
+    db.query(q)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+django.db.utils.OperationalError: (1054, "Unknown column 'None' in 'where clause'")
+[2019-07-02 12:58:58,205][Thread-43:8016][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 102, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 229, in calCluster
+    result = Dimension_Reduction_PCA(result)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 135, in Dimension_Reduction_PCA
+    pca = pca.fit_transform(feature_matrix)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\decomposition\pca.py", line 360, in fit_transform
+    U, S, V = self._fit(X)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\decomposition\pca.py", line 382, in _fit
+    copy=self.copy)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 542, in check_array
+    allow_nan=force_all_finite == 'allow-nan')
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 56, in _assert_all_finite
+    raise ValueError(msg_err.format(type_err, X.dtype))
+ValueError: Input contains NaN, infinity or a value too large for dtype('float64').
+[2019-07-02 13:00:08,719][Thread-39:5904][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 102, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 229, in calCluster
+    result = Dimension_Reduction_PCA(result)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 135, in Dimension_Reduction_PCA
+    pca = pca.fit_transform(feature_matrix)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\decomposition\pca.py", line 360, in fit_transform
+    U, S, V = self._fit(X)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\decomposition\pca.py", line 382, in _fit
+    copy=self.copy)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 542, in check_array
+    allow_nan=force_all_finite == 'allow-nan')
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 56, in _assert_all_finite
+    raise ValueError(msg_err.format(type_err, X.dtype))
+ValueError: Input contains NaN, infinity or a value too large for dtype('float64').
+[2019-07-02 13:04:06,691][Thread-43:8016][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 102, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 229, in calCluster
+    result = Dimension_Reduction_PCA(result)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 135, in Dimension_Reduction_PCA
+    pca = pca.fit_transform(feature_matrix)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\decomposition\pca.py", line 360, in fit_transform
+    U, S, V = self._fit(X)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\decomposition\pca.py", line 382, in _fit
+    copy=self.copy)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 542, in check_array
+    allow_nan=force_all_finite == 'allow-nan')
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 56, in _assert_all_finite
+    raise ValueError(msg_err.format(type_err, X.dtype))
+ValueError: Input contains NaN, infinity or a value too large for dtype('float64').
+[2019-07-02 13:11:08,582][Thread-3:22168][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 102, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 229, in calCluster
+    result = Dimension_Reduction_PCA(result)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 135, in Dimension_Reduction_PCA
+    pca = pca.fit_transform(feature_matrix)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\decomposition\pca.py", line 360, in fit_transform
+    U, S, V = self._fit(X)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\decomposition\pca.py", line 382, in _fit
+    copy=self.copy)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 542, in check_array
+    allow_nan=force_all_finite == 'allow-nan')
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 56, in _assert_all_finite
+    raise ValueError(msg_err.format(type_err, X.dtype))
+ValueError: Input contains NaN, infinity or a value too large for dtype('float64').
+[2019-07-02 13:11:13,579][Thread-4:14308][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 102, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 229, in calCluster
+    result = Dimension_Reduction_PCA(result)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 135, in Dimension_Reduction_PCA
+    pca = pca.fit_transform(feature_matrix)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\decomposition\pca.py", line 360, in fit_transform
+    U, S, V = self._fit(X)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\decomposition\pca.py", line 382, in _fit
+    copy=self.copy)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 542, in check_array
+    allow_nan=force_all_finite == 'allow-nan')
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 56, in _assert_all_finite
+    raise ValueError(msg_err.format(type_err, X.dtype))
+ValueError: Input contains NaN, infinity or a value too large for dtype('float64').
+[2019-07-02 13:12:51,657][Thread-3:8312][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 102, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 229, in calCluster
+    result = Dimension_Reduction_PCA(result)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 135, in Dimension_Reduction_PCA
+    pca = pca.fit_transform(feature_matrix)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\decomposition\pca.py", line 360, in fit_transform
+    U, S, V = self._fit(X)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\decomposition\pca.py", line 382, in _fit
+    copy=self.copy)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 542, in check_array
+    allow_nan=force_all_finite == 'allow-nan')
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 56, in _assert_all_finite
+    raise ValueError(msg_err.format(type_err, X.dtype))
+ValueError: Input contains NaN, infinity or a value too large for dtype('float64').
+[2019-07-02 13:15:38,129][Thread-3:12656][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 102, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 229, in calCluster
+    result = Dimension_Reduction_PCA(result)
+UnboundLocalError: local variable 'result' referenced before assignment
+[2019-07-02 13:21:07,630][Thread-10:20264][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 102, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 229, in calCluster
+    result = Dimension_Reduction_PCA(result)
+UnboundLocalError: local variable 'result' referenced before assignment
+[2019-07-02 13:28:07,464][Thread-1:10100][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 102, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 229, in calCluster
+    result = Dimension_Reduction_PCA(result)
+UnboundLocalError: local variable 'result' referenced before assignment
+[2019-07-02 13:29:08,592][Thread-1:5804][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 102, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 229, in calCluster
+    result = Dimension_Reduction_PCA(result)
+UnboundLocalError: local variable 'result' referenced before assignment
+[2019-07-02 13:29:22,961][Thread-5:2436][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 102, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 229, in calCluster
+    result = Dimension_Reduction_PCA(result)
+UnboundLocalError: local variable 'result' referenced before assignment
+[2019-07-02 17:07:38,915][Thread-3:10488][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getMobileIdwDataByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 226, in getMobileIdwDataByTimeRange
+    cursor.execute("select longitude, latitude, value from mobilesensorreadings where timestamp > '{0}'  and timestamp < '{1}'".format(params['begintime'], params['endtime']))
+NameError: name 'params' is not defined
+[2019-07-02 17:08:35,531][Thread-4:19544][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getMobileIdwDataByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 231, in getMobileIdwDataByTimeRange
+    griddata = add_grid_info(data)
+NameError: name 'add_grid_info' is not defined
+[2019-07-02 17:08:43,944][Thread-1:16224][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getMobileIdwDataByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 231, in getMobileIdwDataByTimeRange
+    griddata = add_grid_info(data)
+NameError: name 'add_grid_info' is not defined
+[2019-07-02 17:09:24,788][Thread-4:13508][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getMobileIdwDataByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 231, in getMobileIdwDataByTimeRange
+    griddata = add_grid_info(data)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\idw.py", line 99, in add_grid_info
+    for d in data:
+NameError: name 'data' is not defined
+[2019-07-02 20:30:13,316][Thread-7:4036][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 103, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 229, in calCluster
+    result = Dimension_Reduction_PCA(result)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 135, in Dimension_Reduction_PCA
+    pca = pca.fit_transform(feature_matrix)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\decomposition\pca.py", line 360, in fit_transform
+    U, S, V = self._fit(X)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\decomposition\pca.py", line 382, in _fit
+    copy=self.copy)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 542, in check_array
+    allow_nan=force_all_finite == 'allow-nan')
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 56, in _assert_all_finite
+    raise ValueError(msg_err.format(type_err, X.dtype))
+ValueError: Input contains NaN, infinity or a value too large for dtype('float64').
+[2019-07-02 21:28:16,265][Thread-1:14712][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getLastCoordsByTimeRange/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 250, in getLastCoordsByTimeRange
+    cursor.execute("select longitude, latitude, sid from mobilesensorreadings where timestamp > '{0}'  and timestamp < '{1}'".format(params['begintime'], params['endtime']))
+NameError: name 'cursor' is not defined
+[2019-07-02 21:55:37,371][Thread-13:12876][task_id:django.request][log.py:228][ERROR][Internal Server Error: /findSensorByTimeRangeAndCoords/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 208, in findSensorByTimeRangeAndCoords
+    cursor.execute("select distinct sid from mobilesensorreadings where timestamp > '{0}'  and timestamp < '{1}' and longitude > {2} and longitude < {3} and latitude > {4} and latitude < {5}".format(params['begintime'], params['endtime'], params['coords'][0], params['coords'][2], params['coords'][1], params['coords'][3]))
+KeyError: 'begintime'
+[2019-07-02 22:24:29,470][Thread-3:2132][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 103, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 226, in calCluster
+    [a, b] = mn.shape
+ValueError: not enough values to unpack (expected 2, got 1)
+[2019-07-02 22:24:35,006][Thread-2:11164][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 103, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 226, in calCluster
+    [a, b] = mn.shape
+ValueError: not enough values to unpack (expected 2, got 1)
+[2019-07-02 22:24:39,023][Thread-6:3836][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 103, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 226, in calCluster
+    [a, b] = mn.shape
+ValueError: not enough values to unpack (expected 2, got 1)
+[2019-07-02 22:25:09,193][Thread-4:9032][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 103, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 229, in calCluster
+    result = Dimension_Reduction_PCA(result)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 135, in Dimension_Reduction_PCA
+    pca = pca.fit_transform(feature_matrix)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\decomposition\pca.py", line 360, in fit_transform
+    U, S, V = self._fit(X)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\decomposition\pca.py", line 382, in _fit
+    copy=self.copy)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 542, in check_array
+    allow_nan=force_all_finite == 'allow-nan')
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 56, in _assert_all_finite
+    raise ValueError(msg_err.format(type_err, X.dtype))
+ValueError: Input contains NaN, infinity or a value too large for dtype('float64').
+[2019-07-02 22:25:23,881][Thread-4:9032][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 103, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 226, in calCluster
+    [a, b] = mn.shape
+ValueError: not enough values to unpack (expected 2, got 1)

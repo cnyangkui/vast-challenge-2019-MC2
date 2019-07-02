@@ -75,8 +75,30 @@ export default {
       axios.post("/calSensorClusters/", this.timeRange || this.defaultTimeRange).then(response => {
 
         let data = response.data;
-        
-        var root = d3.hierarchy(data)
+
+        data.children.forEach(d => {
+          d.children.sort((a, b) => b.mean-a.mean)
+        })
+
+        let sensors = data.children.map(d => {
+          let category = d.children[0].name.startsWith('s') ? "static": "mobile";
+          let sid = d.children[0].name.substring(1);
+          return {category: category, sid: sid};
+        })
+
+        let cluster = {name: 'cluster', children: []};
+        let childrenLength = data.children.length;
+        for(let i=0; i<childrenLength; i++) {
+          cluster.children[i] = {};
+          cluster.children[i].name = "cluster" + i;
+          cluster.children[i].mean = d3.mean(data.children[i].children, d => d.mean);
+          cluster.children[i].std = d3.mean(data.children[i].children, d => d.std);
+          cluster.children[i].staticNum = data.children[i].children.filter(d => d.name.startsWith('s'));
+          cluster.children[i].mobileNum = data.children[i].children.filter(d => d.name.startsWith('m'));
+          cluster.children[i].lineExample = sensors[i];
+        }
+        console.log(data)
+        var root = d3.hierarchy(cluster)
             .eachBefore(function(d) { d.data.id = d.data.name; })
             .sum(d => d.mean)
             .sort(function(a, b) { return b.height - a.height || b.value - a.value; });
@@ -88,32 +110,38 @@ export default {
           .enter().append("g")
             .attr("transform", function(d) { return "translate(" + d.x0 + "," + d.y0 + ")"; })
             .on("click", (d, i) => {
-              let category = null;
-              let sid = null;
-              if(d.data.name.startsWith("m")) {
-                category = "mobile";
-              } else {
-                category = "static";
-              }
-              sid = parseInt(d.data.name.substring(1, d.data.name.length));
-              // if(this.sidList.length > 3) {
-              //   this.sidList = [];
-              //   alert("最多三个...")
+              // let category = null;
+              // let sid = null;
+              // if(d.data.name.startsWith("m")) {
+              //   category = "mobile";
+              // } else {
+              //   category = "static";
               // }
-              this.sidList.push({category: category, sid: sid});
-              this.$root.eventHub.$emit("sensorSelected", {category: category, sid: sid});
+              // sid = parseInt(d.data.name.substring(1, d.data.name.length));
+              // this.sidList.push({category: category, sid: sid});
+              // this.$root.eventHub.$emit("sensorSelected", {category: category, sid: sid});
+              // this.drawTreemapByCluster();
+              this.drawTreemapByCluster(data.children[i])
             })
 
         cell.append("rect")
             .attr("id", function(d) { return d.data.id; })
             .attr("width", function(d) { return d.x1 - d.x0; })
             .attr("height", function(d) { return d.y1 - d.y0; })
+            // .attr("fill", "steelblue");
             .attr("fill", function(d) { return color(d.parent.data.id); });
 
-        cell.append("clipPath")
-            .attr("id", function(d) { return "clip-" + d.data.id; })
-          .append("use")
-            .attr("xlink:href", function(d) { return "#" + d.data.id; });
+        
+        // sensors.forEach(d => {
+        //   axios.post("/calTimeSeriesBySid/", Object.assign({}, this.timeRange||this.defaultTimeRange, d))
+        //     .then((response) => {
+        //       console.log(response.data)
+        //       this.
+        //     })
+        // });  
+        sensors.forEach((d, i) => {
+          this.drawLineBySid(d3.select(cell.nodes()[i]), d)
+        })
 
         cell.append("text")
             .attr("clip-path", function(d) { return "url(#clip-" + d.data.id + ")"; })
@@ -124,11 +152,144 @@ export default {
             .attr("y", function(d, i) { return 13 + i * 10; })
             .text(function(d) { return d; })
             .style("font-size", 8);
-
-        cell.append("title")
-            .text(function(d) { return d.data.id + "\n" + format(d.value); });
-
       });
+    },
+    drawTreemapByCluster(data) {
+      d3.select(`#${this.cid} svg`).selectAll('g').remove();
+      var margin = { top: 5, right: 5, bottom: 5, left: 5 },
+            chartWidth  = this.svgWidth  - margin.left - margin.right,
+            chartHeight = this.svgHeight - margin.top  - margin.bottom;
+
+      let g = this.svg.append("g").attr("transform", "translate(" + (margin.left) + "," + (margin.top) + ")");
+
+      var fader = function(color) { return d3.interpolateRgb(color, "#fff")(0.2); },
+        color = d3.scaleOrdinal(d3.schemeCategory10.map(fader)),
+        format = d3.format(",d");
+
+      var treemap = d3.treemap()
+          .tile(d3.treemapBinary)
+          .size([chartWidth, chartHeight])
+          .round(true)
+          .paddingInner(1);
+
+      var root = d3.hierarchy(data)
+            .eachBefore(function(d) { d.data.id = d.data.name; })
+            .sum(d => d.mean)
+            .sort(function(a, b) { return b.height - a.height || b.value - a.value; });
+
+      treemap(root);
+
+      var cell = g.selectAll("g")
+        .data(root.leaves())
+        .enter().append("g")
+          .attr("transform", function(d) { return "translate(" + d.x0 + "," + d.y0 + ")"; })
+          .on("click", (d, i) => {
+            let category = null;
+            let sid = null;
+            if(d.data.name.startsWith("m")) {
+              category = "mobile";
+            } else {
+              category = "static";
+            }
+            sid = parseInt(d.data.name.substring(1, d.data.name.length));
+            this.sidList.push({category: category, sid: sid});
+            this.$root.eventHub.$emit("sensorSelected", {category: category, sid: sid});
+          })
+
+      cell.append("rect")
+          .attr("id", function(d) { return d.data.id; })
+          .attr("width", function(d) { return d.x1 - d.x0; })
+          .attr("height", function(d) { return d.y1 - d.y0; })
+          // .attr("fill", "steelblue");
+          .attr("fill", function(d) { return color(d.parent.data.id); });
+
+      cell.append("text")
+          .attr("clip-path", function(d) { return "url(#clip-" + d.data.id + ")"; })
+        .selectAll(".treemap tspan")
+          .data(function(d) { return d.data.name.split(/(?=[A-Z][^A-Z])/g); })
+        .enter().append("tspan")
+          .attr("x", 4)
+          .attr("y", function(d, i) { return 13 + i * 10; })
+          .text(function(d) { return d; })
+          .style("font-size", 8);
+    },
+    drawLineBySid(g, sensor_info) {
+
+      let _this = this;
+
+      let datum = g.datum();
+
+      function makeChartBySid (data) {
+        var margin = { top: 0, right: 0, bottom: 0, left: 0 },
+            chartWidth  = datum.x1 - datum.x0,
+            chartHeight = datum.y1 - datum.y0 > 50 ? 50: datum.y1 - datum.y0;
+
+        let begin = null, end = null;
+        if(_this.timeRange != null) {
+          begin = new Date(_this.timeRange.begintime);
+          end = new Date(_this.timeRange.endtime);
+        } else {
+          begin = new Date(_this.defaultTimeRange.begintime);
+          end = new Date(_this.defaultTimeRange.endtime);
+        }
+
+        let max = d3.max(data, d => d.avg);
+
+        let x, y;
+
+        if(end.getTime() - begin.getTime() > 12 * 3600 * 1000) {
+          x = d3.scaleTime()
+            .range([0, chartWidth])
+            .domain([new Date(begin.getFullYear(), begin.getMonth(), begin.getDate(), begin.getHours()), new Date(end.getFullYear(), end.getMonth(), end.getDate(), end.getHours())]);
+        } else {
+          x = d3.scaleTime()
+            .range([0, chartWidth])
+            .domain([new Date(begin.getFullYear(), begin.getMonth(), begin.getDate(), begin.getHours(), begin.getMinutes()), new Date(end.getFullYear(), end.getMonth(), end.getDate(), end.getHours(), end.getMinutes())]);
+        }
+
+        y = d3.scaleLinear().range([chartHeight, 0])
+              .domain([0, max]);
+
+
+        var line_g = g.append('g')
+            .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+        // _this.addAxes(g, xAxis, yAxis, margin, chartWidth, chartHeight);
+        
+        // let lineStyle = "inner";
+        // if(params.category == "static") {
+        //   lineStyle = "inner2";
+        // }
+        // let color = d3.scaleOrdinal(d3.schemeCategory10);
+
+        let medianLine = d3.line()
+          .x(function (d) { return x(d.time); })
+          .y(function (d) { return y(d.avg); })
+          .curve(d3.curveMonotoneX);
+
+
+        line_g.datum(data);
+
+        line_g.append('path')
+          .attr("class", "line")
+          .attr('d', medianLine);
+
+      }
+      
+      /***************************************************************************************/
+      
+      
+      let parseDate = d3.timeParse('%Y-%m-%d %H:%M:%S');
+      axios.post("/calTimeSeriesBySid/", Object.assign({}, this.timeRange || this.defaultTimeRange, sensor_info))
+        .then((response) => {
+          var data = response.data.map(function (d) {
+            return {
+              time:  parseDate(d.time),
+              avg: parseFloat(d.avg),
+            };
+          });
+          makeChartBySid(data);
+        })
     },
     timeRangeUpdated(params) {
       console.log("Treemap updated")
@@ -141,7 +302,12 @@ export default {
 </script>
 
 <style scoped>
-.package >>> .label {
+.treemap >>> .label {
   font-size: 8px;
+}
+.treemap >>> path {
+  fill: none;
+  stroke: black;
+  stroke-width: 1;
 }
 </style>

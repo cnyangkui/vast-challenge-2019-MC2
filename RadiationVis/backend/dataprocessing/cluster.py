@@ -13,6 +13,7 @@ from scipy import stats
 import math
 from sklearn.manifold import MDS
 from sklearn.cluster import DBSCAN
+from sklearn.decomposition import PCA
 import math
 import datetime, time
 import logging
@@ -57,7 +58,7 @@ def Matrix_Completion_2(m):
 	index = np.argwhere(np.isnan(m))
 	[rows1, cols1] = index.shape
 	for i in range(rows1):
-		m[index[i, 0], index[i, 1]] = -200
+		m[index[i, 0], index[i, 1]] = 0
 	return m
 
 '''
@@ -129,6 +130,10 @@ def Cluster_DBSCAN(result):
 	cluster_res = DBSCAN(eps=0.05, min_samples=3).fit_predict(result)
 	return cluster_res
 
+def Dimension_Reduction_PCA(feature_matrix):
+	pca = PCA(n_components=2)
+	pca = pca.fit_transform(feature_matrix)
+	return pca
 
 def calCluster(begintime, endtime):
 	'''
@@ -217,9 +222,11 @@ def calCluster(begintime, endtime):
 		for i in range(len(index_col)):
 			col_mean[index_col[i][0]] = 0
 	mn = Matrix_Completion_2(mn)
+	# mn = Centralized_with_Outliers(mn)
 	[a, b] = mn.shape
 
 	result = Distance_Metric_Cos(mn, sensor_len)
+	result = Dimension_Reduction_PCA(result)
 
 	# result = Dimension_Reduction_MDS(feature_matrix)  # 降维
 	'''
@@ -248,5 +255,6 @@ def calCluster(begintime, endtime):
 if __name__ == '__main__':
     # timestr = '2020-04-09 20:00:00'
     # d = datetime.datetime.strptime(timestr, '%Y-%m-%d %H:%M:%S')
-    # print(time.mktime(d.timetuple()))\
-    calCluster('2020-04-07 00:00:00', '2020-04-08 12:00:00')
+    # print(time.mktime(d.timetuple()))
+		tree = calCluster('2020-04-06 00:00:00', '2020-04-11 00:00:00')
+		print(tree)

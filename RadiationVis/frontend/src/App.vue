@@ -1,47 +1,45 @@
 <template>
   <div id="app">
-    <el-row class="top">
-      <el-col :span="24">
+    <el-row>
+      <el-col :span="4" class="left">
         <div class="grid-content">
-          <time-series-chart cid="time_series_chart_container"></time-series-chart>
+          <div>
+            <div>
+              <div><el-radio v-model="radio" label="radiation" :border="true" size="mini" style="width: 112px;">radiation</el-radio></div>
+              <div><el-radio v-model="radio" label="uncertainty" :border="true" size="mini" style="width: 112px;">uncertainty</el-radio></div>
+            </div>
+            <div v-if="radio=='radiation'">
+              <div><el-checkbox :border="true" size="mini" v-model="layerCheckbox.r_si_kriging_check">SI(kriging)</el-checkbox></div>
+              <div><el-checkbox :border="true" size="mini" v-model="layerCheckbox.r_si_idw_check">SI(idw)</el-checkbox></div>
+              <div><el-checkbox :border="true" size="mini" v-model="layerCheckbox.r_mi_idw_check">MI(idw)</el-checkbox></div>
+            </div>
+            <div v-else-if="radio=='uncertainty'">
+              <div><el-checkbox :border="true" size="mini" v-model="layerCheckbox.u_mi_check">MI(idw)</el-checkbox></div>
+              <div><el-checkbox :border="true" size="mini" v-model="layerCheckbox.u_pie_check">Pie</el-checkbox></div>
+            </div>
+          </div>
         </div>
       </el-col>
-    </el-row>
-    <el-row class="bottom" :gutter="3">
-      <el-col :span="12">
-        <el-row class="left1">
-          <el-col :span="12">
+      <el-col :span="20" class="right">
+        <el-row class="right_top">
+          <el-col :span="24">
             <div class="grid-content">
-              <!-- <treemap cid="treemap-container"></treemap> -->
-              <package-chart cid="package-container"></package-chart>
+              <time-series-chart cid="time_series_chart_container"></time-series-chart>
             </div>
           </el-col>
-          <el-col :span="12">
-            <div class="grid-content">
+        </el-row>
+        <el-row class="right_bottom">
+          <el-col :span="10" class="bottom_left">
+            <div class="grid-content bottom_left_top">
               <treemap cid="treemap-container"></treemap>
-              <!-- <SimilarityScatter></SimilarityScatter> -->
-              <!-- <package-chart cid="package-container222"></package-chart> -->
+            </div>
+            <div class="grid-content bottom_left_bottom">
+              <trend-chart cid="trend_chart_container"></trend-chart>
             </div>
           </el-col>
-        </el-row>
-        <el-row class="left2">
-          <el-col :span="24">
+          <el-col :span="14" class="bottom_right">
             <div class="grid-content">
-              <!-- <div class="nav">
-                <el-button type="text" @click="srScatterVisible = true">点击打开 Dialog</el-button>
-              </div> -->
-              <div class="main">
-                <trend-chart cid="trend_chart_container2"></trend-chart>
-              </div>
-            </div>
-          </el-col>
-        </el-row>
-      </el-col>
-      <el-col :span="12">
-        <el-row class="right">
-          <el-col :span="24">
-            <div class="grid-content">
-              <openlayers></openlayers>
+              <openlayers :layerCheckbox="layerCheckbox"></openlayers>
             </div>
           </el-col>
         </el-row>
@@ -63,7 +61,7 @@ import Openlayers from './components/Openlayers.vue'
 import TrendChart from './components/TrendChart.vue'
 import TimeSeriesChart from './components/TimeSeriesChart.vue'
 import Treemap from './components/Treemap.vue'
-import PackageChart from './components/PackageChart.vue'
+// import PackageChart from './components/PackageChart.vue'
 // import SimilarityScatter from './components/SimilarityScatter'
 import * as d3 from 'd3'
 
@@ -75,12 +73,23 @@ export default {
     TrendChart,
     TimeSeriesChart,
     Treemap,
-    PackageChart,
+    // PackageChart,
     // SimilarityScatter
   },
   data() {
     return {
       srScatterVisible: false,
+      radio: "radiation",
+      layerCheckbox: {
+        r_si_kriging_check: false,
+        r_si_idw_check: false,
+        r_mi_idw_check: false,
+        r_s_check: false,
+        r_m_check: false,
+        t_heatmap_check: false,
+        u_pie_check: false,
+        u_mi_check: false,
+      }
     }
   },
   mounted() {
@@ -124,32 +133,41 @@ html, body, #app {
   height: 100%;
   overflow: hidden;
 }
-.el-row {
+/* .el-row {
   display: block; 
   margin-bottom: 5px;
 }
 .el-row last-child {
   margin-bottom: 0;
+} */
+.el-row {
+  height: 100%;
 }
 .el-col {
   height: 100%;
 }
 .grid-content {
-  border-radius: 4px;
+  /* border-radius: 4px; */
   border: 1px solid black;
   height: 100%;
 }
-.top {
-  height: 20%;
+.left, .right {
+  height: 100%;
 }
-.bottom {
-  height: 85%;
+.right_top {
+  height: 16%;
 }
-.left1, .left2, .left3 {
-  height: 42.5%;
+.right_bottom {
+  height: 84%;
 }
-.right {
-  height: 85%;
+.bottom_left, .bottom_right {
+  height: 100%;
+}
+.bottom_left_top {
+  height: 60%;
+}
+.bottom_left_bottom {
+  height: 40%;
 }
 .nav {
   height: 10%;
@@ -158,4 +176,8 @@ html, body, #app {
 .main {
   height: 90%;
 }
+/* .border {
+  border-radius: 4px;
+  border: 1px solid black;
+} */
 </style>
