@@ -128,6 +128,10 @@ export default {
   },
   methods: {
     sensorSelected(params) {
+      // 如果该传感器已经存在，则不添加
+      if(this.trendCharts.filter(d => d.category==params.category && d.sid==params.sid).length > 0) {
+        return;
+      }
       this.getTrendChartData(params);
     },
     getTrendChartData(params) {

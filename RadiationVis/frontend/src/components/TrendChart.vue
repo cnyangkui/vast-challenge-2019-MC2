@@ -1,7 +1,7 @@
 <template>
   <div :id="cid">
     <div class="control">
-      <label>shijian</label>
+      <label>All.</label>
       <input class="button" type="button" value="delete">
     </div>
     <div class="trendchart"></div>
@@ -501,6 +501,9 @@ export default {
 }
 .control .button {
   border-radius: 5px;
+  float: right;
+  margin-right: 5px;
+  margin-top: 2px;
 }
 .trendchart >>> .axis path, 
 .axis line {

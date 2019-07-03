@@ -1,7 +1,7 @@
 <template>
   <div :id="cid">
     <div class="control">
-      <label>shijian</label>
+      <label>{{originData.category}}:{{originData.sid}} mean:{{mean}}</label>
       <input class="button" type="button" value="delete">
     </div>
     <div class="trendchart"></div>
@@ -218,6 +218,14 @@ export default {
     //   d3.select(`#${this.cid} svg`).selectAll('g').remove();
     //   this.drawChartBySid();
     // }
+  },
+  computed: {
+    mean: function() {
+      if(this.originData) {
+        return Math.round(d3.mean(this.originData.data, d => d.avg))
+      }
+      return null;
+    }
   }
 }
 </script>
@@ -233,6 +241,9 @@ export default {
 }
 .control .button {
   border-radius: 5px;
+  float: right;
+  margin-right: 5px;
+  margin-top: 2px;
 }
 .trendchart >>> .axis path, 
 .axis line {

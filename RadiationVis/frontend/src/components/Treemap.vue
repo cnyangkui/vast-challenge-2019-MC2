@@ -93,11 +93,10 @@ export default {
           cluster.children[i].name = "cluster" + i;
           cluster.children[i].mean = d3.mean(data.children[i].children, d => d.mean);
           cluster.children[i].std = d3.mean(data.children[i].children, d => d.std);
-          cluster.children[i].staticNum = data.children[i].children.filter(d => d.name.startsWith('s'));
-          cluster.children[i].mobileNum = data.children[i].children.filter(d => d.name.startsWith('m'));
+          cluster.children[i].static = data.children[i].children.filter(d => d.name.startsWith('s'));
+          cluster.children[i].mobile = data.children[i].children.filter(d => d.name.startsWith('m'));
           cluster.children[i].lineExample = sensors[i];
         }
-        console.log(data)
         var root = d3.hierarchy(cluster)
             .eachBefore(function(d) { d.data.id = d.data.name; })
             .sum(d => d.mean)
@@ -110,17 +109,6 @@ export default {
           .enter().append("g")
             .attr("transform", function(d) { return "translate(" + d.x0 + "," + d.y0 + ")"; })
             .on("click", (d, i) => {
-              // let category = null;
-              // let sid = null;
-              // if(d.data.name.startsWith("m")) {
-              //   category = "mobile";
-              // } else {
-              //   category = "static";
-              // }
-              // sid = parseInt(d.data.name.substring(1, d.data.name.length));
-              // this.sidList.push({category: category, sid: sid});
-              // this.$root.eventHub.$emit("sensorSelected", {category: category, sid: sid});
-              // this.drawTreemapByCluster();
               this.drawTreemapByCluster(data.children[i])
             })
 
@@ -131,14 +119,6 @@ export default {
             // .attr("fill", "steelblue");
             .attr("fill", function(d) { return color(d.parent.data.id); });
 
-        
-        // sensors.forEach(d => {
-        //   axios.post("/calTimeSeriesBySid/", Object.assign({}, this.timeRange||this.defaultTimeRange, d))
-        //     .then((response) => {
-        //       console.log(response.data)
-        //       this.
-        //     })
-        // });  
         sensors.forEach((d, i) => {
           this.drawLineBySid(d3.select(cell.nodes()[i]), d)
         })
@@ -150,8 +130,8 @@ export default {
           .enter().append("tspan")
             .attr("x", 4)
             .attr("y", function(d, i) { return 13 + i * 10; })
-            .text(function(d) { return d; })
-            .style("font-size", 8);
+            .text(function(d, i) { return `static: ${cluster.children[i].static.length}, mobile: ${cluster.children[i].mobile.length}` })
+            .style("font-size", 12);
       });
     },
     drawTreemapByCluster(data) {
@@ -193,7 +173,6 @@ export default {
             }
             sid = parseInt(d.data.name.substring(1, d.data.name.length));
             this.sidList.push({category: category, sid: sid});
-            console.log(this.timeRange)
             this.$root.eventHub.$emit("sensorSelected", Object.assign({}, {category: category, sid: sid}, this.timeRange||this.defaultTimeRange));
           })
 
@@ -201,8 +180,8 @@ export default {
           .attr("id", function(d) { return d.data.id; })
           .attr("width", function(d) { return d.x1 - d.x0; })
           .attr("height", function(d) { return d.y1 - d.y0; })
-          // .attr("fill", "steelblue");
-          .attr("fill", function(d) { return color(d.parent.data.id); });
+          .attr("fill", "steelblue");
+          // .attr("fill", function(d) { return color(d.parent.data.id); });
 
       cell.append("text")
           .attr("clip-path", function(d) { return "url(#clip-" + d.data.id + ")"; })
@@ -212,7 +191,7 @@ export default {
           .attr("x", 4)
           .attr("y", function(d, i) { return 13 + i * 10; })
           .text(function(d) { return d; })
-          .style("font-size", 8);
+          .style("font-size", 10);
     },
     drawLineBySid(g, sensor_info) {
 
@@ -253,15 +232,7 @@ export default {
 
 
         var line_g = g.append('g')
-            .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-
-        // _this.addAxes(g, xAxis, yAxis, margin, chartWidth, chartHeight);
-        
-        // let lineStyle = "inner";
-        // if(params.category == "static") {
-        //   lineStyle = "inner2";
-        // }
-        // let color = d3.scaleOrdinal(d3.schemeCategory10);
+            .attr('transform', d => 'translate(' + margin.left + ',' + (margin.top + (d.y1-d.y0) * 0.35) + ')');
 
         let medianLine = d3.line()
           .x(function (d) { return x(d.time); })
@@ -278,8 +249,7 @@ export default {
       }
       
       /***************************************************************************************/
-      
-      
+
       let parseDate = d3.timeParse('%Y-%m-%d %H:%M:%S');
       axios.post("/calTimeSeriesBySid/", Object.assign({}, this.timeRange || this.defaultTimeRange, sensor_info))
         .then((response) => {
@@ -293,7 +263,6 @@ export default {
         })
     },
     timeRangeUpdated(params) {
-      console.log("Treemap updated")
       this.timeRange = params;
       d3.select(`#${this.cid} svg`).selectAll('g').remove();
       this.drawChart();

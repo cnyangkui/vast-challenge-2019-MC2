@@ -1652,3 +1652,26 @@ Traceback (most recent call last):
   File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 56, in _assert_all_finite
     raise ValueError(msg_err.format(type_err, X.dtype))
 ValueError: Input contains NaN, infinity or a value too large for dtype('float64').
+[2019-07-03 15:50:12,626][Thread-89:1808][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 103, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 229, in calCluster
+    result = Dimension_Reduction_PCA(result)
+  File "D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 135, in Dimension_Reduction_PCA
+    pca = pca.fit_transform(feature_matrix)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\decomposition\pca.py", line 360, in fit_transform
+    U, S, V = self._fit(X)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\decomposition\pca.py", line 382, in _fit
+    copy=self.copy)
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 542, in check_array
+    allow_nan=force_all_finite == 'allow-nan')
+  File "C:\Softwares\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 56, in _assert_all_finite
+    raise ValueError(msg_err.format(type_err, X.dtype))
+ValueError: Input contains NaN, infinity or a value too large for dtype('float64').

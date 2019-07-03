@@ -52,7 +52,7 @@ import VectorSource from 'ol/source/Vector'
 import {getCenter} from 'ol/extent';
 import Projection from 'ol/proj/Projection';
 import {Point, LineString, Polygon} from 'ol/geom'
-import {Style, Circle, Fill, Stroke} from 'ol/style'
+import {Style, Circle, Fill, Stroke, Icon} from 'ol/style'
 import Select from 'ol/interaction/Select'
 import {defaults as defaultControls, FullScreen} from 'ol/control';
 import Overlay from 'ol/Overlay';
@@ -125,7 +125,7 @@ export default {
     loadMap() {
       this.initMap();
       this.addSelectEvent();
-      // this.drawStaticPointLayer(); //添加静态传感器
+      this.drawStaticPointLayer(); //添加静态传感器
     },
     selfAdaptionSize() {
       let width = document.querySelector("#openlayers_container").clientWidth;
@@ -243,9 +243,11 @@ export default {
             geometry: new Point([parseFloat(point.long), parseFloat(point.lat)])
           });
           feature.setStyle(new Style({
-            image: new Circle({
-                radius: 3,
-                fill: new Fill({ color: "#00F" })
+            image: new Icon({
+                // radius: 3,
+                // fill: new Fill({ color: "#00F" })
+              src: require('../assets/img/StaticSensor.png'),
+              imgSize: [12, 12]
             })
           }));
           vectorSource.addFeature(feature);
