@@ -24,17 +24,23 @@
         <el-row class="right_top">
           <el-col :span="24">
             <div class="grid-content">
-              <time-series-chart cid="time_series_chart_container"></time-series-chart>
+              <time-series-chart :cid="`time_series_chart_container`"></time-series-chart>
             </div>
           </el-col>
         </el-row>
         <el-row class="right_bottom">
           <el-col :span="10" class="bottom_left">
             <div class="grid-content bottom_left_top">
-              <treemap cid="treemap-container"></treemap>
+              <treemap :cid="`treemap-container`"></treemap>
             </div>
             <div class="grid-content bottom_left_bottom">
-              <trend-chart cid="trend_chart_container"></trend-chart>
+              <div class="innerdiv">
+                <trend-chart :cid="`trend_chart_container`"></trend-chart>
+              </div>
+              <div v-for="(item, index) in trendCharts" :key='index' class="innerdiv">
+                <sid-trend-chart :cid="`trend_chart_container_${index}`" :originData="item"></sid-trend-chart>
+                <!-- {{item}} -->
+              </div>
             </div>
           </el-col>
           <el-col :span="14" class="bottom_right">
@@ -61,9 +67,11 @@ import Openlayers from './components/Openlayers.vue'
 import TrendChart from './components/TrendChart.vue'
 import TimeSeriesChart from './components/TimeSeriesChart.vue'
 import Treemap from './components/Treemap.vue'
+import SidTrendChart from './components/SidTrendChart.vue'
 // import PackageChart from './components/PackageChart.vue'
 // import SimilarityScatter from './components/SimilarityScatter'
 import * as d3 from 'd3'
+import axios from './assets/js/http'
 
 export default {
   name: 'app',
@@ -73,6 +81,7 @@ export default {
     TrendChart,
     TimeSeriesChart,
     Treemap,
+    SidTrendChart
     // PackageChart,
     // SimilarityScatter
   },
@@ -89,9 +98,28 @@ export default {
         t_heatmap_check: false,
         u_pie_check: false,
         u_mi_check: false,
-      }
+      },
+      items: [
+        { message: 'Foo' },
+        { message: 'Bar' }
+      ],
+      trendCharts: [],
+      defaultTimeRange: {
+        begintime: '2020-04-06 00:00:00',
+        endtime: '2020-04-11 00:00:00'
+      },
     }
   },
+  created: function () {
+    this.$root.eventHub.$on('timeRangeUpdated', this.timeRangeUpdated);
+      this.$root.eventHub.$on('sensorSelected', this.sensorSelected);
+   },
+   // 最好在组件销毁前
+   // 清除事件监听
+   beforeDestroy: function () {
+     this.$root.eventHub.$off('timeRangeUpdated', this.timeRangeUpdated);
+      this.$root.eventHub.$off('sensorSelected', this.sensorSelected);
+   },
   mounted() {
     // this.layout();
     this.$nextTick(() => {
@@ -99,16 +127,34 @@ export default {
     })
   },
   methods: {
-    layout() {
-      let bodyHeight = document.body.clientHeight
-      let leftdivs = document.querySelectorAll(".left")
-      for(let i=0; i<leftdivs.length; i++) {
-        leftdivs[i].style.height = Math.floor(bodyHeight / 3 - 8) + "px";
-      }
-      document.querySelector(".right").style.minHeight = (bodyHeight -8 )+ "px";
+    sensorSelected(params) {
+      this.getTrendChartData(params);
     },
-    handleClose(done) {
-      done();
+    getTrendChartData(params) {
+      let parseDate = d3.timeParse('%Y-%m-%d %H:%M:%S');
+      axios.post("/calTimeSeriesBySid/", params)
+        .then((response) => {
+          let data = response.data.map(function (d) {
+            return {
+              time:  parseDate(d.time),
+              lower95: parseFloat(d.lower95),
+              avg: parseFloat(d.avg),
+              upper95: parseFloat(d.upper95)
+            };
+          });
+          let trendChart = {
+            category: params.category,
+            sid: params.sid,
+            timeRange: {begintime: params.begintime, endtime: params.endtime},
+            data: data
+          }
+          this.trendCharts.push(trendChart);
+      })
+    },
+    timeRangeUpdated(params) {
+      for(let i=0, length=this.trendCharts.length; i<length; i++) {
+        this.trendCharts.pop();
+      }
     }
   }
 }
@@ -168,6 +214,11 @@ html, body, #app {
 }
 .bottom_left_bottom {
   height: 40%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.bottom_left_bottom .innerdiv {
+  height: 100%;
 }
 .nav {
   height: 10%;

@@ -127,7 +127,7 @@ def Dimension_Reduction_TSNE(feature_matrix):
 
 def Cluster_DBSCAN(result):
 	[m, n] = result.shape
-	cluster_res = DBSCAN(eps=0.05, min_samples=3).fit_predict(result)
+	cluster_res = DBSCAN(eps=0.02, min_samples=3).fit_predict(result)
 	return cluster_res
 
 def Dimension_Reduction_PCA(feature_matrix):

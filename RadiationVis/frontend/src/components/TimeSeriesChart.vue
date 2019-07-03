@@ -256,8 +256,8 @@ export default {
 }
 
 .times_series_chart >>> .static_uncertainty {
-  fill: rgba(255, 127, 0, 0.8);
-  stroke: rgba(255, 127, 0, 0.8);
+  fill: rgba(255,182,193, 0.8);
+  stroke: rgba(255,182,193, 0.8);
 }
 
 .times_series_chart >>> .median-line,

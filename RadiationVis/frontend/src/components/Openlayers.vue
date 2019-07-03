@@ -189,6 +189,10 @@ export default {
           element: this.popup.container,
           positioning: 'bottom-center',
           stopEvent: false,
+          autoPan: true,
+          autoPanAnimation: {
+            duration: 250
+          }
           // offset: [0, -50]
         });
         this.popup.closer.onclick = function() {
@@ -997,7 +1001,7 @@ export default {
   right: 8px;
 }
 .ol-popup-closer:after {
-  content: "x";
+  content: "✖";
 }
 </style>
 

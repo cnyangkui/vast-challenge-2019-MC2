@@ -1,5 +1,9 @@
 <template>
   <div :id="cid">
+    <div class="control">
+      <label>shijian</label>
+      <input class="button" type="button" value="delete">
+    </div>
     <div class="trendchart"></div>
   </div>
 </template>
@@ -28,13 +32,13 @@ export default {
   },
   created: function () {
       this.$root.eventHub.$on('timeRangeUpdated', this.timeRangeUpdated);
-      this.$root.eventHub.$on('sensorSelected', this.sensorSelected);
+      // this.$root.eventHub.$on('sensorSelected', this.sensorSelected);
    },
    // 最好在组件销毁前
    // 清除事件监听
    beforeDestroy: function () {
       this.$root.eventHub.$off('timeRangeUpdated', this.timeRangeUpdated);
-      this.$root.eventHub.$off('sensorSelected', this.sensorSelected);
+      // this.$root.eventHub.$off('sensorSelected', this.sensorSelected);
    },
   mounted() {
     this.$nextTick(() => {
@@ -50,7 +54,7 @@ export default {
     selfAdaptionSvgSize() {
       let parentNode = document.querySelector(`#${this.cid}`).parentNode;
       this.svgWidth = parentNode.clientWidth;
-      this.svgHeight = parentNode.clientHeight;
+      this.svgHeight = parentNode.clientHeight - document.querySelector(`#${this.cid} .control`).clientHeight;
     },
     drawSvg() {
       this.svg = d3.select(`#${this.cid} .trendchart`).append("svg")
@@ -59,7 +63,6 @@ export default {
     },
     // params: {begintime: xxx, endtime: xxx}
     drawChart() {
-
       let _this = this;
     
       if (_this.timeRange == null) {
@@ -401,18 +404,51 @@ export default {
         .x (function (d) { return x(d.time); })
         .y0(function (d) { return y(d.upper95); })
         .y1(function (d) { return y(d.avg); })
-        .curve(d3.curveMonotoneX);
+        .curve(d3.curveMonotoneX)
+        .defined((d, i, data) => {
+          if(i == 0) {
+            return true;
+          } else {
+            if(data[i].time.getTime() - data[i-1].time.getTime() <= 3600 * 1000) {
+              return true;
+            } else {
+              return false;
+            }
+          }
+        });
 
       let medianLine = d3.line()
         .x(function (d) { return x(d.time); })
         .y(function (d) { return y(d.avg); })
-        .curve(d3.curveMonotoneX);
+        .curve(d3.curveMonotoneX)
+        .defined((d, i, data) => {
+          if(i == 0) {
+            return true;
+          } else {
+            if(data[i].time.getTime() - data[i-1].time.getTime() <= 3600 * 1000) {
+              return true;
+            } else {
+              return false;
+            }
+          }
+        });
 
       let lowerInnerArea = d3.area()
         .x (function (d) { return x(d.time); })
         .y0(function (d) { return y(d.avg); })
         .y1(function (d) { return y(d.lower95); })
-        .curve(d3.curveMonotoneX);
+        .curve(d3.curveMonotoneX)
+        .defined((d, i, data) => {
+          if(i == 0) {
+            return true;
+          } else {
+            if(data[i].time.getTime() - data[i-1].time.getTime() <= 3600 * 1000) {
+              return true;
+            } else {
+              return false;
+            }
+          }
+        });
 
       g.datum(data);
 
@@ -441,20 +477,31 @@ export default {
       d3.select(`#${this.cid} svg`).selectAll('g').remove();
       this.drawChart();
     },
-    sensorSelected(params) {
-      if(this.sidList.length >= 5) {
-        this.sidList = [];
-        this.sidDataList = [];
-      }
-      this.sidList.push(params)
-      d3.select(`#${this.cid} svg`).selectAll('g').remove();
-      this.drawChartBySid();
-    }
+    // sensorSelected(params) {
+    //   if(this.sidList.length >= 5) {
+    //     this.sidList = [];
+    //     this.sidDataList = [];
+    //   }
+    //   this.sidList.push(params)
+    //   d3.select(`#${this.cid} svg`).selectAll('g').remove();
+    //   this.drawChartBySid();
+    // }
   }
 }
 </script>
 
 <style scoped>
+.control {
+  background-color: #ccc;
+  height: 28px;
+  font-size: 12px;
+}
+.control label {
+  line-height: 28px;
+}
+.control .button {
+  border-radius: 5px;
+}
 .trendchart >>> .axis path, 
 .axis line {
   fill: none;
@@ -487,8 +534,8 @@ export default {
 }
 
 .trendchart >>> .static_uncertainty {
-  fill: rgba(255, 127, 0, 0.8);
-  stroke: rgba(255, 127, 0, 0.8);
+  fill: rgba(255,182,193, 0.8);
+  stroke: rgba(255,182,193, 0.8);
   opacity: 0.6;
 }
 

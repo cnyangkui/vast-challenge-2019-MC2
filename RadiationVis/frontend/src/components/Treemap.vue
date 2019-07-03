@@ -193,7 +193,8 @@ export default {
             }
             sid = parseInt(d.data.name.substring(1, d.data.name.length));
             this.sidList.push({category: category, sid: sid});
-            this.$root.eventHub.$emit("sensorSelected", {category: category, sid: sid});
+            console.log(this.timeRange)
+            this.$root.eventHub.$emit("sensorSelected", Object.assign({}, {category: category, sid: sid}, this.timeRange||this.defaultTimeRange));
           })
 
       cell.append("rect")
