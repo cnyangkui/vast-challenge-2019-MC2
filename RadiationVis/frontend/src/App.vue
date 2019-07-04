@@ -37,9 +37,7 @@
           </div>
           <div class="control-container" style="margin-top: 5px;">
             <div class="control-header">
-              <label>Treemap
-
-              </label>
+              <label>Treemap</label>
             </div>
             <div class="control-content">
               <div class="input-ele-group">
@@ -47,8 +45,7 @@
                 <div class="input-ele"><input type="checkbox" value="mobile"><label>Mobile</label></div>
               </div>
               <div class="input-ele-group">
-                <div class="input-ele"><input type="button" value="global"></div>
-                <div class="input-ele"><input type="button" value="local"></div>
+                <div class="input-ele"><input type="button" value="返回" @click="getTreemap1();"></div>
               </div>
             </div>
           </div>
@@ -84,7 +81,8 @@
         <el-row class="right_bottom">
           <el-col :span="10" class="bottom_left">
             <div class="grid-content bottom_left_top">
-              <treemap :cid="`treemap-container`"></treemap>
+              <treemap v-show="treemapState=='treemap1'" :cid="`treemap-container`" :originData="treemap1"></treemap>
+              <treemap v-show="treemapState=='treemap2'" :cid="`treemap-container2`" :originData="treemap2"></treemap>
             </div>
             <div class="grid-content bottom_left_bottom">
               <!-- <div class="innerdiv">
@@ -147,6 +145,7 @@ export default {
         localDisabled: true,
       },
       timeSeriesCheckedState: ['static', 'mobile'],
+      treemapState: 'treemap1',
       mapControl: {
         r_si_kriging_check: false,
         r_si_idw_check: false,
@@ -159,6 +158,8 @@ export default {
       },
       trendChart: null,
       sidTrendCharts: [],
+      treemap1: null,
+      treemap2: null,
       defaultTimeRange: {
         begintime: '2020-04-06 00:00:00',
         endtime: '2020-04-11 00:00:00'
@@ -168,17 +169,19 @@ export default {
   created: function () {
     this.$root.eventHub.$on('timeRangeUpdated', this.timeRangeUpdated);
       this.$root.eventHub.$on('sensorSelected', this.sensorSelected);
+      this.$root.eventHub.$on('getTreemap2', this.getTreemap2);
    },
    // 最好在组件销毁前
    // 清除事件监听
    beforeDestroy: function () {
      this.$root.eventHub.$off('timeRangeUpdated', this.timeRangeUpdated);
       this.$root.eventHub.$off('sensorSelected', this.sensorSelected);
+      this.$root.eventHub.$off('getTreemap2', this.getTreemap2);
    },
   mounted() {
     // this.layout();
     this.$nextTick(() => {
-      
+      this.getTreemapDataByTimeRange(this.defaultTimeRange);
     })
   },
   methods: {
@@ -238,6 +241,24 @@ export default {
         })
 
     },
+    getTreemapDataByTimeRange(params) {
+      axios.post("/calSensorClusters/", params).then(response => {
+        this.treemap1 = {
+          state: this.treemapState,
+          data: response.data
+        }
+      })
+    },
+    getTreemap1() {
+      this.treemapState = 'treemap1';
+    },
+    getTreemap2(params) {
+      this.treemapState = 'treemap2';
+      this.treemap2 = {
+        state: this.treemapState,
+        data: params
+      }
+    },
     timeRangeUpdated(params) {
       for(let i=0, length=this.sidTrendCharts.length; i<length; i++) {
         this.sidTrendCharts.pop();
@@ -247,14 +268,13 @@ export default {
         this.timeSeriesControl.state = "local";
         this.trendChart = null;
         this.getTrendChartDataByTimeRange(params);
+        this.treemap1 = null;
+        this.treemap2 = null;
+        this.treemapState = 'treemap1';
+        this.getTreemapDataByTimeRange(params);
       }  else {
         this.timeSeriesControl.localDisabled = true;
       }
-    }
-  },
-  watch: {
-    timeSeriesCheckedState(n, o) {
-      // console.log(n)
     }
   }
 }
@@ -298,7 +318,7 @@ html, body, #app {
   height: 100%;
 }
 .control-container {
-  font-size: 12px;
+  font-size: 15px;
 }
 .control-header {
   background-color: #ccc;
@@ -313,8 +333,8 @@ html, body, #app {
   margin-left: 5px;
 }
 .control-container .input-ele-group {
-  width: 90%;
-  margin-left: 5%;
+  width: 92%;
+  margin-left: 4%;
 }
 .control-container .input-ele {
   width: 50%;

@@ -185,6 +185,22 @@ export default {
 
       g.datum(data);
 
+      let points = [];
+      for(let m=1, length=data.length; m<length; m++) {
+        if(data[m].time.getTime() - data[m-1].time.getTime() > 3600 * 1000) {
+          points.push(data[m]);
+        }
+      }
+
+      g.append('g')
+        .selectAll('circle')
+        .data(points)
+        .enter()
+        .append('circle')
+        .attr('cx', (d, i) => x(d.time))
+        .attr('cy', (d, i) => y(d.avg))
+        .attr('r', 1);
+
       g.append('path')
         .attr('d', upperInnerArea)
         .style('fill', 'steelblue')

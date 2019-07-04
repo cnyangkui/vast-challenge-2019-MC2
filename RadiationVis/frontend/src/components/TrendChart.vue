@@ -270,7 +270,6 @@ export default {
     originData: {
       handler(n, o) {
         this.clearAllg();
-        console.log(n)
         if(n && this.checkedItem.length!=0) {
           this.drawChart();
         }
