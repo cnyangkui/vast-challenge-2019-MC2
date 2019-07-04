@@ -247,6 +247,7 @@ export default {
                 // radius: 3,
                 // fill: new Fill({ color: "#00F" })
               src: require('../assets/img/static.png'),
+              scale: 0.2
               // size: [50, 50]
             })
           }));

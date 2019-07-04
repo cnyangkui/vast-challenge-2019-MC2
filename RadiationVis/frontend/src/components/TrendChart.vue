@@ -16,7 +16,8 @@ export default {
       default: function() {
         return null;
       }
-    }
+    },
+    checkedItem: Array,
   },
   data() {
     return {
@@ -163,18 +164,25 @@ export default {
 
       g.append('path')
         .attr('class', 'area upper ' + styleClass)
-        .attr('d', upperInnerArea)
-        .attr('clip-path', 'url(#rect-clip)')
+        .attr('d', upperInnerArea);
 
       g.append('path')
         .attr('class', 'area lower ' + styleClass)
-        .attr('d', lowerInnerArea)
-        .attr('clip-path', 'url(#rect-clip)');
+        .attr('d', lowerInnerArea);
 
       g.append('path')
         .attr('class', 'median-line')
-        .attr('d', medianLine)
-        .attr('clip-path', 'url(#rect-clip)');
+        .attr('d', medianLine);
+    },
+    drawBaseline(g, data, x, y) {
+      let baseline = d3.line()
+        .x(function (d) { return x(d.date); })
+        .y(function (d) { return y(d.value); });
+      g.datum(data);
+      g.append('path')
+        .attr('d', baseline)
+        .style('stroke', 'grey')
+        .style('stroke-width', 1);
     },
     drawChart() {
       let _this = this;
@@ -183,12 +191,11 @@ export default {
           chartWidth  = _this.svgWidth  - margin.left - margin.right,
           chartHeight = _this.svgHeight - margin.top  - margin.bottom;
 
-      // let parseDate = d3.timeParse('%Y-%m-%d %H:%M:%S');
       let begin = null, end = null;
-      
       begin = new Date(this.originData.timeRange.begintime);
       end = new Date(this.originData.timeRange.endtime);
      
+      let basedata = [{date: begin, value: 15}, {date: end, value: 15}];
 
       let x, y;
 
@@ -204,7 +211,16 @@ export default {
 
       let max1 = d3.max(this.originData.data.staticData, d => d.upper95);
       let max2 = d3.max(this.originData.data.mobileData, d => d.upper95);
-      let max = max1 > max2 ? max1: max2;
+      let max;
+      if(this.checkedItem.length == 2) {
+        max = max1 > max2 ? max1: max2;
+      } else {
+        if(this.checkedItem[0] == 'static') {
+          max = max1;
+        } else if(this.checkedItem[0] == 'mobile') {
+          max = max2;
+        }
+      }
 
       y = d3.scaleLinear().range([chartHeight, 0])
             .domain([0, max]);
@@ -226,32 +242,35 @@ export default {
       let g = _this.svg.append('g')
           .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-      _this.addAxes(g, xAxis, yAxis, margin, chartWidth, chartHeight);
-      _this.addLegend(g, chartWidth);
-      _this.drawPaths(g, this.originData.data.staticData, x, y, "static_uncertainty");
-      _this.drawPaths(g, this.originData.data.mobileData, x, y, "mobile_uncertainty");
+      if(this.checkedItem.length == 2) {
+        _this.addAxes(g, xAxis, yAxis, margin, chartWidth, chartHeight);
+        _this.addLegend(g, chartWidth);
+        _this.drawPaths(g, this.originData.data.staticData, x, y, "static_uncertainty");
+        _this.drawPaths(g, this.originData.data.mobileData, x, y, "mobile_uncertainty");
+        _this.drawBaseline(g, basedata, x, y);
+      } else {
+        if(this.checkedItem[0] == 'static') {
+          _this.addAxes(g, xAxis, yAxis, margin, chartWidth, chartHeight);
+          _this.drawPaths(g, this.originData.data.staticData, x, y, "static_uncertainty");
+          _this.drawBaseline(g, basedata, x, y);
+        } else {
+          _this.addAxes(g, xAxis, yAxis, margin, chartWidth, chartHeight);
+          _this.drawPaths(g, this.originData.data.mobileData, x, y, "mobile_uncertainty");
+          _this.drawBaseline(g, basedata, x, y);
+        }
+      }
     },
-    // timeRangeUpdated(params) {
-    //   this.sidList = [];
-    //   this.sidDataList = [];
-    //   this.timeRange = params;
-    //   d3.select(`#${this.cid} svg`).selectAll('g').remove();
-    //   this.drawChart();
-    // },
-    // sensorSelected(params) {
-    //   if(this.sidList.length >= 5) {
-    //     this.sidList = [];
-    //     this.sidDataList = [];
-    //   }
-    //   this.sidList.push(params)
-    //   d3.select(`#${this.cid} svg`).selectAll('g').remove();
-    //   this.drawChartBySid();
-    // }
   },
   watch: {
     originData: function(n, o) {
       this.clearAllg();
       if(n) {
+        this.drawChart();
+      }
+    },
+    checkedItem: function(n, o) {
+      this.clearAllg();
+      if(n.length != 0 && this.originData) {
         this.drawChart();
       }
     }

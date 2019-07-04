@@ -9,8 +9,14 @@
             </div>
             <div class="control-content">
               <div class="input-ele-group">
-                <div class="input-ele"><input type="radio" value="radiation" name="overview-type" v-model="overviewType"><label>radiation</label></div>
-                <div class="input-ele"><input type="radio" value="uncertainty" name="overview-type" v-model="overviewType"><label>uncertainty</label></div>
+                <div class="input-ele">
+                  <input type="radio" value="radiation" name="overview-type" v-model="overviewType"><label>radiation</label>
+                  <!-- <el-radio v-model="overviewType" label="radiation">radiation</el-radio> -->
+                </div>
+                <div class="input-ele">
+                  <input type="radio" value="uncertainty" name="overview-type" v-model="overviewType"><label>uncertainty</label>
+                  <!-- <el-radio v-model="overviewType" label="uncertainty">uncertainty</el-radio> -->
+                  </div>
               </div>
             </div>
           </div>
@@ -20,12 +26,12 @@
             </div>
             <div class="control-content">
               <div class="input-ele-group">
-                <div class="input-ele"><input type="checkbox" value="static"><label>Static</label></div>
-                <div class="input-ele"><input type="checkbox" value="mobile"><label>Mobile</label></div>
+                <div class="input-ele"><input type="checkbox" value="static"  v-model="timeSeriesCheckedState"><label>Static</label></div>
+                <div class="input-ele"><input type="checkbox" value="mobile" v-model="timeSeriesCheckedState"><label>Mobile</label></div>
               </div>
               <div class="input-ele-group">
                 <div class="input-ele"><input type="radio" value="global" name="timeSeriesState" v-model="timeSeriesControl.state"><label>global</label></div>
-                <div class="input-ele"><input type="radio" value="local" name="timeSeriesState" v-model="timeSeriesControl.state" :disabled="timeSeriesControl.local"><label>local</label></div>
+                <div class="input-ele"><input type="radio" value="local" name="timeSeriesState" v-model="timeSeriesControl.state" :disabled="timeSeriesControl.localDisabled"><label>local</label></div>
               </div>
             </div>
           </div>
@@ -70,8 +76,8 @@
         <el-row class="right_top">
           <el-col :span="24">
             <div class="grid-content">
-              <time-series-chart v-show="timeSeriesControl.state=='global'" :cid="`time_series_chart_container`"></time-series-chart>
-              <trend-chart v-show="timeSeriesControl.state=='local'" :cid="`trend_local_chart_container`" :originData="trendChart"></trend-chart>
+              <time-series-chart v-show="timeSeriesControl.state=='global'" :cid="`time_series_chart_container`" :checkedItem="timeSeriesCheckedState"></time-series-chart>
+              <trend-chart v-show="timeSeriesControl.state=='local'" :cid="`trend_local_chart_container`" :originData="trendChart" :checkedItem="timeSeriesCheckedState"></trend-chart>
             </div>
           </el-col>
         </el-row>
@@ -138,8 +144,9 @@ export default {
       overviewType: "radiation",
       timeSeriesControl: {
         state: 'global',
-        local: true,
+        localDisabled: true,
       },
+      timeSeriesCheckedState: ['static', 'mobile'],
       mapControl: {
         r_si_kriging_check: false,
         r_si_idw_check: false,
@@ -150,10 +157,6 @@ export default {
         u_pie_check: false,
         u_mi_check: false,
       },
-      items: [
-        { message: 'Foo' },
-        { message: 'Bar' }
-      ],
       trendChart: null,
       sidTrendCharts: [],
       defaultTimeRange: {
@@ -240,13 +243,18 @@ export default {
         this.sidTrendCharts.pop();
       }
       if(params) {
-        this.timeSeriesControl.local = false;
+        this.timeSeriesControl.localDisabled = false;
         this.timeSeriesControl.state = "local";
         this.trendChart = null;
         this.getTrendChartDataByTimeRange(params);
       }  else {
-        this.timeSeriesControl.local = true;
+        this.timeSeriesControl.localDisabled = true;
       }
+    }
+  },
+  watch: {
+    timeSeriesCheckedState(n, o) {
+      // console.log(n)
     }
   }
 }
