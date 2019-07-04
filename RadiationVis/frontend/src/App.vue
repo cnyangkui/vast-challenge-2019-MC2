@@ -218,17 +218,17 @@ export default {
           var static_data = data.static.map(function (d) {
             return {
               time:  parseDate(d.time),
-              lower95: parseFloat(d.lower95),
-              avg: parseFloat(d.avg),
-              upper95: parseFloat(d.upper95)
+              lower95: -1.96 * d.standarderror + d.avg,
+              avg: d.avg,
+              upper95: 1.96 * d.standarderror + d.avg
             };
           });
           var mobile_data = data.mobile.map(function (d) {
             return {
               time:  parseDate(d.time),
-              lower95: parseFloat(d.lower95),
-              avg: parseFloat(d.avg),
-              upper95: parseFloat(d.upper95)
+              lower95: -1.96 * d.standarderror + d.avg,
+              avg: d.avg,
+              upper95: 1.96 * d.standarderror + d.avg
             };
           });
           this.trendChart = {

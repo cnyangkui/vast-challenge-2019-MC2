@@ -195,18 +195,23 @@ export default {
       begin = new Date(this.originData.timeRange.begintime);
       end = new Date(this.originData.timeRange.endtime);
      
-      let basedata = [{date: begin, value: 15}, {date: end, value: 15}];
-
       let x, y;
+      let basedata;
 
       if(end.getTime() - begin.getTime() > 12 * 3600 * 1000) {
+        let s = new Date(begin.getFullYear(), begin.getMonth(), begin.getDate(), begin.getHours());
+        let e = new Date(end.getFullYear(), end.getMonth(), end.getDate(), end.getHours())
         x = d3.scaleTime()
           .range([0, chartWidth])
-          .domain([new Date(begin.getFullYear(), begin.getMonth(), begin.getDate(), begin.getHours()), new Date(end.getFullYear(), end.getMonth(), end.getDate(), end.getHours())]);
+          .domain([s, e]);
+        basedata = [{date: s, value: 15}, {date: e, value: 15}];
       } else {
+        let s = new Date(begin.getFullYear(), begin.getMonth(), begin.getDate(), begin.getHours(), begin.getMinutes());
+        let e = new Date(end.getFullYear(), end.getMonth(), end.getDate(), end.getHours(), end.getMinutes());
         x = d3.scaleTime()
           .range([0, chartWidth])
-          .domain([new Date(begin.getFullYear(), begin.getMonth(), begin.getDate(), begin.getHours(), begin.getMinutes()), new Date(end.getFullYear(), end.getMonth(), end.getDate(), end.getHours(), end.getMinutes())]);
+          .domain([s, e]);
+        basedata = [{date: s, value: 15}, {date: e, value: 15}];
       }
 
       let max1 = d3.max(this.originData.data.staticData, d => d.upper95);
@@ -262,11 +267,15 @@ export default {
     },
   },
   watch: {
-    originData: function(n, o) {
-      this.clearAllg();
-      if(n) {
-        this.drawChart();
-      }
+    originData: {
+      handler(n, o) {
+        this.clearAllg();
+        console.log(n)
+        if(n && this.checkedItem.length!=0) {
+          this.drawChart();
+        }
+      },
+      deep: true
     },
     checkedItem: function(n, o) {
       this.clearAllg();
