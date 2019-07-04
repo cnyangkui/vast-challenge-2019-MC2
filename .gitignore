@@ -2,7 +2,7 @@
 node_modules
 dist
 __pycache__
-
+package-lock.json
 
 # local env files
 .env.local
