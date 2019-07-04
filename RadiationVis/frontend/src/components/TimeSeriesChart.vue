@@ -90,12 +90,52 @@ export default {
 
     },
     addLegend (g, chartWidth) {
+      // let legendWidth  = 70,
+      //     legendHeight = 45;
+
+      // let legend = g.append('g')
+      //   .attr('class', 'legend')
+      //   .attr('transform', 'translate(' + (chartWidth+5) + ', 0)');
+
+      // legend.append('rect')
+      //   .attr('class', 'legend-bg')
+      //   .attr('width',  legendWidth)
+      //   .attr('height', legendHeight);
+
+      // legend.append('rect')
+      //   .attr('class', 'mobile_uncertainty')
+      //   .attr('width',  20)
+      //   .attr('height', 10)
+      //   .attr('x', 5)
+      //   .attr('y', 5);
+
+      // legend.append('text')
+      //   .attr('x', 30)
+      //   .attr('y', 15)
+      //   .text('mobile');
+
+      // legend.append('rect')
+      //   .attr('class', 'static_uncertainty')
+      //   .attr('width',  20)
+      //   .attr('height', 10)
+      //   .attr('x', 5)
+      //   .attr('y', 25);
+
+      // legend.append('text')
+      //   .attr('x', 30)
+      //   .attr('y', 35)
+      //   .text('static');
+
       let legendWidth  = 70,
-          legendHeight = 45;
+          legendHeight = 45,
+          rectWidth = 20,
+          rectHeight = 10;
+
+      let legendMargin = {left: 5, top: 5, right: 5, bottom: 5};
 
       let legend = g.append('g')
         .attr('class', 'legend')
-        .attr('transform', 'translate(' + (chartWidth+5) + ', 0)');
+        .attr('transform', 'translate(' + (chartWidth - legendWidth) + ', -10)');
 
       legend.append('rect')
         .attr('class', 'legend-bg')
@@ -104,36 +144,32 @@ export default {
 
       legend.append('rect')
         .attr('class', 'mobile_uncertainty')
-        .attr('width',  20)
-        .attr('height', 10)
-        .attr('x', 5)
-        .attr('y', 5);
+        .attr('width',  rectWidth)
+        .attr('height', rectHeight)
+        .attr('x', legendMargin.left)
+        .attr('y', legendMargin.top);
 
       legend.append('text')
-        .attr('x', 30)
-        .attr('y', 15)
+        .attr('x', legendMargin.left + rectWidth)
+        .attr('y', legendMargin.top)
+        .attr('dx', '.5em')
+        .attr('dy', '1em')
         .text('mobile');
 
       legend.append('rect')
         .attr('class', 'static_uncertainty')
-        .attr('width',  20)
-        .attr('height', 10)
-        .attr('x', 5)
-        .attr('y', 25);
+        .attr('width',  rectWidth)
+        .attr('height', rectHeight)
+        .attr('x', legendMargin.left)
+        .attr('y', legendMargin.top + rectHeight * 2);
 
       legend.append('text')
-        .attr('x', 30)
-        .attr('y', 35)
+        .attr('x', legendMargin.left + rectWidth)
+        .attr('y', legendMargin.top + rectHeight * 2)
+        .attr('dx', '.5em')
+        .attr('dy', '1em')
         .text('static');
 
-      // legend.append('path')
-      //   .attr('class', 'median-line')
-      //   .attr('d', 'M10,80L85,80');
-
-      // legend.append('text')
-      //     .attr('x', 115)
-      //     .attr('y', 85)
-      //     .text('Median');
     },
     drawPaths (g, data, x, y, styleClass) {
 
@@ -171,7 +207,7 @@ export default {
     makeChart(static_data, mobile_data) {
       let _this = this;
 
-      let margin = { top: 10, right: 80, bottom: 30, left: 30 },
+      let margin = { top: 10, right: 30, bottom: 30, left: 30 },
           chartWidth  = _this.svgWidth  - margin.left - margin.right,
           chartHeight = _this.svgHeight - margin.top  - margin.bottom;
 

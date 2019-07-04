@@ -60,7 +60,7 @@ import Overlay from 'ol/Overlay';
 export default {
   name: 'Openlayers',
   props: {
-    layerCheckbox: Object,
+    mapControl: Object,
   },
   data() {
     return {
@@ -286,7 +286,7 @@ export default {
           vectorSource.addFeature(feature);
         })
         this.layers.SRLayer.setOpacity(0.3);
-        this.layers.SRLayer.setVisible(this.layerCheckbox.r_s_check);
+        this.layers.SRLayer.setVisible(this.mapControl.r_s_check);
         this.map.addLayer(this.layers.SRLayer);
       })
     },
@@ -339,7 +339,7 @@ export default {
           });
           this.layers.krigingLayer.setOpacity(0.3);
           this.map.addLayer(this.layers.krigingLayer);
-          this.layers.krigingLayer.setVisible(this.layerCheckbox.r_si_kriging_check);
+          this.layers.krigingLayer.setVisible(this.mapControl.r_si_kriging_check);
         })
         .catch((error) => {
           console.log(error);
@@ -355,12 +355,12 @@ export default {
         })
       })
       if(this.dataCollection.mobileSensorGridData != null) {
-        this.renderIdwLayer(this.dataCollection.mobileSensorGridData, this.layers.idwMLayer, this.layerCheckbox.r_mi_idw_check);
+        this.renderIdwLayer(this.dataCollection.mobileSensorGridData, this.layers.idwMLayer, this.mapControl.r_mi_idw_check);
       } else {
         axios.post("/getMobileIdwDataByTimeRange/", this.timeRange || this.defaultTimeRange)
           .then((response) => {
             this.dataCollection.mobileSensorGridData = response.data;
-            this.renderIdwLayer(this.dataCollection.mobileSensorGridData, this.layers.idwMLayer, this.layerCheckbox.r_mi_idw_check);
+            this.renderIdwLayer(this.dataCollection.mobileSensorGridData, this.layers.idwMLayer, this.mapControl.r_mi_idw_check);
           })
           .catch((error) => {
             console.log(error);
@@ -378,12 +378,12 @@ export default {
         })
       })
       if(this.dataCollection.staticSensorGridData != null) {
-        this.renderIdwLayer(this.dataCollection.staticSensorGridData, this.layers.idwSLayer, this.layerCheckbox.r_si_idw_check);
+        this.renderIdwLayer(this.dataCollection.staticSensorGridData, this.layers.idwSLayer, this.mapControl.r_si_idw_check);
       } else {
         axios.post("/getStaticIdwDataByTimeRange/", this.timeRange || this.defaultTimeRange)
           .then((response) => {
             this.dataCollection.staticSensorGridData = response.data;
-            this.renderIdwLayer(this.dataCollection.staticSensorGridData, this.layers.idwSLayer, this.layerCheckbox.r_si_idw_check);
+            this.renderIdwLayer(this.dataCollection.staticSensorGridData, this.layers.idwSLayer, this.mapControl.r_si_idw_check);
           })
           .catch((error) => {
             console.log(error);
@@ -511,7 +511,7 @@ export default {
         })
         _this.layers.MRLayer.setOpacity(0.3);
         _this.map.addLayer(_this.layers.MRLayer);
-        _this.layers.MRLayer.setVisible(_this.layerCheckbox.r_m_check);
+        _this.layers.MRLayer.setVisible(_this.mapControl.r_m_check);
       }
 
 
@@ -583,7 +583,7 @@ export default {
       })
       this.layers.idwUncertaintyLayer.setOpacity(0.3);
       this.map.addLayer(this.layers.idwUncertaintyLayer);
-      this.layers.idwUncertaintyLayer.setVisible(this.layerCheckbox.u_mi_check);
+      this.layers.idwUncertaintyLayer.setVisible(this.mapControl.u_mi_check);
     },
     drawHeatmapLayer() {
       let vectorSource = new VectorSource();
@@ -611,7 +611,7 @@ export default {
             features.push(feature);
           })
           vectorSource.addFeatures(features);
-          this.layers.heatmapLayer.setVisible(this.layerCheckbox.t_heatmap_check);
+          this.layers.heatmapLayer.setVisible(this.mapControl.t_heatmap_check);
           this.map.addLayer(this.layers.heatmapLayer)
         }))
     },
@@ -634,7 +634,7 @@ export default {
           }));
           vectorSource.addFeature(feature);
         })
-        this.layers.mobilePointLayer.setVisible(this.layerCheckbox.r_mi_idw_check);
+        this.layers.mobilePointLayer.setVisible(this.mapControl.r_mi_idw_check);
         this.map.addLayer(this.layers.mobilePointLayer);
       })
     },
@@ -796,26 +796,26 @@ export default {
       this.layers.mobilePointLayer = null;
     },
     krigingLayerUpdate() {
-      this.layers.krigingLayer.setVisible(this.layerCheckbox.r_si_kriging_check);
+      this.layers.krigingLayer.setVisible(this.mapControl.r_si_kriging_check);
     },
     idwMLayerUpdate() {
-      this.layers.idwMLayer.setVisible(this.layerCheckbox.r_mi_idw_check);
-      this.layers.mobilePointLayer.setVisible(this.layerCheckbox.r_mi_idw_check);
+      this.layers.idwMLayer.setVisible(this.mapControl.r_mi_idw_check);
+      this.layers.mobilePointLayer.setVisible(this.mapControl.r_mi_idw_check);
     },
     idwSLayerUpdate() {
-      this.layers.idwSLayer.setVisible(this.layerCheckbox.r_si_idw_check);
+      this.layers.idwSLayer.setVisible(this.mapControl.r_si_idw_check);
     },
     heatmapLayerUpdate() {
-      this.layers.heatmapLayer.setVisible(this.layerCheckbox.t_heatmap_check);
+      this.layers.heatmapLayer.setVisible(this.mapControl.t_heatmap_check);
     },
     uncertaintyidwLayerUpdate() {
-      this.layers.idwUncertaintyLayer.setVisible(this.layerCheckbox.u_mi_check);
+      this.layers.idwUncertaintyLayer.setVisible(this.mapControl.u_mi_check);
     },
     MRLayerUpdate() {
-      this.layers.MRLayer.setVisible(this.layerCheckbox.r_m_check);
+      this.layers.MRLayer.setVisible(this.mapControl.r_m_check);
     },
     SRLayerUpdate() {
-      this.layers.SRLayer.setVisible(this.layerCheckbox.r_s_check);
+      this.layers.SRLayer.setVisible(this.mapControl.r_s_check);
     },
     allLayerUpdate() {
       this.krigingLayerUpdate();
@@ -856,7 +856,7 @@ export default {
       this.drawIdwUncertaintyLayer();
       // this.drawMRLayer();
       // this.drawSRLayer();
-      if(this.layerCheckbox.u_pie_check) {
+      if(this.mapControl.u_pie_check) {
         this.drawPies();
       }
     },
@@ -888,19 +888,18 @@ export default {
         this.clearPies();
         this.drawPies();
       }
-      if(this.layerCheckbox.r_s_check) {
+      if(this.mapControl.r_s_check) {
         this.map.removeLayer(this.layers.SRLayer);
         this.layers.SRLayer = null;
         this.drawSRLayer();
       }
     },
-    layerCheckbox: {
+    mapControl: {
       handler(newValue,oldValue){
-        // this.layerCheckbox = newValue
-        console.log(this.layerCheckbox)
+        // this.mapControl = newValue
         this.allLayerUpdate();
         this.clearPies()
-        if(this.layerCheckbox.u_pie_check) {
+        if(this.mapControl.u_pie_check) {
           this.drawPies();
         }
       },

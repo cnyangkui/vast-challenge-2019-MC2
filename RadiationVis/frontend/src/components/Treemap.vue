@@ -79,6 +79,18 @@ export default {
         data.children.forEach(d => {
           d.children.sort((a, b) => b.mean-a.mean)
         })
+        let max2list = [];
+        data.children.forEach(d => {
+          max2list.push(d.children.slice(0, d.children.length > 2 ? 2: d.children.length))
+        })
+        max2list = max2list.flat();
+        max2list.sort((a, b) => b.mean - a.mean)
+        let category1 = max2list[0].name.startsWith("s") ? "static": "mobile";
+        let category2 = max2list[1].name.startsWith("s") ? "static": "mobile";
+        let sid1 = max2list[0].name.substring(1, max2list[0].name.length);
+        let sid2 = max2list[1].name.substring(1, max2list[1].name.length);
+        this.$root.eventHub.$emit("sensorSelected", Object.assign({}, {category: category1, sid: sid1}, this.timeRange||this.defaultTimeRange));
+        this.$root.eventHub.$emit("sensorSelected", Object.assign({}, {category: category2, sid: sid2}, this.timeRange||this.defaultTimeRange));
 
         let sensors = data.children.map(d => {
           let category = d.children[0].name.startsWith('s') ? "static": "mobile";
@@ -130,7 +142,7 @@ export default {
           .enter().append("tspan")
             .attr("x", 4)
             .attr("y", function(d, i) { return 13 + i * 10; })
-            .text(function(d, i) { return `static: ${cluster.children[i].static.length}, mobile: ${cluster.children[i].mobile.length}` })
+            .text(function(d, i) { return `Static Sensor: ${cluster.children[i].static.length}, Mobile Sensor: ${cluster.children[i].mobile.length}` })
             .style("font-size", 12);
       });
     },
@@ -172,7 +184,6 @@ export default {
               category = "static";
             }
             sid = parseInt(d.data.name.substring(1, d.data.name.length));
-            this.sidList.push({category: category, sid: sid});
             this.$root.eventHub.$emit("sensorSelected", Object.assign({}, {category: category, sid: sid}, this.timeRange||this.defaultTimeRange));
           })
 

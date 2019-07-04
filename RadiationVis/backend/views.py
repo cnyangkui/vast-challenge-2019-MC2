@@ -57,8 +57,6 @@ def findMrrByTimeRangeAndSid(request):
 	if request.method == 'POST':
 		params = json.loads(request.body)
 		cursor = connection.cursor()
-
-		logger.info(type(params['sid']))
 		
 		# Data retrieval operation - no commit required
 		cursor.execute("select longitude, latitude, value from mobilesensorreadings where timestamp > '{0}'  and timestamp < '{1}' and sid = {2}".format(params['begintime'], params['endtime'], params['sid']))
@@ -253,5 +251,4 @@ def getLastCoordsByTimeRange(request):
 		alldata = cursor.fetchall()
 		origin_data = [dict(zip([col[0] for col in desc], row)) for row in alldata]
 		data = getLastPointInGrid(origin_data)
-		logger.info(data)
 		return HttpResponse(json.dumps(data), content_type='application/json')
