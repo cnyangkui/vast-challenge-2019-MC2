@@ -130,7 +130,7 @@ export default {
     selfAdaptionSize() {
       let width = document.querySelector("#openlayers_container").clientWidth;
       let img = document.createElement("img");
-      img.src = require('../assets/img/StHimarkMapBlank.png');
+      img.src = require('../assets/img/StHimarkMapBlank_with_road.png');
       document.querySelector("#himarkmap").style.height = width * img.height / img.width  + "px";
 
     },
@@ -143,7 +143,7 @@ export default {
         layers: [
           new Image({
             source: new ImageStatic({
-              url: require('../assets/img/StHimarkMapBlank.png'),
+              url: require('../assets/img/StHimarkMapBlank_with_road.png'),
               imageExtent: this.imageExtent,
             })
           })
@@ -246,8 +246,8 @@ export default {
             image: new Icon({
                 // radius: 3,
                 // fill: new Fill({ color: "#00F" })
-              src: require('../assets/img/StaticSensor.png'),
-              imgSize: [12, 12]
+              src: require('../assets/img/static.png'),
+              // size: [50, 50]
             })
           }));
           vectorSource.addFeature(feature);
