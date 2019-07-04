@@ -3,19 +3,65 @@
     <el-row>
       <el-col :span="4" class="left">
         <div class="grid-content">
-          <div>
-            <div>
-              <div><el-radio v-model="radio" label="radiation" :border="true" size="mini" style="width: 112px;">radiation</el-radio></div>
-              <div><el-radio v-model="radio" label="uncertainty" :border="true" size="mini" style="width: 112px;">uncertainty</el-radio></div>
+          <div class="control-container">
+            <div class="control-header">
+              <label>Overview</label>
             </div>
-            <div v-if="radio=='radiation'">
-              <div><el-checkbox :border="true" size="mini" v-model="layerCheckbox.r_si_kriging_check">SI(kriging)</el-checkbox></div>
-              <div><el-checkbox :border="true" size="mini" v-model="layerCheckbox.r_si_idw_check">SI(idw)</el-checkbox></div>
-              <div><el-checkbox :border="true" size="mini" v-model="layerCheckbox.r_mi_idw_check">MI(idw)</el-checkbox></div>
+            <div class="control-content">
+              <div class="input-ele-group">
+                <div class="input-ele"><input type="radio" value="radiation" name="overview-type" v-model="overviewType"><label>radiation</label></div>
+                <div class="input-ele"><input type="radio" value="uncertainty" name="overview-type" v-model="overviewType"><label>uncertainty</label></div>
+              </div>
             </div>
-            <div v-else-if="radio=='uncertainty'">
-              <div><el-checkbox :border="true" size="mini" v-model="layerCheckbox.u_mi_check">MI(idw)</el-checkbox></div>
-              <div><el-checkbox :border="true" size="mini" v-model="layerCheckbox.u_pie_check">Pie</el-checkbox></div>
+          </div>
+          <div class="control-container">
+            <div class="control-header">
+              <label>TimeSeries</label>
+            </div>
+            <div class="control-content">
+              <div class="input-ele-group">
+                <div class="input-ele"><input type="checkbox" value="static"><label>Static</label></div>
+                <div class="input-ele"><input type="checkbox" value="mobile"><label>Mobile</label></div>
+              </div>
+              <div class="input-ele-group">
+                <div class="input-ele"><input type="radio" value="global" name="timeSeriesState"><label>global</label></div>
+                <div class="input-ele"><input type="radio" value="local" name="timeSeriesState" disabled><label>local</label></div>
+              </div>
+            </div>
+          </div>
+          <div class="control-container" style="margin-top: 5px;">
+            <div class="control-header">
+              <label>Treemap
+
+              </label>
+            </div>
+            <div class="control-content">
+              <div class="input-ele-group">
+                <div class="input-ele"><input type="checkbox" value="static"><label>Static</label></div>
+                <div class="input-ele"><input type="checkbox" value="mobile"><label>Mobile</label></div>
+              </div>
+              <div class="input-ele-group">
+                <div class="input-ele"><input type="button" value="global"></div>
+                <div class="input-ele"><input type="button" value="local"></div>
+              </div>
+            </div>
+          </div>
+          <div class="control-container" style="margin-top: 5px;">
+            <div class="control-header">
+              <label>Map</label>
+            </div>
+            <div class="control-content" v-if="overviewType=='radiation'">
+              <div class="input-ele-group">
+                <div class="input-ele"><input type="checkbox" v-model="mapControl.r_si_kriging_check"><label>SI(kriging)</label></div>
+                <div class="input-ele"><input type="checkbox" v-model="mapControl.r_si_idw_check"><label>SI(idw)</label></div>
+                <div class="input-ele"><input type="checkbox" v-model="mapControl.r_mi_idw_check"><label>MI(idw)</label></div>
+              </div>
+            </div>
+            <div class="control-content" v-else-if="overviewType=='uncertainty'">
+              <div class="input-ele-group">
+                <div class="input-ele"><input type="checkbox" v-model="mapControl.u_mi_check"><label>MI(idw)</label></div>
+                <div class="input-ele"><input type="checkbox" v-model="mapControl.u_pie_check"><label>Pie</label></div>
+              </div>
             </div>
           </div>
         </div>
@@ -45,7 +91,7 @@
           </el-col>
           <el-col :span="14" class="bottom_right">
             <div class="grid-content">
-              <openlayers :layerCheckbox="layerCheckbox"></openlayers>
+              <openlayers :mapControl="mapControl"></openlayers>
             </div>
           </el-col>
         </el-row>
@@ -88,8 +134,8 @@ export default {
   data() {
     return {
       srScatterVisible: false,
-      radio: "radiation",
-      layerCheckbox: {
+      overviewType: "radiation",
+      mapControl: {
         r_si_kriging_check: false,
         r_si_idw_check: false,
         r_mi_idw_check: false,
@@ -200,6 +246,32 @@ html, body, #app {
   /* border-radius: 4px; */
   border: 1px solid black;
   height: 100%;
+}
+.control-container {
+  font-size: 12px;
+}
+.control-header {
+  background-color: #ccc;
+  height: 28px;
+}
+.control-header input {
+  line-height: 28px;
+  margin-left: 5px;
+}
+.control-header label {
+  line-height: 28px;
+  margin-left: 5px;
+}
+.control-container .input-ele-group {
+  width: 90%;
+  margin-left: 5%;
+}
+.control-container .input-ele {
+  width: 50%;
+  display: inline-block;
+}
+input :disabled {
+  background-color: rgb(235, 235, 228);
 }
 .left, .right {
   height: 100%;
