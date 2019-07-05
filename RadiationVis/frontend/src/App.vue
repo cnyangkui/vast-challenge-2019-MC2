@@ -9,31 +9,35 @@
             </div>
             <div class="control-content">
               <div class="input-ele-group">
-                <div class="input-ele"><input type="radio" value="radiation" name="overview-type" v-model="overviewType"><label>radiation</label></div>
-                <div class="input-ele"><input type="radio" value="uncertainty" name="overview-type" v-model="overviewType"><label>uncertainty</label></div>
+                <div class="input-ele">
+                  <input type="radio" value="radiation" name="overview-type" v-model="overviewType"><label>radiation</label>
+                  <!-- <el-radio v-model="overviewType" label="radiation">radiation</el-radio> -->
+                </div>
+                <div class="input-ele">
+                  <input type="radio" value="uncertainty" name="overview-type" v-model="overviewType"><label>uncertainty</label>
+                  <!-- <el-radio v-model="overviewType" label="uncertainty">uncertainty</el-radio> -->
+                  </div>
               </div>
             </div>
           </div>
-          <div class="control-container">
+          <div class="control-container" style="margin-top: 10px;">
             <div class="control-header">
               <label>TimeSeries</label>
             </div>
             <div class="control-content">
               <div class="input-ele-group">
-                <div class="input-ele"><input type="checkbox" value="static"><label>Static</label></div>
-                <div class="input-ele"><input type="checkbox" value="mobile"><label>Mobile</label></div>
+                <div class="input-ele"><input type="checkbox" value="static"  v-model="timeSeriesCheckedState"><label>Static</label></div>
+                <div class="input-ele"><input type="checkbox" value="mobile" v-model="timeSeriesCheckedState"><label>Mobile</label></div>
               </div>
               <div class="input-ele-group">
                 <div class="input-ele"><input type="radio" value="global" name="timeSeriesState" v-model="timeSeriesControl.state"><label>global</label></div>
-                <div class="input-ele"><input type="radio" value="local" name="timeSeriesState" v-model="timeSeriesControl.state" :disabled="timeSeriesControl.local"><label>local</label></div>
+                <div class="input-ele"><input type="radio" value="local" name="timeSeriesState" v-model="timeSeriesControl.state" :disabled="timeSeriesControl.localDisabled"><label>local</label></div>
               </div>
             </div>
           </div>
-          <div class="control-container" style="margin-top: 5px;">
+          <div class="control-container" style="margin-top: 10px;">
             <div class="control-header">
-              <label>Treemap
-
-              </label>
+              <label>Treemap</label>
             </div>
             <div class="control-content">
               <div class="input-ele-group">
@@ -41,12 +45,11 @@
                 <div class="input-ele"><input type="checkbox" value="mobile"><label>Mobile</label></div>
               </div>
               <div class="input-ele-group">
-                <div class="input-ele"><input type="button" value="global"></div>
-                <div class="input-ele"><input type="button" value="local"></div>
+                <div class="input-ele"><input type="button" value="返回" @click="getTreemap1();"></div>
               </div>
             </div>
           </div>
-          <div class="control-container" style="margin-top: 5px;">
+          <div class="control-container" style="margin-top: 10px;">
             <div class="control-header">
               <label>Map</label>
             </div>
@@ -70,15 +73,16 @@
         <el-row class="right_top">
           <el-col :span="24">
             <div class="grid-content">
-              <time-series-chart v-show="timeSeriesControl.state=='global'" :cid="`time_series_chart_container`"></time-series-chart>
-              <trend-chart v-show="timeSeriesControl.state=='local'" :cid="`trend_local_chart_container`" :originData="trendChart"></trend-chart>
+              <time-series-chart v-show="timeSeriesControl.state=='global'" :cid="`time_series_chart_container`" :checkedItem="timeSeriesCheckedState"></time-series-chart>
+              <trend-chart v-show="timeSeriesControl.state=='local'" :cid="`trend_local_chart_container`" :originData="trendChart" :checkedItem="timeSeriesCheckedState"></trend-chart>
             </div>
           </el-col>
         </el-row>
         <el-row class="right_bottom">
           <el-col :span="10" class="bottom_left">
             <div class="grid-content bottom_left_top">
-              <treemap :cid="`treemap-container`"></treemap>
+              <treemap v-show="treemapState=='treemap1'" :cid="`treemap-container`" :originData="treemap1"></treemap>
+              <treemap v-show="treemapState=='treemap2'" :cid="`treemap-container2`" :originData="treemap2"></treemap>
             </div>
             <div class="grid-content bottom_left_bottom">
               <!-- <div class="innerdiv">
@@ -138,8 +142,10 @@ export default {
       overviewType: "radiation",
       timeSeriesControl: {
         state: 'global',
-        local: true,
+        localDisabled: true,
       },
+      timeSeriesCheckedState: ['static', 'mobile'],
+      treemapState: 'treemap1',
       mapControl: {
         r_si_kriging_check: false,
         r_si_idw_check: false,
@@ -150,12 +156,10 @@ export default {
         u_pie_check: false,
         u_mi_check: false,
       },
-      items: [
-        { message: 'Foo' },
-        { message: 'Bar' }
-      ],
       trendChart: null,
       sidTrendCharts: [],
+      treemap1: null,
+      treemap2: null,
       defaultTimeRange: {
         begintime: '2020-04-06 00:00:00',
         endtime: '2020-04-11 00:00:00'
@@ -165,17 +169,19 @@ export default {
   created: function () {
     this.$root.eventHub.$on('timeRangeUpdated', this.timeRangeUpdated);
       this.$root.eventHub.$on('sensorSelected', this.sensorSelected);
+      this.$root.eventHub.$on('getTreemap2', this.getTreemap2);
    },
    // 最好在组件销毁前
    // 清除事件监听
    beforeDestroy: function () {
      this.$root.eventHub.$off('timeRangeUpdated', this.timeRangeUpdated);
       this.$root.eventHub.$off('sensorSelected', this.sensorSelected);
+      this.$root.eventHub.$off('getTreemap2', this.getTreemap2);
    },
   mounted() {
     // this.layout();
     this.$nextTick(() => {
-      
+      this.getTreemapDataByTimeRange(this.defaultTimeRange);
     })
   },
   methods: {
@@ -215,17 +221,17 @@ export default {
           var static_data = data.static.map(function (d) {
             return {
               time:  parseDate(d.time),
-              lower95: parseFloat(d.lower95),
-              avg: parseFloat(d.avg),
-              upper95: parseFloat(d.upper95)
+              lower95: -1.96 * d.standarderror + d.avg,
+              avg: d.avg,
+              upper95: 1.96 * d.standarderror + d.avg
             };
           });
           var mobile_data = data.mobile.map(function (d) {
             return {
               time:  parseDate(d.time),
-              lower95: parseFloat(d.lower95),
-              avg: parseFloat(d.avg),
-              upper95: parseFloat(d.upper95)
+              lower95: -1.96 * d.standarderror + d.avg,
+              avg: d.avg,
+              upper95: 1.96 * d.standarderror + d.avg
             };
           });
           this.trendChart = {
@@ -235,17 +241,42 @@ export default {
         })
 
     },
+    getTreemapDataByTimeRange(params) {
+      axios.post("/calSensorClusters/", params).then(response => {
+        this.treemap1 = {
+          state: this.treemapState,
+          data: response.data,
+          timeRange: params
+        }
+      })
+    },
+    getTreemap1() {
+      this.treemapState = 'treemap1';
+    },
+    getTreemap2(params) {
+      this.treemapState = 'treemap2';
+      this.treemap2 = {
+        state: this.treemapState,
+        data: params,
+        timeRange: this.timeRange
+      }
+    },
     timeRangeUpdated(params) {
+      this.timeRange = params;
       for(let i=0, length=this.sidTrendCharts.length; i<length; i++) {
         this.sidTrendCharts.pop();
       }
       if(params) {
-        this.timeSeriesControl.local = false;
+        this.timeSeriesControl.localDisabled = false;
         this.timeSeriesControl.state = "local";
         this.trendChart = null;
         this.getTrendChartDataByTimeRange(params);
+        this.treemap1 = null;
+        this.treemap2 = null;
+        this.treemapState = 'treemap1';
+        this.getTreemapDataByTimeRange(params);
       }  else {
-        this.timeSeriesControl.local = true;
+        this.timeSeriesControl.localDisabled = true;
       }
     }
   }
@@ -290,27 +321,28 @@ html, body, #app {
   height: 100%;
 }
 .control-container {
-  font-size: 12px;
+  font-size: 15px;
 }
 .control-header {
   background-color: #ccc;
-  height: 28px;
-}
-.control-header input {
-  line-height: 28px;
-  margin-left: 5px;
+  height: 45px;
 }
 .control-header label {
-  line-height: 28px;
+  line-height: 45px;
   margin-left: 5px;
+  font-size: 18px;
 }
 .control-container .input-ele-group {
-  width: 90%;
-  margin-left: 5%;
+  width: 92%;
+  margin-left: 4%;
+  height: 40px;
 }
 .control-container .input-ele {
   width: 50%;
   display: inline-block;
+}
+.control-container label {
+  line-height: 40px;
 }
 input :disabled {
   background-color: rgb(235, 235, 228);

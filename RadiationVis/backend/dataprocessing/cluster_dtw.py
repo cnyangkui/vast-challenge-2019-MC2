@@ -299,6 +299,43 @@ class TestDTW:
             m[index[i, 0], index[i, 1]] = -9999
         return m
 
+    @staticmethod
+    def Matrix_Completion_3(m):
+        index = np.argwhere(np.isnan(m))
+        [rows1, cols1] = index.shape
+        for i in range(rows1):
+            m[index[i, 0], index[i, 1]] = 0
+        return m
+
+    @staticmethod
+    def Distance_Metric_Cos(m, sensor_len):
+        feature_matrix = np.eye(sensor_len)
+        [rows2, cols2] = feature_matrix.shape
+        for i in range(rows2):
+            for j in range(cols2):
+                tmp1 = m[:, i].T.tolist()
+                tmp2 = m[:, j].T.tolist()
+
+                numerator = sum([(a * b) for (a, b) in zip(tmp1, tmp2)])
+                sq1 = np.sqrt(sum([np.power(e, 2) for e in tmp1]))
+                sq2 = np.sqrt(sum([np.power(e, 2) for e in tmp2]))
+                denominator = sq1 * sq2
+                ac = numerator * 1.0 / denominator
+
+                feature_matrix[i, j] = ac
+        return feature_matrix
+
+    @staticmethod
+    def Dimension_Reduction_PCA(feature_matrix):
+        pca = PCA(n_components=2)
+        pca = pca.fit_transform(feature_matrix)
+        return pca
+
+    @staticmethod
+    def Cluster_DBSCAN(result):
+        [m, n] = result.shape
+        cluster_res = DBSCAN(eps=0.8, min_samples=2).fit_predict(result)
+        return cluster_res
 
     @staticmethod
     def test_cluster_effect_agg2(begintime, endtime):
@@ -307,7 +344,44 @@ class TestDTW:
         begin_timestamp = time.mktime(begin_date.timetuple())
         end_timestamp = time.mktime(end_date.timetuple())
         cursor = connection.cursor()
+
+
+        # if (end_timestamp - begin_timestamp) > 48 * 3600:
+        #     cursor.execute(
+        #         "select CONCAT(DATE_FORMAT(`timestamp`, '%Y-%m-%d '),LPAD(	FLOOR(DATE_FORMAT(`timestamp`, '%H') / 3) * 3,2,'0'),':00'), sid, avg(value) from staticsensorreadings where timestamp between '{}' and '{}' GROUP BY CONCAT(DATE_FORMAT(`timestamp`, '%Y-%m-%d '),LPAD(	FLOOR(DATE_FORMAT(`timestamp`, '%H') / 3) * 3,2,'0'),':00')".format(
+        #             begintime, endtime))
+        #     alldata = cursor.fetchall()
+        #     data = []
+        #     mobile_sensors = set()
+        #     for i in alldata:
+        #         data.append({'time': i[0], 'sid': i[1], 'value': i[2]})
+        #         mobile_sensors.add(i[1])
+        #     mobile_sensors = list(mobile_sensors)
+        #     begin = datetime.datetime.strptime(alldata[0][0], '%Y-%m-%d %H:%M')
+        #     end = datetime.datetime.strptime(alldata[-1][0], '%Y-%m-%d %H:%M')
+        #     begin_timestamp = time.mktime(begin.timetuple())
+        #     end_timestamp = time.mktime((end.timetuple()))
+        #     current = time.mktime(datetime.datetime.strptime(alldata[0][0], '%Y-%m-%d %H:%M').timetuple())
+        #     obs1 = {}
+        #     while current <= end_timestamp:
+        #         date_str = datetime.datetime.fromtimestamp(current).strftime('%Y-%m-%d %H:%M')
+        #         obs1[date_str] = {}
+        #         for i in mobile_sensors:
+        #             obs1[date_str][i] = math.nan
+        #         current += 10800
+        #     for d in data:
+        #         obs1[d['time']][d['sid']] = d['value']
+        #     tmp = []
+        #     obs_len = len(obs1)
+        #     for value in obs1.values():
+        #         tmp.append(list(value.values()))
+        #     m = np.array(tmp[0])
+        #     for i in range(1, obs_len):
+        #         t = np.array(tmp[i])
+        #         m = np.vstack((m, t))  # 120 * 50
+
         if (end_timestamp - begin_timestamp) > 3 * 3600:
+        # elif ((end_timestamp - begin_timestamp)) > 3 * 3600 and (end_timestamp - begin_timestamp) <= 48 * 3600:
             cursor.execute(
                 "select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'),':00'), sid, avg(value) from mobilesensorreadings where timestamp between '{}' and '{}' GROUP BY concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'), sid)".format(
                     begintime, endtime))
@@ -355,16 +429,16 @@ class TestDTW:
             for i in alldata:
                 data.append({'time': i[0], 'sid': i[1], 'value': i[2]})
                 mobile_sensors.add(i[1])
-            print(data)
+            # print(data)
             mobile_sensors = list(mobile_sensors)
             begin = datetime.datetime.strptime(begintime, '%Y-%m-%d %H:%M:%S')+datetime.timedelta(minutes = 10)
-            print(begin)
+            # print(begin)
             end = datetime.datetime.strptime(endtime, '%Y-%m-%d %H:%M:%S')+datetime.timedelta(minutes = 10)
             begin_timestamp = time.mktime(begin.timetuple())
             end_timestamp = time.mktime((end.timetuple()))
             current = time.mktime(datetime.datetime.strptime(begintime[0:17] + "00", '%Y-%m-%d %H:%M:%S').timetuple())
-            print(begintime[0:17])
-            print(current)
+            # print(begintime[0:17])
+            # print(current)
             obs1 = {}
             while current <= end_timestamp:
                 date_str = datetime.datetime.fromtimestamp(current).strftime('%Y-%m-%d %H:%M:%S')
@@ -392,7 +466,45 @@ class TestDTW:
             load staticsensor
         '''
         cursor = connection.cursor()
+        # if (end_timestamp - begin_timestamp) > 48 * 3600:
+        #     cursor.execute(
+        #         "select CONCAT(DATE_FORMAT(`timestamp`, '%Y-%m-%d '),LPAD(	FLOOR(DATE_FORMAT(`timestamp`, '%H') / 3) * 3,2,'0'),':00'), sid, avg(value) from staticsensorreadings where timestamp between '{}' and '{}' GROUP BY CONCAT(DATE_FORMAT(`timestamp`, '%Y-%m-%d '),LPAD(	FLOOR(DATE_FORMAT(`timestamp`, '%H') / 3) * 3,2,'0'),':00')".format(
+        #             begintime, endtime))
+        #     alldata = cursor.fetchall()
+        #     data = []
+        #     static_sensors = set()
+        #     for i in alldata:
+        #         data.append({'time': i[0], 'sid': i[1], 'value': i[2]})
+        #         static_sensors.add(i[1])
+        #     static_sensors = list(static_sensors)
+        #     sensors_title = [('m' + str(i)) for i in mobile_sensors] + [('s' + str(j)) for j in static_sensors]
+        #     sensor_length = len(sensors_title)
+        #
+        #     begin = datetime.datetime.strptime(alldata[0][0], '%Y-%m-%d %H:%M')
+        #     end = datetime.datetime.strptime(alldata[-1][0], '%Y-%m-%d %H:%M')
+        #     begin_timestamp = time.mktime(begin.timetuple())
+        #     end_timestamp = time.mktime((end.timetuple()))
+        #     current = time.mktime(datetime.datetime.strptime(alldata[0][0], '%Y-%m-%d %H:%M').timetuple())
+        #     obs2 = {}
+        #     while current <= end_timestamp:
+        #         date_str = datetime.datetime.fromtimestamp(current).strftime('%Y-%m-%d %H:%M')
+        #         obs2[date_str] = {}
+        #         for i in static_sensors:
+        #             obs2[date_str][i] = math.nan
+        #         current += 10800
+        #     for d in data:
+        #         obs2[d['time']][d['sid']] = d['value']
+        #     tmp = []
+        #     obs_len = len(obs2)
+        #     for value in obs2.values():
+        #         tmp.append(list(value.values()))
+        #     n = np.array(tmp[0])
+        #     for i in range(1, obs_len):
+        #         t = np.array(tmp[i])
+        #         n = np.vstack((n, t))  # 120 * 50
+
         if (end_timestamp - begin_timestamp) > 3 * 3600:
+        # elif ((end_timestamp - begin_timestamp) > 3 * 3600) and (end_timestamp - begin_timestamp) <= 48 * 3600:
             cursor.execute(
                 "select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'),':00'), sid, avg(value) from staticsensorreadings where timestamp between '{}' and '{}' GROUP BY concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'), sid)".format(
                     begintime, endtime))
@@ -407,13 +519,11 @@ class TestDTW:
             sensor_length = len(sensors_title)
 
             begin = datetime.datetime.strptime(begintime, '%Y-%m-%d %H:%M:%S') + datetime.timedelta(minutes=10)
-            print(begin)
+            # print(begin)
             end = datetime.datetime.strptime(endtime, '%Y-%m-%d %H:%M:%S') + datetime.timedelta(minutes=10)
             begin_timestamp = time.mktime(begin.timetuple())
             end_timestamp = time.mktime((end.timetuple()))
             current = time.mktime(datetime.datetime.strptime(begintime[0:14] + "00", '%Y-%m-%d %H:%M').timetuple())
-            print(begintime[0:14])
-            print(current)
             obs2 = {}
             while current <= end_timestamp:
                 date_str = datetime.datetime.fromtimestamp(current).strftime('%Y-%m-%d %H:%M')
@@ -445,12 +555,12 @@ class TestDTW:
             sensors_title = [('m' + str(i)) for i in mobile_sensors] + [('s' + str(j)) for j in static_sensors]
             sensor_length = len(sensors_title)
             begin = datetime.datetime.strptime(begintime, '%Y-%m-%d %H:%M:%S') + datetime.timedelta(minutes=10)
-            print(begin)
+            # print(begin)
             end = datetime.datetime.strptime(endtime, '%Y-%m-%d %H:%M:%S') + datetime.timedelta(minutes=10)
             begin_timestamp = time.mktime(begin.timetuple())
             end_timestamp = time.mktime((end.timetuple()))
             current = time.mktime(datetime.datetime.strptime(begintime[0:17] + "00", '%Y-%m-%d %H:%M:%S').timetuple())
-            print(current)
+            # print(current)
             obs2 = {}
             while current <= end_timestamp:
                 date_str = datetime.datetime.fromtimestamp(current).strftime('%Y-%m-%d %H:%M:%S')
@@ -468,12 +578,12 @@ class TestDTW:
             for i in range(1, obs_len):
                 t = np.array(tmp[i])
                 n = np.vstack((n, t))  # 120 * 50
-        print(m.shape)
-        print(n.shape)
+        # print(m.shape)
+        # print(n.shape)
         sensors_title = [('m' + str(i)) for i in mobile_sensors] + [('s' + str(j)) for j in static_sensors]
         sensor_len = len(sensors_title)
         mn = np.hstack((m, n))
-        print(mn.shape)
+        # print(mn.shape)
         col_mean = np.nanmean(mn, axis=0).tolist()  # 均值
         col_std = np.nanstd(mn, axis=0).tolist()  # 标准差
         index_col = np.argwhere(np.isnan(col_mean))
@@ -481,35 +591,103 @@ class TestDTW:
             for i in range(len(index_col)):
                 col_mean[index_col[i][0]] = 0
 
+        # if (end_timestamp - begin_timestamp) > 48 * 3600:
+        #     mn = mn.T
+        #     mn = TestDTW.Matrix_Completion_2(mn)
+        #     if len(index_col) > 0:
+        #         for i in range(len(index_col)):
+        #             col_mean[index_col[i][0]] = 0
+        #     [a, b] = mn.shape
+        #     test = np.zeros((1, b))
+        #     test[0, :] = -9999
+        #     dbscan = DBSCAN(eps=35,
+        #                     min_samples=3,
+        #                     metric=lambda a, b: DTW.distance(a, b))  # 可以自定义距离函数
+        #     cluster_label = dbscan.fit_predict(mn)
+        #     print(cluster_label)
+        #
+        #     cluster_label = cluster_label.tolist()
+        #     class_type = list(set(cluster_label))
+        #     class_type.sort(key=cluster_label.index)
+        #     tree = {"name": "cluster", "children": []}
+        #     for i in range(len(class_type)):
+        #         tree["children"].append({"name": class_type[i], "children": []})
+        #     for i in range(len(cluster_label)):
+        #         for j in range(len(tree["children"])):
+        #             if tree["children"][j]["name"] == cluster_label[i]:
+        #                 tmp = j
+        #         tree["children"][tmp]["children"].append(
+        #             {"name": sensors_title[i], "mean": col_mean[i], "std": col_std[i]})
+        #     print(tree)
+        #     return tree
 
+        if (end_timestamp - begin_timestamp) > 48 * 3600:
+            col_mean = np.nanmean(mn, axis=0).tolist()  # 均值
+            col_std = np.nanstd(mn, axis=0).tolist()  # 标准差
+            index_col = np.argwhere(np.isnan(col_mean))
+            if len(index_col) > 0:
+                for i in range(len(index_col)):
+                    col_mean[index_col[i][0]] = 0
+            mn = TestDTW.Matrix_Completion_3(mn)
+            # mn = Centralized_with_Outliers(mn)
+            [a, b] = mn.shape
 
-        mn = mn.T
-        mn = TestDTW.Matrix_Completion_2(mn)
-        if len(index_col) > 0:
-            for i in range(len(index_col)):
-                col_mean[index_col[i][0]] = 0
-        [a,b] = mn.shape
-        test = np.zeros((1, b))
-        test[0, :] = -9999
-        dbscan = DBSCAN(eps=35,
-                        min_samples=2,
-                        metric=lambda a, b: DTW.distance(a, b))  # 可以自定义距离函数
-        cluster_label = dbscan.fit_predict(mn)
-        print(cluster_label)
+            result = TestDTW.Distance_Metric_Cos(mn, sensor_len)
+            result = TestDTW.Dimension_Reduction_PCA(result)
 
-        cluster_label = cluster_label.tolist()
-        class_type = list(set(cluster_label))
-        class_type.sort(key=cluster_label.index)
-        tree = {"name": "cluster", "children": []}
-        for i in range(len(class_type)):
-            tree["children"].append({"name": class_type[i], "children": []})
-        for i in range(len(cluster_label)):
-            for j in range(len(tree["children"])):
-                if tree["children"][j]["name"] == cluster_label[i]:
-                    tmp = j
-            tree["children"][tmp]["children"].append({"name": sensors_title[i], "mean": col_mean[i], "std": col_std[i]})
-        print(tree)
-        return tree
+            # result = Dimension_Reduction_MDS(feature_matrix)  # 降维
+            '''
+            聚类： 每类标不同颜色
+            '''
+
+            [a, b] = result.shape
+            col_x = result[:, 0]
+            col_y = result[:, 1]
+
+            cluster = TestDTW.Cluster_DBSCAN(result)
+            cluster_label = cluster.tolist()
+            # print(cluster_label)
+            class_type = list(set(cluster_label))
+            class_type.sort(key=cluster_label.index)
+            tree = {"name": "cluster", "children": []}
+            for i in range(len(class_type)):
+                tree["children"].append({"name": class_type[i], "children": []})
+            for i in range(len(cluster_label)):
+                for j in range(len(tree["children"])):
+                    if tree["children"][j]["name"] == cluster_label[i]:
+                        tmp = j
+                tree["children"][tmp]["children"].append(
+                    {"name": sensors_title[i], "mean": col_mean[i], "std": col_std[i]})
+            # print(tree)
+            return tree
+        else:
+            mn = mn.T
+            mn = TestDTW.Matrix_Completion_2(mn)
+            if len(index_col) > 0:
+                for i in range(len(index_col)):
+                    col_mean[index_col[i][0]] = 0
+            [a,b] = mn.shape
+            test = np.zeros((1, b))
+            test[0, :] = -9999
+            dbscan = DBSCAN(eps=35,
+                            min_samples=2,
+                            metric=lambda a, b: DTW.distance(a, b))  # 可以自定义距离函数
+            cluster_label = dbscan.fit_predict(mn)
+            # print(cluster_label)
+
+            cluster_label = cluster_label.tolist()
+            class_type = list(set(cluster_label))
+            class_type.sort(key=cluster_label.index)
+            tree = {"name": "cluster", "children": []}
+            for i in range(len(class_type)):
+                tree["children"].append({"name": class_type[i], "children": []})
+            for i in range(len(cluster_label)):
+                for j in range(len(tree["children"])):
+                    if tree["children"][j]["name"] == cluster_label[i]:
+                        tmp = j
+                tree["children"][tmp]["children"].append({"name": sensors_title[i], "mean": col_mean[i], "std": col_std[i]})
+            # print(tree)
+            return tree
 
 if __name__ == "__main__":
     # TestDTW.test_cluster_effect_agg()

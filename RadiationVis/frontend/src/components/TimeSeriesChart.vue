@@ -9,7 +9,8 @@ import * as d3 from "d3"
 export default {
   name: 'TimeSeriesChart',
   props: {
-    cid: String
+    cid: String,
+    checkedItem: Array,
   },
   data() {
     return {
@@ -49,6 +50,7 @@ export default {
         let static_data = staticData.map(function (d) {
           return {
             date:  parseDate(d.time),
+            sem: parseFloat(d.sem),
             lower95: parseFloat(d.lower95),
             avg: parseFloat(d.avg),
             upper95: parseFloat(d.upper95)
@@ -57,28 +59,26 @@ export default {
 
         d3.csv('/static/data/MobileSequenceStatistics.csv').then(mobileData => {
           let mobile_data = mobileData.map(function (d) {
-          return {
-            date:  parseDate(d.time),
-            lower95: parseFloat(d.lower95),
-            avg: parseFloat(d.avg),
-            upper95: parseFloat(d.upper95)
-          };
+            return {
+              date:  parseDate(d.time),
+              sem: parseFloat(d.sem),
+              lower95: parseFloat(d.lower95),
+              avg: parseFloat(d.avg),
+              upper95: parseFloat(d.upper95)
+            };
         });
           _this.makeChart(static_data, mobile_data);
         })
       });
     },
-    addAxes(g, xAxis, yAxis, margin, chartWidth, chartHeight) {
-
-      let axes = g.append('g')
-        .attr('clip-path', 'url(#axes-clip)');
-
-      axes.append('g')
+    addX(g, xAxis, margin, chartWidth, chartHeight) {
+      g.append('g')
         .attr('class', 'x axis')
         .attr('transform', 'translate(0,' + chartHeight + ')')
         .call(xAxis);
-
-      axes.append('g')
+    },
+    addY(g, yAxis, margin, chartWidth, chartHeight) {
+      g.append('g')
         .attr('class', 'y axis')
         .call(yAxis)
         .append('text')
@@ -87,7 +87,6 @@ export default {
         .attr('dy', '.71em')
         .style('text-anchor', 'end')
         .text('(cpm)');
-
     },
     addLegend (g, chartWidth) {
       // let legendWidth  = 70,
@@ -176,45 +175,90 @@ export default {
       let upperInnerArea = d3.area()
         .x (function (d) { return x(d.date) || 1; })
         .y0(function (d) { return y(d.upper95); })
-        .y1(function (d) { return y(d.avg); });
+        .y1(function (d) { return y(d.avg); })
+        .curve(d3.curveMonotoneX);
 
       let medianLine = d3.line()
         .x(function (d) { return x(d.date); })
-        .y(function (d) { return y(d.avg); });
+        .y(function (d) { return y(d.avg); })
+        .curve(d3.curveMonotoneX);
 
       let lowerInnerArea = d3.area()
         .x (function (d) { return x(d.date) || 1; })
         .y0(function (d) { return y(d.avg); })
-        .y1(function (d) { return y(d.lower95); });
+        .y1(function (d) { return y(d.lower95); })
+        .curve(d3.curveMonotoneX);
 
       g.datum(data);
 
       g.append('path')
         .attr('class', 'area upper ' + styleClass)
-        .attr('d', upperInnerArea)
-        .attr('clip-path', 'url(#rect-clip)');
+        .attr('d', upperInnerArea);
 
       g.append('path')
         .attr('class', 'area lower ' + styleClass)
-        .attr('d', lowerInnerArea)
-        .attr('clip-path', 'url(#rect-clip)');
+        .attr('d', lowerInnerArea);
 
       g.append('path')
         .attr('class', 'median-line')
-        .attr('d', medianLine)
-        .attr('clip-path', 'url(#rect-clip)');
+        .attr('d', medianLine);
+    },
+    drawBaseline(g, data, x, y) {
+      let baseline = d3.line()
+        .x(function (d) { return x(d.date); })
+        .y(function (d) { return y(d.value); });
+      g.datum(data);
+      g.append('path')
+        .attr('d', baseline)
+        .style('stroke', 'grey')
+        .style('stroke-width', 1);
     },
     makeChart(static_data, mobile_data) {
       let _this = this;
+
+      let max = 0;
+      let max1 = d3.max(static_data, d => d.upper95);
+      let max2 = d3.max(mobile_data, d => d.upper95);
+      if(this.checkedItem.length == 2) {
+        mobile_data = mobile_data.map(d => {
+          if(d.avg > 80) {
+            return {
+              date:  d.date,
+              avg: 80 + (parseFloat(d.avg) - 80) * 0.03,
+              lower95: 80 + (parseFloat(d.avg) - 80) * 0.03 - 1.96 * d.sem,
+              upper95: 80 + (parseFloat(d.avg) - 80) * 0.03 + 1.96 * d.sem
+            }
+          } else {
+            return {
+              date:  d.date,
+              lower95: parseFloat(d.lower95),
+              avg: parseFloat(d.avg),
+              upper95: parseFloat(d.upper95)
+            }
+          }
+        })
+        max2 = d3.max(mobile_data, d => d.upper95);
+        max = max1 > max2 ? max1: max2;
+      } else {
+        if(this.checkedItem[0] == 'static') {
+          max = max1;
+        } else if(this.checkedItem[0] == 'mobile') {
+          max = max2;
+        }
+      }
+
+      let begin = static_data[0].date;
+      let end = static_data[static_data.length-1].date;
+      let basedata = [{date: begin, value: 15}, {date: end, value: 15}];
 
       let margin = { top: 10, right: 30, bottom: 30, left: 30 },
           chartWidth  = _this.svgWidth  - margin.left - margin.right,
           chartHeight = _this.svgHeight - margin.top  - margin.bottom;
 
       let x = d3.scaleTime().range([0, chartWidth])
-                .domain(d3.extent(mobile_data, function (d) { return d.date; })),
+                .domain([begin, end]),
           y = d3.scaleLinear().range([chartHeight, 0])
-                .domain([0, d3.max(mobile_data, function (d) { return d.upper95; })]);
+                .domain([0, max]);
 
       let xAxis = d3.axisBottom(x)
         .tickSizeInner(-chartHeight).tickSizeOuter(0).tickPadding(10).ticks(120).tickFormat((d, i) => {
@@ -251,10 +295,41 @@ export default {
         .attr("class", "brush")
         .call(brush);
 
-      _this.addAxes(g, xAxis, yAxis, margin, chartWidth, chartHeight);
-      _this.addLegend(g, chartWidth);
-      _this.drawPaths(g, static_data, x, y, "static_uncertainty");
-      _this.drawPaths(g, mobile_data, x, y, "mobile_uncertainty");
+      if(this.checkedItem.length == 2) {
+        _this.addX(g, xAxis, margin, chartWidth, chartHeight);
+        // _this.addY(g, yAxis, margin, chartWidth, chartHeight);
+        _this.addLegend(g, chartWidth);
+        _this.drawPaths(g, static_data, x, y, "static_uncertainty");
+        _this.drawPaths(g, mobile_data, x, y, "mobile_uncertainty");
+        _this.drawBaseline(g, basedata, x, y);
+      } else {
+        if(this.checkedItem[0] == 'static') {
+          _this.addX(g, xAxis, margin, chartWidth, chartHeight);
+          _this.addY(g, yAxis, margin, chartWidth, chartHeight);
+          // _this.addLegend(g, chartWidth);
+          _this.drawPaths(g, static_data, x, y, "static_uncertainty");
+          // _this.drawPaths(g, mobile_data, x, y, "mobile_uncertainty");
+          _this.drawBaseline(g, basedata, x, y);
+        } else if(this.checkedItem[0] == 'mobile') {
+          _this.addX(g, xAxis, margin, chartWidth, chartHeight);
+          _this.addY(g, yAxis, margin, chartWidth, chartHeight);
+          // _this.addLegend(g, chartWidth);
+          // _this.drawPaths(g, static_data, x, y, "static_uncertainty");
+          _this.drawPaths(g, mobile_data, x, y, "mobile_uncertainty");
+          _this.drawBaseline(g, basedata, x, y);
+        }
+      }
+    },
+    clearAllg() {
+      d3.select(`#${this.cid} svg`).selectAll('g').remove();
+    }
+  },
+  watch: {
+    checkedItem(n, o) {
+      this.clearAllg();
+      if(n.length != 0) {
+        this.drawChart();
+      }
     }
   }
 }

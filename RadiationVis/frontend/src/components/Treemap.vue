@@ -10,7 +10,8 @@ import axios from '../assets/js/http'
 export default {
   name: 'Treemap',
   props: {
-    cid: String
+    cid: String,
+    originData: Object
   },
   data() {
     return {
@@ -26,12 +27,12 @@ export default {
     }
   },
   created: function () {
-      this.$root.eventHub.$on('timeRangeUpdated', this.timeRangeUpdated);
+      // this.$root.eventHub.$on('timeRangeUpdated', this.timeRangeUpdated);
    },
    // 最好在组件销毁前
    // 清除事件监听
    beforeDestroy: function () {
-      this.$root.eventHub.$off('timeRangeUpdated', this.timeRangeUpdated);
+      // this.$root.eventHub.$off('timeRangeUpdated', this.timeRangeUpdated);
    },
   mounted() {
     this.$nextTick(() => {
@@ -42,7 +43,13 @@ export default {
     loadChart() {
       this.selfAdaptionSvgSize();
       this.drawSvg();
-      this.drawChart();
+      if(this.originData) {
+        if(this.originData.state == 'treemap1') {
+          this.drawTreemap1();
+        } else {
+          this.drawTreemap2();
+        }
+      }
     },
     selfAdaptionSvgSize() {
       let container = document.querySelector(`#${this.cid}`);
@@ -55,98 +62,99 @@ export default {
         .attr("width", this.svgWidth)
         .attr("height", this.svgHeight);
     },
-    drawChart() {
-      var margin = { top: 5, right: 5, bottom: 5, left: 5 },
+    drawTreemap1() {
+      let margin = { top: 5, right: 5, bottom: 5, left: 5 },
             chartWidth  = this.svgWidth  - margin.left - margin.right,
             chartHeight = this.svgHeight - margin.top  - margin.bottom;
 
       let g = this.svg.append("g").attr("transform", "translate(" + (margin.left) + "," + (margin.top) + ")");
 
-      var fader = function(color) { return d3.interpolateRgb(color, "#fff")(0.2); },
+      let fader = function(color) { return d3.interpolateRgb(color, "#fff")(0.2); },
         color = d3.scaleOrdinal(d3.schemeCategory10.map(fader)),
         format = d3.format(",d");
 
-      var treemap = d3.treemap()
+      let treemap = d3.treemap()
           .tile(d3.treemapBinary)
           .size([chartWidth, chartHeight])
           .round(true)
           .paddingInner(1);
 
-      axios.post("/calSensorClusters/", this.timeRange || this.defaultTimeRange).then(response => {
+      let data = JSON.parse(JSON.stringify(this.originData.data));
 
-        let data = response.data;
+      data.children.forEach(d => {
+        d.children.sort((a, b) => b.mean-a.mean)
+      })
+      let max2list = [];
+      data.children.forEach(d => {
+        max2list.push(d.children.slice(0, d.children.length > 2 ? 2: d.children.length))
+      })
+      max2list = max2list.flat();
+      max2list.sort((a, b) => b.mean - a.mean)
+      let category1 = max2list[0].name.startsWith("s") ? "static": "mobile";
+      let category2 = max2list[1].name.startsWith("s") ? "static": "mobile";
+      let sid1 = max2list[0].name.substring(1, max2list[0].name.length);
+      let sid2 = max2list[1].name.substring(1, max2list[1].name.length);
+      this.$root.eventHub.$emit("sensorSelected", Object.assign({}, {category: category1, sid: sid1}, this.originData.timeRange||this.defaultTimeRange));
+      this.$root.eventHub.$emit("sensorSelected", Object.assign({}, {category: category2, sid: sid2}, this.originData.timeRange||this.defaultTimeRange));
 
-        data.children.forEach(d => {
-          d.children.sort((a, b) => b.mean-a.mean)
-        })
-        let max2list = [];
-        data.children.forEach(d => {
-          max2list.push(d.children.slice(0, d.children.length > 2 ? 2: d.children.length))
-        })
-        max2list = max2list.flat();
-        max2list.sort((a, b) => b.mean - a.mean)
-        let category1 = max2list[0].name.startsWith("s") ? "static": "mobile";
-        let category2 = max2list[1].name.startsWith("s") ? "static": "mobile";
-        let sid1 = max2list[0].name.substring(1, max2list[0].name.length);
-        let sid2 = max2list[1].name.substring(1, max2list[1].name.length);
-        this.$root.eventHub.$emit("sensorSelected", Object.assign({}, {category: category1, sid: sid1}, this.timeRange||this.defaultTimeRange));
-        this.$root.eventHub.$emit("sensorSelected", Object.assign({}, {category: category2, sid: sid2}, this.timeRange||this.defaultTimeRange));
+      let sensors = data.children.map(d => {
+        let category = d.children[0].name.startsWith('s') ? "static": "mobile";
+        let sid = d.children[0].name.substring(1);
+        return {category: category, sid: sid};
+      })
 
-        let sensors = data.children.map(d => {
-          let category = d.children[0].name.startsWith('s') ? "static": "mobile";
-          let sid = d.children[0].name.substring(1);
-          return {category: category, sid: sid};
-        })
+      let cluster = {name: 'cluster', children: []};
+      let childrenLength = data.children.length;
+      for(let i=0; i<childrenLength; i++) {
+        cluster.children[i] = {};
+        cluster.children[i].name = "cluster" + i;
+        cluster.children[i].mean = d3.mean(data.children[i].children, d => d.mean);
+        cluster.children[i].std = d3.mean(data.children[i].children, d => d.std);
+        cluster.children[i].static = data.children[i].children.filter(d => d.name.startsWith('s'));
+        cluster.children[i].mobile = data.children[i].children.filter(d => d.name.startsWith('m'));
+        cluster.children[i].lineExample = sensors[i];
+      }
+      console.log(cluster);
+      var root = d3.hierarchy(cluster)
+          .eachBefore(function(d) { d.data.id = d.data.name; })
+          .sum(d => d.mean)
+          .sort(function(a, b) { return b.height - a.height || b.value - a.value; });
 
-        let cluster = {name: 'cluster', children: []};
-        let childrenLength = data.children.length;
-        for(let i=0; i<childrenLength; i++) {
-          cluster.children[i] = {};
-          cluster.children[i].name = "cluster" + i;
-          cluster.children[i].mean = d3.mean(data.children[i].children, d => d.mean);
-          cluster.children[i].std = d3.mean(data.children[i].children, d => d.std);
-          cluster.children[i].static = data.children[i].children.filter(d => d.name.startsWith('s'));
-          cluster.children[i].mobile = data.children[i].children.filter(d => d.name.startsWith('m'));
-          cluster.children[i].lineExample = sensors[i];
-        }
-        var root = d3.hierarchy(cluster)
-            .eachBefore(function(d) { d.data.id = d.data.name; })
-            .sum(d => d.mean)
-            .sort(function(a, b) { return b.height - a.height || b.value - a.value; });
+      treemap(root);
 
-        treemap(root);
+      var cell = g.selectAll("g")
+        .data(root.leaves())
+        .enter().append("g")
+          .attr("transform", function(d) { return "translate(" + d.x0 + "," + d.y0 + ")"; })
+          .on("click", (d, i) => {
+            // this.drawTreemap2(data.children[i])
+            this.$root.eventHub.$emit("getTreemap2", data.children[i]);
 
-        var cell = g.selectAll("g")
-          .data(root.leaves())
-          .enter().append("g")
-            .attr("transform", function(d) { return "translate(" + d.x0 + "," + d.y0 + ")"; })
-            .on("click", (d, i) => {
-              this.drawTreemapByCluster(data.children[i])
-            })
+          })
 
-        cell.append("rect")
-            .attr("id", function(d) { return d.data.id; })
-            .attr("width", function(d) { return d.x1 - d.x0; })
-            .attr("height", function(d) { return d.y1 - d.y0; })
-            // .attr("fill", "steelblue");
-            .attr("fill", function(d) { return color(d.parent.data.id); });
+      cell.append("rect")
+          .attr("id", function(d) { return d.data.id; })
+          .attr("width", function(d) { return d.x1 - d.x0; })
+          .attr("height", function(d) { return d.y1 - d.y0; })
+          .attr("fill", "steelblue");
+          // .attr("fill", function(d) { return color(d.parent.data.id); });
 
-        sensors.forEach((d, i) => {
-          this.drawLineBySid(d3.select(cell.nodes()[i]), d)
-        })
+      sensors.forEach((d, i) => {
+        this.drawLineBySid(d3.select(cell.nodes()[i]), d)
+      })
 
-        cell.append("text")
-            .attr("clip-path", function(d) { return "url(#clip-" + d.data.id + ")"; })
-          .selectAll(".treemap tspan")
-            .data(function(d) { return d.data.name.split(/(?=[A-Z][^A-Z])/g); })
-          .enter().append("tspan")
-            .attr("x", 4)
-            .attr("y", function(d, i) { return 13 + i * 10; })
-            .text(function(d, i) { return `Static Sensor: ${cluster.children[i].static.length}, Mobile Sensor: ${cluster.children[i].mobile.length}` })
-            .style("font-size", 12);
-      });
+      cell.append("text")
+          .attr("clip-path", function(d) { return "url(#clip-" + d.data.id + ")"; })
+        .selectAll(".treemap tspan")
+          .data(function(d) { return d.data.name.split(/(?=[A-Z][^A-Z])/g); })
+        .enter().append("tspan")
+          .attr("x", 4)
+          .attr("y", function(d, i) { return 13 + i * 10; })
+          .text(function(d, i) { let info = cluster.children.filter(s => s.name == d)[0]; return  `Static Sensor: ${info.static.length}, Mobile Sensor: ${info.mobile.length}` })
+          .style("font-size", 12);
+      
     },
-    drawTreemapByCluster(data) {
+    drawTreemap2() {
       d3.select(`#${this.cid} svg`).selectAll('g').remove();
       var margin = { top: 5, right: 5, bottom: 5, left: 5 },
             chartWidth  = this.svgWidth  - margin.left - margin.right,
@@ -164,7 +172,7 @@ export default {
           .round(true)
           .paddingInner(1);
 
-      var root = d3.hierarchy(data)
+      var root = d3.hierarchy(this.originData.data)
             .eachBefore(function(d) { d.data.id = d.data.name; })
             .sum(d => d.mean)
             .sort(function(a, b) { return b.height - a.height || b.value - a.value; });
@@ -184,7 +192,7 @@ export default {
               category = "static";
             }
             sid = parseInt(d.data.name.substring(1, d.data.name.length));
-            this.$root.eventHub.$emit("sensorSelected", Object.assign({}, {category: category, sid: sid}, this.timeRange||this.defaultTimeRange));
+            this.$root.eventHub.$emit("sensorSelected", Object.assign({}, {category: category, sid: sid}, this.originData.timeRange||this.defaultTimeRange));
           })
 
       cell.append("rect")
@@ -273,10 +281,28 @@ export default {
           makeChartBySid(data);
         })
     },
-    timeRangeUpdated(params) {
-      this.timeRange = params;
+    clearAllg() {
       d3.select(`#${this.cid} svg`).selectAll('g').remove();
-      this.drawChart();
+    },
+    // timeRangeUpdated(params) {
+    //   this.timeRange = params;
+    //   d3.select(`#${this.cid} svg`).selectAll('g').remove();
+    //   this.drawTreemap1();
+    // }
+  },
+  watch: {
+    originData: {
+      handler(n, o) {
+        this.clearAllg();
+        if(n) {
+          if(n.state == 'treemap1') {
+            this.drawTreemap1();
+          } else {
+            this.drawTreemap2();
+          }
+        }
+      },
+      deep: true
     }
   }
 }
