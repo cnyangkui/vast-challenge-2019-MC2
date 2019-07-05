@@ -144,3 +144,296 @@ Traceback (most recent call last):
   File "D:\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 56, in _assert_all_finite
     raise ValueError(msg_err.format(type_err, X.dtype))
 ValueError: Input contains NaN, infinity or a value too large for dtype('float64').
+[2019-07-04 19:53:37,797][MainThread:1716][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 20:05:45,093][MainThread:4220][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 22:08:56,898][MainThread:5272][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 22:09:42,301][MainThread:5272][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-07-04 22:09:48,140][MainThread:17080][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 22:19:28,066][MainThread:17080][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 22:19:33,092][MainThread:17228][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 22:20:24,143][MainThread:17228][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 22:20:28,792][MainThread:13504][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 22:23:51,765][MainThread:3632][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 22:28:18,137][MainThread:3632][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 22:28:24,295][MainThread:8244][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 22:28:40,306][MainThread:12608][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 22:31:14,908][MainThread:3596][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 22:35:53,496][MainThread:3596][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 22:36:03,197][MainThread:15000][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 22:38:06,430][MainThread:15000][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 22:38:14,807][MainThread:15796][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 22:38:56,104][MainThread:15796][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 22:39:01,913][MainThread:14804][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 22:39:47,897][MainThread:14804][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 22:39:53,533][MainThread:14048][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 22:40:36,010][MainThread:14048][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 22:40:42,209][MainThread:12660][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 22:48:20,887][MainThread:12660][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 22:48:30,442][MainThread:15864][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 22:49:01,534][MainThread:15864][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 22:49:06,507][MainThread:6808][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 22:51:54,170][MainThread:6808][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 22:51:59,101][MainThread:10656][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 23:00:44,001][MainThread:10656][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 23:00:50,226][MainThread:6032][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 23:01:52,786][MainThread:6032][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 23:01:56,991][MainThread:1956][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 23:05:42,870][MainThread:1956][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 23:05:49,980][MainThread:15652][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 23:07:45,989][MainThread:15652][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 23:07:49,788][MainThread:7296][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 23:10:24,415][MainThread:7296][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 23:10:31,651][MainThread:12148][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 23:12:16,170][MainThread:12148][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 23:12:20,443][MainThread:6704][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 23:13:48,755][MainThread:6704][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 23:13:51,521][MainThread:15944][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 23:15:41,441][MainThread:15944][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 23:15:48,109][MainThread:14892][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 23:17:25,792][MainThread:14892][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 23:17:29,018][MainThread:12416][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 23:21:05,602][MainThread:12416][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 23:21:09,848][MainThread:17160][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 23:21:31,576][MainThread:17160][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 23:21:36,434][MainThread:3012][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 23:22:03,593][MainThread:3012][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 23:22:07,412][MainThread:11192][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 23:24:45,263][MainThread:11192][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 23:24:48,793][MainThread:18244][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 23:25:32,947][MainThread:18244][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 23:25:38,513][MainThread:5104][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 23:26:24,279][MainThread:5104][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 23:26:32,717][MainThread:19080][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 23:26:41,033][MainThread:19080][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 23:26:44,412][MainThread:14684][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 23:27:54,963][MainThread:14684][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 23:28:00,085][MainThread:18616][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 23:29:10,599][MainThread:18616][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 23:29:19,042][MainThread:18736][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 23:30:23,945][MainThread:18736][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 23:30:27,985][MainThread:748][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 23:31:32,644][MainThread:748][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 23:31:35,573][MainThread:18656][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 23:45:13,395][MainThread:18656][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 23:45:18,974][MainThread:18844][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 23:46:27,209][MainThread:18844][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 23:46:32,276][MainThread:10160][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 23:48:30,738][MainThread:10160][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 23:48:35,509][MainThread:18988][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 23:51:28,287][MainThread:18988][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 23:51:32,390][MainThread:19040][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 23:52:08,922][MainThread:19040][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 23:52:11,981][MainThread:1040][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 23:53:13,571][MainThread:1040][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 23:53:17,326][MainThread:5784][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 23:54:03,131][MainThread:5784][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 23:54:09,175][MainThread:14328][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 23:55:36,071][MainThread:14328][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 23:55:44,036][MainThread:19324][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 23:56:12,104][MainThread:19324][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 23:56:15,222][MainThread:15924][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-04 23:57:17,246][MainThread:15924][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-04 23:57:20,531][MainThread:13592][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 00:06:36,269][MainThread:13592][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 00:06:42,524][MainThread:14484][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 00:07:24,245][MainThread:14484][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 00:07:29,851][MainThread:13956][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 00:11:34,993][Thread-39:18784][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Users\Gallows\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Users\Gallows\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Users\Gallows\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 108, in calSensorClusters
+    data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
+  File "D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py", line 402, in test_cluster_effect_agg2
+    [a,b] = mn.shape
+ValueError: not enough values to unpack (expected 2, got 1)
+[2019-07-05 00:16:34,707][MainThread:13956][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 00:16:39,480][MainThread:14376][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 00:19:42,262][MainThread:14376][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 00:19:47,078][MainThread:10960][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 00:24:11,414][MainThread:10960][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 00:24:23,158][MainThread:18464][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 00:31:59,823][MainThread:18464][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 00:32:04,080][MainThread:11636][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 00:35:37,906][MainThread:11636][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 00:35:41,035][MainThread:14656][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 00:36:01,418][MainThread:14656][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 00:36:04,912][MainThread:17844][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 00:36:52,574][MainThread:17844][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 00:36:54,060][MainThread:17772][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 00:39:01,198][MainThread:17772][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 00:39:04,475][MainThread:9116][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 00:41:03,026][MainThread:9116][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 00:41:07,192][MainThread:17400][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 00:45:10,494][MainThread:17400][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 00:45:13,858][MainThread:6396][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 00:46:25,635][MainThread:6396][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 00:46:28,443][MainThread:7556][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 00:49:43,997][MainThread:7556][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 00:49:47,454][MainThread:17664][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 00:50:34,059][MainThread:17664][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 00:50:36,768][MainThread:14064][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 00:53:22,192][MainThread:14064][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 00:53:26,026][MainThread:18816][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 00:53:43,003][MainThread:18816][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 00:53:46,631][MainThread:11232][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 01:22:43,795][MainThread:11232][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 01:22:48,225][MainThread:11424][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 01:24:02,656][MainThread:11424][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 01:24:10,483][MainThread:16584][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 01:29:22,805][MainThread:16584][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 01:29:31,963][MainThread:15464][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 01:46:54,283][MainThread:15464][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 01:46:58,432][MainThread:5396][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 01:49:18,031][MainThread:5396][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 01:49:23,759][MainThread:16352][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 01:50:17,159][MainThread:16352][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 01:50:21,598][MainThread:18212][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 01:51:04,001][MainThread:236][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 01:54:29,770][MainThread:236][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 01:54:34,504][MainThread:16280][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 01:55:22,348][Thread-3:8244][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Users\Gallows\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Users\Gallows\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Users\Gallows\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 108, in calSensorClusters
+    data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
+  File "D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py", line 374, in test_cluster_effect_agg2
+    obs1[d['time']][d['sid']] = d['value']
+KeyError: '2020-04-10 05:13:00'
+[2019-07-05 01:56:13,438][Thread-11:14756][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Users\Gallows\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Users\Gallows\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Users\Gallows\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 108, in calSensorClusters
+    data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
+  File "D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py", line 374, in test_cluster_effect_agg2
+    obs1[d['time']][d['sid']] = d['value']
+KeyError: '2020-04-10 05:13:00'
+[2019-07-05 01:58:13,504][MainThread:3692][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 01:59:33,624][Thread-7:17996][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Users\Gallows\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Users\Gallows\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Users\Gallows\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 108, in calSensorClusters
+    data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
+  File "D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py", line 374, in test_cluster_effect_agg2
+    obs1[d['time']][d['sid']] = d['value']
+KeyError: '2020-04-10 05:13:00'
+[2019-07-05 02:02:12,156][MainThread:3692][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 02:02:19,317][MainThread:15908][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 02:02:48,676][MainThread:15908][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 02:02:52,538][MainThread:15552][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 02:03:14,270][MainThread:15552][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 02:03:18,530][MainThread:13264][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 02:15:55,039][MainThread:13264][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 02:16:03,659][MainThread:3320][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 02:16:53,355][MainThread:3320][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 02:16:56,647][MainThread:11580][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 02:17:10,323][MainThread:11580][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 02:17:12,075][MainThread:17092][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 02:21:37,643][MainThread:17092][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 02:21:40,913][MainThread:19360][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 02:22:37,397][MainThread:19360][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 02:22:40,207][MainThread:2388][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 02:23:54,156][MainThread:2388][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 02:23:58,832][MainThread:17952][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 02:24:51,884][MainThread:17952][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 02:24:55,515][MainThread:3320][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 02:27:05,883][MainThread:3320][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 02:27:09,256][MainThread:904][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 02:30:09,222][MainThread:904][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 02:30:13,148][MainThread:15924][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 02:34:45,085][MainThread:15924][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 02:34:47,896][MainThread:8584][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 02:35:26,501][MainThread:8584][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 02:35:29,883][MainThread:1664][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 02:36:05,374][MainThread:1664][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 02:36:08,230][MainThread:18812][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 09:39:31,655][MainThread:13972][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 09:50:40,674][Thread-44:6784][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Users\Gallows\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Users\Gallows\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Users\Gallows\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 108, in calSensorClusters
+    data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
+  File "D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py", line 377, in test_cluster_effect_agg2
+    obs1[d['time']][d['sid']] = d['value']
+KeyError: '2020-04-10 05:20:00'
+[2019-07-05 09:53:36,087][MainThread:13972][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 09:53:41,473][MainThread:19996][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 10:01:37,386][MainThread:20340][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 10:03:07,665][Thread-8:12604][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Users\Gallows\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Users\Gallows\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Users\Gallows\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 108, in calSensorClusters
+    data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
+  File "D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py", line 377, in test_cluster_effect_agg2
+    obs1[d['time']][d['sid']] = d['value']
+KeyError: '2020-04-10 05:20:00'
+[2019-07-05 10:04:35,140][Thread-25:11924][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Users\Gallows\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Users\Gallows\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Users\Gallows\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 108, in calSensorClusters
+    data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
+  File "D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py", line 377, in test_cluster_effect_agg2
+    obs1[d['time']][d['sid']] = d['value']
+KeyError: '2020-04-10 05:10:00'
+[2019-07-05 10:05:57,244][Thread-31:20608][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Users\Gallows\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Users\Gallows\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Users\Gallows\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 108, in calSensorClusters
+    data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
+  File "D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py", line 377, in test_cluster_effect_agg2
+    obs1[d['time']][d['sid']] = d['value']
+KeyError: '2020-04-08 18:10:00'
+[2019-07-05 10:08:45,787][Thread-56:8612][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Users\Gallows\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Users\Gallows\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Users\Gallows\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 108, in calSensorClusters
+    data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
+  File "D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py", line 377, in test_cluster_effect_agg2
+    obs1[d['time']][d['sid']] = d['value']
+KeyError: '2020-04-10 05:20:00'
+[2019-07-05 10:15:36,014][MainThread:20340][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 10:15:40,019][MainThread:8096][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]

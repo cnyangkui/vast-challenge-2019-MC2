@@ -6,7 +6,8 @@ import json
 import logging
 from backend.utils.dateencoder import DateEncoder
 from backend.dataprocessing.correlation import calCorrlelation
-from backend.dataprocessing.cluster import calCluster
+# from backend.dataprocessing.cluster import calCluster
+from backend.dataprocessing.cluster_dtw import TestDTW
 import time, datetime
 from backend.dataprocessing.gridmap import add_grid_info, idw, getLastPointInGrid
 
@@ -95,10 +96,16 @@ def calSensorSimilarity(request):
 		data = calCorrlelation(params['begintime'], params['endtime'])
 	return HttpResponse(json.dumps(data), content_type='application/json')
 
+# def calSensorClusters(request):
+# 	if request.method == 'POST':
+# 		params = json.loads(request.body)
+# 		data = calCluster(params['begintime'], params['endtime'])
+# 	return HttpResponse(json.dumps(data), content_type='application/json')
+
 def calSensorClusters(request):
 	if request.method == 'POST':
 		params = json.loads(request.body)
-		data = calCluster(params['begintime'], params['endtime'])
+		data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
 	return HttpResponse(json.dumps(data), content_type='application/json')
 
 def calTimeSeries(request):
