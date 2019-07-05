@@ -164,3 +164,4 @@ ValueError: not enough values to unpack (expected 2, got 1)
 [2019-07-04 23:06:23,293][MainThread:18884][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
 [2019-07-04 23:09:37,020][MainThread:18884][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
 [2019-07-04 23:09:41,631][MainThread:3932][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-07-05 09:37:24,987][MainThread:16688][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]

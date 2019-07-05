@@ -20,7 +20,7 @@
               </div>
             </div>
           </div>
-          <div class="control-container">
+          <div class="control-container" style="margin-top: 10px;">
             <div class="control-header">
               <label>TimeSeries</label>
             </div>
@@ -35,7 +35,7 @@
               </div>
             </div>
           </div>
-          <div class="control-container" style="margin-top: 5px;">
+          <div class="control-container" style="margin-top: 10px;">
             <div class="control-header">
               <label>Treemap</label>
             </div>
@@ -49,7 +49,7 @@
               </div>
             </div>
           </div>
-          <div class="control-container" style="margin-top: 5px;">
+          <div class="control-container" style="margin-top: 10px;">
             <div class="control-header">
               <label>Map</label>
             </div>
@@ -245,7 +245,8 @@ export default {
       axios.post("/calSensorClusters/", params).then(response => {
         this.treemap1 = {
           state: this.treemapState,
-          data: response.data
+          data: response.data,
+          timeRange: params
         }
       })
     },
@@ -256,10 +257,12 @@ export default {
       this.treemapState = 'treemap2';
       this.treemap2 = {
         state: this.treemapState,
-        data: params
+        data: params,
+        timeRange: this.timeRange
       }
     },
     timeRangeUpdated(params) {
+      this.timeRange = params;
       for(let i=0, length=this.sidTrendCharts.length; i<length; i++) {
         this.sidTrendCharts.pop();
       }
@@ -322,23 +325,24 @@ html, body, #app {
 }
 .control-header {
   background-color: #ccc;
-  height: 28px;
-}
-.control-header input {
-  line-height: 28px;
-  margin-left: 5px;
+  height: 45px;
 }
 .control-header label {
-  line-height: 28px;
+  line-height: 45px;
   margin-left: 5px;
+  font-size: 18px;
 }
 .control-container .input-ele-group {
   width: 92%;
   margin-left: 4%;
+  height: 40px;
 }
 .control-container .input-ele {
   width: 50%;
   display: inline-block;
+}
+.control-container label {
+  line-height: 40px;
 }
 input :disabled {
   background-color: rgb(235, 235, 228);

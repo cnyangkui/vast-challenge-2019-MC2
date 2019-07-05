@@ -628,9 +628,11 @@ export default {
             geometry: new Point([parseFloat(point.lnglat[0]), parseFloat(point.lnglat[1])])
           });
           feature.setStyle(new Style({
-            image: new Circle({
-                radius: 2,
-                fill: new Fill({ color: "#00F" })
+            image: new Icon({
+                // radius: 2,
+                // fill: new Fill({ color: "#00F" })
+                src: require("../assets/img/mobile.png"),
+                scale: 0.1,
             })
           }));
           vectorSource.addFeature(feature);

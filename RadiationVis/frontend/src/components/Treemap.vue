@@ -63,17 +63,17 @@ export default {
         .attr("height", this.svgHeight);
     },
     drawTreemap1() {
-      var margin = { top: 5, right: 5, bottom: 5, left: 5 },
+      let margin = { top: 5, right: 5, bottom: 5, left: 5 },
             chartWidth  = this.svgWidth  - margin.left - margin.right,
             chartHeight = this.svgHeight - margin.top  - margin.bottom;
 
       let g = this.svg.append("g").attr("transform", "translate(" + (margin.left) + "," + (margin.top) + ")");
 
-      var fader = function(color) { return d3.interpolateRgb(color, "#fff")(0.2); },
+      let fader = function(color) { return d3.interpolateRgb(color, "#fff")(0.2); },
         color = d3.scaleOrdinal(d3.schemeCategory10.map(fader)),
         format = d3.format(",d");
 
-      var treemap = d3.treemap()
+      let treemap = d3.treemap()
           .tile(d3.treemapBinary)
           .size([chartWidth, chartHeight])
           .round(true)
@@ -94,8 +94,8 @@ export default {
       let category2 = max2list[1].name.startsWith("s") ? "static": "mobile";
       let sid1 = max2list[0].name.substring(1, max2list[0].name.length);
       let sid2 = max2list[1].name.substring(1, max2list[1].name.length);
-      this.$root.eventHub.$emit("sensorSelected", Object.assign({}, {category: category1, sid: sid1}, this.timeRange||this.defaultTimeRange));
-      this.$root.eventHub.$emit("sensorSelected", Object.assign({}, {category: category2, sid: sid2}, this.timeRange||this.defaultTimeRange));
+      this.$root.eventHub.$emit("sensorSelected", Object.assign({}, {category: category1, sid: sid1}, this.originData.timeRange||this.defaultTimeRange));
+      this.$root.eventHub.$emit("sensorSelected", Object.assign({}, {category: category2, sid: sid2}, this.originData.timeRange||this.defaultTimeRange));
 
       let sensors = data.children.map(d => {
         let category = d.children[0].name.startsWith('s') ? "static": "mobile";
@@ -114,6 +114,7 @@ export default {
         cluster.children[i].mobile = data.children[i].children.filter(d => d.name.startsWith('m'));
         cluster.children[i].lineExample = sensors[i];
       }
+      console.log(cluster);
       var root = d3.hierarchy(cluster)
           .eachBefore(function(d) { d.data.id = d.data.name; })
           .sum(d => d.mean)
@@ -149,7 +150,7 @@ export default {
         .enter().append("tspan")
           .attr("x", 4)
           .attr("y", function(d, i) { return 13 + i * 10; })
-          .text(function(d, i) { return `Static Sensor: ${cluster.children[i].static.length}, Mobile Sensor: ${cluster.children[i].mobile.length}` })
+          .text(function(d, i) { let info = cluster.children.filter(s => s.name == d)[0]; return  `Static Sensor: ${info.static.length}, Mobile Sensor: ${info.mobile.length}` })
           .style("font-size", 12);
       
     },
@@ -191,7 +192,7 @@ export default {
               category = "static";
             }
             sid = parseInt(d.data.name.substring(1, d.data.name.length));
-            this.$root.eventHub.$emit("sensorSelected", Object.assign({}, {category: category, sid: sid}, this.timeRange||this.defaultTimeRange));
+            this.$root.eventHub.$emit("sensorSelected", Object.assign({}, {category: category, sid: sid}, this.originData.timeRange||this.defaultTimeRange));
           })
 
       cell.append("rect")
