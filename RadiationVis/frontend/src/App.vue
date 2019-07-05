@@ -56,7 +56,7 @@
             <div class="control-content" v-show="overviewType=='radiation'">
               <div class="input-ele-group">
                 <div class="input-ele"><input type="checkbox" v-model="mapControl.r_si_kriging_check"><label>SI(kriging)</label></div>
-                <div class="input-ele"><input type="checkbox" v-model="mapControl.r_si_idw_check"><label>SI(idw)</label></div>
+                <!-- <div class="input-ele"><input type="checkbox" v-model="mapControl.r_si_idw_check"><label>SI(idw)</label></div> -->
                 <div class="input-ele"><input type="checkbox" v-model="mapControl.r_mi_idw_check"><label>MI(idw)</label></div>
               </div>
             </div>
@@ -263,12 +263,10 @@ export default {
     },
     timeRangeUpdated(params) {
       this.timeRange = params;
-      for(let i=0, length=this.sidTrendCharts.length; i<length; i++) {
-        this.sidTrendCharts.pop();
-      }
+      this.sidTrendCharts = [];
       if(params) {
         this.timeSeriesControl.localDisabled = false;
-        this.timeSeriesControl.state = "local";
+        // this.timeSeriesControl.state = "local";
         this.trendChart = null;
         this.getTrendChartDataByTimeRange(params);
         this.treemap1 = null;

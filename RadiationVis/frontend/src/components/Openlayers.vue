@@ -28,10 +28,10 @@
       </div> 
     </div> -->
     <div id="himarkmap"></div>
-    <div id="popup" class="ol-popup">
+    <!-- <div id="popup" class="ol-popup">
       <a href="#" id="popup-closer" class="ol-popup-closer"></a>
       <div id="popup-content"></div>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
@@ -88,12 +88,14 @@ export default {
         heatmapLayer: null,
         idwUncertaintyLayer: null,
         MRLayer: null,
+        pathsLayer: null,
       },
       dataCollection: {
         staticSensorGridData: null,
         mobileSensorGridData: null,
         mobileSensorReadings: null,
         staticSensorReadings: null,
+        mobilePathData: null,
       },
       zoom: 1.4,
       sid: null,
@@ -124,7 +126,7 @@ export default {
   methods: {
     loadMap() {
       this.initMap();
-      this.addSelectEvent();
+      // this.addSelectEvent();
       this.drawStaticPointLayer(); //添加静态传感器
     },
     selfAdaptionSize() {
@@ -266,85 +268,97 @@ export default {
       this.map.addLayer(this.layers.staticPointLayer);
     },
     drawSRLayer() {
-      let vectorSource = new VectorSource();
-      this.layers.SRLayer = new VectorLayer({
-        source: vectorSource,
-      });
-
-      let colorScale = d3.scaleLinear().domain([20, 30, 50, 100]).range(["rgb(0,0,255)", "rgb(0,255,0)", "rgb(225,225,0)", "rgb(255,0,0)"])
-
-      axios.post("/findAggSrrByTimeRange/", this.timeRange || this.defaultTimeRange).then(response => {
-        response.data.forEach(point => {
+      let _this = this;
+      let colorScale = d3.scaleLinear().domain([0, 100]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
+      if(this.dataCollection.staticSensorReadings) {
+        render(this.dataCollection.staticSensorReadings);
+      } else {
+        axios.post("/findAggSrrByTimeRange/", this.timeRange || this.defaultTimeRange).then(response => {
+          this.dataCollection.staticSensorReadings = response.data;
+          render(this.dataCollection.staticSensorReadings);
+        })
+      }
+      function render(data) {
+        let vectorSource = new VectorSource();
+          _this.layers.SRLayer = new VectorLayer({
+            source: vectorSource,
+          });
+        data.forEach(point => {
           let feature = new Feature({
             geometry: new Point([parseFloat(point.longitude), parseFloat(point.latitude)])
           });
           feature.setStyle(new Style({
             image: new Circle({
-                radius: 15 * this.zoom,
+                radius: 15 * _this.zoom,
                 fill: new Fill({ color: colorScale(point.value) })
             })
           }));
           vectorSource.addFeature(feature);
         })
-        this.layers.SRLayer.setOpacity(0.3);
-        this.layers.SRLayer.setVisible(this.mapControl.r_s_check);
-        this.map.addLayer(this.layers.SRLayer);
-      })
+        _this.layers.SRLayer.setOpacity(0.3);
+        _this.layers.SRLayer.setVisible(_this.mapControl.r_mi_idw_check);
+        _this.map.addLayer(_this.layers.SRLayer);
+      }
     },
     // 静态传感器插值层
     drawKrigingLayer() {
-      let params = {
-        // maxValue: 100,
-        krigingModel: 'exponential',
-        krigingSigma2: 0,
-        krigingAlpha: 100,
-        canvasAlpha: 0.20,
-        colors: ["#006837", "#1a9850", "#66bd63", "#a6d96a", "#d9ef8b", "#ffffbf", "#fee08b", "#fdae61", "#f46d43", "#d73027", "#a50026"],
-      }
-
-      let colorScale = this.color();
-      let colors = [];
-      for(let i=0; i<=100; i++) {
-        colors.push(colorScale(i));
-      }
-      
-      axios.post("/findAggSrrByTimeRange/", this.timeRange || this.defaultTimeRange)
-        .then((response) => {
-          let responseData = response.data;
-          
-          let values = responseData.map(d => parseFloat(d.value));
-          let lngs = responseData.map(d => parseFloat(d.longitude));
-          let lats = responseData.map(d => parseFloat(d.latitude));
-
-          let letiogram = kriging.train(values, lngs, lats, params.krigingModel, params.krigingSigma2, params.krigingAlpha);
-          let grid = kriging.grid(this.coords, letiogram, (this.imageExtent[2] - this.imageExtent[0]) / 75);
-          
-          //创建新图层
-          this.layers.krigingLayer = new Image({
-            extent: this.imageExtent,
-            source: new ImageCanvas({
-              canvasFunction: (extent, resolution, pixelRatio, size, projection) => {
-                  let canvas = document.createElement('canvas');
-                  canvas.width = size[0];
-                  canvas.height = size[1];
-                  canvas.style.display = 'block';
-                  //设置canvas透明度
-                  // canvas.getContext('2d').globalAlpha = params.canvasAlpha;
-                  //使用分层设色渲染
-                  kriging.plot(canvas, grid,
-                      [extent[0], extent[2]], [extent[1], extent[3]], params.colors);
-                  return canvas;
-              },
-              // projection: this.getProjection()
-            })
-          });
-          this.layers.krigingLayer.setOpacity(0.3);
-          this.map.addLayer(this.layers.krigingLayer);
-          this.layers.krigingLayer.setVisible(this.mapControl.r_si_kriging_check);
+      let _this = this;
+      let colorScale = d3.scaleLinear().domain([0, 100]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
+      if(this.dataCollection.staticSensorReadings) {
+        render(this.dataCollection.staticSensorReadings);
+      } else {
+        axios.post("/findAggSrrByTimeRange/", this.timeRange || this.defaultTimeRange).then(response => {
+          this.dataCollection.staticSensorReadings = response.data;
+          render(this.dataCollection.staticSensorReadings);
         })
-        .catch((error) => {
-          console.log(error);
+      }
+
+      function render(data) {
+        let params = {
+          // maxValue: 100,
+          krigingModel: 'exponential',
+          krigingSigma2: 0,
+          krigingAlpha: 100,
+          canvasAlpha: 0.20,
+          colors: ["#006837", "#1a9850", "#66bd63", "#a6d96a", "#d9ef8b", "#ffffbf", "#fee08b", "#fdae61", "#f46d43", "#d73027", "#a50026"],
+        }
+
+        let colorScale = _this.color();
+        let colors = [];
+        for(let i=0; i<=100; i++) {
+          colors.push(colorScale(i));
+        }
+          
+        let values = data.map(d => parseFloat(d.value));
+        let lngs = data.map(d => parseFloat(d.longitude));
+        let lats = data.map(d => parseFloat(d.latitude));
+
+        let letiogram = kriging.train(values, lngs, lats, params.krigingModel, params.krigingSigma2, params.krigingAlpha);
+        let grid = kriging.grid(_this.coords, letiogram, (_this.imageExtent[2] - _this.imageExtent[0]) / 75);
+        
+        //创建新图层
+        _this.layers.krigingLayer = new Image({
+          extent: _this.imageExtent,
+          source: new ImageCanvas({
+            canvasFunction: (extent, resolution, pixelRatio, size, projection) => {
+                let canvas = document.createElement('canvas');
+                canvas.width = size[0];
+                canvas.height = size[1];
+                canvas.style.display = 'block';
+                //设置canvas透明度
+                // canvas.getContext('2d').globalAlpha = params.canvasAlpha;
+                //使用分层设色渲染
+                kriging.plot(canvas, grid,
+                    [extent[0], extent[2]], [extent[1], extent[3]], params.colors);
+                return canvas;
+            },
+            // projection: this.getProjection()
+          })
         });
+        _this.layers.krigingLayer.setOpacity(0.3);
+        _this.map.addLayer(_this.layers.krigingLayer);
+        _this.layers.krigingLayer.setVisible(_this.mapControl.r_si_kriging_check);
+      }
     },
     drawIdwMLayer() {
       this.layers.idwMLayer = new VectorLayer({
@@ -368,6 +382,7 @@ export default {
           });
       }
       this.drawMobilePointLayer();
+      this.drawSRLayer();
     },
     drawIdwSLayer() {
       this.layers.idwSLayer = new VectorLayer({
@@ -621,7 +636,7 @@ export default {
       this.layers.mobilePointLayer = new VectorLayer({
         source: vectorSource,
       });
-      axios.post("/getLastCoordsByTimeRange/", (this.timeRange || this.defaultTimeRange)).then((response) => {
+      axios.post("/getLastCoordByTimeRange/", (this.timeRange || this.defaultTimeRange)).then((response) => {
         let pointData = response.data;
         pointData.forEach(point => {
           let feature = new Feature({
@@ -717,6 +732,36 @@ export default {
     clearPies() {
       let overlays = this.map.getOverlays().clear();
     },
+    drawPath(params) {
+      let _this = this;
+      if(this.dataCollection.mobilePathData) {
+        render(this.dataCollection.mobilePathData);
+      } else {
+        axios.post("/getLastCoordsByTimeRange/", this.timeRange || this.defaultTimeRange)
+          .then((response) => {
+            this.dataCollection.mobilePathData = response.data;
+            render(this.dataCollection.mobilePathData);
+          })
+      }
+
+      function render(data) {
+        let vectorSource = new VectorSource();
+        _this.layers.pathsLayer = new VectorLayer({
+          source: vectorSource,
+        });
+        
+        let sidData = data.filter(d => d.sid==params.sid);
+        console.log(sidData)
+          for(let j=0, pathLen=sidData.length; j<pathLen-1; j++) {
+            let feature = new Feature({
+              geometry: new LineString([[sidData[j].lnglat[0], sidData[j].lnglat[1]], [sidData[j+1].lnglat[0], sidData[j+1].lnglat[1]]])
+            });
+            vectorSource.addFeature(feature);
+          }
+        _this.layers.pathsLayer.setVisible(true);
+        _this.map.addLayer(_this.layers.pathsLayer);
+      }
+    },
     convertGridData(data) {
       let span = 0.01;
       
@@ -779,6 +824,7 @@ export default {
       this.dataCollection.mobileSensorGridData = null;
       this.dataCollection.mobileSensorReadings = null;
       this.dataCollection.staticSensorReadings = null;
+      this.dataCollection.mobilePathData = null;
     },
     clearLayers() {
       this.map.removeLayer(this.layers.krigingLayer);
@@ -799,26 +845,43 @@ export default {
       this.layers.mobilePointLayer = null;
     },
     krigingLayerUpdate() {
-      this.layers.krigingLayer.setVisible(this.mapControl.r_si_kriging_check);
+      if(this.layers.krigingLayer) {
+        this.layers.krigingLayer.setVisible(this.mapControl.r_si_kriging_check);
+      }
     },
     idwMLayerUpdate() {
-      this.layers.idwMLayer.setVisible(this.mapControl.r_mi_idw_check);
-      this.layers.mobilePointLayer.setVisible(this.mapControl.r_mi_idw_check);
+     if(this.layers.idwMLayer) {
+       this.layers.idwMLayer.setVisible(this.mapControl.r_mi_idw_check);
+     }
+     if(this.layers.SRLayer) {
+       this.layers.SRLayer.setVisible(this.mapControl.r_mi_idw_check);
+     }
+     if(this.layers.mobilePointLayer) {
+       this.layers.mobilePointLayer.setVisible(this.mapControl.r_mi_idw_check);
+     }
+      // this.layers.idwMLayer.setVisible(this.mapControl.r_mi_idw_check);
+      // this.layers.mobilePointLayer.setVisible(this.mapControl.r_mi_idw_check);
     },
     idwSLayerUpdate() {
-      this.layers.idwSLayer.setVisible(this.mapControl.r_si_idw_check);
+      if(this.layers.idwSLayer) {
+        this.layers.idwSLayer.setVisible(this.mapControl.r_si_idw_check);
+      }
     },
     heatmapLayerUpdate() {
-      this.layers.heatmapLayer.setVisible(this.mapControl.t_heatmap_check);
+      if(this.layers.heatmapLayer) {
+        this.layers.heatmapLayer.setVisible(this.mapControl.t_heatmap_check);
+      }
     },
     uncertaintyidwLayerUpdate() {
-      this.layers.idwUncertaintyLayer.setVisible(this.mapControl.u_mi_check);
+      if(this.layers.idwUncertaintyLayer) {
+        this.layers.idwUncertaintyLayer.setVisible(this.mapControl.u_mi_check);
+      }
     },
     MRLayerUpdate() {
-      this.layers.MRLayer.setVisible(this.mapControl.r_m_check);
+      // this.layers.MRLayer.setVisible(this.mapControl.r_m_check);
     },
     SRLayerUpdate() {
-      this.layers.SRLayer.setVisible(this.mapControl.r_s_check);
+      // this.layers.SRLayer.setVisible(this.mapControl.r_mi_idw_check);
     },
     allLayerUpdate() {
       this.krigingLayerUpdate();
@@ -849,16 +912,24 @@ export default {
       this.clearLayers();
       this.clearPies();
 
-      this.addSelectEvent();
+      // this.addSelectEvent();
       
-
-      this.drawKrigingLayer()
-      this.drawIdwSLayer();
-      this.drawIdwMLayer();
-      // this.drawHeatmapLayer();
-      this.drawIdwUncertaintyLayer();
-      // this.drawMRLayer();
-      // this.drawSRLayer();
+      if(this.mapControl.r_si_kriging_check) {
+        this.drawKrigingLayer()
+      }
+      if(this.mapControl.r_mi_idw_check) {
+        this.drawIdwMLayer();
+      }
+      if(this.mapControl.r_si_idw_check) {
+        this.drawIdwSLayer();
+      }
+      if(this.mapControl.u_mi_check) {
+        this.drawIdwUncertaintyLayer();
+      }
+      
+      // this.drawKrigingLayer();
+      // this.drawIdwMLayer();
+      // this.drawIdwUncertaintyLayer();
       if(this.mapControl.u_pie_check) {
         this.drawPies();
       }
@@ -870,19 +941,8 @@ export default {
       return axios.post('/findAggSrrByTimeRange/', params);
     },
     sensorSelected(params) {
-      // this.sid = params;
-      // console.log(params, this.sid)
-      // this.clearDataCollection();
-      // this.clearLayers();
-      // this.clearPies();
-      // this.drawKrigingLayer()
-      // this.drawIdwMLayer();
-      // this.drawHeatmapLayer();
-      // this.drawIdwUncertaintyLayer();
-      // this.drawMRLayer();
-      // if(this.u_pie_check) {
-      //   this.drawPies();
-      // }
+     console.log(params)
+    //  this.drawPath(params);
     }
   },
   watch: {
@@ -891,7 +951,7 @@ export default {
         this.clearPies();
         this.drawPies();
       }
-      if(this.mapControl.r_s_check) {
+      if(this.mapControl.r_mi_idw_check) {
         this.map.removeLayer(this.layers.SRLayer);
         this.layers.SRLayer = null;
         this.drawSRLayer();
@@ -899,12 +959,20 @@ export default {
     },
     mapControl: {
       handler(newValue,oldValue){
-        // this.mapControl = newValue
-        this.allLayerUpdate();
-        this.clearPies()
-        if(this.mapControl.u_pie_check) {
+        if(newValue.r_si_kriging_check && this.layers.krigingLayer == null) {
+          this.drawKrigingLayer();
+        }
+        if(newValue.r_mi_idw_check && this.layers.idwMLayer == null) {
+          this.drawIdwMLayer();
+        }
+        if(newValue.u_mi_check && this.idwUncertaintyLayer == null) {
+          his.drawIdwUncertaintyLayer();
+        }
+        if(newValue.u_pie_check) {
+          this.clearPies();
           this.drawPies();
         }
+        this.allLayerUpdate();
       },
       deep:true
     }

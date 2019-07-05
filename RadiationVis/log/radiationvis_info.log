@@ -165,3 +165,65 @@ ValueError: not enough values to unpack (expected 2, got 1)
 [2019-07-04 23:09:37,020][MainThread:18884][task_id:django.utils.autoreload][autoreload.py:203][INFO][D:\Workspace\Projects\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
 [2019-07-04 23:09:41,631][MainThread:3932][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
 [2019-07-05 09:37:24,987][MainThread:16688][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-07-05 10:31:05,563][MainThread:16688][task_id:django.utils.autoreload][autoreload.py:203][INFO][Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py changed, reloading.]
+[2019-07-05 10:31:06,773][MainThread:8932][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-07-05 10:31:19,313][MainThread:8932][task_id:django.utils.autoreload][autoreload.py:203][INFO][Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-07-05 10:31:20,273][MainThread:13096][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-07-05 10:32:23,605][MainThread:13096][task_id:django.utils.autoreload][autoreload.py:203][INFO][Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-07-05 10:32:24,547][MainThread:4872][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-07-05 10:32:51,456][MainThread:4872][task_id:django.utils.autoreload][autoreload.py:203][INFO][Y:\vast-challenge-2019-MC2\RadiationVis\RadiationVis\urls.py changed, reloading.]
+[2019-07-05 10:32:52,370][MainThread:3748][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-07-05 10:33:33,948][MainThread:3748][task_id:django.utils.autoreload][autoreload.py:203][INFO][Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py changed, reloading.]
+[2019-07-05 10:33:34,898][MainThread:13000][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-07-05 10:33:52,677][MainThread:13000][task_id:django.utils.autoreload][autoreload.py:203][INFO][Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py changed, reloading.]
+[2019-07-05 10:33:53,570][MainThread:9744][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-07-05 10:34:54,549][MainThread:9744][task_id:django.utils.autoreload][autoreload.py:203][INFO][Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py changed, reloading.]
+[2019-07-05 10:34:55,433][MainThread:8532][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-07-05 10:36:30,675][MainThread:8532][task_id:django.utils.autoreload][autoreload.py:203][INFO][Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-07-05 10:36:31,710][MainThread:2308][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-07-05 10:38:44,545][MainThread:2308][task_id:django.utils.autoreload][autoreload.py:203][INFO][Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-07-05 10:38:45,492][MainThread:14500][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-07-05 10:38:51,746][MainThread:14500][task_id:django.utils.autoreload][autoreload.py:203][INFO][Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-07-05 10:38:52,717][MainThread:7800][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-07-05 11:25:54,694][MainThread:7092][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-07-05 11:27:28,330][Thread-1:12520][task_id:django.request][log.py:228][ERROR][Internal Server Error: /]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 145, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 143, in _get_response
+    response = response.render()
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\template\response.py", line 106, in render
+    self.content = self.rendered_content
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\template\response.py", line 81, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\template\response.py", line 63, in resolve_template
+    return select_template(template, using=self.using)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(', '.join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: index.html
+[2019-07-05 11:27:28,554][Thread-1:12520][task_id:django.request][log.py:228][WARNING][Not Found: /favicon.ico]
+[2019-07-05 13:08:23,438][Thread-35:8488][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 101, in calSensorClusters
+    data = calCluster(params['begintime'], params['endtime'])
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 229, in calCluster
+    result = Dimension_Reduction_PCA(result)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster.py", line 135, in Dimension_Reduction_PCA
+    pca = pca.fit_transform(feature_matrix)
+  File "D:\Anaconda3\envs\django\lib\site-packages\sklearn\decomposition\pca.py", line 360, in fit_transform
+    U, S, V = self._fit(X)
+  File "D:\Anaconda3\envs\django\lib\site-packages\sklearn\decomposition\pca.py", line 382, in _fit
+    copy=self.copy)
+  File "D:\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 542, in check_array
+    allow_nan=force_all_finite == 'allow-nan')
+  File "D:\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 56, in _assert_all_finite
+    raise ValueError(msg_err.format(type_err, X.dtype))
+ValueError: Input contains NaN, infinity or a value too large for dtype('float64').
