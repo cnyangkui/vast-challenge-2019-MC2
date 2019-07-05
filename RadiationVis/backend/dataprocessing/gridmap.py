@@ -129,10 +129,10 @@ def getLastPointsInGrid(origin_data):
 		xy_str = str(m-1-y)+','+str(x)
 		if xy_str not in dic.keys():
 			dic[xy_str] = {}
-		dic[xy_str][d['sid']] = [d['longitude'], d['latitude']]
+		dic[xy_str][d['sid']] = [d['timestamp'], d['longitude'], d['latitude']]
 	for k, v in dic.items():
 		for k1, v1 in v.items():
-			data.append({'sid': k1, 'lnglat': v1})
+			data.append({'sid': k1, 'timestamp':v1[0], 'lnglat': [v1[1], v1[2]]})
 	return data
 
 if __name__ == "__main__":

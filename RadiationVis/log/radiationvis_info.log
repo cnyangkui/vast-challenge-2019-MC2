@@ -227,3 +227,839 @@ Traceback (most recent call last):
   File "D:\Anaconda3\envs\django\lib\site-packages\sklearn\utils\validation.py", line 56, in _assert_all_finite
     raise ValueError(msg_err.format(type_err, X.dtype))
 ValueError: Input contains NaN, infinity or a value too large for dtype('float64').
+[2019-07-05 13:26:08,497][MainThread:7092][task_id:django.utils.autoreload][autoreload.py:203][INFO][Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-07-05 13:26:11,348][MainThread:7584][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-07-05 13:27:37,881][MainThread:7584][task_id:django.utils.autoreload][autoreload.py:203][INFO][Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 13:27:39,072][MainThread:12804][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-07-05 13:28:52,522][MainThread:12804][task_id:django.utils.autoreload][autoreload.py:203][INFO][Y:\vast-challenge-2019-MC2\RadiationVis\RadiationVis\settings.py changed, reloading.]
+[2019-07-05 13:28:53,510][MainThread:16944][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-07-05 13:32:06,818][Thread-5:3748][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 108, in calSensorClusters
+    data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py", line 451, in test_cluster_effect_agg2
+    obs1[d['time']][d['sid']] = d['value']
+KeyError: '2020-04-06 19:40:00'
+[2019-07-05 13:32:06,939][Thread-6:14676][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 108, in calSensorClusters
+    data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py", line 451, in test_cluster_effect_agg2
+    obs1[d['time']][d['sid']] = d['value']
+KeyError: '2020-04-06 19:40:00'
+[2019-07-05 13:32:08,480][Thread-4:13124][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 108, in calSensorClusters
+    data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py", line 451, in test_cluster_effect_agg2
+    obs1[d['time']][d['sid']] = d['value']
+KeyError: '2020-04-06 20:50:00'
+[2019-07-05 13:35:49,631][Thread-3:1176][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 108, in calSensorClusters
+    data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py", line 451, in test_cluster_effect_agg2
+    obs1[d['time']][d['sid']] = d['value']
+KeyError: '2020-04-07 11:10:00'
+[2019-07-05 13:36:05,672][Thread-3:1176][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 108, in calSensorClusters
+    data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py", line 451, in test_cluster_effect_agg2
+    obs1[d['time']][d['sid']] = d['value']
+KeyError: '2020-04-06 23:20:00'
+[2019-07-05 13:37:14,982][Thread-6:14676][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 108, in calSensorClusters
+    data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py", line 451, in test_cluster_effect_agg2
+    obs1[d['time']][d['sid']] = d['value']
+KeyError: '2020-04-07 02:20:00'
+[2019-07-05 13:37:30,711][Thread-6:14676][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 108, in calSensorClusters
+    data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py", line 585, in test_cluster_effect_agg2
+    mn = np.hstack((m, n))
+  File "D:\Anaconda3\envs\django\lib\site-packages\numpy\core\shape_base.py", line 340, in hstack
+    return _nx.concatenate(arrs, 1)
+ValueError: all the input array dimensions except for the concatenation axis must match exactly
+[2019-07-05 13:37:46,820][Thread-3:1176][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 108, in calSensorClusters
+    data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py", line 451, in test_cluster_effect_agg2
+    obs1[d['time']][d['sid']] = d['value']
+KeyError: '2020-04-09 15:40:00'
+[2019-07-05 13:37:53,135][Thread-8:8888][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 109, in calSensorClusters
+    return HttpResponse(json.dumps(data), content_type='application/json')
+UnboundLocalError: local variable 'data' referenced before assignment
+[2019-07-05 13:37:53,377][Thread-8:8888][task_id:django.request][log.py:228][WARNING][Not Found: /favicon.ico]
+[2019-07-05 13:37:57,352][Thread-3:1176][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 108, in calSensorClusters
+    data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py", line 451, in test_cluster_effect_agg2
+    obs1[d['time']][d['sid']] = d['value']
+KeyError: '2020-04-06 23:00:00'
+[2019-07-05 13:56:03,695][MainThread:16944][task_id:django.utils.autoreload][autoreload.py:203][INFO][Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 13:56:04,759][MainThread:10568][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-07-05 13:56:43,022][MainThread:10568][task_id:django.utils.autoreload][autoreload.py:203][INFO][Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 13:56:44,155][MainThread:7404][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-07-05 13:57:05,180][MainThread:7404][task_id:django.utils.autoreload][autoreload.py:203][INFO][Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
+[2019-07-05 13:57:06,166][MainThread:15656][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-07-05 13:58:01,093][Thread-6:852][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 108, in calSensorClusters
+    data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py", line 581, in test_cluster_effect_agg2
+    mn = np.hstack((m, n))
+  File "D:\Anaconda3\envs\django\lib\site-packages\numpy\core\shape_base.py", line 340, in hstack
+    return _nx.concatenate(arrs, 1)
+ValueError: all the input array dimensions except for the concatenation axis must match exactly
+[2019-07-05 13:59:45,918][Thread-5:15328][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 108, in calSensorClusters
+    data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py", line 581, in test_cluster_effect_agg2
+    mn = np.hstack((m, n))
+  File "D:\Anaconda3\envs\django\lib\site-packages\numpy\core\shape_base.py", line 340, in hstack
+    return _nx.concatenate(arrs, 1)
+ValueError: all the input array dimensions except for the concatenation axis must match exactly
+[2019-07-05 14:02:59,372][Thread-5:15328][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 108, in calSensorClusters
+    data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py", line 581, in test_cluster_effect_agg2
+    mn = np.hstack((m, n))
+  File "D:\Anaconda3\envs\django\lib\site-packages\numpy\core\shape_base.py", line 340, in hstack
+    return _nx.concatenate(arrs, 1)
+ValueError: all the input array dimensions except for the concatenation axis must match exactly
+[2019-07-05 14:02:59,483][Thread-7:2844][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 108, in calSensorClusters
+    data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py", line 581, in test_cluster_effect_agg2
+    mn = np.hstack((m, n))
+  File "D:\Anaconda3\envs\django\lib\site-packages\numpy\core\shape_base.py", line 340, in hstack
+    return _nx.concatenate(arrs, 1)
+ValueError: all the input array dimensions except for the concatenation axis must match exactly
+[2019-07-05 14:55:17,976][Thread-54:17088][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 108, in calSensorClusters
+    data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py", line 581, in test_cluster_effect_agg2
+    mn = np.hstack((m, n))
+  File "D:\Anaconda3\envs\django\lib\site-packages\numpy\core\shape_base.py", line 340, in hstack
+    return _nx.concatenate(arrs, 1)
+ValueError: all the input array dimensions except for the concatenation axis must match exactly
+[2019-07-05 15:05:46,361][MainThread:15656][task_id:django.utils.autoreload][autoreload.py:203][INFO][Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-07-05 15:05:50,423][MainThread:14996][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-07-05 15:06:11,500][MainThread:14996][task_id:django.utils.autoreload][autoreload.py:203][INFO][Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-07-05 15:06:12,529][MainThread:9336][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-07-05 15:06:44,184][MainThread:9336][task_id:django.utils.autoreload][autoreload.py:203][INFO][Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-07-05 15:06:45,153][MainThread:6320][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-07-05 15:13:11,795][MainThread:6320][task_id:django.utils.autoreload][autoreload.py:203][INFO][Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-07-05 15:13:13,015][MainThread:16700][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-07-05 15:16:50,131][Thread-4:11656][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 108, in calSensorClusters
+    data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py", line 581, in test_cluster_effect_agg2
+    mn = np.hstack((m, n))
+  File "D:\Anaconda3\envs\django\lib\site-packages\numpy\core\shape_base.py", line 340, in hstack
+    return _nx.concatenate(arrs, 1)
+ValueError: all the input array dimensions except for the concatenation axis must match exactly
+[2019-07-05 15:27:24,444][Thread-6:16808][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 108, in calSensorClusters
+    data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py", line 581, in test_cluster_effect_agg2
+    mn = np.hstack((m, n))
+  File "D:\Anaconda3\envs\django\lib\site-packages\numpy\core\shape_base.py", line 340, in hstack
+    return _nx.concatenate(arrs, 1)
+ValueError: all the input array dimensions except for the concatenation axis must match exactly
+[2019-07-05 15:32:13,514][MainThread:16700][task_id:django.utils.autoreload][autoreload.py:203][INFO][Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py changed, reloading.]
+[2019-07-05 15:32:14,605][MainThread:12372][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-07-05 15:34:18,239][MainThread:12372][task_id:django.utils.autoreload][autoreload.py:203][INFO][Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py changed, reloading.]
+[2019-07-05 15:34:19,212][MainThread:2536][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-07-05 15:36:52,593][Thread-5:18224][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 108, in calSensorClusters
+    data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py", line 581, in test_cluster_effect_agg2
+    mn = np.hstack((m, n))
+  File "D:\Anaconda3\envs\django\lib\site-packages\numpy\core\shape_base.py", line 340, in hstack
+    return _nx.concatenate(arrs, 1)
+ValueError: all the input array dimensions except for the concatenation axis must match exactly
+[2019-07-05 15:37:29,903][Thread-2:12620][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 108, in calSensorClusters
+    data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py", line 581, in test_cluster_effect_agg2
+    mn = np.hstack((m, n))
+  File "D:\Anaconda3\envs\django\lib\site-packages\numpy\core\shape_base.py", line 340, in hstack
+    return _nx.concatenate(arrs, 1)
+ValueError: all the input array dimensions except for the concatenation axis must match exactly
+[2019-07-05 15:37:35,351][Thread-1:14892][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getLastCoordsByTimeRange/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 260, in getLastCoordsByTimeRange
+    data = getLastPointsInGrid(origin_data)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py", line 135, in getLastPointsInGrid
+    data.append({'sid': k1, 'timestamp':v[0], 'lnglat': [v1[1], v1[2]]})
+KeyError: 0
+[2019-07-05 15:37:35,644][Thread-6:11164][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getLastCoordsByTimeRange/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 260, in getLastCoordsByTimeRange
+    data = getLastPointsInGrid(origin_data)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py", line 135, in getLastPointsInGrid
+    data.append({'sid': k1, 'timestamp':v[0], 'lnglat': [v1[1], v1[2]]})
+KeyError: 0
+[2019-07-05 15:39:23,732][MainThread:2536][task_id:django.utils.autoreload][autoreload.py:203][INFO][Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py changed, reloading.]
+[2019-07-05 15:39:25,025][MainThread:17216][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]
+[2019-07-05 15:39:34,009][Thread-2:17032][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 108, in calSensorClusters
+    data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py", line 581, in test_cluster_effect_agg2
+    mn = np.hstack((m, n))
+  File "D:\Anaconda3\envs\django\lib\site-packages\numpy\core\shape_base.py", line 340, in hstack
+    return _nx.concatenate(arrs, 1)
+ValueError: all the input array dimensions except for the concatenation axis must match exactly
+[2019-07-05 15:39:44,930][Thread-2:17032][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 108, in calSensorClusters
+    data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py", line 581, in test_cluster_effect_agg2
+    mn = np.hstack((m, n))
+  File "D:\Anaconda3\envs\django\lib\site-packages\numpy\core\shape_base.py", line 340, in hstack
+    return _nx.concatenate(arrs, 1)
+ValueError: all the input array dimensions except for the concatenation axis must match exactly
+[2019-07-05 15:41:23,479][Thread-14:17612][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getLastCoordsByTimeRange/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 260, in getLastCoordsByTimeRange
+    data = getLastPointsInGrid(origin_data)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py", line 135, in getLastPointsInGrid
+    data.append({'sid': k1, 'timestamp':v[0], 'lnglat': [v1[1], v1[2]]})
+KeyError: 0
+[2019-07-05 15:41:23,987][Thread-12:10736][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getLastCoordsByTimeRange/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 260, in getLastCoordsByTimeRange
+    data = getLastPointsInGrid(origin_data)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py", line 135, in getLastPointsInGrid
+    data.append({'sid': k1, 'timestamp':v[0], 'lnglat': [v1[1], v1[2]]})
+KeyError: 0
+[2019-07-05 15:42:24,485][Thread-13:14260][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getLastCoordsByTimeRange/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 260, in getLastCoordsByTimeRange
+    data = getLastPointsInGrid(origin_data)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py", line 135, in getLastPointsInGrid
+    data.append({'sid': k1, 'timestamp':v[0], 'lnglat': [v1[1], v1[2]]})
+KeyError: 0
+[2019-07-05 15:43:42,791][Thread-31:9772][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 108, in calSensorClusters
+    data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py", line 581, in test_cluster_effect_agg2
+    mn = np.hstack((m, n))
+  File "D:\Anaconda3\envs\django\lib\site-packages\numpy\core\shape_base.py", line 340, in hstack
+    return _nx.concatenate(arrs, 1)
+ValueError: all the input array dimensions except for the concatenation axis must match exactly
+[2019-07-05 15:43:43,992][Thread-22:17796][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getLastCoordsByTimeRange/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 260, in getLastCoordsByTimeRange
+    data = getLastPointsInGrid(origin_data)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py", line 135, in getLastPointsInGrid
+    data.append({'sid': k1, 'timestamp':v[0], 'lnglat': [v1[1], v1[2]]})
+KeyError: 0
+[2019-07-05 15:43:54,823][Thread-23:18292][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getLastCoordsByTimeRange/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 260, in getLastCoordsByTimeRange
+    data = getLastPointsInGrid(origin_data)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py", line 135, in getLastPointsInGrid
+    data.append({'sid': k1, 'timestamp':v[0], 'lnglat': [v1[1], v1[2]]})
+KeyError: 0
+[2019-07-05 15:44:12,383][Thread-24:10464][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getLastCoordsByTimeRange/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 260, in getLastCoordsByTimeRange
+    data = getLastPointsInGrid(origin_data)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py", line 135, in getLastPointsInGrid
+    data.append({'sid': k1, 'timestamp':v[0], 'lnglat': [v1[1], v1[2]]})
+KeyError: 0
+[2019-07-05 15:44:14,457][Thread-25:15928][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getLastCoordsByTimeRange/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 260, in getLastCoordsByTimeRange
+    data = getLastPointsInGrid(origin_data)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py", line 135, in getLastPointsInGrid
+    data.append({'sid': k1, 'timestamp':v[0], 'lnglat': [v1[1], v1[2]]})
+KeyError: 0
+[2019-07-05 15:45:33,805][Thread-36:10740][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 108, in calSensorClusters
+    data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py", line 581, in test_cluster_effect_agg2
+    mn = np.hstack((m, n))
+  File "D:\Anaconda3\envs\django\lib\site-packages\numpy\core\shape_base.py", line 340, in hstack
+    return _nx.concatenate(arrs, 1)
+ValueError: all the input array dimensions except for the concatenation axis must match exactly
+[2019-07-05 15:47:27,346][Thread-14:17612][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getLastCoordsByTimeRange/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 260, in getLastCoordsByTimeRange
+    data = getLastPointsInGrid(origin_data)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py", line 135, in getLastPointsInGrid
+    data.append({'sid': k1, 'timestamp':v[0], 'lnglat': [v1[1], v1[2]]})
+KeyError: 0
+[2019-07-05 15:47:32,862][Thread-31:9772][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getLastCoordsByTimeRange/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 260, in getLastCoordsByTimeRange
+    data = getLastPointsInGrid(origin_data)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py", line 135, in getLastPointsInGrid
+    data.append({'sid': k1, 'timestamp':v[0], 'lnglat': [v1[1], v1[2]]})
+KeyError: 0
+[2019-07-05 15:47:38,078][Thread-50:9036][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 108, in calSensorClusters
+    data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py", line 581, in test_cluster_effect_agg2
+    mn = np.hstack((m, n))
+  File "D:\Anaconda3\envs\django\lib\site-packages\numpy\core\shape_base.py", line 340, in hstack
+    return _nx.concatenate(arrs, 1)
+ValueError: all the input array dimensions except for the concatenation axis must match exactly
+[2019-07-05 15:47:42,537][Thread-33:13748][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getLastCoordsByTimeRange/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 260, in getLastCoordsByTimeRange
+    data = getLastPointsInGrid(origin_data)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py", line 135, in getLastPointsInGrid
+    data.append({'sid': k1, 'timestamp':v[0], 'lnglat': [v1[1], v1[2]]})
+KeyError: 0
+[2019-07-05 15:47:44,363][Thread-16:8700][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getLastCoordsByTimeRange/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 260, in getLastCoordsByTimeRange
+    data = getLastPointsInGrid(origin_data)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py", line 135, in getLastPointsInGrid
+    data.append({'sid': k1, 'timestamp':v[0], 'lnglat': [v1[1], v1[2]]})
+KeyError: 0
+[2019-07-05 15:47:57,308][Thread-12:10736][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getLastCoordsByTimeRange/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 260, in getLastCoordsByTimeRange
+    data = getLastPointsInGrid(origin_data)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py", line 135, in getLastPointsInGrid
+    data.append({'sid': k1, 'timestamp':v[0], 'lnglat': [v1[1], v1[2]]})
+KeyError: 0
+[2019-07-05 15:47:57,542][Thread-34:1688][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getLastCoordsByTimeRange/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 260, in getLastCoordsByTimeRange
+    data = getLastPointsInGrid(origin_data)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py", line 135, in getLastPointsInGrid
+    data.append({'sid': k1, 'timestamp':v[0], 'lnglat': [v1[1], v1[2]]})
+KeyError: 0
+[2019-07-05 15:48:18,848][Thread-55:3996][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 108, in calSensorClusters
+    data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py", line 581, in test_cluster_effect_agg2
+    mn = np.hstack((m, n))
+  File "D:\Anaconda3\envs\django\lib\site-packages\numpy\core\shape_base.py", line 340, in hstack
+    return _nx.concatenate(arrs, 1)
+ValueError: all the input array dimensions except for the concatenation axis must match exactly
+[2019-07-05 15:48:27,837][Thread-56:11312][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 108, in calSensorClusters
+    data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py", line 581, in test_cluster_effect_agg2
+    mn = np.hstack((m, n))
+  File "D:\Anaconda3\envs\django\lib\site-packages\numpy\core\shape_base.py", line 340, in hstack
+    return _nx.concatenate(arrs, 1)
+ValueError: all the input array dimensions except for the concatenation axis must match exactly
+[2019-07-05 15:50:53,733][Thread-57:14748][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getLastCoordsByTimeRange/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 260, in getLastCoordsByTimeRange
+    data = getLastPointsInGrid(origin_data)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py", line 135, in getLastPointsInGrid
+    data.append({'sid': k1, 'timestamp':v[0], 'lnglat': [v1[1], v1[2]]})
+KeyError: 0
+[2019-07-05 15:50:58,095][Thread-55:3996][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getLastCoordsByTimeRange/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 260, in getLastCoordsByTimeRange
+    data = getLastPointsInGrid(origin_data)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py", line 135, in getLastPointsInGrid
+    data.append({'sid': k1, 'timestamp':v[0], 'lnglat': [v1[1], v1[2]]})
+KeyError: 0
+[2019-07-05 15:51:05,493][Thread-59:7240][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getLastCoordsByTimeRange/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 260, in getLastCoordsByTimeRange
+    data = getLastPointsInGrid(origin_data)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py", line 135, in getLastPointsInGrid
+    data.append({'sid': k1, 'timestamp':v[0], 'lnglat': [v1[1], v1[2]]})
+KeyError: 0
+[2019-07-05 15:51:06,351][Thread-54:2296][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getLastCoordsByTimeRange/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 260, in getLastCoordsByTimeRange
+    data = getLastPointsInGrid(origin_data)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py", line 135, in getLastPointsInGrid
+    data.append({'sid': k1, 'timestamp':v[0], 'lnglat': [v1[1], v1[2]]})
+KeyError: 0
+[2019-07-05 15:52:20,054][Thread-61:8104][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getLastCoordsByTimeRange/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    "returned None instead." % (callback.__module__, view_name)
+ValueError: The view backend.views.getLastCoordsByTimeRange didn't return an HttpResponse object. It returned None instead.
+[2019-07-05 15:52:57,090][Thread-60:11364][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getLastCoordsByTimeRange/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 260, in getLastCoordsByTimeRange
+    data = getLastPointsInGrid(origin_data)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py", line 135, in getLastPointsInGrid
+    data.append({'sid': k1, 'timestamp':v1[0], 'lnglat': [v1[1], v1[2]]})
+KeyError: 0
+[2019-07-05 15:53:15,248][Thread-61:8104][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calTimeSeries/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    "returned None instead." % (callback.__module__, view_name)
+ValueError: The view backend.views.calTimeSeries didn't return an HttpResponse object. It returned None instead.
+[2019-07-05 15:53:19,761][Thread-66:16696][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getLastCoordsByTimeRange/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 260, in getLastCoordsByTimeRange
+    data = getLastPointsInGrid(origin_data)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py", line 135, in getLastPointsInGrid
+    data.append({'sid': k1, 'timestamp':v1[0], 'lnglat': [v1[1], v1[2]]})
+KeyError: 0
+[2019-07-05 15:53:19,982][Thread-64:10708][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getLastCoordsByTimeRange/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 260, in getLastCoordsByTimeRange
+    data = getLastPointsInGrid(origin_data)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py", line 135, in getLastPointsInGrid
+    data.append({'sid': k1, 'timestamp':v1[0], 'lnglat': [v1[1], v1[2]]})
+KeyError: 0
+[2019-07-05 15:53:23,424][Thread-65:4384][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getLastCoordsByTimeRange/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 260, in getLastCoordsByTimeRange
+    data = getLastPointsInGrid(origin_data)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py", line 135, in getLastPointsInGrid
+    data.append({'sid': k1, 'timestamp':v1[0], 'lnglat': [v1[1], v1[2]]})
+KeyError: 0
+[2019-07-05 15:53:24,480][Thread-68:5556][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getLastCoordsByTimeRange/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 260, in getLastCoordsByTimeRange
+    data = getLastPointsInGrid(origin_data)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py", line 135, in getLastPointsInGrid
+    data.append({'sid': k1, 'timestamp':v1[0], 'lnglat': [v1[1], v1[2]]})
+KeyError: 0
+[2019-07-05 15:53:31,163][Thread-63:16920][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getLastCoordsByTimeRange/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 260, in getLastCoordsByTimeRange
+    data = getLastPointsInGrid(origin_data)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py", line 135, in getLastPointsInGrid
+    data.append({'sid': k1, 'timestamp':v1[0], 'lnglat': [v1[1], v1[2]]})
+KeyError: 0
+[2019-07-05 15:53:31,645][Thread-64:10708][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getLastCoordsByTimeRange/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 260, in getLastCoordsByTimeRange
+    data = getLastPointsInGrid(origin_data)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py", line 135, in getLastPointsInGrid
+    data.append({'sid': k1, 'timestamp':v1[0], 'lnglat': [v1[1], v1[2]]})
+KeyError: 0
+[2019-07-05 15:53:37,453][Thread-65:4384][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getLastCoordsByTimeRange/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 260, in getLastCoordsByTimeRange
+    data = getLastPointsInGrid(origin_data)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py", line 135, in getLastPointsInGrid
+    data.append({'sid': k1, 'timestamp':v1[0], 'lnglat': [v1[1], v1[2]]})
+KeyError: 0
+[2019-07-05 15:53:39,034][Thread-66:16696][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getLastCoordsByTimeRange/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 260, in getLastCoordsByTimeRange
+    data = getLastPointsInGrid(origin_data)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py", line 135, in getLastPointsInGrid
+    data.append({'sid': k1, 'timestamp':v1[0], 'lnglat': [v1[1], v1[2]]})
+KeyError: 0
+[2019-07-05 15:53:41,808][Thread-67:14388][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getLastCoordsByTimeRange/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 260, in getLastCoordsByTimeRange
+    data = getLastPointsInGrid(origin_data)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py", line 135, in getLastPointsInGrid
+    data.append({'sid': k1, 'timestamp':v1[0], 'lnglat': [v1[1], v1[2]]})
+KeyError: 0
+[2019-07-05 15:53:43,785][Thread-63:16920][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getLastCoordsByTimeRange/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 260, in getLastCoordsByTimeRange
+    data = getLastPointsInGrid(origin_data)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py", line 135, in getLastPointsInGrid
+    data.append({'sid': k1, 'timestamp':v1[0], 'lnglat': [v1[1], v1[2]]})
+KeyError: 0
+[2019-07-05 15:53:44,948][Thread-71:10164][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calTimeSeries/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    "returned None instead." % (callback.__module__, view_name)
+ValueError: The view backend.views.calTimeSeries didn't return an HttpResponse object. It returned None instead.
+[2019-07-05 15:53:48,037][Thread-64:10708][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getLastCoordsByTimeRange/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 260, in getLastCoordsByTimeRange
+    data = getLastPointsInGrid(origin_data)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py", line 135, in getLastPointsInGrid
+    data.append({'sid': k1, 'timestamp':v1[0], 'lnglat': [v1[1], v1[2]]})
+KeyError: 0
+[2019-07-05 15:53:48,305][Thread-65:4384][task_id:django.request][log.py:228][ERROR][Internal Server Error: /getLastCoordsByTimeRange/]
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 260, in getLastCoordsByTimeRange
+    data = getLastPointsInGrid(origin_data)
+  File "Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py", line 135, in getLastPointsInGrid
+    data.append({'sid': k1, 'timestamp':v1[0], 'lnglat': [v1[1], v1[2]]})
+KeyError: 0
+[2019-07-05 15:54:22,089][MainThread:17216][task_id:django.utils.autoreload][autoreload.py:203][INFO][Y:\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py changed, reloading.]
+[2019-07-05 15:54:32,594][MainThread:14724][task_id:django.utils.autoreload][autoreload.py:576][INFO][Watching for file changes with StatReloader]

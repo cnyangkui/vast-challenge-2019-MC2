@@ -6,7 +6,8 @@ import json
 import logging
 from backend.utils.dateencoder import DateEncoder
 from backend.dataprocessing.correlation import calCorrlelation
-from backend.dataprocessing.cluster import calCluster
+# from backend.dataprocessing.cluster import calCluster
+from backend.dataprocessing.cluster_dtw import TestDTW
 import time, datetime
 from backend.dataprocessing.gridmap import add_grid_info, idw, getLastPointsInGrid
 
@@ -95,10 +96,16 @@ def calSensorSimilarity(request):
 		data = calCorrlelation(params['begintime'], params['endtime'])
 	return HttpResponse(json.dumps(data), content_type='application/json')
 
+# def calSensorClusters(request):
+# 	if request.method == 'POST':
+# 		params = json.loads(request.body)
+# 		data = calCluster(params['begintime'], params['endtime'])
+# 	return HttpResponse(json.dumps(data), content_type='application/json')
+
 def calSensorClusters(request):
 	if request.method == 'POST':
 		params = json.loads(request.body)
-		data = calCluster(params['begintime'], params['endtime'])
+		data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
 	return HttpResponse(json.dumps(data), content_type='application/json')
 
 def calTimeSeries(request):
@@ -166,7 +173,7 @@ def calTimeSeriesBySid(request):
 		if (end_timestamp - begin_timestamp) > 12 * 3600:
 			if category == 'mobile':
 				# 查询动态数据
-				cursor.execute("select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'),':00:00') as time, avg(value) as avg, avg(value) - 1.96*(std(value)/sqrt(count(*))) as lower95, avg(value) + 1.96 * (std(value)/ sqrt(count(value))) as upper95 from mobilesensorreadings where timestamp >= '{0}' and timestamp < '{1}' and sid = {2} group by DATE_FORMAT(timestamp, '%Y-%m-%d %H')".format(begintime_str, endtime_str, sid))
+				cursor.execute("select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'),':00:00') as time, avg(value) as avg, std(value)/sqrt(count(*)) as standarderror, std(value) as std from mobilesensorreadings where timestamp >= '{0}' and timestamp < '{1}' and sid = {2} group by DATE_FORMAT(timestamp, '%Y-%m-%d %H')".format(begintime_str, endtime_str, sid))
 				
 				desc = cursor.description
 				alldata = cursor.fetchall()
@@ -175,7 +182,7 @@ def calTimeSeriesBySid(request):
 			else:
 
 				# 查询静态数据
-				cursor.execute("select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'),':00:00') as time, avg(value) as avg, avg(value) - 1.96*(std(value)/sqrt(count(*))) as lower95, avg(value) + 1.96 * (std(value)/ sqrt(count(value))) as upper95 from staticsensorreadings where timestamp >= '{0}' and timestamp < '{1}' and sid = {2} group by DATE_FORMAT(timestamp, '%Y-%m-%d %H')".format(begintime_str, endtime_str, sid))
+				cursor.execute("select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'),':00:00') as time, avg(value) as avg, std(value)/sqrt(count(*)) as standarderror, std(value) as std from staticsensorreadings where timestamp >= '{0}' and timestamp < '{1}' and sid = {2} group by DATE_FORMAT(timestamp, '%Y-%m-%d %H')".format(begintime_str, endtime_str, sid))
 				
 				desc = cursor.description
 				alldata = cursor.fetchall()
@@ -184,14 +191,14 @@ def calTimeSeriesBySid(request):
 		else:
 			if category == 'mobile':
 				# 查询动态数据
-				cursor.execute("select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i'),':00') as time, avg(value) as avg, avg(value) - 1.96*(std(value)/sqrt(count(*))) as lower95, avg(value) + 1.96 * (std(value)/ sqrt(count(value))) as upper95 from mobilesensorreadings where timestamp >= '{0}' and timestamp < '{1}' and sid = {2} group by DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i')".format(begintime_str, endtime_str, sid))
+				cursor.execute("select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i'),':00') as time, avg(value) as avg, std(value)/sqrt(count(*)) as standarderror, std(value) as std from mobilesensorreadings where timestamp >= '{0}' and timestamp < '{1}' and sid = {2} group by DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i')".format(begintime_str, endtime_str, sid))
 				desc = cursor.description
 				alldata = cursor.fetchall()
 				data = [dict(zip([col[0] for col in desc], row)) for row in alldata]
 			
 			else:
 				# 查询静态数据
-				cursor.execute("select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i'),':00') as time, avg(value) as avg, avg(value) - 1.96*(std(value)/sqrt(count(*))) as lower95, avg(value) + 1.96 * (std(value)/ sqrt(count(value))) as upper95 from staticsensorreadings where timestamp >= '{0}' and timestamp < '{1}' and sid = {2} group by DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i')".format(begintime_str, endtime_str, sid))
+				cursor.execute("select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i'),':00') as time, avg(value) as avg, std(value)/sqrt(count(*)) as standarderror, std(value) as std from staticsensorreadings where timestamp >= '{0}' and timestamp < '{1}' and sid = {2} group by DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i')".format(begintime_str, endtime_str, sid))
 				desc = cursor.description
 				alldata = cursor.fetchall()
 				data = [dict(zip([col[0] for col in desc], row)) for row in alldata]
@@ -246,7 +253,7 @@ def getLastCoordsByTimeRange(request):
 	if request.method == 'POST':
 		params = json.loads(request.body)
 		cursor = connection.cursor()
-		cursor.execute("select longitude, latitude, sid from mobilesensorreadings where timestamp > '{0}'  and timestamp < '{1}'".format(params['begintime'], params['endtime']))
+		cursor.execute("select timestamp, longitude, latitude, sid from mobilesensorreadings where timestamp > '{0}'  and timestamp < '{1}'".format(params['begintime'], params['endtime']))
 		desc = cursor.description
 		alldata = cursor.fetchall()
 		origin_data = [dict(zip([col[0] for col in desc], row)) for row in alldata]
