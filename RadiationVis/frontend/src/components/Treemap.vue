@@ -127,8 +127,7 @@ export default {
         .enter().append("g")
           .attr("transform", function(d) { return "translate(" + d.x0 + "," + d.y0 + ")"; })
           .on("click", (d, i) => {
-            // this.drawTreemap2(data.children[i])
-            this.$root.eventHub.$emit("getTreemap2", data.children[i]);
+            this.$root.eventHub.$emit("getTreemap2", {name: d.data.name, children: [d.data.static, d.data.mobile].flat()});
 
           })
 
@@ -147,7 +146,7 @@ export default {
           // .attr("clip-path", function(d) { return "url(#clip-" + d.data.id + ")"; })
         .selectAll(".treemap tspan")
           .data(function(d) { 
-            return `Static Sensor: ${d.data.static.length},Mobile Sensor: ${d.data.mobile.length}`.split(',')
+            return `S-Sensor: ${d.data.static.length},M-Sensor: ${d.data.mobile.length}`.split(',')
             // return d.data.name.split(/(?=[A-Z][^A-Z])/g); })
           })
         .enter().append("tspan")

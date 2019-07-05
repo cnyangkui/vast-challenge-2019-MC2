@@ -966,7 +966,7 @@ export default {
           this.drawIdwMLayer();
         }
         if(newValue.u_mi_check && this.idwUncertaintyLayer == null) {
-          his.drawIdwUncertaintyLayer();
+          this.drawIdwUncertaintyLayer();
         }
         if(newValue.u_pie_check) {
           this.clearPies();
