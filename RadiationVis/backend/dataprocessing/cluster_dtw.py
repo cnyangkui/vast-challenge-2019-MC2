@@ -421,7 +421,7 @@ class TestDTW:
                 m = np.vstack((m, t))  # 120 * 50
         else:
             cursor.execute(
-                '''select DATE_ADD(CONCAT(DATE_FORMAT(timestamp,'%Y-%m-%d %H:'),FLOOR(MINUTE(timestamp)/10),"0:00"),INTERVAL 10 MINUTE), sid, avg(value) from mobilesensorreadings where timestamp between '{}' and '{}' GROUP BY DATE_ADD(CONCAT(DATE_FORMAT(timestamp,'%Y-%m-%d %H:'),FLOOR(MINUTE(timestamp)/10),"0:00"),INTERVAL 10 MINUTE)'''.format(
+                '''select DATE_ADD(CONCAT(DATE_FORMAT(timestamp,'%Y-%m-%d %H:'),FLOOR(MINUTE(timestamp)/10),"0"),INTERVAL 10 MINUTE), sid, avg(value) from mobilesensorreadings where timestamp between '{}' and '{}' GROUP BY DATE_ADD(CONCAT(DATE_FORMAT(timestamp,'%Y-%m-%d %H:'),FLOOR(MINUTE(timestamp)/10),"0"),INTERVAL 10 MINUTE)'''.format(
                     begintime, endtime))
             alldata = cursor.fetchall()
             data = []
@@ -431,12 +431,15 @@ class TestDTW:
                 mobile_sensors.add(i[1])
             # print(data)
             mobile_sensors = list(mobile_sensors)
-            begin = datetime.datetime.strptime(begintime, '%Y-%m-%d %H:%M:%S')+datetime.timedelta(minutes = 10)
-            # print(begin)
-            end = datetime.datetime.strptime(endtime, '%Y-%m-%d %H:%M:%S')+datetime.timedelta(minutes = 10)
+            print(alldata[0][0])
+            print(alldata[-1][0])
+            begin = datetime.datetime.strptime(alldata[0][0], '%Y-%m-%d %H:%M:%S')
+            end = datetime.datetime.strptime(alldata[-1][0], '%Y-%m-%d %H:%M:%S')
             begin_timestamp = time.mktime(begin.timetuple())
             end_timestamp = time.mktime((end.timetuple()))
-            current = time.mktime(datetime.datetime.strptime(begintime[0:17] + "00", '%Y-%m-%d %H:%M:%S').timetuple())
+            current = time.mktime(datetime.datetime.strptime(alldata[0][0], '%Y-%m-%d %H:%M:%S').timetuple())
+
+
             # print(begintime[0:17])
             # print(current)
             obs1 = {}
@@ -543,7 +546,7 @@ class TestDTW:
                 n = np.vstack((n, t))  # 120 * 50
         else:
             cursor.execute(
-                '''select DATE_ADD(CONCAT(DATE_FORMAT(timestamp,'%Y-%m-%d %H:'),FLOOR(MINUTE(timestamp)/10),"0:00"),INTERVAL 10 MINUTE), sid, avg(value) from staticsensorreadings where timestamp between '{}' and '{}' GROUP BY DATE_ADD(CONCAT(DATE_FORMAT(timestamp,'%Y-%m-%d %H:'),FLOOR(MINUTE(timestamp)/10),"0:00"),INTERVAL 10 MINUTE)'''.format(
+                '''select DATE_ADD(CONCAT(DATE_FORMAT(timestamp,'%Y-%m-%d %H:'),FLOOR(MINUTE(timestamp)/10),"0"),INTERVAL 10 MINUTE), sid, avg(value) from staticsensorreadings where timestamp between '{}' and '{}' GROUP BY DATE_ADD(CONCAT(DATE_FORMAT(timestamp,'%Y-%m-%d %H:'),FLOOR(MINUTE(timestamp)/10),"0"),INTERVAL 10 MINUTE)'''.format(
                     begintime, endtime))
             alldata = cursor.fetchall()
             data = []
@@ -554,12 +557,12 @@ class TestDTW:
             static_sensors = list(static_sensors)
             sensors_title = [('m' + str(i)) for i in mobile_sensors] + [('s' + str(j)) for j in static_sensors]
             sensor_length = len(sensors_title)
-            begin = datetime.datetime.strptime(begintime, '%Y-%m-%d %H:%M:%S') + datetime.timedelta(minutes=10)
-            # print(begin)
-            end = datetime.datetime.strptime(endtime, '%Y-%m-%d %H:%M:%S') + datetime.timedelta(minutes=10)
+
+            begin = datetime.datetime.strptime(alldata[0][0], '%Y-%m-%d %H:%M:%S')
+            end = datetime.datetime.strptime(alldata[-1][0], '%Y-%m-%d %H:%M:%S')
             begin_timestamp = time.mktime(begin.timetuple())
             end_timestamp = time.mktime((end.timetuple()))
-            current = time.mktime(datetime.datetime.strptime(begintime[0:17] + "00", '%Y-%m-%d %H:%M:%S').timetuple())
+            current = time.mktime(datetime.datetime.strptime(alldata[0][0], '%Y-%m-%d %H:%M:%S').timetuple())
             # print(current)
             obs2 = {}
             while current <= end_timestamp:
@@ -686,9 +689,9 @@ class TestDTW:
                     if tree["children"][j]["name"] == cluster_label[i]:
                         tmp = j
                 tree["children"][tmp]["children"].append({"name": sensors_title[i], "mean": col_mean[i], "std": col_std[i]})
-            # print(tree)
+            print(tree)
             return tree
 
 if __name__ == "__main__":
     # TestDTW.test_cluster_effect_agg()
-    tree = TestDTW.test_cluster_effect_agg2('2020-04-06 00:00:00', '2020-04-11 00:00:00')
+    tree = TestDTW.test_cluster_effect_agg2('2020-04-06 00:00:00', '2020-04-6 02:00:00')

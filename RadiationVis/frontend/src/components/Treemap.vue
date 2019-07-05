@@ -211,6 +211,12 @@ export default {
           .attr("y", function(d, i) { return 13 + i * 10; })
           .text(function(d) { return d; })
           .style("font-size", 10);
+      cell.append("image")
+        .attr("xlink:href", "../../public/static/img/outlier_pattern1.png")
+        .attr("x", "-12px")
+        .attr("y", "-12px")
+        .attr("width", "24px")
+        .attr("height", "24px");
     },
     drawLineBySid(g, sensor_info) {
 
