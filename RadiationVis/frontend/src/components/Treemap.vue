@@ -114,7 +114,7 @@ export default {
         cluster.children[i].mobile = data.children[i].children.filter(d => d.name.startsWith('m'));
         cluster.children[i].lineExample = sensors[i];
       }
-      console.log(cluster);
+
       var root = d3.hierarchy(cluster)
           .eachBefore(function(d) { d.data.id = d.data.name; })
           .sum(d => d.mean)
@@ -144,14 +144,17 @@ export default {
       })
 
       cell.append("text")
-          .attr("clip-path", function(d) { return "url(#clip-" + d.data.id + ")"; })
+          // .attr("clip-path", function(d) { return "url(#clip-" + d.data.id + ")"; })
         .selectAll(".treemap tspan")
-          .data(function(d) { return d.data.name.split(/(?=[A-Z][^A-Z])/g); })
+          .data(function(d) { 
+            return `Static Sensor: ${d.data.static.length},Mobile Sensor: ${d.data.mobile.length}`.split(',')
+            // return d.data.name.split(/(?=[A-Z][^A-Z])/g); })
+          })
         .enter().append("tspan")
           .attr("x", 4)
-          .attr("y", function(d, i) { return 13 + i * 10; })
-          .text(function(d, i) { let info = cluster.children.filter(s => s.name == d)[0]; return  `Static Sensor: ${info.static.length}, Mobile Sensor: ${info.mobile.length}` })
-          .style("font-size", 12);
+          .attr("y", function(d, i) { return 13 + i * 18; })
+          .text(function(d, i) {  return d;})
+          .style("font-size", 15);
       
     },
     drawTreemap2() {
@@ -210,7 +213,7 @@ export default {
           .attr("x", 4)
           .attr("y", function(d, i) { return 13 + i * 10; })
           .text(function(d) { return d; })
-          .style("font-size", 10);
+          .style("font-size", 15);
     },
     drawLineBySid(g, sensor_info) {
 
@@ -219,14 +222,14 @@ export default {
       let datum = g.datum();
 
       function makeChartBySid (data) {
-        var margin = { top: 0, right: 0, bottom: 0, left: 0 },
-            chartWidth  = datum.x1 - datum.x0,
+        var margin = { top: 0, right: 10, bottom: 0, left: 10 },
+            chartWidth  = datum.x1 - datum.x0 - margin.left - margin.right,
             chartHeight = datum.y1 - datum.y0 > 50 ? 50: datum.y1 - datum.y0;
 
         let begin = null, end = null;
-        if(_this.timeRange != null) {
-          begin = new Date(_this.timeRange.begintime);
-          end = new Date(_this.timeRange.endtime);
+        if(_this.originData.timeRange != null) {
+          begin = new Date(_this.originData.timeRange.begintime);
+          end = new Date(_this.originData.timeRange.endtime);
         } else {
           begin = new Date(_this.defaultTimeRange.begintime);
           end = new Date(_this.defaultTimeRange.endtime);
@@ -270,7 +273,7 @@ export default {
       /***************************************************************************************/
 
       let parseDate = d3.timeParse('%Y-%m-%d %H:%M:%S');
-      axios.post("/calTimeSeriesBySid/", Object.assign({}, this.timeRange || this.defaultTimeRange, sensor_info))
+      axios.post("/calTimeSeriesBySid/", Object.assign({}, this.originData.timeRange || this.defaultTimeRange, sensor_info))
         .then((response) => {
           var data = response.data.map(function (d) {
             return {

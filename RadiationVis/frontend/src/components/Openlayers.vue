@@ -28,10 +28,10 @@
       </div> 
     </div> -->
     <div id="himarkmap"></div>
-    <!-- <div id="popup" class="ol-popup">
+    <div id="popup" class="ol-popup">
       <a href="#" id="popup-closer" class="ol-popup-closer"></a>
       <div id="popup-content"></div>
-    </div> -->
+    </div>
   </div>
 </template>
 <script>
@@ -126,7 +126,7 @@ export default {
   methods: {
     loadMap() {
       this.initMap();
-      // this.addSelectEvent();
+      this.addSelectEvent();
       this.drawStaticPointLayer(); //添加静态传感器
     },
     selfAdaptionSize() {
@@ -434,7 +434,7 @@ export default {
           if(d.flag) {
             style.stroke_ = new Stroke({
               color: 'white',
-              width: 3
+              width: 1
             })
           } 
           polygonFeature.setStyle(style);
@@ -739,7 +739,7 @@ export default {
       } else {
         axios.post("/getLastCoordsByTimeRange/", this.timeRange || this.defaultTimeRange)
           .then((response) => {
-            this.dataCollection.mobilePathData = response.data;
+            this.dataCollection.mobilePathData = response.data.sort((a, b) => new Date(a).getTime()-new Date(b).getTime());
             render(this.dataCollection.mobilePathData);
           })
       }
@@ -912,7 +912,7 @@ export default {
       this.clearLayers();
       this.clearPies();
 
-      // this.addSelectEvent();
+      this.addSelectEvent();
       
       if(this.mapControl.r_si_kriging_check) {
         this.drawKrigingLayer()

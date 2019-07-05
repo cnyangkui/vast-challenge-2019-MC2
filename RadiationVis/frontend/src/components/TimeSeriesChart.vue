@@ -261,14 +261,12 @@ export default {
                 .domain([0, max]);
 
       let xAxis = d3.axisBottom(x)
-        .tickSizeInner(-chartHeight).tickSizeOuter(0).tickPadding(10).ticks(120).tickFormat((d, i) => {
-          if(i % 2 == 0) {
-            if(i == 0 || static_data[i].date.getDate() != static_data[i-1].date.getDate()) {
+        .tickSize(5).ticks(d3.timeHour.every(6)).tickFormat((d, i) => {
+          if(d.getHours() %24 == 0) {
               return `${d.getMonth()+1}/${d.getDate()}`;
             } else {
               return `${d.getHours()}`
             }
-          }
         }),
       yAxis = d3.axisLeft(y)
         .tickSizeInner(-chartWidth).tickSizeOuter(0).tickPadding(10).ticks(3);
@@ -336,10 +334,9 @@ export default {
 </script>
 
 <style scoped>
-.times_series_chart >>> .axis path, 
-.axis line {
+.times_series_chart .axis >>> path, line {
   fill: none;
-  stroke: #000;
+  stroke: 'black';
   shape-rendering: crispEdges;
 }
 
@@ -348,7 +345,7 @@ export default {
 }
 
 .times_series_chart >>> .axis .tick line {
-  stroke: rgba(0, 0, 0, 0.1);
+  stroke: rgba(0, 0, 0, 1);
 }
 
 .times_series_chart >>> .area {

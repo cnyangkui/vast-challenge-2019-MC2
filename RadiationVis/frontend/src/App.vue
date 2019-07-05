@@ -40,10 +40,10 @@
               <label>Treemap</label>
             </div>
             <div class="control-content">
-              <div class="input-ele-group">
+              <!-- <div class="input-ele-group">
                 <div class="input-ele"><input type="checkbox" value="static"><label>Static</label></div>
                 <div class="input-ele"><input type="checkbox" value="mobile"><label>Mobile</label></div>
-              </div>
+              </div> -->
               <div class="input-ele-group">
                 <div class="input-ele"><input type="button" value="返回" @click="getTreemap1();"></div>
               </div>
@@ -199,9 +199,10 @@ export default {
           let data = response.data.map(function (d) {
             return {
               time:  parseDate(d.time),
-              lower95: parseFloat(d.lower95),
-              avg: parseFloat(d.avg),
-              upper95: parseFloat(d.upper95)
+              lower95: -1.96 * d.standarderror + d.avg,
+              avg: d.avg,
+              upper95: 1.96 * d.standarderror + d.avg,
+              std: d.std
             };
           });
           let sidtrendChart = {

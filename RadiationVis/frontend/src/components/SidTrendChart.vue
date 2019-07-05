@@ -1,7 +1,7 @@
 <template>
   <div :id="cid">
     <div class="control">
-      <label>{{originData.category}}:{{originData.sid}} mean:{{mean}}</label>
+      <label>{{originData.category}}:{{originData.sid}} mean:{{mean}} standard variance: {{std}}</label>
       <input class="button" type="button" value="delete">
     </div>
     <div class="trendchart"></div>
@@ -239,6 +239,12 @@ export default {
     mean: function() {
       if(this.originData) {
         return Math.round(d3.mean(this.originData.data, d => d.avg))
+      }
+      return null;
+    },
+    std: function() {
+      if(this.originData) {
+        return Math.round(d3.mean(this.originData.data, d => d.std), 2)
       }
       return null;
     }
