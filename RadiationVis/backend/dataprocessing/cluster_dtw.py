@@ -1,5 +1,4 @@
 # coding=utf-8
-# import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.cluster import DBSCAN
 import pandas as pd
@@ -682,7 +681,7 @@ class TestDTW:
                     if tree["children"][j]["name"] == cluster_label[i]:
                         tmp = j
                 tree["children"][tmp]["children"].append({"name": sensors_title[i], "mean": col_mean[i], "std": col_std[i]})
-            print(tree)
+            # print(tree)
             return tree
 
 if __name__ == "__main__":
