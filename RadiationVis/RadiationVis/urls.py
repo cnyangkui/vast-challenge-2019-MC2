@@ -35,5 +35,6 @@ urlpatterns = [
     path('findSensorByTimeRangeAndCoords/', views.findSensorByTimeRangeAndCoords),
     path('getMobileIdwDataByTimeRange/', views.getMobileIdwDataByTimeRange),
     path('getStaticIdwDataByTimeRange/', views.getStaticIdwDataByTimeRange),
-    path('getLastCoordsByTimeRange/', views.getLastCoordsByTimeRange)
+    path('getLastCoordsByTimeRange/', views.getLastCoordsByTimeRange),
+    path('getLastCoordByTimeRange/', views.getLastCoordByTimeRange)
 ]

@@ -118,7 +118,7 @@ def add_grid_info(origin_data):
 
 	return griddata
 
-def getLastPointInGrid(origin_data):
+def getLastPointsInGrid(origin_data):
 	""" 计算每个格子中最后一个sid的点的位置
 	"""
 	dic = {}
@@ -134,7 +134,6 @@ def getLastPointInGrid(origin_data):
 		for k1, v1 in v.items():
 			data.append({'sid': k1, 'lnglat': v1})
 	return data
-
 
 if __name__ == "__main__":
 	params = {'begintime': '2020-04-08 17:46:03', 'endtime': '2020-04-08 18:46:13'}

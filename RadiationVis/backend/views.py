@@ -9,7 +9,7 @@ from backend.dataprocessing.correlation import calCorrlelation
 # from backend.dataprocessing.cluster import calCluster
 from backend.dataprocessing.cluster_dtw import TestDTW
 import time, datetime
-from backend.dataprocessing.gridmap import add_grid_info, idw, getLastPointInGrid
+from backend.dataprocessing.gridmap import add_grid_info, idw, getLastPointsInGrid
 
 logger = logging.getLogger(__name__)
 
@@ -257,5 +257,21 @@ def getLastCoordsByTimeRange(request):
 		desc = cursor.description
 		alldata = cursor.fetchall()
 		origin_data = [dict(zip([col[0] for col in desc], row)) for row in alldata]
-		data = getLastPointInGrid(origin_data)
+		data = getLastPointsInGrid(origin_data)
+		return HttpResponse(json.dumps(data), content_type='application/json')
+
+def getLastCoordByTimeRange(request):
+	if request.method == 'POST':
+		params = json.loads(request.body)
+		cursor = connection.cursor()
+		cursor.execute("select longitude, latitude, sid from mobilesensorreadings where timestamp > '{0}'  and timestamp < '{1}'".format(params['begintime'], params['endtime']))
+		desc = cursor.description
+		alldata = cursor.fetchall()
+		origin_data = [dict(zip([col[0] for col in desc], row)) for row in alldata]
+		dic = {}
+		data = []
+		for d in origin_data:
+			dic[d['sid']] = [d['longitude'], d['latitude']]
+		for k, v in dic.items():
+			data.append({'sid': k, 'lnglat': v})
 		return HttpResponse(json.dumps(data), content_type='application/json')

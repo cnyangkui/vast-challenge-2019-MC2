@@ -576,3 +576,18 @@ KeyError: '2020-04-10 06:20:00'
 [2019-07-05 13:20:10,614][MainThread:2672][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
 [2019-07-05 13:21:30,597][MainThread:2672][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
 [2019-07-05 13:21:33,748][MainThread:13768][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 13:22:17,439][MainThread:13768][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\gridmap.py changed, reloading.]
+[2019-07-05 13:22:20,855][MainThread:7376][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-05 13:23:40,459][Thread-9:20200][task_id:django.request][log.py:228][ERROR][Internal Server Error: /calSensorClusters/]
+Traceback (most recent call last):
+  File "C:\Users\Gallows\Anaconda3\envs\django\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Users\Gallows\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Users\Gallows\Anaconda3\envs\django\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\views.py", line 108, in calSensorClusters
+    data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
+  File "D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py", line 451, in test_cluster_effect_agg2
+    obs1[d['time']][d['sid']] = d['value']
+KeyError: '2020-04-06 19:20:00'
