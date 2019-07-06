@@ -36,7 +36,7 @@ def findAggMrrByTimeRange(request):
 		cursor = connection.cursor()
 		
 		# Data retrieval operation - no commit required
-		cursor.execute("select longitude, latitude, avg(value) as value from mobilesensorreadings where timestamp between '{0}'  and '{1}' group by concat(longitude, ',' , latitude) order by avg(value) desc".format(params['begintime'], params['endtime']))
+		cursor.execute("select longitude, latitude, avg(value) as value from mobilesensorreadings where timestamp between '{0}'  and '{1}' and value < 15000 group by concat(longitude, ',' , latitude) order by avg(value) desc".format(params['begintime'], params['endtime']))
 		desc = cursor.description
 		alldata = cursor.fetchall()
 		data = [dict(zip([col[0] for col in desc], row)) for row in alldata]
@@ -48,7 +48,7 @@ def findMrrByTimeRange(request):
 		cursor = connection.cursor()
 		
 		# Data retrieval operation - no commit required
-		cursor.execute("select longitude, latitude, value from mobilesensorreadings where timestamp > '{0}'  and timestamp < '{1}'".format(params['begintime'], params['endtime']))
+		cursor.execute("select longitude, latitude, value from mobilesensorreadings where timestamp > '{0}'  and timestamp < '{1}' and value < 15000".format(params['begintime'], params['endtime']))
 		desc = cursor.description
 		alldata = cursor.fetchall()
 		data = [dict(zip([col[0] for col in desc], row)) for row in alldata]
@@ -60,7 +60,7 @@ def findMrrByTimeRangeAndSid(request):
 		cursor = connection.cursor()
 		
 		# Data retrieval operation - no commit required
-		cursor.execute("select longitude, latitude, value from mobilesensorreadings where timestamp > '{0}'  and timestamp < '{1}' and sid = {2}".format(params['begintime'], params['endtime'], params['sid']))
+		cursor.execute("select longitude, latitude, value from mobilesensorreadings where timestamp > '{0}'  and timestamp < '{1}' and sid = {2} and value < 15000".format(params['begintime'], params['endtime'], params['sid']))
 		desc = cursor.description
 		alldata = cursor.fetchall()
 		data = [dict(zip([col[0] for col in desc], row)) for row in alldata]
@@ -72,7 +72,7 @@ def findAggSrrByTimeRange(request):
 		cursor = connection.cursor()
 		
 		# Data retrieval operation - no commit required
-		cursor.execute("select latitude, longitude, avg(value) as value from staticsensorreadings left join staticsensorlocations on staticsensorreadings.sid = staticsensorlocations.sid where timestamp between '{0}' and '{1}' group by staticsensorreadings.sid order by avg(value) desc;".format(params['begintime'], params['endtime']))
+		cursor.execute("select latitude, longitude, avg(value) as value from staticsensorreadings left join staticsensorlocations on staticsensorreadings.sid = staticsensorlocations.sid where timestamp between '{0}' and '{1}' and value < 15000 group by staticsensorreadings.sid order by avg(value) desc;".format(params['begintime'], params['endtime']))
 		desc = cursor.description
 		alldata = cursor.fetchall()
 		data = [dict(zip([col[0] for col in desc], row)) for row in alldata]
@@ -84,7 +84,7 @@ def findSrrByTimeRange(request):
 		cursor = connection.cursor()
 		
 		# Data retrieval operation - no commit required
-		cursor.execute("select latitude, longitude, value from staticsensorreadings left join staticsensorlocations on staticsensorreadings.sid = staticsensorlocations.sid where timestamp between '{0}' and '{1}'".format(params['begintime'], params['endtime']))
+		cursor.execute("select latitude, longitude, value from staticsensorreadings left join staticsensorlocations on staticsensorreadings.sid = staticsensorlocations.sid where timestamp between '{0}' and '{1}' and value < 15000".format(params['begintime'], params['endtime']))
 		desc = cursor.description
 		alldata = cursor.fetchall()
 		data = [dict(zip([col[0] for col in desc], row)) for row in alldata]
@@ -125,27 +125,27 @@ def calTimeSeries(request):
 		# 如果时间间隔超过三小时，按小时聚合，否则按分钟聚合
 		if (end_timestamp - begin_timestamp) > 12 * 3600:
 			# 查询动态数据
-			cursor.execute("select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'),':00:00') as time, avg(value) as avg, std(value)/sqrt(count(*)) as standarderror from mobilesensorreadings where timestamp >= '{0}' and timestamp < '{1}' group by DATE_FORMAT(timestamp, '%Y-%m-%d %H')".format(begintime_str, endtime_str))
+			cursor.execute("select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'),':00:00') as time, avg(value) as avg, std(value) as std, std(value)/sqrt(count(*)) as standarderror from mobilesensorreadings where timestamp >= '{0}' and timestamp < '{1}' and value < 15000 group by DATE_FORMAT(timestamp, '%Y-%m-%d %H')".format(begintime_str, endtime_str))
 			
 			desc = cursor.description
 			alldata = cursor.fetchall()
 			mobile_data = [dict(zip([col[0] for col in desc], row)) for row in alldata]
 
 			# 查询静态数据
-			cursor.execute("select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'),':00:00') as time, avg(value) as avg, std(value)/sqrt(count(*)) as standarderror from staticsensorreadings where timestamp >= '{0}' and timestamp < '{1}' group by DATE_FORMAT(timestamp, '%Y-%m-%d %H')".format(begintime_str, endtime_str))
+			cursor.execute("select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'),':00:00') as time, avg(value) as avg, std(value) as std, std(value)/sqrt(count(*)) as standarderror from staticsensorreadings where timestamp >= '{0}' and timestamp < '{1}' and value < 15000 group by DATE_FORMAT(timestamp, '%Y-%m-%d %H')".format(begintime_str, endtime_str))
 			
 			desc = cursor.description
 			alldata = cursor.fetchall()
 			static_data = [dict(zip([col[0] for col in desc], row)) for row in alldata]
 		else:
 			# 查询动态数据
-			cursor.execute("select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i'),':00') as time, avg(value) as avg, std(value)/sqrt(count(*)) as standarderror from mobilesensorreadings where timestamp >= '{0}' and timestamp < '{1}' group by DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i')".format(begintime_str, endtime_str))
+			cursor.execute("select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i'),':00') as time, avg(value) as avg, std(value) as std, std(value)/sqrt(count(*)) as standarderror from mobilesensorreadings where timestamp >= '{0}' and timestamp < '{1}' and value < 15000 group by DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i')".format(begintime_str, endtime_str))
 			desc = cursor.description
 			alldata = cursor.fetchall()
 			mobile_data = [dict(zip([col[0] for col in desc], row)) for row in alldata]
 
 			# 查询静态数据
-			cursor.execute("select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i'),':00') as time, avg(value) as avg, std(value)/sqrt(count(*)) as standarderror from staticsensorreadings where timestamp >= '{0}' and timestamp < '{1}' group by DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i')".format(begintime_str, endtime_str))
+			cursor.execute("select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i'),':00') as time, avg(value) as avg, std(value) as std, std(value)/sqrt(count(*)) as standarderror from staticsensorreadings where timestamp >= '{0}' and timestamp < '{1}' and value < 15000 group by DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i')".format(begintime_str, endtime_str))
 			desc = cursor.description
 			alldata = cursor.fetchall()
 			static_data = [dict(zip([col[0] for col in desc], row)) for row in alldata]
@@ -173,7 +173,7 @@ def calTimeSeriesBySid(request):
 		if (end_timestamp - begin_timestamp) > 12 * 3600:
 			if category == 'mobile':
 				# 查询动态数据
-				cursor.execute("select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'),':00:00') as time, avg(value) as avg, std(value)/sqrt(count(*)) as standarderror, std(value) as std from mobilesensorreadings where timestamp >= '{0}' and timestamp < '{1}' and sid = {2} group by DATE_FORMAT(timestamp, '%Y-%m-%d %H')".format(begintime_str, endtime_str, sid))
+				cursor.execute("select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'),':00:00') as time, avg(value) as avg, std(value)/sqrt(count(*)) as standarderror, std(value) as std from mobilesensorreadings where timestamp >= '{0}' and timestamp < '{1}' and sid = {2} and value < 15000 group by DATE_FORMAT(timestamp, '%Y-%m-%d %H')".format(begintime_str, endtime_str, sid))
 				
 				desc = cursor.description
 				alldata = cursor.fetchall()
@@ -182,7 +182,7 @@ def calTimeSeriesBySid(request):
 			else:
 
 				# 查询静态数据
-				cursor.execute("select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'),':00:00') as time, avg(value) as avg, std(value)/sqrt(count(*)) as standarderror, std(value) as std from staticsensorreadings where timestamp >= '{0}' and timestamp < '{1}' and sid = {2} group by DATE_FORMAT(timestamp, '%Y-%m-%d %H')".format(begintime_str, endtime_str, sid))
+				cursor.execute("select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'),':00:00') as time, avg(value) as avg, std(value)/sqrt(count(*)) as standarderror, std(value) as std from staticsensorreadings where timestamp >= '{0}' and timestamp < '{1}' and sid = {2} and value < 15000 group by DATE_FORMAT(timestamp, '%Y-%m-%d %H')".format(begintime_str, endtime_str, sid))
 				
 				desc = cursor.description
 				alldata = cursor.fetchall()
@@ -191,14 +191,14 @@ def calTimeSeriesBySid(request):
 		else:
 			if category == 'mobile':
 				# 查询动态数据
-				cursor.execute("select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i'),':00') as time, avg(value) as avg, std(value)/sqrt(count(*)) as standarderror, std(value) as std from mobilesensorreadings where timestamp >= '{0}' and timestamp < '{1}' and sid = {2} group by DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i')".format(begintime_str, endtime_str, sid))
+				cursor.execute("select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i'),':00') as time, avg(value) as avg, std(value)/sqrt(count(*)) as standarderror, std(value) as std from mobilesensorreadings where timestamp >= '{0}' and timestamp < '{1}' and sid = {2} and value < 15000 group by DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i')".format(begintime_str, endtime_str, sid))
 				desc = cursor.description
 				alldata = cursor.fetchall()
 				data = [dict(zip([col[0] for col in desc], row)) for row in alldata]
 			
 			else:
 				# 查询静态数据
-				cursor.execute("select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i'),':00') as time, avg(value) as avg, std(value)/sqrt(count(*)) as standarderror, std(value) as std from staticsensorreadings where timestamp >= '{0}' and timestamp < '{1}' and sid = {2} group by DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i')".format(begintime_str, endtime_str, sid))
+				cursor.execute("select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i'),':00') as time, avg(value) as avg, std(value)/sqrt(count(*)) as standarderror, std(value) as std from staticsensorreadings where timestamp >= '{0}' and timestamp < '{1}' and sid = {2} and value < 15000 group by DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i')".format(begintime_str, endtime_str, sid))
 				desc = cursor.description
 				alldata = cursor.fetchall()
 				data = [dict(zip([col[0] for col in desc], row)) for row in alldata]
@@ -229,7 +229,7 @@ def getMobileIdwDataByTimeRange(request):
 	if request.method == 'POST':
 		params = json.loads(request.body)
 		cursor = connection.cursor()
-		cursor.execute("select longitude, latitude, value from mobilesensorreadings where timestamp > '{0}'  and timestamp < '{1}'".format(params['begintime'], params['endtime']))
+		cursor.execute("select longitude, latitude, value from mobilesensorreadings where timestamp > '{0}'  and timestamp < '{1}' and value < 15000".format(params['begintime'], params['endtime']))
 		desc = cursor.description
 		alldata = cursor.fetchall()
 		data = [dict(zip([col[0] for col in desc], row)) for row in alldata]
@@ -241,7 +241,7 @@ def getStaticIdwDataByTimeRange(request):
 	if request.method == 'POST':
 		params = json.loads(request.body)
 		cursor = connection.cursor()
-		cursor.execute("select longitude, latitude, value from staticsensorreadings left join staticsensorlocations on staticsensorreadings.sid = staticsensorlocations.sid where timestamp > '{0}'  and timestamp < '{1}'".format(params['begintime'], params['endtime']))
+		cursor.execute("select longitude, latitude, value from staticsensorreadings left join staticsensorlocations on staticsensorreadings.sid = staticsensorlocations.sid where timestamp > '{0}'  and timestamp < '{1}' and value < 15000".format(params['begintime'], params['endtime']))
 		desc = cursor.description
 		alldata = cursor.fetchall()
 		data = [dict(zip([col[0] for col in desc], row)) for row in alldata]

@@ -95,11 +95,13 @@ export default {
         mobileSensorGridData: null,
         mobileSensorReadings: null,
         staticSensorReadings: null,
+        mobileUncertaintyGridData: null,
         mobilePathData: null,
       },
       zoom: 1.4,
       sid: null,
       timeRange: null,
+      mapTimeRange: null,
       defaultTimeRange: {begintime: '2020-04-06 00:00:00', endtime: '2020-04-11 00:00:00'},
       popup: {
         container: null,
@@ -296,7 +298,7 @@ export default {
           vectorSource.addFeature(feature);
         })
         _this.layers.SRLayer.setOpacity(0.3);
-        _this.layers.SRLayer.setVisible(_this.mapControl.r_mi_idw_check);
+        _this.layers.SRLayer.setVisible(_this.mapControl.r_s_check);
         _this.map.addLayer(_this.layers.SRLayer);
       }
     },
@@ -369,44 +371,44 @@ export default {
           })
         })
       })
+      let colorScale = d3.scaleLinear().domain([0, 100]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
       if(this.dataCollection.mobileSensorGridData != null) {
-        this.renderIdwLayer(this.dataCollection.mobileSensorGridData, this.layers.idwMLayer, this.mapControl.r_mi_idw_check);
+        this.renderIdwLayer(this.dataCollection.mobileSensorGridData, this.layers.idwMLayer, this.mapControl.r_mi_idw_check, colorScale);
       } else {
         axios.post("/getMobileIdwDataByTimeRange/", this.timeRange || this.defaultTimeRange)
           .then((response) => {
             this.dataCollection.mobileSensorGridData = response.data;
-            this.renderIdwLayer(this.dataCollection.mobileSensorGridData, this.layers.idwMLayer, this.mapControl.r_mi_idw_check);
+            this.renderIdwLayer(this.dataCollection.mobileSensorGridData, this.layers.idwMLayer, this.mapControl.r_mi_idw_check, colorScale);
           })
           .catch((error) => {
             console.log(error);
           });
       }
-      this.drawMobilePointLayer();
-      this.drawSRLayer();
     },
     drawIdwSLayer() {
       this.layers.idwSLayer = new VectorLayer({
         style: new Style({
           stroke: new Stroke({
             width: 1,
-            color: "red"
+            color: "white"
           })
         })
       })
+      let colorScale = d3.scaleLinear().domain([10, 25]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
       if(this.dataCollection.staticSensorGridData != null) {
-        this.renderIdwLayer(this.dataCollection.staticSensorGridData, this.layers.idwSLayer, this.mapControl.r_si_idw_check);
+        this.renderIdwLayer(this.dataCollection.staticSensorGridData, this.layers.idwSLayer, this.mapControl.r_si_idw_check, colorScale);
       } else {
         axios.post("/getStaticIdwDataByTimeRange/", this.timeRange || this.defaultTimeRange)
           .then((response) => {
             this.dataCollection.staticSensorGridData = response.data;
-            this.renderIdwLayer(this.dataCollection.staticSensorGridData, this.layers.idwSLayer, this.mapControl.r_si_idw_check);
+            this.renderIdwLayer(this.dataCollection.staticSensorGridData, this.layers.idwSLayer, this.mapControl.r_si_idw_check, colorScale);
           })
           .catch((error) => {
             console.log(error);
           });
       }
     },
-    renderIdwLayer(idwdata, layer, isVisibale) {
+    renderIdwLayer(idwdata, layer, isVisibale, colorScale) {
         // let griddata = this.convertGridData(data);
         // let aggGridData = griddata.map(d => {
         //   let value;
@@ -422,7 +424,6 @@ export default {
 
         let features = [];
 
-        let colorScale = d3.scaleLinear().domain([0, 100]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
         idwdata.forEach(d => {
           let polygon = new Polygon([[[d.lngEx[0], d.latEx[0]], [d.lngEx[0], d.latEx[1]], [d.lngEx[1], d.latEx[1]], [d.lngEx[1], d.latEx[0]], [d.lngEx[0], d.latEx[0]]]]);
           let polygonFeature = new Feature(polygon);
@@ -447,91 +448,91 @@ export default {
       this.map.addLayer(layer);
       layer.setVisible(isVisibale);
     },
-    drawMRLayer() {
+    // drawMRLayer() {
 
-      let _this = this;
+    //   let _this = this;
 
-      if(this.dataCollection.mobileSensorReadings != null) {
-        render(this.dataCollection.mobileSensorReadings);
-      } else {
-        axios.post("/findMrrByTimeRange/", this.timeRange || this.defaultTimeRange)
-          .then((response) => {
-            this.dataCollection.mobileSensorReadings = response.data;
-            render(response.data);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      }
+    //   if(this.dataCollection.mobileSensorReadings != null) {
+    //     render(this.dataCollection.mobileSensorReadings);
+    //   } else {
+    //     axios.post("/findMrrByTimeRange/", this.timeRange || this.defaultTimeRange)
+    //       .then((response) => {
+    //         this.dataCollection.mobileSensorReadings = response.data;
+    //         render(response.data);
+    //       })
+    //       .catch((error) => {
+    //         console.log(error);
+    //       });
+    //   }
 
-      // axios.all([
-      //   axios.post("/findMrrByTimeRange/", this.timeRange),
-      //   axios.post("/findSrrByTimeRange/", this.timeRange),
-      // ]).then(axios.spread((response1, response2) => {
-      //   let data = response1.data.concat(response2.data);
-      //   render(data);
-      // })) 
+    //   // axios.all([
+    //   //   axios.post("/findMrrByTimeRange/", this.timeRange),
+    //   //   axios.post("/findSrrByTimeRange/", this.timeRange),
+    //   // ]).then(axios.spread((response1, response2) => {
+    //   //   let data = response1.data.concat(response2.data);
+    //   //   render(data);
+    //   // })) 
 
-      function render(data) {
-        let griddata = _this.convertGridData(data);
-        let aggGridData = griddata.map(d => {
-          let value;
-          if(d.list.length == 0) {
-            value = null;
-          } else {
-            value = d3.mean(d.list);
-          }
-          return Object.assign({}, d, {value:value})
-        })
+    //   function render(data) {
+    //     let griddata = _this.convertGridData(data);
+    //     let aggGridData = griddata.map(d => {
+    //       let value;
+    //       if(d.list.length == 0) {
+    //         value = null;
+    //       } else {
+    //         value = d3.mean(d.list);
+    //       }
+    //       return Object.assign({}, d, {value:value})
+    //     })
 
-        let idwdata = idw(aggGridData);
+    //     let idwdata = idw(aggGridData);
 
-        let features = [];
+    //     let features = [];
 
-        let colorScale = d3.scaleLinear().domain([20, 30, 50, 100]).range(["rgb(0,0,255)", "rgb(0,255,0)", "rgb(225,225,0)", "rgb(255,0,0)"])
+    //     let colorScale = d3.scaleLinear().domain([20, 30, 50, 100]).range(["rgb(0,0,255)", "rgb(0,255,0)", "rgb(225,225,0)", "rgb(255,0,0)"])
         
-        idwdata.forEach(d => {
-          if(d.value != null) {
-            let polygon = new Polygon([[[d.lngEx[0], d.latEx[0]], [d.lngEx[0], d.latEx[1]], [d.lngEx[1], d.latEx[1]], [d.lngEx[1], d.latEx[0]], [d.lngEx[0], d.latEx[0]]]]);
-            let polygonFeature = new Feature(polygon);
-            let style;
-            if(d.list.length != 0) {
-              style = new Style({
-                fill: new Fill({
-                  color: colorScale(d.value),//[0, 0, 255, 0.6]
-                })
-              })
-            } 
-            // else {
-            //   style = new Style({
-            //     fill: new Fill({
-            //       color: [0, 0, 0, 0]
-            //     })
-            //   })
-            // }
-            polygonFeature.setStyle(style);
-            features.push(polygonFeature)
-          }
-        })
+    //     idwdata.forEach(d => {
+    //       if(d.value != null) {
+    //         let polygon = new Polygon([[[d.lngEx[0], d.latEx[0]], [d.lngEx[0], d.latEx[1]], [d.lngEx[1], d.latEx[1]], [d.lngEx[1], d.latEx[0]], [d.lngEx[0], d.latEx[0]]]]);
+    //         let polygonFeature = new Feature(polygon);
+    //         let style;
+    //         if(d.list.length != 0) {
+    //           style = new Style({
+    //             fill: new Fill({
+    //               color: colorScale(d.value),//[0, 0, 255, 0.6]
+    //             })
+    //           })
+    //         } 
+    //         // else {
+    //         //   style = new Style({
+    //         //     fill: new Fill({
+    //         //       color: [0, 0, 0, 0]
+    //         //     })
+    //         //   })
+    //         // }
+    //         polygonFeature.setStyle(style);
+    //         features.push(polygonFeature)
+    //       }
+    //     })
 
-        _this.layers.MRLayer = new VectorLayer({
-          source: new VectorSource({
-            features: features
-          }),
-          style: new Style({
-            stroke: new Stroke({
-              width: 2,
-              color: "white"
-            })
-          })
-        })
-        _this.layers.MRLayer.setOpacity(0.3);
-        _this.map.addLayer(_this.layers.MRLayer);
-        _this.layers.MRLayer.setVisible(_this.mapControl.r_m_check);
-      }
+    //     _this.layers.MRLayer = new VectorLayer({
+    //       source: new VectorSource({
+    //         features: features
+    //       }),
+    //       style: new Style({
+    //         stroke: new Stroke({
+    //           width: 2,
+    //           color: "white"
+    //         })
+    //       })
+    //     })
+    //     _this.layers.MRLayer.setOpacity(0.3);
+    //     _this.map.addLayer(_this.layers.MRLayer);
+    //     _this.layers.MRLayer.setVisible(_this.mapControl.r_m_check);
+    //   }
 
 
-    },
+    // },
     drawIdwUncertaintyLayer() {
       if(this.dataCollection.mobileSensorGridData != null) {
         this.renderIdwUncertaintyLayer(this.dataCollection.mobileSensorGridData);
@@ -562,23 +563,22 @@ export default {
 
       let features = [];
 
-      let colorScale = d3.scaleLinear().domain([0, 1000]).range(["rgb(0,255,0)", "rgb(255,0,0)"])
+      let colorScale = d3.scaleLinear().domain([0, 200]).range(["rgb(0,255,0)", "rgb(255,0,0)"])
 
       idwdata.forEach(d => {
         let polygon = new Polygon([[[d.lngEx[0], d.latEx[0]], [d.lngEx[0], d.latEx[1]], [d.lngEx[1], d.latEx[1]], [d.lngEx[1], d.latEx[0]], [d.lngEx[0], d.latEx[0]]]]);
         let polygonFeature = new Feature(polygon);
-        let color = colorScale(d.variance).replace("rgb(", "").replace(")", "");
-        color = color.split(",");
-        // let grey = parseInt(color[0])*0.3+parseInt(color[1])*0.59+parseInt(color[2])*0.11;
+        // let color = colorScale(d.variance).replace("rgb(", "").replace(")", "");
+        // color = color.split(",");
         let style = new Style({
           fill: new Fill({
-            color: colorScale(d.variance)
+            color: colorScale(Math.sqrt(d.variance))
           })
         })
-        if(d.flag) {
+        if(!d.flag) {
           style.stroke_ = new Stroke({
             color: 'white',
-            width: 3
+            width: 0.5
           })
         }
         polygonFeature.setStyle(style);
@@ -590,12 +590,12 @@ export default {
         source: new VectorSource({
           features: features
         }),
-        style: new Style({
-          stroke: new Stroke({
-            width: 1,
-            color: "red"
-          })
-        })
+        // style: new Style({
+        //   stroke: new Stroke({
+        //     width: 1,
+        //     color: "white"
+        //   })
+        // })
       })
       this.layers.idwUncertaintyLayer.setOpacity(0.3);
       this.map.addLayer(this.layers.idwUncertaintyLayer);
@@ -652,7 +652,7 @@ export default {
           }));
           vectorSource.addFeature(feature);
         })
-        this.layers.mobilePointLayer.setVisible(this.mapControl.r_mi_idw_check);
+        this.layers.mobilePointLayer.setVisible(this.mapControl.r_m_point_check);
         this.map.addLayer(this.layers.mobilePointLayer);
       })
     },
@@ -853,14 +853,6 @@ export default {
      if(this.layers.idwMLayer) {
        this.layers.idwMLayer.setVisible(this.mapControl.r_mi_idw_check);
      }
-     if(this.layers.SRLayer) {
-       this.layers.SRLayer.setVisible(this.mapControl.r_mi_idw_check);
-     }
-     if(this.layers.mobilePointLayer) {
-       this.layers.mobilePointLayer.setVisible(this.mapControl.r_mi_idw_check);
-     }
-      // this.layers.idwMLayer.setVisible(this.mapControl.r_mi_idw_check);
-      // this.layers.mobilePointLayer.setVisible(this.mapControl.r_mi_idw_check);
     },
     idwSLayerUpdate() {
       if(this.layers.idwSLayer) {
@@ -877,20 +869,22 @@ export default {
         this.layers.idwUncertaintyLayer.setVisible(this.mapControl.u_mi_check);
       }
     },
-    MRLayerUpdate() {
-      // this.layers.MRLayer.setVisible(this.mapControl.r_m_check);
-    },
     SRLayerUpdate() {
-      // this.layers.SRLayer.setVisible(this.mapControl.r_mi_idw_check);
+      if(this.layers.SRLayer) {
+       this.layers.SRLayer.setVisible(this.mapControl.r_mi_idw_check);
+      }
+    },
+    mobilePointLayerUpdate() {
+      if(this.layers.mobilePointLayer) {
+       this.layers.mobilePointLayer.setVisible(this.mapControl.r_m_point_check);
+      }
     },
     allLayerUpdate() {
-      this.krigingLayerUpdate();
+      this.SRLayerUpdate();
+      this.mobilePointLayerUpdate();
       this.idwSLayerUpdate();
       this.idwMLayerUpdate();
-      // this.heatmapLayerUpdate();
       this.uncertaintyidwLayerUpdate();
-      // this.MRLayerUpdate();
-      // this.SRLayerUpdate();
     },
     piesUpdate() {
       if(this.u_pie_check) {
@@ -914,8 +908,11 @@ export default {
 
       this.addSelectEvent();
       
-      if(this.mapControl.r_si_kriging_check) {
-        this.drawKrigingLayer()
+      if(this.mapControl.r_s_check) {
+        this.drawSRLayer();
+      }
+      if(this.mapControl.r_m_point_check) {
+        this.drawMobilePointLayer();
       }
       if(this.mapControl.r_mi_idw_check) {
         this.drawIdwMLayer();
@@ -926,10 +923,6 @@ export default {
       if(this.mapControl.u_mi_check) {
         this.drawIdwUncertaintyLayer();
       }
-      
-      // this.drawKrigingLayer();
-      // this.drawIdwMLayer();
-      // this.drawIdwUncertaintyLayer();
       if(this.mapControl.u_pie_check) {
         this.drawPies();
       }
@@ -941,7 +934,6 @@ export default {
       return axios.post('/findAggSrrByTimeRange/', params);
     },
     sensorSelected(params) {
-     console.log(params)
     //  this.drawPath(params);
     }
   },
@@ -959,17 +951,30 @@ export default {
     },
     mapControl: {
       handler(newValue,oldValue){
-        if(newValue.r_si_kriging_check && this.layers.krigingLayer == null) {
-          this.drawKrigingLayer();
+        if(this.timeRange == null) {
+          return;
+        }
+        // if(newValue.r_si_kriging_check && this.layers.krigingLayer == null) {
+        //   this.drawKrigingLayer();
+        // }
+        console.log(newValue)
+        if(newValue.r_s_check && this.layers.SRLayer == null) {
+          this.drawSRLayer();
+        }
+        if(newValue.r_m_point_check && this.layers.mobilePointLayer == null) {
+          this.drawMobilePointLayer();
+        }
+        if(newValue.r_si_idw_check && this.layers.idwSLayer == null) {
+          this.drawIdwSLayer();
         }
         if(newValue.r_mi_idw_check && this.layers.idwMLayer == null) {
           this.drawIdwMLayer();
         }
-        if(newValue.u_mi_check && this.idwUncertaintyLayer == null) {
+        if(newValue.u_mi_check && this.layers.idwUncertaintyLayer == null) {
           this.drawIdwUncertaintyLayer();
         }
+        this.clearPies();
         if(newValue.u_pie_check) {
-          this.clearPies();
           this.drawPies();
         }
         this.allLayerUpdate();

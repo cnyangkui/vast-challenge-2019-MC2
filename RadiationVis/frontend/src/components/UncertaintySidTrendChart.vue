@@ -81,7 +81,7 @@ export default {
           end = new Date(this.defaultTimeRange.endtime);
         }
 
-        let max = d3.max(this.originData.data, d => d.upper95);
+        let max = d3.max(this.originData.data, d => d.std);
 
         let x, y;
 
@@ -130,46 +130,12 @@ export default {
         .attr('y', 6)
         .attr('dy', '.71em')
         .style('text-anchor', 'end')
-        .text('(cpm)');
+        .text('(std)');
     },
     drawSidPath(g, data, x, y) {
-      let upperInnerArea = d3.area()
-        .x (function (d) { return x(d.time); })
-        .y0(function (d) { return y(d.upper95); })
-        .y1(function (d) { return y(d.avg); })
-        .curve(d3.curveMonotoneX)
-        .defined((d, i, data) => {
-          if(i == 0) {
-            return true;
-          } else {
-            if(data[i].time.getTime() - data[i-1].time.getTime() <= 3600 * 1000) {
-              return true;
-            } else {
-              return false;
-            }
-          }
-        });
-
       let medianLine = d3.line()
         .x(function (d) { return x(d.time); })
-        .y(function (d) { return y(d.avg); })
-        .curve(d3.curveMonotoneX)
-        .defined((d, i, data) => {
-          if(i == 0) {
-            return true;
-          } else {
-            if(data[i].time.getTime() - data[i-1].time.getTime() <= 3600 * 1000) {
-              return true;
-            } else {
-              return false;
-            }
-          }
-        });
-
-      let lowerInnerArea = d3.area()
-        .x (function (d) { return x(d.time); })
-        .y0(function (d) { return y(d.avg); })
-        .y1(function (d) { return y(d.lower95); })
+        .y(function (d) { return y(d.std); })
         .curve(d3.curveMonotoneX)
         .defined((d, i, data) => {
           if(i == 0) {
@@ -185,38 +151,28 @@ export default {
 
       g.datum(data);
 
-      let points = [];
-      for(let m=1, length=data.length; m<length; m++) {
-        if(data[m].time.getTime() - data[m-1].time.getTime() > 3600 * 1000) {
-          points.push(data[m]);
-        }
-      }
+      // let points = [];
+      // for(let m=1, length=data.length; m<length; m++) {
+      //   if(data[m].time.getTime() - data[m-1].time.getTime() > 3600 * 1000) {
+      //     points.push(data[m]);
+      //   }
+      // }
 
       g.append('g')
         .selectAll('circle')
-        .data(points)
+        .data(data)
         .enter()
         .append('circle')
         .attr('cx', (d, i) => x(d.time))
-        .attr('cy', (d, i) => y(d.avg))
+        .attr('cy', (d, i) => y(d.std))
         .attr('r', 1);
-
-      g.append('path')
-        .attr('d', upperInnerArea)
-        .style('fill', 'steelblue')
-        .style("opacity", 0.5)
-        .style('stroke', 'steelblue');
-
-      g.append('path')
-        .attr('d', lowerInnerArea)
-        .style('fill', 'steelblue')
-        .style("opacity", 0.5)
-        .style('stroke', 'steelblue');
         
 
-      g.append('path')
-        .attr('class', 'median-line')
-        .attr('d', medianLine);
+      // g.append('path')
+      //   .attr('class', 'median-line')
+      //   .attr('d', medianLine)
+      //   .style('stroke', 'black')
+      //   .style('fill', 'none');
 
     },
     // timeRangeUpdated(params) {

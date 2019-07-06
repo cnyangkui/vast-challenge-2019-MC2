@@ -1,13 +1,13 @@
 <template>
   <div :id="cid">
-    <div class="times_series_chart"></div>
+    <div class="radiation_times_series_chart"></div>
   </div>
 </template>
 
 <script>
 import * as d3 from "d3"
 export default {
-  name: 'TimeSeriesChart',
+  name: 'RadiationTimeSeriesChart',
   props: {
     cid: String,
     checkedItem: Array,
@@ -39,7 +39,7 @@ export default {
       this.svgHeight = parentNode.clientHeight;
     },
     drawSvg() {
-      this.svg = d3.select(`#${this.cid} .times_series_chart`).append("svg")
+      this.svg = d3.select(`#${this.cid} .radiation_times_series_chart`).append("svg")
         .attr("width", this.svgWidth)
         .attr("height", this.svgHeight);
     },
@@ -90,41 +90,6 @@ export default {
         .text('(cpm)');
     },
     addLegend (g, chartWidth) {
-      // let legendWidth  = 70,
-      //     legendHeight = 45;
-
-      // let legend = g.append('g')
-      //   .attr('class', 'legend')
-      //   .attr('transform', 'translate(' + (chartWidth+5) + ', 0)');
-
-      // legend.append('rect')
-      //   .attr('class', 'legend-bg')
-      //   .attr('width',  legendWidth)
-      //   .attr('height', legendHeight);
-
-      // legend.append('rect')
-      //   .attr('class', 'mobile_uncertainty')
-      //   .attr('width',  20)
-      //   .attr('height', 10)
-      //   .attr('x', 5)
-      //   .attr('y', 5);
-
-      // legend.append('text')
-      //   .attr('x', 30)
-      //   .attr('y', 15)
-      //   .text('mobile');
-
-      // legend.append('rect')
-      //   .attr('class', 'static_uncertainty')
-      //   .attr('width',  20)
-      //   .attr('height', 10)
-      //   .attr('x', 5)
-      //   .attr('y', 25);
-
-      // legend.append('text')
-      //   .attr('x', 30)
-      //   .attr('y', 35)
-      //   .text('static');
 
       let legendWidth  = 70,
           legendHeight = 45,
@@ -134,8 +99,8 @@ export default {
       let legendMargin = {left: 5, top: 5, right: 5, bottom: 5};
 
       let legend = g.append('g')
-        .attr('class', 'legend')
-        .attr('transform', 'translate(' + (chartWidth - legendWidth) + ', -10)');
+        .attr("class", 'legend')
+        .attr('transform', 'translate(' + (chartWidth - legendWidth) + ', -10)'); 
 
       legend.append('rect')
         .attr('class', 'legend-bg')
@@ -154,7 +119,8 @@ export default {
         .attr('y', legendMargin.top)
         .attr('dx', '.5em')
         .attr('dy', '1em')
-        .text('static');
+        .text('static')
+        .style('font-size', 10);
 
       legend.append('rect')
         .attr('class', 'mobile_uncertainty')
@@ -168,47 +134,24 @@ export default {
         .attr('y', legendMargin.top + rectHeight * 2)
         .attr('dx', '.5em')
         .attr('dy', '1em')
-        .text('mobile');
+        .text('mobile')
+        .style('font-size', 10);
 
     },
-    drawPathAndArea (g, data, x, y, color) {
-
-      let upperInnerArea = d3.area()
-        .x (function (d) { return x(d.date) || 1; })
-        .y0(function (d) { return y(d.upper95); })
-        .y1(function (d) { return y(d.avg); })
-        .curve(d3.curveMonotoneX);
+    drawPath (g, data, x, y, color) {
 
       let medianLine = d3.line()
         .x(function (d) { return x(d.date); })
         .y(function (d) { return y(d.avg); })
         .curve(d3.curveMonotoneX);
 
-      let lowerInnerArea = d3.area()
-        .x (function (d) { return x(d.date) || 1; })
-        .y0(function (d) { return y(d.avg); })
-        .y1(function (d) { return y(d.lower95); })
-        .curve(d3.curveMonotoneX);
-
       g.datum(data);
-
-      g.append('path')
-        // .attr('class', 'area upper ' + styleClass)
-        .attr('d', upperInnerArea)
-        .style('fill', color)
-        .style('stroke', color);
-
-      g.append('path')
-        // .attr('class', 'area lower ' + styleClass)
-        .attr('d', lowerInnerArea)
-        .style('fill', color)
-        .style('stroke', color);
 
       g.append('path')
         // .attr('class', 'median-line')
         .attr('d', medianLine)
-        .attr('fill', 'none')
-        .attr('stroke', 'black');
+        .style('fill', 'none')
+        .style('stroke', color);
     },
     drawBaseline(g, data, x, y) {
       let baseline = d3.line()
@@ -305,23 +248,23 @@ export default {
         _this.addX(g, xAxis, margin, chartWidth, chartHeight);
         // _this.addY(g, yAxis, margin, chartWidth, chartHeight);
         _this.addLegend(g, chartWidth);
-        _this.drawPathAndArea(g, static_data, x, y, "rgba(255,182,193, 0.8)");
-        _this.drawPathAndArea(g, mobile_data, x, y, "rgba(127, 127, 255, 0.8)");
+        _this.drawPath(g, static_data, x, y, "rgba(255,182,193, 0.8)");
+        _this.drawPath(g, mobile_data, x, y, "rgba(127, 127, 255, 0.8)");
         _this.drawBaseline(g, basedata, x, y);
       } else {
         if(this.checkedItem[0] == 'static') {
           _this.addX(g, xAxis, margin, chartWidth, chartHeight);
           _this.addY(g, yAxis, margin, chartWidth, chartHeight);
           // _this.addLegend(g, chartWidth);
-          _this.drawPathAndArea(g, static_data, x, y, "rgba(255,182,193, 0.8)");
-          // _this.drawPathAndArea(g, mobile_data, x, y, "mobile_uncertainty");
+          _this.drawPath(g, static_data, x, y, "rgba(255,182,193, 0.8)");
+          // _this.drawPath(g, mobile_data, x, y, "mobile_uncertainty");
           _this.drawBaseline(g, basedata, x, y);
         } else if(this.checkedItem[0] == 'mobile') {
           _this.addX(g, xAxis, margin, chartWidth, chartHeight);
           _this.addY(g, yAxis, margin, chartWidth, chartHeight);
           // _this.addLegend(g, chartWidth);
-          // _this.drawPathAndArea(g, static_data, x, y, "static_uncertainty");
-          _this.drawPathAndArea(g, mobile_data, x, y, "rgba(127, 127, 255, 0.8)");
+          // _this.drawPath(g, static_data, x, y, "static_uncertainty");
+          _this.drawPath(g, mobile_data, x, y, "rgba(127, 127, 255, 0.8)");
           _this.drawBaseline(g, basedata, x, y);
         }
       }
@@ -348,55 +291,55 @@ export default {
 </script>
 
 <style scoped>
-.times_series_chart .axis >>> path, line {
+.radiation_times_series_chart .axis >>> path, line {
   fill: none;
   stroke: 'black';
   shape-rendering: crispEdges;
 }
 
-.times_series_chart >>> .axis text {
+.radiation_times_series_chart >>> .axis text {
   fill: #000;
 }
 
-.times_series_chart >>> .axis .tick line {
+.radiation_times_series_chart >>> .axis .tick line {
   stroke: rgba(0, 0, 0, 1);
 }
 
-.times_series_chart >>> .area {
+.radiation_times_series_chart >>> .area {
   stroke-width: 1;
 }
 
-.times_series_chart >>> .area.outer, 
+.radiation_times_series_chart >>> .area.outer, 
 .legend .outer {
   fill: rgba(230, 230, 255, 0.8);
   stroke: rgba(216, 216, 255, 0.8);
 }
 
-.times_series_chart >>> .mobile_uncertainty {
+.radiation_times_series_chart >>> .mobile_uncertainty {
   fill: rgba(127, 127, 255, 0.8);
   stroke: rgba(96, 96, 255, 0.8);
 }
 
-.times_series_chart >>> .static_uncertainty {
+.radiation_times_series_chart >>> .static_uncertainty {
   fill: rgba(255,182,193, 0.8);
   stroke: rgba(255,182,193, 0.8);
 }
 
-.times_series_chart >>> .median-line,
+.radiation_times_series_chart >>> .median-line,
 .legend .median-line {
   fill: none;
   stroke: #000;
   stroke-width: 1;
 }
 
-.times_series_chart >>> .legend .legend-bg {
+.radiation_times_series_chart >>> .legend .legend-bg {
   fill: rgba(0, 0, 0, 0.5);
   stroke: rgba(0, 0, 0, 0.5);
   opacity: 0.1;
 }
 
 
-.times_series_chart >>> .legend text {
+.radiation_times_series_chart >>> .legend text {
   font-size: 10px;
 }
 

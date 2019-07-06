@@ -5,17 +5,15 @@
         <div class="grid-content">
           <div class="control-container">
             <div class="control-header">
-              <label>Overview</label>
+              <label>Data Center</label>
             </div>
             <div class="control-content">
               <div class="input-ele-group">
                 <div class="input-ele">
-                  <input type="radio" value="radiation" name="overview-type" v-model="overviewType"><label>radiation</label>
-                  <!-- <el-radio v-model="overviewType" label="radiation">radiation</el-radio> -->
+                  <input type="checkbox" value="radiation" name="overview-type" v-model="datatype"><label>radiation</label>
                 </div>
                 <div class="input-ele">
-                  <input type="radio" value="uncertainty" name="overview-type" v-model="overviewType"><label>uncertainty</label>
-                  <!-- <el-radio v-model="overviewType" label="uncertainty">uncertainty</el-radio> -->
+                  <input type="checkbox" value="uncertainty" name="overview-type" v-model="datatype"><label>uncertainty</label>
                   </div>
               </div>
             </div>
@@ -26,8 +24,8 @@
             </div>
             <div class="control-content">
               <div class="input-ele-group">
-                <div class="input-ele"><input type="checkbox" value="static"  v-model="timeSeriesCheckedState"><label>Static</label></div>
-                <div class="input-ele"><input type="checkbox" value="mobile" v-model="timeSeriesCheckedState"><label>Mobile</label></div>
+                <div class="input-ele"><input type="checkbox" value="static"  v-model="timeSeriesCheckedState"><label>Static</label><img :src="require('./assets/img/static.png')" alt="" width="20px;"></div>
+                <div class="input-ele"><input type="checkbox" value="mobile" v-model="timeSeriesCheckedState"><label>Mobile</label><img :src="require('./assets/img/mobile.png')" alt="" width="20px;"></div>
               </div>
               <div class="input-ele-group">
                 <div class="input-ele"><input type="radio" value="global" name="timeSeriesState" v-model="timeSeriesControl.state"><label>global</label></div>
@@ -53,28 +51,47 @@
             <div class="control-header">
               <label>Map</label>
             </div>
-            <div class="control-content" v-show="overviewType=='radiation'">
-              <div class="input-ele-group">
-                <div class="input-ele"><input type="checkbox" v-model="mapControl.r_si_kriging_check"><label>SI(kriging)</label></div>
+            <div class="input-ele-group">
+                <div class="input-ele"><input type="checkbox" v-model="mapControl.r_s_check"><label>static</label></div>
+                <div class="input-ele"><input type="checkbox" v-model="mapControl.r_m_point_check"><label>mobile</label></div>
                 <!-- <div class="input-ele"><input type="checkbox" v-model="mapControl.r_si_idw_check"><label>SI(idw)</label></div> -->
-                <div class="input-ele"><input type="checkbox" v-model="mapControl.r_mi_idw_check"><label>MI(idw)</label></div>
+                <!-- <div class="input-ele"><input type="checkbox" v-model="mapControl.point_s"><label>MI(idw)</label></div> -->
               </div>
-            </div>
-            <div class="control-content" v-show="overviewType=='uncertainty'">
               <div class="input-ele-group">
-                <div class="input-ele"><input type="checkbox" v-model="mapControl.u_mi_check"><label>MI(idw)</label></div>
+                <div class="input-ele"><input type="checkbox" v-model="mapControl.r_si_idw_check"><label>radiation(SI)</label></div>
+                <!-- <div class="input-ele"><input type="checkbox" v-model="mapControl.r_si_idw_check"><label>SI(idw)</label></div> -->
+                <div class="input-ele"><input type="checkbox" v-model="mapControl.r_mi_idw_check"><label>radiation(MI)</label></div>
+              </div>
+            <!-- <div class="control-content" v-show="datatype=='radiation'">
+              
+            </div> -->
+             <div class="input-ele-group">
+                <div class="input-ele"><input type="checkbox" v-model="mapControl.u_mi_check"><label>uncertainty(MI)</label></div>
                 <div class="input-ele"><input type="checkbox" v-model="mapControl.u_pie_check"><label>Pie</label></div>
               </div>
-            </div>
+              <div class="input-ele-group">
+                <div class="input-ele"><input type="button" @click="mapPlayer();"></div>
+              </div>
+            <!-- <div class="control-content" v-show="datatype=='uncertainty'">
+             
+            </div> -->
           </div>
         </div>
       </el-col>
       <el-col :span="20" class="right">
         <el-row class="right_top">
           <el-col :span="24">
-            <div class="grid-content">
+            <div class="grid-content" v-if="datatype.length == 2">
               <time-series-chart v-show="timeSeriesControl.state=='global'" :cid="`time_series_chart_container`" :checkedItem="timeSeriesCheckedState"></time-series-chart>
               <trend-chart v-show="timeSeriesControl.state=='local'" :cid="`trend_local_chart_container`" :originData="trendChart" :checkedItem="timeSeriesCheckedState"></trend-chart>
+            </div>
+            <div class="grid-content" v-if="datatype.length == 1 && datatype[0]=='radiation'">
+              <radiation-time-series-chart v-show="timeSeriesControl.state=='global'" :cid="`radiation_time_series_chart_container`" :checkedItem="timeSeriesCheckedState"></radiation-time-series-chart>
+              <radiation-trend-chart v-show="timeSeriesControl.state=='local'" :cid="`radiation_trend_local_chart_container`" :originData="trendChart" :checkedItem="timeSeriesCheckedState"></radiation-trend-chart>
+            </div>
+            <div class="grid-content" v-if="datatype.length == 1 && datatype[0] == 'uncertainty'">
+              <uncertainty-time-series-chart v-show="timeSeriesControl.state=='global'" :cid="`uncertainty_time_series_chart_container`" :checkedItem="timeSeriesCheckedState"></uncertainty-time-series-chart>
+              <uncertainty-trend-chart v-show="timeSeriesControl.state=='local'" :cid="`uncertainty_trend_local_chart_container`" :originData="trendChart" :checkedItem="timeSeriesCheckedState"></uncertainty-trend-chart>
             </div>
           </el-col>
         </el-row>
@@ -84,15 +101,22 @@
               <treemap v-show="treemapState=='treemap1'" :cid="`treemap-container`" :originData="treemap1"></treemap>
               <treemap v-show="treemapState=='treemap2'" :cid="`treemap-container2`" :originData="treemap2"></treemap>
             </div>
-            <div class="grid-content bottom_left_bottom">
-              <!-- <div class="innerdiv">
-                <trend-chart :cid="`trend_chart_container`"></trend-chart>
-              </div> -->
+            <div class="grid-content bottom_left_bottom" v-if="datatype.length == 2">
               <div v-for="(item, index) in sidTrendCharts" :key='index' class="innerdiv">
                 <sid-trend-chart :cid="`trend_chart_container_${index}`" :originData="item"></sid-trend-chart>
-                <!-- {{item}} -->
               </div>
             </div>
+            <div class="grid-content bottom_left_bottom" v-if="datatype.length == 1 && datatype[0]=='radiation'">
+              <div v-for="(item, index) in sidTrendCharts" :key='index' class="innerdiv">
+                <radiation-sid-trend-chart :cid="`radiation_trend_chart_container_${index}`" :originData="item"></radiation-sid-trend-chart>
+              </div>
+            </div>
+            <div class="grid-content bottom_left_bottom" v-if="datatype.length == 1 && datatype[0]=='uncertainty'">
+              <div v-for="(item, index) in sidTrendCharts" :key='index' class="innerdiv">
+                <uncertainty-sid-trend-chart :cid="`uncertainty_trend_chart_container_${index}`" :originData="item"></uncertainty-sid-trend-chart>
+              </div>
+            </div>
+
           </el-col>
           <el-col :span="14" class="bottom_right">
             <div class="grid-content">
@@ -115,10 +139,16 @@
 <script>
 import SrScatter from './components/SrScatter.vue'
 import Openlayers from './components/Openlayers.vue'
-import TrendChart from './components/TrendChart.vue'
 import TimeSeriesChart from './components/TimeSeriesChart.vue'
+import RadiationTimeSeriesChart from './components/RadiationTimeSeriesChart.vue'
+import UncertaintyTimeSeriesChart from './components/UncertaintyTimeSeriesChart.vue'
+import TrendChart from './components/TrendChart.vue'
+import RadiationTrendChart from './components/RadiationTrendChart.vue'
+import UncertaintyTrendChart from './components/UncertaintyTrendChart.vue'
 import Treemap from './components/Treemap.vue'
 import SidTrendChart from './components/SidTrendChart.vue'
+import RadiationSidTrendChart from './components/RadiationSidTrendChart.vue'
+import UncertaintySidTrendChart from './components/UncertaintySidTrendChart.vue'
 // import PackageChart from './components/PackageChart.vue'
 // import SimilarityScatter from './components/SimilarityScatter'
 import * as d3 from 'd3'
@@ -129,17 +159,23 @@ export default {
   components: {
     Openlayers,
     SrScatter,
-    TrendChart,
     TimeSeriesChart,
+    RadiationTimeSeriesChart,
+    UncertaintyTimeSeriesChart,
+    TrendChart,
+    RadiationTrendChart,
+    UncertaintyTrendChart,
     Treemap,
-    SidTrendChart
+    SidTrendChart,
+    RadiationSidTrendChart,
+    UncertaintySidTrendChart
     // PackageChart,
     // SimilarityScatter
   },
   data() {
     return {
       srScatterVisible: false,
-      overviewType: "radiation",
+      datatype: ["radiation", "uncertainty"],
       timeSeriesControl: {
         state: 'global',
         localDisabled: true,
@@ -151,10 +187,11 @@ export default {
         r_si_idw_check: false,
         r_mi_idw_check: false,
         r_s_check: false,
-        r_m_check: false,
+        r_m_point_check: false,
         t_heatmap_check: false,
         u_pie_check: false,
         u_mi_check: false,
+        playState: false,
       },
       trendChart: null,
       sidTrendCharts: [],
@@ -224,7 +261,8 @@ export default {
               time:  parseDate(d.time),
               lower95: -1.96 * d.standarderror + d.avg,
               avg: d.avg,
-              upper95: 1.96 * d.standarderror + d.avg
+              upper95: 1.96 * d.standarderror + d.avg,
+              std: d.std
             };
           });
           var mobile_data = data.mobile.map(function (d) {
@@ -232,7 +270,8 @@ export default {
               time:  parseDate(d.time),
               lower95: -1.96 * d.standarderror + d.avg,
               avg: d.avg,
-              upper95: 1.96 * d.standarderror + d.avg
+              upper95: 1.96 * d.standarderror + d.avg,
+              std:d.std
             };
           });
           this.trendChart = {
@@ -316,7 +355,7 @@ html, body, #app {
 }
 .grid-content {
   /* border-radius: 4px; */
-  border: 1px solid black;
+  border: 1px solid #ccc;
   height: 100%;
 }
 .control-container {
