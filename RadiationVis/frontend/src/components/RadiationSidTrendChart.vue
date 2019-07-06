@@ -4,7 +4,7 @@
       <label>{{originData.category}}:{{originData.sid}}</label>
       <input class="button" type="button" value="delete">
     </div>
-    <div class="trendchart"></div>
+    <div class="radiationSidTrendChart"></div>
   </div>
 </template>
 
@@ -12,7 +12,7 @@
 import * as d3 from "d3"
 import axios from '../assets/js/http';
 export default {
-  name: 'TrendChart',
+  name: 'radiationSidTrendChart',
   props: {
     cid: String,
     originData: {
@@ -61,7 +61,7 @@ export default {
       this.svgHeight = parentNode.clientHeight - document.querySelector(`#${this.cid} .control`).clientHeight;
     },
     drawSvg() {
-      this.svg = d3.select(`#${this.cid} .trendchart`).append("svg")
+      this.svg = d3.select(`#${this.cid} .radiationSidTrendChart`).append("svg")
         .attr("width", this.svgWidth)
         .attr("height", this.svgHeight);
     },
@@ -133,43 +133,10 @@ export default {
         .text('(cpm)');
     },
     drawSidPath(g, data, x, y) {
-      let upperInnerArea = d3.area()
-        .x (function (d) { return x(d.time); })
-        .y0(function (d) { return y(d.upper95); })
-        .y1(function (d) { return y(d.avg); })
-        .curve(d3.curveMonotoneX)
-        .defined((d, i, data) => {
-          if(i == 0) {
-            return true;
-          } else {
-            if(data[i].time.getTime() - data[i-1].time.getTime() <= 3600 * 1000) {
-              return true;
-            } else {
-              return false;
-            }
-          }
-        });
 
       let medianLine = d3.line()
         .x(function (d) { return x(d.time); })
         .y(function (d) { return y(d.avg); })
-        .curve(d3.curveMonotoneX)
-        .defined((d, i, data) => {
-          if(i == 0) {
-            return true;
-          } else {
-            if(data[i].time.getTime() - data[i-1].time.getTime() <= 3600 * 1000) {
-              return true;
-            } else {
-              return false;
-            }
-          }
-        });
-
-      let lowerInnerArea = d3.area()
-        .x (function (d) { return x(d.time); })
-        .y0(function (d) { return y(d.avg); })
-        .y1(function (d) { return y(d.lower95); })
         .curve(d3.curveMonotoneX)
         .defined((d, i, data) => {
           if(i == 0) {
@@ -194,29 +161,17 @@ export default {
 
       g.append('g')
         .selectAll('circle')
-        .data(points)
+        .data(data)
         .enter()
         .append('circle')
         .attr('cx', (d, i) => x(d.time))
         .attr('cy', (d, i) => y(d.avg))
         .attr('r', 1);
 
-      g.append('path')
-        .attr('d', upperInnerArea)
-        .style('fill', 'steelblue')
-        .style("opacity", 0.5)
-        .style('stroke', 'steelblue');
-
-      g.append('path')
-        .attr('d', lowerInnerArea)
-        .style('fill', 'steelblue')
-        .style("opacity", 0.5)
-        .style('stroke', 'steelblue');
-        
-
-      g.append('path')
-        .attr('class', 'median-line')
-        .attr('d', medianLine);
+      // g.append('path')
+      //   .attr('d', medianLine)
+      //   .style('stroke', 'black')
+      //   .style('fill', 'none');
 
     },
     // timeRangeUpdated(params) {
@@ -267,58 +222,58 @@ export default {
   margin-right: 5px;
   margin-top: 2px;
 }
-.trendchart >>> .axis path, 
+.radiationSidTrendChart >>> .axis path, 
 .axis line {
   fill: none;
   stroke: #000;
   shape-rendering: crispEdges;
 }
 
-.trendchart >>> .axis text {
+.radiationSidTrendChart >>> .axis text {
   fill: #000;
 }
 
-.trendchart >>> .axis .tick line {
+.radiationSidTrendChart >>> .axis .tick line {
   stroke: rgba(0, 0, 0, 0.1);
 }
 
-.trendchart >>> .area {
+.radiationSidTrendChart >>> .area {
   stroke-width: 1;
 }
 
-.trendchart >>> .area.outer, 
+.radiationSidTrendChart >>> .area.outer, 
 .legend .outer {
   fill: rgba(230, 230, 255, 0.8);
   stroke: rgba(216, 216, 255, 0.8);
 }
 
-.trendchart >>> .mobile_uncertainty {
+.radiationSidTrendChart >>> .mobile_uncertainty {
   fill: rgba(127, 127, 255, 0.8);
   stroke: rgba(96, 96, 255, 0.8);
   opacity: 0.6;
 }
 
-.trendchart >>> .static_uncertainty {
+.radiationSidTrendChart >>> .static_uncertainty {
   fill: rgba(255,182,193, 0.8);
   stroke: rgba(255,182,193, 0.8);
   opacity: 0.6;
 }
 
-.trendchart >>> .median-line,
+.radiationSidTrendChart >>> .median-line,
 .legend .median-line {
   fill: none;
   stroke: #000;
   stroke-width: 1;
 }
 
-.trendchart >>> .legend .legend-bg {
+.radiationSidTrendChart >>> .legend .legend-bg {
   fill: rgba(0, 0, 0, 0.5);
   stroke: rgba(0, 0, 0, 0.5);
   opacity: 0.1;
 }
 
 
-.trendchart >>> .legend text {
+.radiationSidTrendChart >>> .legend text {
   font-size: 10px;
 }
 </style>
