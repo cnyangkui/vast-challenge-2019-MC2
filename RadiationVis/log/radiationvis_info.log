@@ -1144,3 +1144,4 @@ ValueError: all the input array dimensions except for the concatenation axis mus
 [2019-07-06 18:22:11,322][MainThread:7324][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
 [2019-07-06 18:37:01,554][MainThread:7324][task_id:django.utils.autoreload][autoreload.py:211][INFO][D:\JHJ2019\Vast_Challenge_2019\vast-challenge-end\vast-challenge-2019-MC2\RadiationVis\backend\dataprocessing\cluster_dtw.py changed, reloading.]
 [2019-07-06 18:37:05,370][MainThread:14652][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
+[2019-07-06 20:57:52,725][MainThread:17536][task_id:django.utils.autoreload][autoreload.py:584][INFO][Watching for file changes with StatReloader]
