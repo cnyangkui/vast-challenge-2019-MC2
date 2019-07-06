@@ -563,7 +563,7 @@ export default {
 
       let features = [];
 
-      let colorScale = d3.scaleLinear().domain([0, 50]).range(["rgb(0,255,0)", "rgb(255,0,0)"])
+      let colorScale = d3.scaleLinear().domain([0, 200]).range(["rgb(0,255,0)", "rgb(255,0,0)"])
 
       idwdata.forEach(d => {
         let polygon = new Polygon([[[d.lngEx[0], d.latEx[0]], [d.lngEx[0], d.latEx[1]], [d.lngEx[1], d.latEx[1]], [d.lngEx[1], d.latEx[0]], [d.lngEx[0], d.latEx[0]]]]);
