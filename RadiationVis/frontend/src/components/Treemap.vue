@@ -115,8 +115,6 @@ export default {
         // cluster.children[i].sensors = data.children[i].children;
       }
 
-      console.log(cluster)
-
       var root = d3.hierarchy(cluster)
           .eachBefore(function(d) { d.data.id = d.data.name; })
           .sum(d => d.mean)
@@ -183,7 +181,8 @@ export default {
 
       treemap(root);
 
-      var a = require('../assets/img/static.png')
+      let std_img = require('../assets/img/star.png');
+      let completeness_img = require('../assets/img/star_null.png');
       var cell = g.selectAll("g")
         .data(root.leaves())
         .enter().append("g")
@@ -219,30 +218,28 @@ export default {
           .attr("y", function(d, i) { return 13 + i * 10; })
           .text(function(d) { return d; })
 
-      let scale = d3.scaleQuantize().domain([0, 400]).range([1,2,3,4,5])
+      let stdScale = d3.scaleQuantize().domain([0, 400]).range([1,2,3,4,5]);
+      let completenessScale = d3.scaleQuantize().domain([0, 1]).range([1,2,3,4,5])
+      
 
       cell.nodes().forEach(d => {
         let cell_ele = d3.select(d);
         let cell_data = cell_ele.datum();
-        let std = scale(cell_data.data.std)
-        let completeness = cell_data.data.nan
+        let std = stdScale(cell_data.data.std);
+        let completeness = completenessScale(cell_data.data.nan);
         for(let m=0; m<std; m++) {
             cell_ele.append("image")
-              .attr("xlink:href",d => {
-                return a
-              })
-              .attr("x", (d, i) => `${m*20}px`)
+              .attr("xlink:href", std_img)
+              .attr("x", (d, i) => `${m*15}px`)
               .attr("y", "20px")
               .attr("width", "10px")
               .attr("height", "10px");
         }
         for(let m=0; m<completeness; m++) {
             cell_ele.append("image")
-              .attr("xlink:href",d => {
-                return a
-              })
-              .attr("x", (d, i) => `${m*20}px`)
-              .attr("y", "40px")
+              .attr("xlink:href", completeness_img)
+              .attr("x", (d, i) => `${m*15}px`)
+              .attr("y", "30px")
               .attr("width", "10px")
               .attr("height", "10px");
         }

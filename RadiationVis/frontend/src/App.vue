@@ -43,7 +43,7 @@
                 <div class="input-ele"><input type="checkbox" value="mobile"><label>Mobile</label></div>
               </div> -->
               <div class="input-ele-group">
-                <div class="input-ele"><input type="button" value="返回" @click="getTreemap1();"></div>
+                <div class="input-ele"><input type="button" value="<<" @click="getTreemap1();"></div>
               </div>
             </div>
           </div>
