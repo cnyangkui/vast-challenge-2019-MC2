@@ -80,7 +80,7 @@ export default {
           .paddingInner(1);
 
       let data = JSON.parse(JSON.stringify(this.originData.data));
-
+      console.log(data)
       data.children.forEach(d => {
         d.children.sort((a, b) => b.mean-a.mean)
       })
@@ -112,9 +112,9 @@ export default {
         cluster.children[i].std = d3.mean(data.children[i].children, d => d.std);
         cluster.children[i].static = data.children[i].children.filter(d => d.name.startsWith('s'));
         cluster.children[i].mobile = data.children[i].children.filter(d => d.name.startsWith('m'));
-        cluster.children[i].lineExample = sensors[i];
+        // cluster.children[i].sensors = data.children[i].children;
       }
-      console.log(cluster);
+
       var root = d3.hierarchy(cluster)
           .eachBefore(function(d) { d.data.id = d.data.name; })
           .sum(d => d.mean)
@@ -127,8 +127,7 @@ export default {
         .enter().append("g")
           .attr("transform", function(d) { return "translate(" + d.x0 + "," + d.y0 + ")"; })
           .on("click", (d, i) => {
-            // this.drawTreemap2(data.children[i])
-            this.$root.eventHub.$emit("getTreemap2", data.children[i]);
+            this.$root.eventHub.$emit("getTreemap2", {name: d.data.name, children: [d.data.static, d.data.mobile].flat()});
 
           })
 
@@ -144,14 +143,17 @@ export default {
       })
 
       cell.append("text")
-          .attr("clip-path", function(d) { return "url(#clip-" + d.data.id + ")"; })
+          // .attr("clip-path", function(d) { return "url(#clip-" + d.data.id + ")"; })
         .selectAll(".treemap tspan")
-          .data(function(d) { return d.data.name.split(/(?=[A-Z][^A-Z])/g); })
+          .data(function(d) { 
+            return `S-Sensor: ${d.data.static.length},M-Sensor: ${d.data.mobile.length}`.split(',')
+            // return d.data.name.split(/(?=[A-Z][^A-Z])/g); })
+          })
         .enter().append("tspan")
           .attr("x", 4)
-          .attr("y", function(d, i) { return 13 + i * 10; })
-          .text(function(d, i) { let info = cluster.children.filter(s => s.name == d)[0]; return  `Static Sensor: ${info.static.length}, Mobile Sensor: ${info.mobile.length}` })
-          .style("font-size", 12);
+          .attr("y", function(d, i) { return 13 + i * 18; })
+          .text(function(d, i) {  return d;})
+          .style("font-size", 15);
       
     },
     drawTreemap2() {
@@ -179,6 +181,7 @@ export default {
 
       treemap(root);
 
+      var a = require('../assets/img/static.png')
       var cell = g.selectAll("g")
         .data(root.leaves())
         .enter().append("g")
@@ -210,14 +213,48 @@ export default {
           .attr("x", 4)
           .attr("y", function(d, i) { return 13 + i * 10; })
           .text(function(d) { return d; })
-          .style("font-size", 10);
-      cell.append("image")
-        .attr("xlink:href", "../../public/static/img/outlier_pattern1.png")
-        .attr("x", "-12px")
-        .attr("y", "-12px")
-        .attr("width", "24px")
-        .attr("height", "24px");
+
+      let scale = d3.scaleQuantize().domain([0, 100]).range([1,2,3,4,5])
+
+      cell.nodes().forEach(d => {
+        let cell_ele = d3.select(d);
+        let cell_data = cell_ele.datum();
+        let std = scale(cell_data.data.std)
+        let completeness = cell_data.data.nan
+        console.log(cell_data)
+        for(let m=0; m<std; m++) {
+            cell_ele.append("image")
+              .attr("xlink:href",d => {
+                return a
+              })
+              .attr("x", (d, i) => `${m*20}px`)
+              .attr("y", "20px")
+              .attr("width", "10px")
+              .attr("height", "10px");
+        }
+        for(let m=0; m<completeness; m++) {
+            cell_ele.append("image")
+              .attr("xlink:href",d => {
+                return a
+              })
+              .attr("x", (d, i) => `${m*20}px`)
+              .attr("y", "40px")
+              .attr("width", "10px")
+              .attr("height", "10px");
+        }
+      })
+
     },
+    drawUncertaintyMeasure(g, sensor_info){
+      let _this = this;
+      let datum = g.datum();
+
+
+
+
+
+    },
+
     drawLineBySid(g, sensor_info) {
 
       let _this = this;
@@ -225,14 +262,14 @@ export default {
       let datum = g.datum();
 
       function makeChartBySid (data) {
-        var margin = { top: 0, right: 0, bottom: 0, left: 0 },
-            chartWidth  = datum.x1 - datum.x0,
+        var margin = { top: 0, right: 10, bottom: 0, left: 10 },
+            chartWidth  = datum.x1 - datum.x0 - margin.left - margin.right,
             chartHeight = datum.y1 - datum.y0 > 50 ? 50: datum.y1 - datum.y0;
 
         let begin = null, end = null;
-        if(_this.timeRange != null) {
-          begin = new Date(_this.timeRange.begintime);
-          end = new Date(_this.timeRange.endtime);
+        if(_this.originData.timeRange != null) {
+          begin = new Date(_this.originData.timeRange.begintime);
+          end = new Date(_this.originData.timeRange.endtime);
         } else {
           begin = new Date(_this.defaultTimeRange.begintime);
           end = new Date(_this.defaultTimeRange.endtime);
@@ -276,7 +313,7 @@ export default {
       /***************************************************************************************/
 
       let parseDate = d3.timeParse('%Y-%m-%d %H:%M:%S');
-      axios.post("/calTimeSeriesBySid/", Object.assign({}, this.timeRange || this.defaultTimeRange, sensor_info))
+      axios.post("/calTimeSeriesBySid/", Object.assign({}, this.originData.timeRange || this.defaultTimeRange, sensor_info))
         .then((response) => {
           var data = response.data.map(function (d) {
             return {
