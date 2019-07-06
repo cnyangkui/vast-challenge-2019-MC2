@@ -181,7 +181,8 @@ export default {
 
       treemap(root);
 
-      var a = require('../assets/img/static.png')
+      var a = require('../assets/img/star.png')
+      var b = require('../assets/img/star_null.png')
       var cell = g.selectAll("g")
         .data(root.leaves())
         .enter().append("g")
@@ -214,13 +215,14 @@ export default {
           .attr("y", function(d, i) { return 13 + i * 10; })
           .text(function(d) { return d; })
 
-      let scale = d3.scaleQuantize().domain([0, 100]).range([1,2,3,4,5])
+      let scale1 = d3.scaleQuantize().domain([0, 659]).range([1,2,3,4,5])
+      let scale2 = d3.scaleQuantize().domain([0, 1]).range([1,2,3,4,5])
 
       cell.nodes().forEach(d => {
         let cell_ele = d3.select(d);
         let cell_data = cell_ele.datum();
-        let std = scale(cell_data.data.std)
-        let completeness = cell_data.data.nan
+        let std = scale1(cell_data.data.std)
+        let completeness = scale2(cell_data.data.nan)
         console.log(cell_data)
         for(let m=0; m<std; m++) {
             cell_ele.append("image")
@@ -228,19 +230,19 @@ export default {
                 return a
               })
               .attr("x", (d, i) => `${m*20}px`)
-              .attr("y", "20px")
-              .attr("width", "10px")
-              .attr("height", "10px");
+              .attr("y", "30px")
+              .attr("width", "16px")
+              .attr("height", "16px");
         }
         for(let m=0; m<completeness; m++) {
             cell_ele.append("image")
               .attr("xlink:href",d => {
-                return a
+                return b
               })
               .attr("x", (d, i) => `${m*20}px`)
-              .attr("y", "40px")
-              .attr("width", "10px")
-              .attr("height", "10px");
+              .attr("y", "50px")
+              .attr("width", "16px")
+              .attr("height", "16px");
         }
       })
 
