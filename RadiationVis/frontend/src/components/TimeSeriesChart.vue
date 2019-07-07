@@ -72,11 +72,27 @@ export default {
         })
       });
     },
-    addX(g, xAxis, margin, chartWidth, chartHeight) {
+    addX(g, xAxis,margin, chartWidth, chartHeight) {
       g.append('g')
-        .attr('class', 'x axis')
+        .attr('class', 'x-axis')
         .attr('transform', 'translate(0,' + chartHeight + ')')
         .call(xAxis);
+
+      d3.selectAll("g.x-axis g.tick line")//选中所有g下类别为tick
+        .attr("y2",(d) => {
+          if(d.getHours() %24 == 0) {
+              return 6;
+            } else {
+              return 4
+            }
+        })
+        .style("stroke-width",(d) => {
+          if(d.getHours() %24 == 0) {
+              return 1.3;
+            } else {
+              return 1
+            }
+        });
     },
     addY(g, yAxis, margin, chartWidth, chartHeight) {
       g.append('g')
@@ -116,7 +132,7 @@ export default {
 
       // legend.append('rect')
       //   .attr('class', 'static_uncertainty')
-      //   .attr('width',  20)
+      //   .style('stroke-width',  20)
       //   .attr('height', 10)
       //   .attr('x', 5)
       //   .attr('y', 25);
@@ -219,6 +235,13 @@ export default {
         .attr('d', baseline)
         .style('stroke', 'grey')
         .style('stroke-width', 1);
+      g.append('text')
+        .attr('x', '0px')
+        .attr('y', '55px')
+        .attr('dx', '0em')
+        .attr('dy', '1em')
+        .attr("font-size",10)
+        .text('background');
     },
     makeChart(static_data, mobile_data) {
       let _this = this;
@@ -269,14 +292,17 @@ export default {
                 .domain([0, max]);
 
       let xAxis = d3.axisBottom(x)
-        .tickSize(5).ticks(d3.timeHour.every(6)).tickFormat((d, i) => {
+        .tickSize(5)
+        .ticks(d3.timeHour.every(6)).tickFormat((d, i) => {
+          var formatMonth = d3.timeFormat("%B %d")
           if(d.getHours() %24 == 0) {
-              return `${d.getMonth()+1}/${d.getDate()}`;
+              return formatMonth(d);
             } else {
               return `${d.getHours()}`
             }
-        }),
-      yAxis = d3.axisLeft(y)
+        });
+
+      let yAxis = d3.axisLeft(y)
         .tickSizeInner(-5).tickSizeOuter(0).tickPadding(10).ticks(3);
 
       let g = _this.svg.append('g')
