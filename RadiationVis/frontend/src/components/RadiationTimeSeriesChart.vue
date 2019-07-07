@@ -163,13 +163,20 @@ export default {
         .attr('d', baseline)
         .style('stroke', 'grey')
         .style('stroke-width', 1);
-      g.append('text')
+     g.append('text')
         .attr('x', '0px')
         .attr('y', y(15))
         .attr('dx', '0em')
         .attr('dy', '1em')
         .attr("font-size",10)
         .text('background');
+      g.append('text')
+        .attr('x', '-15px')
+        .attr('y', y(15))
+        .attr('dx', '0em')
+        .attr('dy', '1em')
+        .attr("font-size",10)
+        .text('15');
      
     },
     makeChart(static_data, mobile_data) {

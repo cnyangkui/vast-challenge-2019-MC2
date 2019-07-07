@@ -105,7 +105,19 @@ def calSensorSimilarity(request):
 def calSensorClusters(request):
 	if request.method == 'POST':
 		params = json.loads(request.body)
-		data = TestDTW.test_cluster_effect_agg2(params['begintime'], params['endtime'])
+		data = TestDTW.static_mobile_cluster(params['begintime'], params['endtime'])
+	return HttpResponse(json.dumps(data), content_type='application/json')
+
+def calStaticSensorClusters(request):
+	if request.method == 'POST':
+		params = json.loads(request.body)
+		data = TestDTW.static_cluster(params['begintime'], params['endtime'])
+	return HttpResponse(json.dumps(data), content_type='application/json')
+
+def calMobileSensorClusters(request):
+	if request.method == 'POST':
+		params = json.loads(request.body)
+		data = TestDTW.mobile_cluster(params['begintime'], params['endtime'])
 	return HttpResponse(json.dumps(data), content_type='application/json')
 
 def calTimeSeries(request):

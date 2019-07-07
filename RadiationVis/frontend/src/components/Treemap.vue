@@ -168,7 +168,6 @@ export default {
       let blurScale = d3.scaleLinear().domain([0, 400]).range([0, 36]);
 
       let blur_g = this.svg.append("g");
-      console.log(this.originData.data.children)
       // console.log(this.originData.data.children)
       this.originData.data.children.forEach(d => {
         let defs = blur_g.append("defs").append('filter').attr("id", `filter-${d.name}`).attr("x", 0).attr("y", 0);
@@ -210,7 +209,13 @@ export default {
             this.$root.eventHub.$emit("sensorSelected", Object.assign({}, {category: category, sid: sid}, this.originData.timeRange||this.defaultTimeRange));
           })
       
-      let colorScale = d3.scaleLinear().domain([0, 100]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
+      let colorScale;// = d3.scaleLinear().domain([20, 100]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
+      if(this.originData.checkedState.length == 2 || (this.originData.checkedState.length == 1 && this.originData.checkedState[0] == 'mobile')) {
+        colorScale = d3.scaleLinear().domain([20, 100]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
+      }
+      if(this.originData.checkedState.length == 1 && this.originData.checkedState[0] == 'static') {
+        colorScale = d3.scaleLinear().domain([12, 20]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
+      }
 
       cell.append("rect")
           .attr("id", function(d) { return d.data.id; })
@@ -358,6 +363,7 @@ export default {
   watch: {
     originData: {
       handler(n, o) {
+        console.log(n)
         this.clearAllg();
         if(n) {
           if(n.state == 'treemap1') {

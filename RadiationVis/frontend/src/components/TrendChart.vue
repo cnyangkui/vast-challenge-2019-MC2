@@ -233,13 +233,12 @@ export default {
       let xAxis = d3.axisBottom(x)
         .tickSizeInner(-chartHeight).tickSizeOuter(0).tickPadding(10).ticks(10),
         // .tickFormat((d, i) => {
-        //   if(i % 2 == 0) {
-        //     if(i == 0 || static_data[i].date.getDate() != static_data[i-1].date.getDate()) {
-        //       return `${d.getMonth()+1}/${d.getDate()}`;
+        //   var formatMonth = d3.timeFormat("%B %d")
+        //   if(d.getHours() %24 == 0) {
+        //       return formatMonth(d);
         //     } else {
-        //       return `${d.getHours()}`
+        //       return `${d.getHours()}:00`
         //     }
-        //   }
         // }),
       yAxis = d3.axisLeft(y)
         .tickSizeInner(-chartWidth).tickSizeOuter(0).tickPadding(10).ticks(3);

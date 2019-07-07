@@ -150,6 +150,9 @@
               <uncertainty-treemap v-show="treemapState=='treemap1'" :cid="`uncertainty-treemap-container`" :originData="treemap1"></uncertainty-treemap>
               <uncertainty-treemap v-show="treemapState=='treemap2'" :cid="`uncertainty-treemap-container2`" :originData="treemap2"></uncertainty-treemap>
             </div>
+            <div class="grid-content bottom_left_top" v-if="datatype.length == 0">
+              
+            </div>
             <div class="grid-content bottom_left_bottom" v-if="datatype.length == 2">
               <div v-for="(item, index) in sidTrendCharts" :key='index' class="innerdiv">
                 <sid-trend-chart :cid="`trend_chart_container_${index}`" :originData="item"></sid-trend-chart>
@@ -343,14 +346,31 @@ export default {
           this.treemap1 = {
             state: this.treemapState,
             data: response.data,
-            timeRange: params
+            timeRange: params,
+            checkedState: this.treemapCheckedState
           }
         })
       }
       if(this.treemapCheckedState.length == 1 && this.treemapCheckedState[0] == 'static') {
+        axios.post("/calStaticSensorClusters/", params).then(response => {
+          this.treemap1 = {
+            state: this.treemapState,
+            data: response.data,
+            timeRange: params,
+            checkedState: this.treemapCheckedState
+          }
+        })
 
       }
       if(this.treemapCheckedState.length == 1 && this.treemapCheckedState[0] == 'mobile') {
+        axios.post("/calMobileSensorClusters/", params).then(response => {
+          this.treemap1 = {
+            state: this.treemapState,
+            data: response.data,
+            timeRange: params,
+            checkedState: this.treemapCheckedState
+          }
+        })
 
       }
       
@@ -364,7 +384,8 @@ export default {
       this.treemap2 = {
         state: this.treemapState,
         data: params,
-        timeRange: this.timeRange
+        timeRange: this.timeRange,
+        checkedState: this.treemapCheckedState
       }
     },
     timeRangeUpdated(params) {

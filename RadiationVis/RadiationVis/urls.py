@@ -30,6 +30,8 @@ urlpatterns = [
     path('findMrrByTimeRangeAndSid/', views.findMrrByTimeRangeAndSid),
     path('calSensorSimilarity/', views.calSensorSimilarity),
     path('calSensorClusters/', views.calSensorClusters),
+    path('calStaticSensorClusters/', views.calStaticSensorClusters),
+    path('calMobileSensorClusters/', views.calMobileSensorClusters),
     path('calTimeSeries/', views.calTimeSeries),
     path('calTimeSeriesBySid/', views.calTimeSeriesBySid),
     path('findSensorByTimeRangeAndCoords/', views.findSensorByTimeRangeAndCoords),
