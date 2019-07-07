@@ -155,7 +155,8 @@ export default {
         .attr('class', 'median-line')
         .attr('d', medianLine)
         // .style('fill', color)
-        .style('stroke', color);
+        .style('stroke', color)
+        .style('stroke-width', 2);
     },
     drawBaseline(g, data, x, y) {
       let baseline = d3.line()
@@ -216,13 +217,12 @@ export default {
       let xAxis = d3.axisBottom(x)
         .tickSizeInner(-chartHeight).tickSizeOuter(0).tickPadding(10).ticks(10),
         // .tickFormat((d, i) => {
-        //   if(i % 2 == 0) {
+        //    var formatMonth = d3.timeFormat("%B %d")
         //     if(i == 0 || static_data[i].date.getDate() != static_data[i-1].date.getDate()) {
         //       return `${d.getMonth()+1}/${d.getDate()}`;
         //     } else {
         //       return `${d.getHours()}`
         //     }
-        //   }
         // }),
       yAxis = d3.axisLeft(y)
         .tickSizeInner(-chartWidth).tickSizeOuter(0).tickPadding(10).ticks(3);

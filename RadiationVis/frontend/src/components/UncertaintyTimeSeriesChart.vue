@@ -153,7 +153,8 @@ export default {
         // .attr('class', 'median-line')
         .attr('d', medianLine)
         .style('fill', 'none')
-        .style('stroke', color);
+        .style('stroke', color)
+        .style('stroke-width', 2);
     },
     drawBaseline(g, data, x, y) {
       let baseline = d3.line()
@@ -197,8 +198,9 @@ export default {
 
       let xAxis = d3.axisBottom(x)
         .tickSize(5).ticks(d3.timeHour.every(6)).tickFormat((d, i) => {
+         var formatMonth = d3.timeFormat("%B %d")
           if(d.getHours() %24 == 0) {
-              return `${d.getMonth()+1}/${d.getDate()}`;
+              return formatMonth(d);
             } else {
               return `${d.getHours()}:00`
             }

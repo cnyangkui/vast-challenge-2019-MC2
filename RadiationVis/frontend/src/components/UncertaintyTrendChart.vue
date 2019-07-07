@@ -155,7 +155,8 @@ export default {
         .attr('class', 'median-line')
         .attr('d', medianLine)
         // .style('fill', color)
-        .style('stroke', color);
+        .style('stroke', color)
+        .style('stroke-width', 2);
     },
     drawBaseline(g, data, x, y) {
       let baseline = d3.line()

@@ -166,7 +166,7 @@ export default {
         .append('circle')
         .attr('cx', (d, i) => x(d.time))
         .attr('cy', (d, i) => y(d.avg))
-        .attr('r', 1);
+        .attr('r', 2);
 
       // g.append('path')
       //   .attr('d', medianLine)

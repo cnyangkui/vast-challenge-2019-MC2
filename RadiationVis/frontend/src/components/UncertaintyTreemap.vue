@@ -217,8 +217,7 @@ export default {
           .attr("width", function(d) { return d.x1 - d.x0; })
           .attr("height", function(d) { return d.y1 - d.y0; })
           // .attr("fill", "steelblue");
-          .attr("fill", d => colorScale(d.data.mean))
-          .style("opacity", 0.3)
+          .attr("fill", '#ccc')
           .style("filter", (d) => `url(#filter-${d.data.id})`)
 
       cell.append("text")

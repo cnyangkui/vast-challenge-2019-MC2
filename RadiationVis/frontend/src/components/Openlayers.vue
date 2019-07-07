@@ -271,7 +271,7 @@ export default {
     },
     drawSRLayer() {
       let _this = this;
-      let colorScale = d3.scaleLinear().domain([0, 100]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
+      let colorScale = d3.scaleLinear().domain([12, 25]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
       if(this.dataCollection.staticSensorReadings) {
         render(this.dataCollection.staticSensorReadings);
       } else {
@@ -371,7 +371,7 @@ export default {
           })
         })
       })
-      let colorScale = d3.scaleLinear().domain([0, 100]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
+      let colorScale = d3.scaleLinear().domain([20, 100]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
       if(this.dataCollection.mobileSensorGridData != null) {
         this.renderIdwLayer(this.dataCollection.mobileSensorGridData, this.layers.idwMLayer, this.mapControl.r_mi_idw_check, colorScale);
       } else {
@@ -394,7 +394,7 @@ export default {
           })
         })
       })
-      let colorScale = d3.scaleLinear().domain([10, 25]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
+      let colorScale = d3.scaleLinear().domain([12, 20]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
       if(this.dataCollection.staticSensorGridData != null) {
         this.renderIdwLayer(this.dataCollection.staticSensorGridData, this.layers.idwSLayer, this.mapControl.r_si_idw_check, colorScale);
       } else {

@@ -8,7 +8,7 @@
 import * as d3 from 'd3'
 import axios from '../assets/js/http'
 export default {
-  name: 'Treemap',
+  name: 'RadiationTreemap',
   props: {
     cid: String,
     originData: Object
@@ -164,17 +164,6 @@ export default {
 
       let g = this.svg.append("g").attr("transform", "translate(" + (margin.left) + "," + (margin.top) + ")");
 
-      
-      let blurScale = d3.scaleLinear().domain([0, 400]).range([0, 36]);
-
-      let blur_g = this.svg.append("g");
-      console.log(this.originData.data.children)
-      // console.log(this.originData.data.children)
-      this.originData.data.children.forEach(d => {
-        let defs = blur_g.append("defs").append('filter').attr("id", `filter-${d.name}`).attr("x", 0).attr("y", 0);
-        defs.append("feGaussianBlur").attr("in", "SourceGraphic").attr("stdDeviation", blurScale(d.std))
-      })
-
       var fader = function(color) { return d3.interpolateRgb(color, "#fff")(0.2); },
         color = d3.scaleOrdinal(d3.schemeCategory10.map(fader)),
         format = d3.format(",d");
@@ -218,8 +207,7 @@ export default {
           .attr("height", function(d) { return d.y1 - d.y0; })
           // .attr("fill", "steelblue");
           .attr("fill", d => colorScale(d.data.mean))
-          .style("opacity", 0.3)
-          .style("filter", (d) => `url(#filter-${d.data.id})`)
+          .style("opacity", 0.3);
 
       cell.append("text")
           .attr("clip-path", function(d) { return "url(#clip-" + d.data.id + ")"; })
@@ -229,33 +217,6 @@ export default {
           .attr("x", 4)
           .attr("y", function(d, i) { return 13 + i * 10; })
           .text(function(d) { return d; })
-
-      let stdScale = d3.scaleQuantize().domain([0, 400]).range([1,2,3,4,5]);
-      let completenessScale = d3.scaleQuantize().domain([0, 1]).range([1,2,3,4,5])
-      
-
-      cell.nodes().forEach(d => {
-        let cell_ele = d3.select(d);
-        let cell_data = cell_ele.datum();
-        let std = stdScale(cell_data.data.std);
-        let completeness = completenessScale(cell_data.data.nan);
-        for(let m=0; m<std; m++) {
-            cell_ele.append("image")
-              .attr("xlink:href", std_img)
-              .attr("x", (d, i) => `${m*15}px`)
-              .attr("y", "20px")
-              .attr("width", "10px")
-              .attr("height", "10px");
-        }
-        for(let m=0; m<completeness; m++) {
-            cell_ele.append("image")
-              .attr("xlink:href", completeness_img)
-              .attr("x", (d, i) => `${m*15}px`)
-              .attr("y", "30px")
-              .attr("width", "10px")
-              .attr("height", "10px");
-        }
-      })
 
     },
     drawUncertaintyMeasure(g, sensor_info){

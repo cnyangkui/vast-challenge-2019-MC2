@@ -20,7 +20,7 @@
           </div>
           <div class="control-container" style="margin-top: 10px;">
             <div class="control-header">
-              <label>TimeSeries</label>
+              <label>All Sensor Temporal View Settings</label>
             </div>
             <div class="control-content">
               <div class="input-ele-group">
@@ -35,21 +35,21 @@
           </div>
           <div class="control-container" style="margin-top: 10px;">
             <div class="control-header">
-              <label>Treemap</label>
+              <label>Treemap View Settings</label>
             </div>
             <div class="control-content">
-              <!-- <div class="input-ele-group">
-                <div class="input-ele"><input type="checkbox" value="static"><label>Static</label></div>
-                <div class="input-ele"><input type="checkbox" value="mobile"><label>Mobile</label></div>
-              </div> -->
               <div class="input-ele-group">
-                <div class="input-ele"><input type="button" value="<<" @click="getTreemap1();"></div>
+                <div class="input-ele"><input type="checkbox" value="static" v-model="treemapCheckedState"><label>SS</label></div>
+                <div class="input-ele"><input type="checkbox" value="mobile" v-model="treemapCheckedState"><label>MS</label></div>
+              </div>
+              <div class="input-ele-group">
+                <div class="input-ele" style="margin-top: 6px;"><input type="button" value="Back" @click="getTreemap1();"></div>
               </div>
             </div>
           </div>
           <div class="control-container" style="margin-top: 10px;">
             <div class="control-header">
-              <label>Map</label>
+              <label>Gis View Settings</label>
             </div>
             <div class="input-ele-group">
               <div class="input-ele"><input type="checkbox" v-model="mapControl.icon_s_check"><label>SS</label>
@@ -60,27 +60,60 @@
               <!-- <div class="input-ele"><input type="checkbox" v-model="mapControl.point_s"><label>MI(idw)</label></div> -->
             </div>
             <div class="input-ele-group">
-              <div class="input-ele"><input type="checkbox" v-model="mapControl.r_si_idw_check"><label>radiation(SI)</label></div>
+              <div class="input-ele"><input type="checkbox" v-model="mapControl.r_si_idw_check"><label>SI</label></div>
               <!-- <div class="input-ele"><input type="checkbox" v-model="mapControl.r_si_idw_check"><label>SI(idw)</label></div> -->
-              <div class="input-ele"><input type="checkbox" v-model="mapControl.r_mi_idw_check"><label>radiation(MI)</label></div>
+              <div class="input-ele"><input type="checkbox" v-model="mapControl.r_mi_idw_check"><label>MI</label></div>
             </div>
-            <div class="input-ele-group">
+            <!-- <div class="input-ele-group">
               <div class="input-ele"><input type="checkbox" v-model="mapControl.u_mi_check"><label>uncertainty(MI)</label></div>
               <div class="input-ele"><input type="checkbox" v-model="mapControl.u_pie_check"><label>Pie</label></div>
             </div>
             <div class="input-ele-group">
-              <!-- <div class="input-ele"><input type="button" @click="mapPlayer();"></div> -->
-            </div>
+            </div> -->
           </div>
           <div class="control-container">
             <div class="control-header">
-              <label>Inon</label>
+              <label>Uncertainty Settings</label>
             </div>
             <div class="control-content">
-              <div>
-                <div><label>不确定性指标:</label></div>
-                <div><label>Accuracy: </label><img :src="require('./assets/img/star.png')" alt="" width="20px;"></div>
-                <div><label>Completeness: </label><img :src="require('./assets/img/star_null.png')" alt="" width="20px;"></div>
+              <div class="uncertainty-container">
+                <div><label>Uncertainty index system</label></div>
+                <ul>
+                  <li>U1: Inconsistency</li>
+                  <li>U2: Credibility</li>
+                  <li>U3: Precision</li>
+                  <li>U4: Data completeness</li>
+                </ul>
+                <div><label>Uncertainty levels</label></div>
+                <ul>
+                  <li>Level 1: <img :src="require('./assets/img/star.png')" alt="" width="20px;">low</li>
+                  <li>Level 2: 
+                    <img :src="require('./assets/img/star.png')" alt="" width="20px;">
+                    <img :src="require('./assets/img/star.png')" alt="" width="20px;">
+                    guarded
+                  </li>
+                  <li>Level 3: 
+                    <img :src="require('./assets/img/star.png')" alt="" width="20px;">
+                    <img :src="require('./assets/img/star.png')" alt="" width="20px;">
+                    <img :src="require('./assets/img/star.png')" alt="" width="20px;">
+                    elevated
+                  </li>
+                  <li>Level 4: 
+                    <img :src="require('./assets/img/star.png')" alt="" width="20px;">
+                    <img :src="require('./assets/img/star.png')" alt="" width="20px;">
+                    <img :src="require('./assets/img/star.png')" alt="" width="20px;">
+                    <img :src="require('./assets/img/star.png')" alt="" width="20px;">
+                    high
+                  </li>
+                  <li>Level 5: 
+                    <img :src="require('./assets/img/star.png')" alt="" width="20px;">
+                    <img :src="require('./assets/img/star.png')" alt="" width="20px;">
+                    <img :src="require('./assets/img/star.png')" alt="" width="20px;">
+                    <img :src="require('./assets/img/star.png')" alt="" width="20px;">
+                    <img :src="require('./assets/img/star.png')" alt="" width="20px;">
+                    severe
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -105,9 +138,17 @@
         </el-row>
         <el-row class="right_bottom">
           <el-col :span="10" class="bottom_left">
-            <div class="grid-content bottom_left_top">
+            <div class="grid-content bottom_left_top" v-if="datatype.length == 2">
               <treemap v-show="treemapState=='treemap1'" :cid="`treemap-container`" :originData="treemap1"></treemap>
               <treemap v-show="treemapState=='treemap2'" :cid="`treemap-container2`" :originData="treemap2"></treemap>
+            </div>
+            <div class="grid-content bottom_left_top" v-if="datatype.length == 1 && datatype[0]=='radiation'">
+              <radiation-treemap v-show="treemapState=='treemap1'" :cid="`radiation-treemap-container`" :originData="treemap1"></radiation-treemap>
+              <radiation-treemap v-show="treemapState=='treemap2'" :cid="`radiation-treemap-container2`" :originData="treemap2"></radiation-treemap>
+            </div>
+            <div class="grid-content bottom_left_top" v-if="datatype.length == 1 && datatype[0]=='uncertainty'">
+              <uncertainty-treemap v-show="treemapState=='treemap1'" :cid="`uncertainty-treemap-container`" :originData="treemap1"></uncertainty-treemap>
+              <uncertainty-treemap v-show="treemapState=='treemap2'" :cid="`uncertainty-treemap-container2`" :originData="treemap2"></uncertainty-treemap>
             </div>
             <div class="grid-content bottom_left_bottom" v-if="datatype.length == 2">
               <div v-for="(item, index) in sidTrendCharts" :key='index' class="innerdiv">
@@ -154,6 +195,8 @@ import TrendChart from './components/TrendChart.vue'
 import RadiationTrendChart from './components/RadiationTrendChart.vue'
 import UncertaintyTrendChart from './components/UncertaintyTrendChart.vue'
 import Treemap from './components/Treemap.vue'
+import UncertaintyTreemap from './components/UncertaintyTreemap.vue'
+import RadiationTreemap from './components/RadiationTreemap.vue'
 import SidTrendChart from './components/SidTrendChart.vue'
 import RadiationSidTrendChart from './components/RadiationSidTrendChart.vue'
 import UncertaintySidTrendChart from './components/UncertaintySidTrendChart.vue'
@@ -174,6 +217,8 @@ export default {
     RadiationTrendChart,
     UncertaintyTrendChart,
     Treemap,
+    RadiationTreemap,
+    UncertaintyTreemap,
     SidTrendChart,
     RadiationSidTrendChart,
     UncertaintySidTrendChart
@@ -189,6 +234,7 @@ export default {
         localDisabled: true,
       },
       timeSeriesCheckedState: ['static', 'mobile'],
+      treemapCheckedState: ['static', 'mobile'],
       treemapState: 'treemap1',
       mapControl: {
         r_si_kriging_check: false,
@@ -206,6 +252,7 @@ export default {
       sidTrendCharts: [],
       treemap1: null,
       treemap2: null,
+      timeRange: null,
       defaultTimeRange: {
         begintime: '2020-04-06 00:00:00',
         endtime: '2020-04-11 00:00:00'
@@ -291,19 +338,29 @@ export default {
 
     },
     getTreemapDataByTimeRange(params) {
-      axios.post("/calSensorClusters/", params).then(response => {
-        this.treemap1 = {
-          state: this.treemapState,
-          data: response.data,
-          timeRange: params
-        }
-      })
+      if(this.treemapCheckedState.length == 2) {
+        axios.post("/calSensorClusters/", params).then(response => {
+          this.treemap1 = {
+            state: this.treemapState,
+            data: response.data,
+            timeRange: params
+          }
+        })
+      }
+      if(this.treemapCheckedState.length == 1 && this.treemapCheckedState[0] == 'static') {
+
+      }
+      if(this.treemapCheckedState.length == 1 && this.treemapCheckedState[0] == 'mobile') {
+
+      }
+      
     },
     getTreemap1() {
       this.treemapState = 'treemap1';
     },
     getTreemap2(params) {
       this.treemapState = 'treemap2';
+      // d3.csv('static/data/final_outlier_pattern.csv')
       this.treemap2 = {
         state: this.treemapState,
         data: params,
@@ -325,6 +382,12 @@ export default {
       }  else {
         this.timeSeriesControl.localDisabled = true;
       }
+    }
+  },
+  watch: {
+    treemapCheckedState(n, o) {
+      console.log(n)
+      this.getTreemapDataByTimeRange(this.timeRange);
     }
   }
 }
@@ -377,6 +440,7 @@ html, body, #app {
 .control-header label {
   line-height: 45px;
   font-size: 18px;
+  margin-left: 5px;
 }
 .control-container .input-ele-group {
   width: 92%;
@@ -390,6 +454,16 @@ html, body, #app {
 .control-content label {
   line-height: 30px;
 }
+.uncertainty-container {
+  margin-left: 5px;
+}
+.uncertainty-container div{
+  height: 30px;
+}
+/* .uncertainty-container li {
+  height: 0px;
+  list-style-type: circle;
+} */
 input :disabled {
   background-color: rgb(235, 235, 228);
 }
