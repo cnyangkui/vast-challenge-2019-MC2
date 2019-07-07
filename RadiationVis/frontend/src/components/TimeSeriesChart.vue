@@ -237,11 +237,18 @@ export default {
         .style('stroke-width', 1);
       g.append('text')
         .attr('x', '0px')
-        .attr('y', '55px')
+        .attr('y', '45px')
         .attr('dx', '0em')
-        .attr('dy', '1em')
+        .attr('dy', '3em')
         .attr("font-size",10)
         .text('background');
+      g.append('text')
+        .attr('x', '-15px')
+        .attr('y', '40px')
+        .attr('dx', '0em')
+        .attr('dy', '3em')
+        .attr("font-size",10)
+        .text('15');
     },
     makeChart(static_data, mobile_data) {
       let _this = this;
