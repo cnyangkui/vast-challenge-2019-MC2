@@ -1,8 +1,8 @@
 <template>
   <div :id="cid">
     <div class="control">
-      <label>{{originData.category}}:{{originData.sid}}</label>
-      <input class="button" type="button" value="delete">
+      <label>{{originData.category == 'static' ? 'SS': 'MS'}}: {{originData.sid}}</label>
+      <!-- <input class="button" type="button" value="delete"> -->
     </div>
     <div class="trendchart"></div>
   </div>

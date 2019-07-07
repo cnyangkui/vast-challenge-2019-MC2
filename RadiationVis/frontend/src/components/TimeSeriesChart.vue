@@ -298,7 +298,7 @@ export default {
           if(d.getHours() %24 == 0) {
               return formatMonth(d);
             } else {
-              return `${d.getHours()}`
+              return `${d.getHours()}:00`
             }
         });
 

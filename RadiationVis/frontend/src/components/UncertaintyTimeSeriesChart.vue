@@ -200,7 +200,7 @@ export default {
           if(d.getHours() %24 == 0) {
               return `${d.getMonth()+1}/${d.getDate()}`;
             } else {
-              return `${d.getHours()}`
+              return `${d.getHours()}:00`
             }
         }),
       yAxis = d3.axisLeft(y)
