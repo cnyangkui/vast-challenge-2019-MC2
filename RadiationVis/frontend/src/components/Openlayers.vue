@@ -129,7 +129,6 @@ export default {
     loadMap() {
       this.initMap();
       this.addSelectEvent();
-      this.drawStaticPointLayer(); //添加静态传感器
     },
     selfAdaptionSize() {
       let width = document.querySelector("#openlayers_container").clientWidth;
@@ -268,6 +267,7 @@ export default {
         // });
       })
       this.map.addLayer(this.layers.staticPointLayer);
+      this.layers.staticPointLayer.setVisible(this.mapControl.icon_s_check);
     },
     drawSRLayer() {
       let _this = this;
@@ -652,7 +652,7 @@ export default {
           }));
           vectorSource.addFeature(feature);
         })
-        this.layers.mobilePointLayer.setVisible(this.mapControl.r_m_point_check);
+        this.layers.mobilePointLayer.setVisible(this.mapControl.icon_m_check);
         this.map.addLayer(this.layers.mobilePointLayer);
       })
     },
@@ -874,14 +874,20 @@ export default {
        this.layers.SRLayer.setVisible(this.mapControl.r_mi_idw_check);
       }
     },
+    staticPointLayerUpdate() {
+      if(this.layers.staticPointLayer) {
+        this.layers.staticPointLayer.setVisible(this.mapControl.icon_s_check);
+      }
+    },  
     mobilePointLayerUpdate() {
       if(this.layers.mobilePointLayer) {
-       this.layers.mobilePointLayer.setVisible(this.mapControl.r_m_point_check);
+       this.layers.mobilePointLayer.setVisible(this.mapControl.icon_m_check);
       }
     },
     allLayerUpdate() {
-      this.SRLayerUpdate();
+      this.staticPointLayerUpdate();
       this.mobilePointLayerUpdate();
+      this.SRLayerUpdate();
       this.idwSLayerUpdate();
       this.idwMLayerUpdate();
       this.uncertaintyidwLayerUpdate();
@@ -911,7 +917,10 @@ export default {
       if(this.mapControl.r_s_check) {
         this.drawSRLayer();
       }
-      if(this.mapControl.r_m_point_check) {
+      if(this.mapControl.icon_s_check && this.layers.staticPointLayer == null) {
+        this.drawStaticPointLayer();
+      }
+      if(this.mapControl.icon_m_check) {
         this.drawMobilePointLayer();
       }
       if(this.mapControl.r_mi_idw_check) {
@@ -961,7 +970,10 @@ export default {
         if(newValue.r_s_check && this.layers.SRLayer == null) {
           this.drawSRLayer();
         }
-        if(newValue.r_m_point_check && this.layers.mobilePointLayer == null) {
+        if(newValue.icon_s_check && this.layers.staticPointLayer == null) {
+          this.drawStaticPointLayer();
+        }
+        if(newValue.icon_m_check && this.layers.mobilePointLayer == null) {
           this.drawMobilePointLayer();
         }
         if(newValue.r_si_idw_check && this.layers.idwSLayer == null) {

@@ -146,7 +146,7 @@ export default {
           // .attr("clip-path", function(d) { return "url(#clip-" + d.data.id + ")"; })
         .selectAll(".treemap tspan")
           .data(function(d) { 
-            return `S-Sensor: ${d.data.static.length},M-Sensor: ${d.data.mobile.length}`.split(',')
+            return `SS: ${d.data.static.length},MS: ${d.data.mobile.length}`.split(',')
             // return d.data.name.split(/(?=[A-Z][^A-Z])/g); })
           })
         .enter().append("tspan")

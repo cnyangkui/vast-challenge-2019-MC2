@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <el-row>
+    <el-row :gutter=1>
       <el-col :span="4" class="left">
         <div class="grid-content">
           <div class="control-container">
@@ -10,10 +10,10 @@
             <div class="control-content">
               <div class="input-ele-group">
                 <div class="input-ele">
-                  <input type="checkbox" value="radiation" name="overview-type" v-model="datatype"><label>radiation</label>
+                  <input type="checkbox" value="radiation" name="overview-type" v-model="datatype"><label>Radiation</label>
                 </div>
                 <div class="input-ele">
-                  <input type="checkbox" value="uncertainty" name="overview-type" v-model="datatype"><label>uncertainty</label>
+                  <input type="checkbox" value="uncertainty" name="overview-type" v-model="datatype"><label>Uncertainty</label>
                   </div>
               </div>
             </div>
@@ -24,12 +24,12 @@
             </div>
             <div class="control-content">
               <div class="input-ele-group">
-                <div class="input-ele"><input type="checkbox" value="static"  v-model="timeSeriesCheckedState"><label>Static</label><img :src="require('./assets/img/static.png')" alt="" width="20px;"></div>
-                <div class="input-ele"><input type="checkbox" value="mobile" v-model="timeSeriesCheckedState"><label>Mobile</label><img :src="require('./assets/img/mobile.png')" alt="" width="20px;"></div>
+                <div class="input-ele"><input type="checkbox" value="static"  v-model="timeSeriesCheckedState"><label>SS</label></div>
+                <div class="input-ele"><input type="checkbox" value="mobile" v-model="timeSeriesCheckedState"><label>MS</label></div>
               </div>
               <div class="input-ele-group">
-                <div class="input-ele"><input type="radio" value="global" name="timeSeriesState" v-model="timeSeriesControl.state"><label>global</label></div>
-                <div class="input-ele"><input type="radio" value="local" name="timeSeriesState" v-model="timeSeriesControl.state" :disabled="timeSeriesControl.localDisabled"><label>local</label></div>
+                <div class="input-ele"><input type="radio" value="global" name="timeSeriesState" v-model="timeSeriesControl.state"><label>Global</label></div>
+                <div class="input-ele"><input type="radio" value="local" name="timeSeriesState" v-model="timeSeriesControl.state" :disabled="timeSeriesControl.localDisabled"><label>Local</label></div>
               </div>
             </div>
           </div>
@@ -52,29 +52,37 @@
               <label>Map</label>
             </div>
             <div class="input-ele-group">
-                <div class="input-ele"><input type="checkbox" v-model="mapControl.r_s_check"><label>static</label></div>
-                <div class="input-ele"><input type="checkbox" v-model="mapControl.r_m_point_check"><label>mobile</label></div>
-                <!-- <div class="input-ele"><input type="checkbox" v-model="mapControl.r_si_idw_check"><label>SI(idw)</label></div> -->
-                <!-- <div class="input-ele"><input type="checkbox" v-model="mapControl.point_s"><label>MI(idw)</label></div> -->
+              <div class="input-ele"><input type="checkbox" v-model="mapControl.icon_s_check"><label>SS</label>
+              <img :src="require('./assets/img/static.png')" alt="" width="20px;"></div>
+              <div class="input-ele"><input type="checkbox" v-model="mapControl.icon_m_check"><label>MS</label>
+              <img :src="require('./assets/img/mobile.png')" alt="" width="20px;"></div>
+              <!-- <div class="input-ele"><input type="checkbox" v-model="mapControl.r_si_idw_check"><label>SI(idw)</label></div> -->
+              <!-- <div class="input-ele"><input type="checkbox" v-model="mapControl.point_s"><label>MI(idw)</label></div> -->
+            </div>
+            <div class="input-ele-group">
+              <div class="input-ele"><input type="checkbox" v-model="mapControl.r_si_idw_check"><label>radiation(SI)</label></div>
+              <!-- <div class="input-ele"><input type="checkbox" v-model="mapControl.r_si_idw_check"><label>SI(idw)</label></div> -->
+              <div class="input-ele"><input type="checkbox" v-model="mapControl.r_mi_idw_check"><label>radiation(MI)</label></div>
+            </div>
+            <div class="input-ele-group">
+              <div class="input-ele"><input type="checkbox" v-model="mapControl.u_mi_check"><label>uncertainty(MI)</label></div>
+              <div class="input-ele"><input type="checkbox" v-model="mapControl.u_pie_check"><label>Pie</label></div>
+            </div>
+            <div class="input-ele-group">
+              <!-- <div class="input-ele"><input type="button" @click="mapPlayer();"></div> -->
+            </div>
+          </div>
+          <div class="control-container">
+            <div class="control-header">
+              <label>Inon</label>
+            </div>
+            <div class="control-content">
+              <div>
+                <div><label>不确定性指标:</label></div>
+                <div><label>Accuracy: </label><img :src="require('./assets/img/star.png')" alt="" width="20px;"></div>
+                <div><label>Completeness: </label><img :src="require('./assets/img/star_null.png')" alt="" width="20px;"></div>
               </div>
-              <div class="input-ele-group">
-                <div class="input-ele"><input type="checkbox" v-model="mapControl.r_si_idw_check"><label>radiation(SI)</label></div>
-                <!-- <div class="input-ele"><input type="checkbox" v-model="mapControl.r_si_idw_check"><label>SI(idw)</label></div> -->
-                <div class="input-ele"><input type="checkbox" v-model="mapControl.r_mi_idw_check"><label>radiation(MI)</label></div>
-              </div>
-            <!-- <div class="control-content" v-show="datatype=='radiation'">
-              
-            </div> -->
-             <div class="input-ele-group">
-                <div class="input-ele"><input type="checkbox" v-model="mapControl.u_mi_check"><label>uncertainty(MI)</label></div>
-                <div class="input-ele"><input type="checkbox" v-model="mapControl.u_pie_check"><label>Pie</label></div>
-              </div>
-              <div class="input-ele-group">
-                <div class="input-ele"><input type="button" @click="mapPlayer();"></div>
-              </div>
-            <!-- <div class="control-content" v-show="datatype=='uncertainty'">
-             
-            </div> -->
+            </div>
           </div>
         </div>
       </el-col>
@@ -187,7 +195,8 @@ export default {
         r_si_idw_check: false,
         r_mi_idw_check: false,
         r_s_check: false,
-        r_m_point_check: false,
+        icon_m_check: false,
+        icon_s_check: false,
         t_heatmap_check: false,
         u_pie_check: false,
         u_mi_check: false,
@@ -367,20 +376,19 @@ html, body, #app {
 }
 .control-header label {
   line-height: 45px;
-  margin-left: 5px;
   font-size: 18px;
 }
 .control-container .input-ele-group {
   width: 92%;
   margin-left: 4%;
-  height: 40px;
+  height: 30px;
 }
 .control-container .input-ele {
   width: 50%;
   display: inline-block;
 }
-.control-container label {
-  line-height: 40px;
+.control-content label {
+  line-height: 30px;
 }
 input :disabled {
   background-color: rgb(235, 235, 228);
