@@ -49,6 +49,17 @@
           </div>
           <div class="control-container" style="margin-top: 10px;">
             <div class="control-header">
+              <label>Individual Sensor Temporal View</label>
+            </div>
+            <div class="control-content">
+              <div class="input-ele-group">
+                <div class="input-ele"><input type="radio" value="line" name="sidTrendChartStyle" v-model="sidTrendChartStyle"><label>Line</label></div>
+                <div class="input-ele"><input type="radio" value="point" name="sidTrendChartStyle" v-model="sidTrendChartStyle"><label>Point</label></div>
+              </div>
+            </div>
+          </div>
+          <div class="control-container" style="margin-top: 10px;">
+            <div class="control-header">
               <label>Gis View Settings</label>
             </div>
             <div class="input-ele-group">
@@ -157,17 +168,17 @@
             </div>
             <div class="grid-content bottom_left_bottom" v-if="datatype.length == 2">
               <div v-for="(item, index) in sidTrendCharts" :key='index' class="innerdiv">
-                <sid-trend-chart :cid="`trend_chart_container_${index}`" :originData="item"></sid-trend-chart>
+                <sid-trend-chart :cid="`trend_chart_container_${index}`" :originData="item" :componentStyle="sidTrendChartStyle"></sid-trend-chart>
               </div>
             </div>
             <div class="grid-content bottom_left_bottom" v-if="datatype.length == 1 && datatype[0]=='radiation'">
               <div v-for="(item, index) in sidTrendCharts" :key='index' class="innerdiv">
-                <radiation-sid-trend-chart :cid="`radiation_trend_chart_container_${index}`" :originData="item"></radiation-sid-trend-chart>
+                <radiation-sid-trend-chart :cid="`radiation_trend_chart_container_${index}`" :originData="item" :componentStyle="sidTrendChartStyle"></radiation-sid-trend-chart>
               </div>
             </div>
             <div class="grid-content bottom_left_bottom" v-if="datatype.length == 1 && datatype[0]=='uncertainty'">
               <div v-for="(item, index) in sidTrendCharts" :key='index' class="innerdiv">
-                <uncertainty-sid-trend-chart :cid="`uncertainty_trend_chart_container_${index}`" :originData="item"></uncertainty-sid-trend-chart>
+                <uncertainty-sid-trend-chart :cid="`uncertainty_trend_chart_container_${index}`" :originData="item" :componentStyle="sidTrendChartStyle"></uncertainty-sid-trend-chart>
               </div>
             </div>
 
@@ -207,8 +218,6 @@ import SidTrendChart from './components/SidTrendChart.vue'
 import RadiationSidTrendChart from './components/RadiationSidTrendChart.vue'
 import UncertaintySidTrendChart from './components/UncertaintySidTrendChart.vue'
 import GisView from './components/GisView.vue'
-// import PackageChart from './components/PackageChart.vue'
-// import SimilarityScatter from './components/SimilarityScatter'
 import * as d3 from 'd3'
 import axios from './assets/js/http'
 
@@ -245,22 +254,24 @@ export default {
       treemapCheckedState: ['static', 'mobile'],
       treemapState: 'treemap1',
       mapControl: {
-        r_si_kriging_check: false,
-        r_si_idw_check: false,
-        r_mi_idw_check: false,
-        r_s_check: false,
+        // r_si_kriging_check: false,
+        // r_si_idw_check: false,
+        // r_mi_idw_check: false,
+        // r_s_check: false,
+        
+        // t_heatmap_check: false,
+        // u_pie_check: false,
+        // u_mi_check: false,
+        // playState: false,
+
         icon_m_check: false,
         icon_s_check: false,
-        t_heatmap_check: false,
-        u_pie_check: false,
-        u_mi_check: false,
-        playState: false,
-
         si_idw_check: false,
         mi_idw_check: false
       },
       trendChart: null,
       sidTrendCharts: [],
+      sidTrendChartStyle: null,
       treemap1: null,
       treemap2: null,
       timeRange: null,
@@ -288,6 +299,7 @@ export default {
     // this.layout();
     this.$nextTick(() => {
       this.getTreemapDataByTimeRange(this.defaultTimeRange);
+      this.sidTrendChartStyle = this.datatype.length == 2? 'line':'point';
     })
   },
   methods: {
@@ -424,8 +436,10 @@ export default {
   },
   watch: {
     treemapCheckedState(n, o) {
-      console.log(n)
       this.getTreemapDataByTimeRange(this.timeRange);
+    },
+    datatype(n, o) {
+      this.sidTrendChartStyle = this.datatype.length == 2? 'line':'point';
     }
   }
 }

@@ -211,8 +211,7 @@ export default {
 
       treemap(root);
 
-      let std_img = require('../assets/img/star.png');
-      let completeness_img = require('../assets/img/star_null.png');
+      let img = require('../assets/img/star.png');
       var cell = g.selectAll("g")
         .data(root.leaves())
         .enter().append("g")
@@ -269,35 +268,39 @@ export default {
         let completeness = completenessScale(cell_data.data.nan);
         let inconsistency = inconsistencyScale(cell_data.data.inconsistency)
         console.log(inconsistency)
-
+        cell_ele.append("text")
+            .attr("x", "0px")
+             .attr("y", "20px")
+             .attr("dy","1em")
+             .text('u1')
         for(let m=0; m<std; m++) {
             cell_ele.append("image")
-              .attr("xlink:href", std_img)
-              .attr("x", (d, i) => `${m*15}px`)
+              .attr("xlink:href", img)
+              .attr("x", (d, i) => `${m*10}px`)
               .attr("y", "20px")
               .attr("width", "10px")
               .attr("height", "10px");
         }
         for(let m=0; m<completeness; m++) {
             cell_ele.append("image")
-              .attr("xlink:href", std_img)
-              .attr("x", (d, i) => `${m*15}px`)
+              .attr("xlink:href", img)
+              .attr("x", (d, i) => `${m*10}px`)
               .attr("y", "30px")
               .attr("width", "10px")
               .attr("height", "10px");
         }
         for(let m=0; m<accuracy; m++) {
             cell_ele.append("image")
-              .attr("xlink:href", std_img)
-              .attr("x", (d, i) => `${m*15}px`)
+              .attr("xlink:href", img)
+              .attr("x", (d, i) => `${m*10}px`)
               .attr("y", "40px")
               .attr("width", "10px")
               .attr("height", "10px");
         }
         for(let m=0; m<inconsistency; m++) {
             cell_ele.append("image")
-              .attr("xlink:href", std_img)
-              .attr("x", (d, i) => `${m*15}px`)
+              .attr("xlink:href", img)
+              .attr("x", (d, i) => `${m*10}px`)
               .attr("y", "50px")
               .attr("width", "10px")
               .attr("height", "10px");
@@ -405,7 +408,6 @@ export default {
   watch: {
     originData: {
       handler(n, o) {
-        console.log(n)
         this.clearAllg();
         if(n) {
           if(n.state == 'treemap1') {
