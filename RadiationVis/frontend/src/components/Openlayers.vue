@@ -564,6 +564,7 @@ export default {
       let features = [];
 
       let colorScale = d3.scaleLinear().domain([0, 200]).range(["rgb(0,255,0)", "rgb(255,0,0)"])
+      let scale = d3.scaleLinear().domain([0,200]).range([0,10])
 
       idwdata.forEach(d => {
         let polygon = new Polygon([[[d.lngEx[0], d.latEx[0]], [d.lngEx[0], d.latEx[1]], [d.lngEx[1], d.latEx[1]], [d.lngEx[1], d.latEx[0]], [d.lngEx[0], d.latEx[0]]]]);
@@ -571,16 +572,20 @@ export default {
         // let color = colorScale(d.variance).replace("rgb(", "").replace(")", "");
         // color = color.split(",");
         let style = new Style({
-          fill: new Fill({
-            color: colorScale(Math.sqrt(d.variance))
+          // fill: new Fill({
+          //   color: colorScale(Math.sqrt(d.variance)),
+          // })
+          stroke: new Stroke({
+            color: 'white',
+            width: scale(Math.sqrt(d.variance))
           })
         })
-        if(!d.flag) {
-          style.stroke_ = new Stroke({
-            color: 'white',
-            width: 0.5
-          })
-        }
+        // if(!d.flag) {
+        //   style.stroke_ = new Stroke({
+        //     color: 'white',
+        //     width: scale(Math.sqrt(d.variance))
+        //   })
+        // }
         polygonFeature.setStyle(style);
         features.push(polygonFeature)
         

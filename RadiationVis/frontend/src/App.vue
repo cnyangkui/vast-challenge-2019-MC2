@@ -64,12 +64,12 @@
               <!-- <div class="input-ele"><input type="checkbox" v-model="mapControl.r_si_idw_check"><label>SI(idw)</label></div> -->
               <div class="input-ele"><input type="checkbox" v-model="mapControl.r_mi_idw_check"><label>MI</label></div>
             </div>
-            <!-- <div class="input-ele-group">
+            <div class="input-ele-group">
               <div class="input-ele"><input type="checkbox" v-model="mapControl.u_mi_check"><label>uncertainty(MI)</label></div>
               <div class="input-ele"><input type="checkbox" v-model="mapControl.u_pie_check"><label>Pie</label></div>
             </div>
             <div class="input-ele-group">
-            </div> -->
+            </div>
           </div>
           <div class="control-container">
             <div class="control-header">

@@ -131,11 +131,22 @@ export default {
 
           })
 
+      let colorScale;// = d3.scaleLinear().domain([20, 100]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
+      if(this.originData.checkedState.length == 2 || (this.originData.checkedState.length == 1 && this.originData.checkedState[0] == 'mobile')) {
+        colorScale = d3.scaleLinear().domain([20, 100]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
+      }
+      if(this.originData.checkedState.length == 1 && this.originData.checkedState[0] == 'static') {
+        colorScale = d3.scaleLinear().domain([12, 20]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
+      }
+
       cell.append("rect")
           .attr("id", function(d) { return d.data.id; })
           .attr("width", function(d) { return d.x1 - d.x0; })
           .attr("height", function(d) { return d.y1 - d.y0; })
-          .attr("fill", "#ccc");
+          .attr("fill", (d) => {
+            return colorScale(d.data.mean)
+          })
+          .attr("opacity", 0.3);
           // .attr("fill", function(d) { return color(d.parent.data.id); });
 
       cluster.children.forEach((d, i) => {

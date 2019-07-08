@@ -115,6 +115,15 @@ export default {
         // cluster.children[i].sensors = data.children[i].children;
       }
 
+      let blurScale = d3.scaleLinear().domain([0, 400]).range([0, 36]);
+
+      let blur_g = this.svg.append("g");
+      // console.log(this.originData.data.children)
+      cluster.children.forEach(d => {
+        let defs = blur_g.append("defs").append('filter').attr("id", `filter-${d.name}`).attr("x", 0).attr("y", 0);
+        defs.append("feGaussianBlur").attr("in", "SourceGraphic").attr("stdDeviation", blurScale(d.std))
+      })
+
       var root = d3.hierarchy(cluster)
           .eachBefore(function(d) { d.data.id = d.data.name; })
           .sum(d => d.mean)
@@ -135,8 +144,8 @@ export default {
           .attr("id", function(d) { return d.data.id; })
           .attr("width", function(d) { return d.x1 - d.x0; })
           .attr("height", function(d) { return d.y1 - d.y0; })
-          .attr("fill", "#ccc");
-          // .attr("fill", function(d) { return color(d.parent.data.id); });
+          .attr("fill", "#ccc")
+          .style("filter", (d) => `url(#filter-${d.data.name})`);
 
       cluster.children.forEach((d, i) => {
         this.drawLineBySid(d3.select(cell.nodes()[i]))
@@ -168,7 +177,6 @@ export default {
       let blurScale = d3.scaleLinear().domain([0, 400]).range([0, 36]);
 
       let blur_g = this.svg.append("g");
-      console.log(this.originData.data.children)
       // console.log(this.originData.data.children)
       this.originData.data.children.forEach(d => {
         let defs = blur_g.append("defs").append('filter').attr("id", `filter-${d.name}`).attr("x", 0).attr("y", 0);

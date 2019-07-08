@@ -379,7 +379,7 @@ class TestDTW:
         #         t = np.array(tmp[i])
         #         m = np.vstack((m, t))  # 120 * 50
 
-        if (end_timestamp - begin_timestamp) > 3 * 3600:
+        if (end_timestamp - begin_timestamp) > 12 * 3600:
         # elif ((end_timestamp - begin_timestamp)) > 3 * 3600 and (end_timestamp - begin_timestamp) <= 48 * 3600:
             cursor.execute(
                 "select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'),':00'), sid, avg(value) from mobilesensorreadings where timestamp between '{}' and '{}' GROUP BY concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'), sid)".format(
@@ -504,7 +504,7 @@ class TestDTW:
         #         t = np.array(tmp[i])
         #         n = np.vstack((n, t))  # 120 * 50
 
-        if (end_timestamp - begin_timestamp) > 3 * 3600:
+        if (end_timestamp - begin_timestamp) > 12 * 3600:
         # elif ((end_timestamp - begin_timestamp) > 3 * 3600) and (end_timestamp - begin_timestamp) <= 48 * 3600:
             cursor.execute(
                 "select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'),':00'), sid, avg(value) from staticsensorreadings where timestamp between '{}' and '{}' GROUP BY concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'), sid)".format(
@@ -772,7 +772,7 @@ class TestDTW:
             load staticsensor
         '''
         cursor = connection.cursor()
-        if (end_timestamp - begin_timestamp) > 3 * 3600:
+        if (end_timestamp - begin_timestamp) > 12 * 3600:
         # elif ((end_timestamp - begin_timestamp) > 3 * 3600) and (end_timestamp - begin_timestamp) <= 48 * 3600:
             cursor.execute(
                 "select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'),':00'), sid, avg(value) from staticsensorreadings where timestamp between '{}' and '{}' GROUP BY concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'), sid)".format(
@@ -993,7 +993,7 @@ class TestDTW:
         end_timestamp = time.mktime(end_date.timetuple())
         cursor = connection.cursor()
 
-        if (end_timestamp - begin_timestamp) > 3 * 3600:
+        if (end_timestamp - begin_timestamp) > 12 * 3600:
             # elif ((end_timestamp - begin_timestamp)) > 3 * 3600 and (end_timestamp - begin_timestamp) <= 48 * 3600:
             cursor.execute(
                 "select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'),':00'), sid, avg(value) from mobilesensorreadings where timestamp between '{}' and '{}' GROUP BY concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'), sid)".format(
