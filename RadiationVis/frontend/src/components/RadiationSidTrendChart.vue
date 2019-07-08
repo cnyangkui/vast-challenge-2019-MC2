@@ -166,7 +166,14 @@ export default {
         .append('circle')
         .attr('cx', (d, i) => x(d.time))
         .attr('cy', (d, i) => y(d.avg))
-        .attr('r', 2);
+        .attr('r', 2)
+        .style("fill", (d) => {
+          if(this.originData.category == 'static') {
+            return "rgba(196, 60, 48, 0.8)"
+          } else {
+            return "rgba(54,95,139, 0.8)";
+          }
+        })
 
       // g.append('path')
       //   .attr('d', medianLine)

@@ -94,8 +94,8 @@ export default {
       let category2 = max2list[1].name.startsWith("s") ? "static": "mobile";
       let sid1 = max2list[0].name.substring(1, max2list[0].name.length);
       let sid2 = max2list[1].name.substring(1, max2list[1].name.length);
-      this.$root.eventHub.$emit("sensorSelected", Object.assign({}, {category: category1, sid: sid1}, this.originData.timeRange||this.defaultTimeRange));
-      this.$root.eventHub.$emit("sensorSelected", Object.assign({}, {category: category2, sid: sid2}, this.originData.timeRange||this.defaultTimeRange));
+      this.$root.eventHub.$emit("defaultSensors", Object.assign({}, {category: category1, sid: sid1}, this.originData.timeRange||this.defaultTimeRange));
+      this.$root.eventHub.$emit("defaultSensors", Object.assign({}, {category: category2, sid: sid2}, this.originData.timeRange||this.defaultTimeRange));
 
       // let sensors = data.children.map(d => {
       //   let category = d.children[0].name.startsWith('s') ? "static": "mobile";
@@ -131,11 +131,22 @@ export default {
 
           })
 
+      let colorScale;// = d3.scaleLinear().domain([20, 100]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
+      if(this.originData.checkedState.length == 2 || (this.originData.checkedState.length == 1 && this.originData.checkedState[0] == 'mobile')) {
+        colorScale = d3.scaleLinear().domain([20, 100]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
+      }
+      if(this.originData.checkedState.length == 1 && this.originData.checkedState[0] == 'static') {
+        colorScale = d3.scaleLinear().domain([12, 20]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
+      }
+
       cell.append("rect")
           .attr("id", function(d) { return d.data.id; })
           .attr("width", function(d) { return d.x1 - d.x0; })
           .attr("height", function(d) { return d.y1 - d.y0; })
-          .attr("fill", "#ccc");
+          .attr("fill", (d) => {
+            return colorScale(d.data.mean)
+          })
+          .attr("opacity", 0.3);
           // .attr("fill", function(d) { return color(d.parent.data.id); });
 
       cluster.children.forEach((d, i) => {

@@ -352,7 +352,42 @@ class TestDTW:
         end_timestamp = time.mktime(end_date.timetuple())
         cursor = connection.cursor()
 
-        if (end_timestamp - begin_timestamp) > 3 * 3600:
+        # if (end_timestamp - begin_timestamp) > 48 * 3600:
+        #     cursor.execute(
+        #         "select CONCAT(DATE_FORMAT(`timestamp`, '%Y-%m-%d '),LPAD(	FLOOR(DATE_FORMAT(`timestamp`, '%H') / 3) * 3,2,'0'),':00'), sid, avg(value) from staticsensorreadings where timestamp between '{}' and '{}' GROUP BY CONCAT(DATE_FORMAT(`timestamp`, '%Y-%m-%d '),LPAD(	FLOOR(DATE_FORMAT(`timestamp`, '%H') / 3) * 3,2,'0'),':00')".format(
+        #             begintime, endtime))
+        #     alldata = cursor.fetchall()
+        #     data = []
+        #     mobile_sensors = set()
+        #     for i in alldata:
+        #         data.append({'time': i[0], 'sid': i[1], 'value': i[2]})
+        #         mobile_sensors.add(i[1])
+        #     mobile_sensors = list(mobile_sensors)
+        #     begin = datetime.datetime.strptime(alldata[0][0], '%Y-%m-%d %H:%M')
+        #     end = datetime.datetime.strptime(alldata[-1][0], '%Y-%m-%d %H:%M')
+        #     begin_timestamp = time.mktime(begin.timetuple())
+        #     end_timestamp = time.mktime((end.timetuple()))
+        #     current = time.mktime(datetime.datetime.strptime(alldata[0][0], '%Y-%m-%d %H:%M').timetuple())
+        #     obs1 = {}
+        #     while current <= end_timestamp:
+        #         date_str = datetime.datetime.fromtimestamp(current).strftime('%Y-%m-%d %H:%M')
+        #         obs1[date_str] = {}
+        #         for i in mobile_sensors:
+        #             obs1[date_str][i] = math.nan
+        #         current += 10800
+        #     for d in data:
+        #         obs1[d['time']][d['sid']] = d['value']
+        #     tmp = []
+        #     obs_len = len(obs1)
+        #     for value in obs1.values():
+        #         tmp.append(list(value.values()))
+        #     m = np.array(tmp[0])
+        #     for i in range(1, obs_len):
+        #         t = np.array(tmp[i])
+        #         m = np.vstack((m, t))  # 120 * 50
+
+        if (end_timestamp - begin_timestamp) > 12 * 3600:
+        # elif ((end_timestamp - begin_timestamp)) > 3 * 3600 and (end_timestamp - begin_timestamp) <= 48 * 3600:
             cursor.execute(
                 "select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'),':00'), sid, avg(value), AVG(LENGTH(SUBSTR(CAST(`value` AS CHAR),LOCATE('.',`value`)+1))) from mobilesensorreadings where timestamp between '{}' and '{}' GROUP BY concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'), sid)".format(
                     begintime, endtime))
@@ -485,7 +520,45 @@ class TestDTW:
             load staticsensor
         '''
         cursor = connection.cursor()
-        if (end_timestamp - begin_timestamp) > 3 * 3600:
+        # if (end_timestamp - begin_timestamp) > 48 * 3600:
+        #     cursor.execute(
+        #         "select CONCAT(DATE_FORMAT(`timestamp`, '%Y-%m-%d '),LPAD(	FLOOR(DATE_FORMAT(`timestamp`, '%H') / 3) * 3,2,'0'),':00'), sid, avg(value) from staticsensorreadings where timestamp between '{}' and '{}' GROUP BY CONCAT(DATE_FORMAT(`timestamp`, '%Y-%m-%d '),LPAD(	FLOOR(DATE_FORMAT(`timestamp`, '%H') / 3) * 3,2,'0'),':00')".format(
+        #             begintime, endtime))
+        #     alldata = cursor.fetchall()
+        #     data = []
+        #     static_sensors = set()
+        #     for i in alldata:
+        #         data.append({'time': i[0], 'sid': i[1], 'value': i[2]})
+        #         static_sensors.add(i[1])
+        #     static_sensors = list(static_sensors)
+        #     sensors_title = [('m' + str(i)) for i in mobile_sensors] + [('s' + str(j)) for j in static_sensors]
+        #     sensor_length = len(sensors_title)
+        #
+        #     begin = datetime.datetime.strptime(alldata[0][0], '%Y-%m-%d %H:%M')
+        #     end = datetime.datetime.strptime(alldata[-1][0], '%Y-%m-%d %H:%M')
+        #     begin_timestamp = time.mktime(begin.timetuple())
+        #     end_timestamp = time.mktime((end.timetuple()))
+        #     current = time.mktime(datetime.datetime.strptime(alldata[0][0], '%Y-%m-%d %H:%M').timetuple())
+        #     obs2 = {}
+        #     while current <= end_timestamp:
+        #         date_str = datetime.datetime.fromtimestamp(current).strftime('%Y-%m-%d %H:%M')
+        #         obs2[date_str] = {}
+        #         for i in static_sensors:
+        #             obs2[date_str][i] = math.nan
+        #         current += 10800
+        #     for d in data:
+        #         obs2[d['time']][d['sid']] = d['value']
+        #     tmp = []
+        #     obs_len = len(obs2)
+        #     for value in obs2.values():
+        #         tmp.append(list(value.values()))
+        #     n = np.array(tmp[0])
+        #     for i in range(1, obs_len):
+        #         t = np.array(tmp[i])
+        #         n = np.vstack((n, t))  # 120 * 50
+
+        if (end_timestamp - begin_timestamp) > 12 * 3600:
+        # elif ((end_timestamp - begin_timestamp) > 3 * 3600) and (end_timestamp - begin_timestamp) <= 48 * 3600:
             cursor.execute(
                 "select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'),':00'), sid, avg(value),AVG(LENGTH(SUBSTR(CAST(`value` AS CHAR),LOCATE('.',`value`)+1))) from staticsensorreadings where timestamp between '{}' and '{}' GROUP BY concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'), sid)".format(
                     begintime, endtime))
@@ -767,7 +840,8 @@ class TestDTW:
             load staticsensor
         '''
         cursor = connection.cursor()
-        if (end_timestamp - begin_timestamp) > 3 * 3600:
+        if (end_timestamp - begin_timestamp) > 12 * 3600:
+        # elif ((end_timestamp - begin_timestamp) > 3 * 3600) and (end_timestamp - begin_timestamp) <= 48 * 3600:
             cursor.execute(
                 "select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'),':00'), sid, avg(value),AVG(LENGTH(SUBSTR(CAST(`value` AS CHAR),LOCATE('.',`value`)+1))) from staticsensorreadings where timestamp between '{}' and '{}' GROUP BY concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'), sid)".format(
                     begintime, endtime))
@@ -1046,7 +1120,9 @@ class TestDTW:
         end_timestamp = time.mktime(end_date.timetuple())
         cursor = connection.cursor()
 
-        if (end_timestamp - begin_timestamp) > 3 * 3600:
+
+        if (end_timestamp - begin_timestamp) > 12 * 3600:
+            # elif ((end_timestamp - begin_timestamp)) > 3 * 3600 and (end_timestamp - begin_timestamp) <= 48 * 3600:
             cursor.execute(
                 "select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'),':00'), sid, avg(value), AVG(LENGTH(SUBSTR(CAST(`value` AS CHAR),LOCATE('.',`value`)+1))) from mobilesensorreadings where timestamp between '{}' and '{}' GROUP BY concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'), sid)".format(
                     begintime, endtime))

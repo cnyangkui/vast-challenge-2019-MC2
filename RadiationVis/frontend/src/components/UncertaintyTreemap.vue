@@ -94,8 +94,8 @@ export default {
       let category2 = max2list[1].name.startsWith("s") ? "static": "mobile";
       let sid1 = max2list[0].name.substring(1, max2list[0].name.length);
       let sid2 = max2list[1].name.substring(1, max2list[1].name.length);
-      this.$root.eventHub.$emit("sensorSelected", Object.assign({}, {category: category1, sid: sid1}, this.originData.timeRange||this.defaultTimeRange));
-      this.$root.eventHub.$emit("sensorSelected", Object.assign({}, {category: category2, sid: sid2}, this.originData.timeRange||this.defaultTimeRange));
+      this.$root.eventHub.$emit("defaultSensors", Object.assign({}, {category: category1, sid: sid1}, this.originData.timeRange||this.defaultTimeRange));
+      this.$root.eventHub.$emit("defaultSensors", Object.assign({}, {category: category2, sid: sid2}, this.originData.timeRange||this.defaultTimeRange));
 
       // let sensors = data.children.map(d => {
       //   let category = d.children[0].name.startsWith('s') ? "static": "mobile";
@@ -114,6 +114,15 @@ export default {
         cluster.children[i].mobile = data.children[i].children.filter(d => d.name.startsWith('m'));
         // cluster.children[i].sensors = data.children[i].children;
       }
+
+      let blurScale = d3.scaleLinear().domain([0, 400]).range([0, 36]);
+
+      let blur_g = this.svg.append("g");
+      // console.log(this.originData.data.children)
+      cluster.children.forEach(d => {
+        let defs = blur_g.append("defs").append('filter').attr("id", `filter-${d.name}`).attr("x", 0).attr("y", 0);
+        defs.append("feGaussianBlur").attr("in", "SourceGraphic").attr("stdDeviation", blurScale(d.std))
+      })
 
       var root = d3.hierarchy(cluster)
           .eachBefore(function(d) { d.data.id = d.data.name; })
@@ -135,8 +144,8 @@ export default {
           .attr("id", function(d) { return d.data.id; })
           .attr("width", function(d) { return d.x1 - d.x0; })
           .attr("height", function(d) { return d.y1 - d.y0; })
-          .attr("fill", "#ccc");
-          // .attr("fill", function(d) { return color(d.parent.data.id); });
+          .attr("fill", "#ccc")
+          .style("filter", (d) => `url(#filter-${d.data.name})`);
 
       cluster.children.forEach((d, i) => {
         this.drawLineBySid(d3.select(cell.nodes()[i]))
@@ -168,7 +177,6 @@ export default {
       let blurScale = d3.scaleLinear().domain([0, 400]).range([0, 36]);
 
       let blur_g = this.svg.append("g");
-      console.log(this.originData.data.children)
       // console.log(this.originData.data.children)
       this.originData.data.children.forEach(d => {
         let defs = blur_g.append("defs").append('filter').attr("id", `filter-${d.name}`).attr("x", 0).attr("y", 0);
