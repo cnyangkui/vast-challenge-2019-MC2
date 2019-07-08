@@ -62,6 +62,7 @@ def idw(griddata):
 			if abs(r[j]) < 0.0001:
 				nullPoints[i]['mean'] = points[j - m0 * i]['mean']
 				nullPoints[i]['variance'] = points[j - m0 * i]['variance']
+				nullPoints[i]['max'] = points[j - m0 * i]['max']
 				ifFind = True
 				break
 		if ifFind:
@@ -69,13 +70,16 @@ def idw(griddata):
 		
 		numerator = 0
 		numerator1= 0
+		numerator2= 0
 		denominator = 0
 		for j in range(m0*i, m0*i+m0):
 			numerator += points[j - m0 * i]['mean'] / (r[j] * r[j])
 			numerator1 += points[j - m0 * i]['variance'] / (r[j] * r[j])
+			numerator2 += points[j - m0 * i]['max'] / (r[j] * r[j])
 			denominator += 1 / (r[j] * r[j])
 		nullPoints[i]['mean'] = numerator / denominator
 		nullPoints[i]['variance'] = numerator1 / denominator
+		nullPoints[i]['max'] = numerator2 / denominator
 	
 	return points + nullPoints
 
@@ -107,13 +111,14 @@ def add_grid_info(origin_data):
 		for j in range(n):
 			lngEx = [left + j*span, left + (j+1)*span]
 			latEx = [top - (i+1)*span, top - i*span]
-			mean, variance = None, None
+			mean, variance, maxValue = None, None, None
 			flag = False
 			if len(dim2Arr[i][j]['list']) > 0:
 				mean = np.mean(dim2Arr[i][j]['list'])
 				variance = np.var(dim2Arr[i][j]['list'])
+				maxValue = max(dim2Arr[i][j]['list'])
 				flag = True
-			obj = {'i':i, 'j':j, 'lat': np.mean(latEx), 'lng': np.mean(lngEx), 'latEx': latEx, 'lngEx': lngEx, 'mean': mean, 'variance': variance, 'flag': flag}
+			obj = {'i':i, 'j':j, 'lat': np.mean(latEx), 'lng': np.mean(lngEx), 'latEx': latEx, 'lngEx': lngEx, 'max': maxValue, 'mean': mean, 'variance': variance, 'flag': flag}
 			griddata.append(obj)
 
 	return griddata
@@ -129,10 +134,9 @@ def getLastPointsInGrid(origin_data):
 		xy_str = str(m-1-y)+','+str(x)
 		if xy_str not in dic.keys():
 			dic[xy_str] = {}
-		dic[xy_str][d['sid']] = [d['timestamp'], d['longitude'], d['latitude']]
+		dic[xy_str] = {'time': d['timestamp'], 'longitude': d['longitude'], 'latitude': d['latitude']}
 	for k, v in dic.items():
-		for k1, v1 in v.items():
-			data.append({'sid': k1, 'timestamp':v1[0], 'lnglat': [v1[1], v1[2]]})
+		data.append({'xy': k, 'time':v['time'], 'longitude': v['longitude'], 'latitude': v['latitude']})
 	return data
 
 if __name__ == "__main__":

@@ -56,20 +56,22 @@
               <img :src="require('./assets/img/static.png')" alt="" width="20px;"></div>
               <div class="input-ele"><input type="checkbox" v-model="mapControl.icon_m_check"><label>MS</label>
               <img :src="require('./assets/img/mobile.png')" alt="" width="20px;"></div>
-              <!-- <div class="input-ele"><input type="checkbox" v-model="mapControl.r_si_idw_check"><label>SI(idw)</label></div> -->
-              <!-- <div class="input-ele"><input type="checkbox" v-model="mapControl.point_s"><label>MI(idw)</label></div> -->
             </div>
-            <div class="input-ele-group">
+            <!-- <div class="input-ele-group">
               <div class="input-ele"><input type="checkbox" v-model="mapControl.r_si_idw_check"><label>SI</label></div>
-              <!-- <div class="input-ele"><input type="checkbox" v-model="mapControl.r_si_idw_check"><label>SI(idw)</label></div> -->
               <div class="input-ele"><input type="checkbox" v-model="mapControl.r_mi_idw_check"><label>MI</label></div>
-            </div>
+            </div> -->
             <div class="input-ele-group">
+              <div class="input-ele"><input type="checkbox" v-model="mapControl.si_idw_check"><label>SI</label></div>
+              <div class="input-ele"><input type="checkbox" v-model="mapControl.mi_idw_check"><label>MI</label></div>
+            </div>
+            <!-- <div class="input-ele-group">
               <div class="input-ele"><input type="checkbox" v-model="mapControl.u_mi_check"><label>uncertainty(MI)</label></div>
               <div class="input-ele"><input type="checkbox" v-model="mapControl.u_pie_check"><label>Pie</label></div>
-            </div>
-            <div class="input-ele-group">
-            </div>
+            </div> -->
+            <!-- <div class="input-ele-group">
+              <div class="input-ele"><input type="button" value="Clear Path" @click="getTreemap1();"></div>
+            </div> -->
           </div>
           <div class="control-container">
             <div class="control-header">
@@ -172,7 +174,8 @@
           </el-col>
           <el-col :span="14" class="bottom_right">
             <div class="grid-content">
-              <openlayers :mapControl="mapControl"></openlayers>
+              <!-- <openlayers :mapControl="mapControl"></openlayers> -->
+              <gis-view :mapControl="mapControl" :datatype="datatype"></gis-view>
             </div>
           </el-col>
         </el-row>
@@ -203,6 +206,7 @@ import RadiationTreemap from './components/RadiationTreemap.vue'
 import SidTrendChart from './components/SidTrendChart.vue'
 import RadiationSidTrendChart from './components/RadiationSidTrendChart.vue'
 import UncertaintySidTrendChart from './components/UncertaintySidTrendChart.vue'
+import GisView from './components/GisView.vue'
 // import PackageChart from './components/PackageChart.vue'
 // import SimilarityScatter from './components/SimilarityScatter'
 import * as d3 from 'd3'
@@ -211,7 +215,8 @@ import axios from './assets/js/http'
 export default {
   name: 'app',
   components: {
-    Openlayers,
+    // Openlayers,
+    GisView,
     SrScatter,
     TimeSeriesChart,
     RadiationTimeSeriesChart,
@@ -250,6 +255,9 @@ export default {
         u_pie_check: false,
         u_mi_check: false,
         playState: false,
+
+        si_idw_check: false,
+        mi_idw_check: false
       },
       trendChart: null,
       sidTrendCharts: [],
@@ -265,6 +273,7 @@ export default {
   created: function () {
     this.$root.eventHub.$on('timeRangeUpdated', this.timeRangeUpdated);
       this.$root.eventHub.$on('sensorSelected', this.sensorSelected);
+      this.$root.eventHub.$on('defaultSensors', this.defaultSensors);
       this.$root.eventHub.$on('getTreemap2', this.getTreemap2);
    },
    // 最好在组件销毁前
@@ -272,6 +281,7 @@ export default {
    beforeDestroy: function () {
      this.$root.eventHub.$off('timeRangeUpdated', this.timeRangeUpdated);
       this.$root.eventHub.$off('sensorSelected', this.sensorSelected);
+      this.$root.eventHub.$off('defaultSensors', this.defaultSensors);
       this.$root.eventHub.$off('getTreemap2', this.getTreemap2);
    },
   mounted() {
@@ -282,6 +292,13 @@ export default {
   },
   methods: {
     sensorSelected(params) {
+      // 如果该传感器已经存在，则不添加
+      if(this.sidTrendCharts.filter(d => d.category==params.category && d.sid==params.sid).length > 0) {
+        return;
+      }
+      this.getSidTrendChartData(params);
+    },
+    defaultSensors(params) {
       // 如果该传感器已经存在，则不添加
       if(this.sidTrendCharts.filter(d => d.category==params.category && d.sid==params.sid).length > 0) {
         return;

@@ -94,8 +94,8 @@ export default {
       let category2 = max2list[1].name.startsWith("s") ? "static": "mobile";
       let sid1 = max2list[0].name.substring(1, max2list[0].name.length);
       let sid2 = max2list[1].name.substring(1, max2list[1].name.length);
-      this.$root.eventHub.$emit("sensorSelected", Object.assign({}, {category: category1, sid: sid1}, this.originData.timeRange||this.defaultTimeRange));
-      this.$root.eventHub.$emit("sensorSelected", Object.assign({}, {category: category2, sid: sid2}, this.originData.timeRange||this.defaultTimeRange));
+      this.$root.eventHub.$emit("defaultSensors", Object.assign({}, {category: category1, sid: sid1}, this.originData.timeRange||this.defaultTimeRange));
+      this.$root.eventHub.$emit("defaultSensors", Object.assign({}, {category: category2, sid: sid2}, this.originData.timeRange||this.defaultTimeRange));
 
       // let sensors = data.children.map(d => {
       //   let category = d.children[0].name.startsWith('s') ? "static": "mobile";

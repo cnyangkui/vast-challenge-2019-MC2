@@ -261,16 +261,16 @@ def getStaticIdwDataByTimeRange(request):
 		idwdata = idw(griddata)
 		return HttpResponse(json.dumps(idwdata), content_type='application/json')
 
-def getLastCoordsByTimeRange(request):
+def getPathByTimeRangeAndSid(request):
 	if request.method == 'POST':
 		params = json.loads(request.body)
 		cursor = connection.cursor()
-		cursor.execute("select timestamp, longitude, latitude, sid from mobilesensorreadings where timestamp > '{0}'  and timestamp < '{1}'".format(params['begintime'], params['endtime']))
+		cursor.execute("select timestamp, longitude, latitude, sid from mobilesensorreadings where timestamp > '{0}'  and timestamp < '{1}' and sid={2}".format(params['begintime'], params['endtime'], params['sid']))
 		desc = cursor.description
 		alldata = cursor.fetchall()
 		origin_data = [dict(zip([col[0] for col in desc], row)) for row in alldata]
 		data = getLastPointsInGrid(origin_data)
-		return HttpResponse(json.dumps(data), content_type='application/json')
+		return HttpResponse(json.dumps(data, cls=DateEncoder), content_type='application/json')
 
 def getLastCoordByTimeRange(request):
 	if request.method == 'POST':
