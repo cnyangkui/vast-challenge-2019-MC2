@@ -20,7 +20,8 @@ export default {
       default: function() {
         return null;
       }
-    }
+    },
+    componentStyle: String
   },
   data() {
     return {
@@ -80,7 +81,7 @@ export default {
           begin = new Date(this.defaultTimeRange.begintime);
           end = new Date(this.defaultTimeRange.endtime);
         }
-        console.log(this.originData)
+        
         let max = d3.max(this.originData.data, d => d.upper95);
 
         let x, y;
@@ -138,70 +139,78 @@ export default {
         .y0(function (d) { return y(d.upper95); })
         .y1(function (d) { return y(d.avg); })
         .curve(d3.curveMonotoneX)
-        .defined((d, i, data) => {
-          if(i == 0) {
-            return true;
-          } else {
-            if(data[i].time.getTime() - data[i-1].time.getTime() <= 3600 * 1000) {
-              return true;
-            } else {
-              return false;
-            }
-          }
-        });
+        // .defined((d, i, data) => {
+        //   if(i == 0) {
+        //     return true;
+        //   } else {
+        //     if(data[i].time.getTime() - data[i-1].time.getTime() <= 3600 * 1000) {
+        //       return true;
+        //     } else {
+        //       return false;
+        //     }
+        //   }
+        // });
 
       let medianLine = d3.line()
         .x(function (d) { return x(d.time); })
         .y(function (d) { return y(d.avg); })
         .curve(d3.curveMonotoneX)
-        .defined((d, i, data) => {
-          if(i == 0) {
-            return true;
-          } else {
-            if(data[i].time.getTime() - data[i-1].time.getTime() <= 3600 * 1000) {
-              return true;
-            } else {
-              return false;
-            }
-          }
-        });
+        // .defined((d, i, data) => {
+        //   if(i == 0) {
+        //     return true;
+        //   } else {
+        //     if(data[i].time.getTime() - data[i-1].time.getTime() <= 3600 * 1000) {
+        //       return true;
+        //     } else {
+        //       return false;
+        //     }
+        //   }
+        // });
 
       let lowerInnerArea = d3.area()
         .x (function (d) { return x(d.time); })
         .y0(function (d) { return y(d.avg); })
         .y1(function (d) { return y(d.lower95); })
         .curve(d3.curveMonotoneX)
-        .defined((d, i, data) => {
-          if(i == 0) {
-            return true;
-          } else {
-            if(data[i].time.getTime() - data[i-1].time.getTime() <= 3600 * 1000) {
-              return true;
-            } else {
-              return false;
-            }
-          }
-        });
+        // .defined((d, i, data) => {
+        //   if(i == 0) {
+        //     return true;
+        //   } else {
+        //     if(data[i].time.getTime() - data[i-1].time.getTime() <= 3600 * 1000) {
+        //       return true;
+        //     } else {
+        //       return false;
+        //     }
+        //   }
+        // });
 
       g.datum(data);
-
-      let points = [];
-      for(let m=1, length=data.length; m<length; m++) {
-        if(data[m].time.getTime() - data[m-1].time.getTime() > 3600 * 1000) {
-          points.push(data[m]);
-        }
-      }
-
-      g.append('g')
+      
+      if(this.componentStyle == 'point') {
+        g.append('g')
         .selectAll('circle')
-        .data(points)
+        .data(data)
         .enter()
         .append('circle')
         .attr('cx', (d, i) => x(d.time))
         .attr('cy', (d, i) => y(d.avg))
-        .attr('r', 1);
+        .attr('r', 2)
+        .style("fill", (d) => {
+          if(this.originData.category == 'static') {
+            return "rgba(196, 60, 48, 0.8)"
+          } else {
+            return "rgba(54,95,139, 0.8)";
+          }
+        })
 
-      var a = this.originData.data.category
+      } else {
+        g.append('path')
+        .attr('class', 'median-line')
+        .attr('d', medianLine);
+      }
+
+      
+
       g.append('path')
         .attr('d', upperInnerArea)
         .style('fill', (d) =>{
@@ -233,28 +242,17 @@ export default {
         else
             return "#385e8a"
         });
-        
-
-      g.append('path')
-        .attr('class', 'median-line')
-        .attr('d', medianLine);
 
     },
-    // timeRangeUpdated(params) {
-    //   this.timeRange = params;
-    //   console.log(this.timeRange)
-    //   d3.select(`#${this.cid} svg`).selectAll('g').remove();
-    //   this.drawChartBySid();
-    // },
-    // sensorSelected(params) {
-    //   if(this.sidList.length >= 5) {
-    //     this.sidList = [];
-    //     this.sidDataList = [];
-    //   }
-    //   this.sidList.push(params)
-    //   d3.select(`#${this.cid} svg`).selectAll('g').remove();
-    //   this.drawChartBySid();
-    // }
+    clearAllg() {
+      d3.select(`#${this.cid} svg`).selectAll('g').remove();
+    }
+  },
+  watch: {
+    componentStyle(n, o) {
+      this.clearAllg();
+      this.drawChartBySid();
+    }
   },
   computed: {
     mean: function() {

@@ -20,7 +20,8 @@ export default {
       default: function() {
         return null;
       }
-    }
+    },
+    componentStyle: String,
   },
   data() {
     return {
@@ -152,14 +153,8 @@ export default {
 
       g.datum(data);
 
-      let points = [];
-      for(let m=1, length=data.length; m<length; m++) {
-        if(data[m].time.getTime() - data[m-1].time.getTime() > 3600 * 1000) {
-          points.push(data[m]);
-        }
-      }
-
-      g.append('g')
+     if(this.componentStyle == 'point') {
+        g.append('g')
         .selectAll('circle')
         .data(data)
         .enter()
@@ -175,12 +170,22 @@ export default {
           }
         })
 
-      // g.append('path')
-      //   .attr('d', medianLine)
-      //   .style('stroke', 'black')
-      //   .style('fill', 'none');
-
+      } else {
+        g.append('path')
+        .attr('d', medianLine)
+        .style('stroke', () => {
+          if(this.originData.category == 'static') {
+            return "rgba(196, 60, 48, 0.8)"
+          } else {
+            return "rgba(54,95,139, 0.8)";
+          }
+        })
+        .style('fill', 'none');
+      }
     },
+    clearAllg() {
+      d3.select(`#${this.cid} svg`).selectAll('g').remove();
+    }
     // timeRangeUpdated(params) {
     //   this.timeRange = params;
     //   console.log(this.timeRange)
@@ -196,6 +201,12 @@ export default {
     //   d3.select(`#${this.cid} svg`).selectAll('g').remove();
     //   this.drawChartBySid();
     // }
+  },
+  watch: {
+    componentStyle(n, o) {
+      this.clearAllg();
+      this.drawChartBySid();
+    }
   },
   computed: {
     mean: function() {

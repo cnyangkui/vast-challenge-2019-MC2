@@ -211,8 +211,7 @@ export default {
 
       treemap(root);
 
-      let std_img = require('../assets/img/star.png');
-      let completeness_img = require('../assets/img/star_null.png');
+      let img = require('../assets/img/star.png');
       var cell = g.selectAll("g")
         .data(root.leaves())
         .enter().append("g")
@@ -257,7 +256,7 @@ export default {
 
       let stdScale = d3.scaleQuantize().domain([0, 400]).range([1,2,3,4,5]);
       let completenessScale = d3.scaleQuantize().domain([0, 1]).range([1,2,3,4,5])
-      let accuracyScale = d3.scaleQuantize().domain([0, 7]).range([1,2,3,4,5])
+      let accuracyScale = d3.scaleQuantize().domain([0, 5]).range([1,2,3,4,5])
       
 
       cell.nodes().forEach(d => {
@@ -268,25 +267,25 @@ export default {
         let completeness = completenessScale(cell_data.data.nan);
         for(let m=0; m<std; m++) {
             cell_ele.append("image")
-              .attr("xlink:href", std_img)
-              .attr("x", (d, i) => `${m*15}px`)
+              .attr("xlink:href", img)
+              .attr("x", (d, i) => `${m*10}px`)
               .attr("y", "20px")
               .attr("width", "10px")
               .attr("height", "10px");
         }
         for(let m=0; m<completeness; m++) {
             cell_ele.append("image")
-              .attr("xlink:href", completeness_img)
-              .attr("x", (d, i) => `${m*15}px`)
+              .attr("xlink:href", img)
+              .attr("x", (d, i) => `${m*10}px`)
               .attr("y", "30px")
               .attr("width", "10px")
               .attr("height", "10px");
         }
         for(let m=0; m<accuracy; m++) {
             cell_ele.append("image")
-              .attr("xlink:href", completeness_img)
-              .attr("x", (d, i) => `${m*15}px`)
-              .attr("y", "50px")
+              .attr("xlink:href", img)
+              .attr("x", (d, i) => `${m*10}px`)
+              .attr("y", "40px")
               .attr("width", "10px")
               .attr("height", "10px");
         }
@@ -393,7 +392,6 @@ export default {
   watch: {
     originData: {
       handler(n, o) {
-        console.log(n)
         this.clearAllg();
         if(n) {
           if(n.state == 'treemap1') {

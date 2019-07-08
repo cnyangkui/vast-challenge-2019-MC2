@@ -46,7 +46,7 @@ export default {
     drawChart() {
       let _this = this;
       let parseDate  = d3.timeParse('%Y-%m-%d %H:%M');
-      d3.csv('/static/data/StaticSequenceStatistics.csv').then(staticData => {
+      d3.csv('/static/data/StaticSequenceStatistics2.csv').then(staticData => {
 
         let static_data = staticData.map(function (d) {
           return {
@@ -58,7 +58,7 @@ export default {
           };
         });
 
-        d3.csv('/static/data/MobileSequenceStatistics.csv').then(mobileData => {
+        d3.csv('/static/data/MobileSequenceStatistics2.csv').then(mobileData => {
           let mobile_data = mobileData.map(function (d) {
             return {
               date:  parseDate(d.time),
