@@ -258,7 +258,8 @@ export default {
       let stdScale = d3.scaleQuantize().domain([0, 400]).range([1,2,3,4,5]);
       let completenessScale = d3.scaleQuantize().domain([0, 1]).range([1,2,3,4,5])
       let accuracyScale = d3.scaleQuantize().domain([0, 7]).range([1,2,3,4,5])
-      
+      let inconsistencyScale = d3.scaleQuantize().domain([0, 27.36]).range([0,1,2,3,4,5])
+
 
       cell.nodes().forEach(d => {
         let cell_ele = d3.select(d);
@@ -266,6 +267,9 @@ export default {
         let std = stdScale(cell_data.data.std);
         let accuracy = accuracyScale(cell_data.data.accuracy);
         let completeness = completenessScale(cell_data.data.nan);
+        let inconsistency = inconsistencyScale(cell_data.data.inconsistency)
+        console.log(inconsistency)
+
         for(let m=0; m<std; m++) {
             cell_ele.append("image")
               .attr("xlink:href", std_img)
@@ -276,7 +280,7 @@ export default {
         }
         for(let m=0; m<completeness; m++) {
             cell_ele.append("image")
-              .attr("xlink:href", completeness_img)
+              .attr("xlink:href", std_img)
               .attr("x", (d, i) => `${m*15}px`)
               .attr("y", "30px")
               .attr("width", "10px")
@@ -284,7 +288,15 @@ export default {
         }
         for(let m=0; m<accuracy; m++) {
             cell_ele.append("image")
-              .attr("xlink:href", completeness_img)
+              .attr("xlink:href", std_img)
+              .attr("x", (d, i) => `${m*15}px`)
+              .attr("y", "40px")
+              .attr("width", "10px")
+              .attr("height", "10px");
+        }
+        for(let m=0; m<inconsistency; m++) {
+            cell_ele.append("image")
+              .attr("xlink:href", std_img)
               .attr("x", (d, i) => `${m*15}px`)
               .attr("y", "50px")
               .attr("width", "10px")

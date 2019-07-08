@@ -338,7 +338,7 @@ export default {
         _this.addX(g, xAxis, margin, chartWidth, chartHeight);
         // _this.addY(g, yAxis, margin, chartWidth, chartHeight);
         _this.addLegend(g, chartWidth);
-        _this.drawPathAndArea(g, static_data, x, y, "rgba(196, 60, 48, 0.8)");
+        _this.drawPathAndArea(g, static_data, x, y, "rgba(148, 90, 0, 0.7)");
         _this.drawPathAndArea(g, mobile_data, x, y, "rgba(54,95,139, 0.8)");
         _this.drawBaseline(g, basedata, x, y);
       } else {
@@ -346,7 +346,7 @@ export default {
           _this.addX(g, xAxis, margin, chartWidth, chartHeight);
           _this.addY(g, yAxis, margin, chartWidth, chartHeight);
           // _this.addLegend(g, chartWidth);
-          _this.drawPathAndArea(g, static_data, x, y, "rgba(196, 60, 48, 0.8)");
+          _this.drawPathAndArea(g, static_data, x, y, "rgba(148, 90, 0, 0.7)");
           // _this.drawPathAndArea(g, mobile_data, x, y, "mobile_uncertainty");
           _this.drawBaseline(g, basedata, x, y);
         } else if(this.checkedItem[0] == 'mobile') {
@@ -415,8 +415,8 @@ export default {
 .times_series_chart >>> .static_uncertainty {
   //fill: rgba(255,182,193, 0.8);
   //stroke: rgba(255,182,193, 0.8);
-  fill: #d33b33;
-  stroke: #a04434;
+  fill: #996600;
+  stroke: #6f4401;
 }
 
 .times_series_chart >>> .median-line,

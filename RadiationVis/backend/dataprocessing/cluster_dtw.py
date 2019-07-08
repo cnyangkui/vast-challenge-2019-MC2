@@ -351,7 +351,58 @@ class TestDTW:
         begin_timestamp = time.mktime(begin_date.timetuple())
         end_timestamp = time.mktime(end_date.timetuple())
         cursor = connection.cursor()
-
+        inconsistency_data = [
+            11.81,
+            12.51,
+            6.70,
+            0.85,
+            0.80,
+            6.90,
+            2.68,
+            3.90,
+            3.77,
+            1.65,
+            4.20,
+            3.93,
+            2.02,
+            1.52,
+            0.54,
+            1.67,
+            19.05,
+            22.52,
+            8.18,
+            27.36,
+            19.71,
+            5.03,
+            1.21,
+            9.07,
+            13.21,
+            18.61,
+            10.16,
+            0.53,
+            0.72,
+            1.21,
+            0.96,
+            15.27,
+            14.93,
+            16.20,
+            16.31,
+            26.59,
+            6.37,
+            27.33,
+            26.84,
+            18.59,
+            16.48,
+            20.10,
+            18.50,
+            27.22,
+            24.62,
+            25.92,
+            24.46,
+            27.05,
+            27.18,
+            20.80
+        ]
         # if (end_timestamp - begin_timestamp) > 48 * 3600:
         #     cursor.execute(
         #         "select CONCAT(DATE_FORMAT(`timestamp`, '%Y-%m-%d '),LPAD(	FLOOR(DATE_FORMAT(`timestamp`, '%H') / 3) * 3,2,'0'),':00'), sid, avg(value) from staticsensorreadings where timestamp between '{}' and '{}' GROUP BY CONCAT(DATE_FORMAT(`timestamp`, '%Y-%m-%d '),LPAD(	FLOOR(DATE_FORMAT(`timestamp`, '%H') / 3) * 3,2,'0'),':00')".format(
@@ -726,6 +777,17 @@ class TestDTW:
             for i in range(len(index_col)):
                 col_std[index_col[i][0]] = 0
 
+        #不一致性衡量
+        sl = len(static_sensors)
+        col_inconsistency = {}
+        for i in range(len(inconsistency_data)):
+            if i+1 in mobile_sensors:
+                col_inconsistency[i+1] = inconsistency_data[i]
+        col_inconsistency = list(col_inconsistency.values())
+        col_inconsistency = col_inconsistency + [0] * sl
+        print(col_inconsistency)
+
+
         if (end_timestamp - begin_timestamp) > 48 * 3600:
             mn = TestDTW.Matrix_Completion_3(mn)
             # mn = Centralized_with_Outliers(mn)
@@ -750,10 +812,12 @@ class TestDTW:
             col_std_all = [0] * sensor_length_all
             col_mean_all = [1] * sensor_length_all
             col_accuracy = [0] * sensor_length_all
+            col_inconsistency_all = [-5] * sensor_length_all
+
 
             have_value_sensors = {}
             for i in range(sensor_len):
-                have_value_sensors[sensors_title[i]] = {"cluster":cluster_label[i],"mean":col_mean[i],"std":col_std[i], "nan":col_nan[i]/a, "accuracy":mn_accuracy_count[i]}
+                have_value_sensors[sensors_title[i]] = {"cluster":cluster_label[i],"mean":col_mean[i],"std":col_std[i], "nan":col_nan[i]/a, "accuracy":mn_accuracy_count[i], "inconsistency": col_inconsistency[i]}
             # print(have_value_sensors)
 
             for i in range(sensor_length_all):
@@ -763,6 +827,7 @@ class TestDTW:
                     col_std_all[i] = have_value_sensors[sensors_title_all[i]]["std"]
                     col_mean_all[i] = have_value_sensors[sensors_title_all[i]]["mean"]
                     col_accuracy[i] = have_value_sensors[sensors_title_all[i]]["accuracy"]
+                    col_inconsistency_all[i] = have_value_sensors[sensors_title_all[i]]["inconsistency"]
             if -2 in cluster_label_all:
                 class_type = [-2] + class_type
 
@@ -775,7 +840,7 @@ class TestDTW:
                     if tree["children"][j]["name"] == cluster_label_all[i]:
                         tmp = j
                 tree["children"][tmp]["children"].append(
-                    {"name": sensors_title_all[i], "mean": col_mean_all[i], "std": col_std_all[i],"nan":col_nan_all[i], "accuracy": col_accuracy[i]})
+                    {"name": sensors_title_all[i], "mean": col_mean_all[i], "std": col_std_all[i],"nan":col_nan_all[i], "accuracy": col_accuracy[i], "inconsistency": col_inconsistency_all[i]})
             print(tree)
             return tree
         else:
@@ -797,14 +862,14 @@ class TestDTW:
             col_std_all = [0] * sensor_length_all
             col_mean_all = [1] * sensor_length_all
             col_accuracy = [0] * sensor_length_all
+            col_inconsistency_all = [-5] * sensor_length_all
 
             have_value_sensors = {}
             for i in range(sensor_len):
                 have_value_sensors[sensors_title[i]] = {"cluster": cluster_label[i], "mean": col_mean[i],
-
-                                                        "std": col_std[i], "nan": col_nan[i] / a, "accuracy":mn_accuracy_count[i]}
-
-
+                                                        "std": col_std[i], "nan": col_nan[i] / a,
+                                                        "accuracy": mn_accuracy_count[i],
+                                                        "inconsistency": col_inconsistency[i]}
             # print(have_value_sensors)
 
             for i in range(sensor_length_all):
@@ -814,9 +879,9 @@ class TestDTW:
                     col_std_all[i] = have_value_sensors[sensors_title_all[i]]["std"]
                     col_mean_all[i] = have_value_sensors[sensors_title_all[i]]["mean"]
                     col_accuracy[i] = have_value_sensors[sensors_title_all[i]]["accuracy"]
+                    col_inconsistency_all[i] = have_value_sensors[sensors_title_all[i]]["inconsistency"]
             if -2 in cluster_label_all:
                 class_type = [-2] + class_type
-
 
             tree = {"name": "cluster", "children": []}
             for i in range(len(class_type)):
@@ -825,7 +890,9 @@ class TestDTW:
                 for j in range(len(tree["children"])):
                     if tree["children"][j]["name"] == cluster_label_all[i]:
                         tmp = j
-                tree["children"][tmp]["children"].append({"name": sensors_title_all[i], "mean": col_mean_all[i], "std": col_std_all[i], "nan":col_nan_all[i], "accuracy": col_accuracy[i]})
+                tree["children"][tmp]["children"].append(
+                    {"name": sensors_title_all[i], "mean": col_mean_all[i], "std": col_std_all[i],
+                     "nan": col_nan_all[i], "accuracy": col_accuracy[i], "inconsistency": col_inconsistency_all[i]})
             print(tree)
             return tree
 
@@ -1029,6 +1096,7 @@ class TestDTW:
             col_std_all = [0] * sensor_length_all
             col_mean_all = [1] * sensor_length_all
             col_accuracy = [0] * sensor_length_all
+            col_inconsistency_all = [-5] * sensor_length_all
 
             have_value_sensors = {}
             for i in range(sensor_len):
@@ -1056,7 +1124,7 @@ class TestDTW:
                         tmp = j
                 tree["children"][tmp]["children"].append(
                     {"name": sensors_title_all[i], "mean": col_mean_all[i], "std": col_std_all[i],
-                     "nan": col_nan_all[i], "accuracy": col_accuracy[i]})
+                     "nan": col_nan_all[i], "accuracy": col_accuracy[i], "inconsistency": col_inconsistency_all[i]})
             print(tree)
             return tree
         else:
@@ -1079,6 +1147,7 @@ class TestDTW:
             col_std_all = [0] * sensor_length_all
             col_mean_all = [1] * sensor_length_all
             col_accuracy = [0] * sensor_length_all
+            col_inconsistency_all = [-5] * sensor_length_all
 
             have_value_sensors = {}
             for i in range(sensor_len):
@@ -1108,7 +1177,7 @@ class TestDTW:
                         tmp = j
                 tree["children"][tmp]["children"].append(
                     {"name": sensors_title_all[i], "mean": col_mean_all[i], "std": col_std_all[i],
-                     "nan": col_nan_all[i], "accuracy": col_accuracy[i]})
+                     "nan": col_nan_all[i], "accuracy": col_accuracy[i], "inconsistency":col_inconsistency_all[i]})
             print(tree)
             return tree
 
@@ -1119,7 +1188,58 @@ class TestDTW:
         begin_timestamp = time.mktime(begin_date.timetuple())
         end_timestamp = time.mktime(end_date.timetuple())
         cursor = connection.cursor()
-
+        inconsistency_data = [
+            11.81,
+            12.51,
+            6.70,
+            0.85,
+            0.80,
+            6.90,
+            2.68,
+            3.90,
+            3.77,
+            1.65,
+            4.20,
+            3.93,
+            2.02,
+            1.52,
+            0.54,
+            1.67,
+            19.05,
+            22.52,
+            8.18,
+            27.36,
+            19.71,
+            5.03,
+            1.21,
+            9.07,
+            13.21,
+            18.61,
+            10.16,
+            0.53,
+            0.72,
+            1.21,
+            0.96,
+            15.27,
+            14.93,
+            16.20,
+            16.31,
+            26.59,
+            6.37,
+            27.33,
+            26.84,
+            18.59,
+            16.48,
+            20.10,
+            18.50,
+            27.22,
+            24.62,
+            25.92,
+            24.46,
+            27.05,
+            27.18,
+            20.80
+        ]
 
         if (end_timestamp - begin_timestamp) > 12 * 3600:
             # elif ((end_timestamp - begin_timestamp)) > 3 * 3600 and (end_timestamp - begin_timestamp) <= 48 * 3600:
@@ -1293,6 +1413,15 @@ class TestDTW:
             for i in range(len(index_col)):
                 col_std[index_col[i][0]] = 0
 
+        # 不一致性衡量
+        col_inconsistency = {}
+        for i in range(len(inconsistency_data)):
+            if i + 1 in mobile_sensors:
+                col_inconsistency[i + 1] = inconsistency_data[i]
+        col_inconsistency = list(col_inconsistency.values())
+        col_inconsistency = col_inconsistency
+        print(col_inconsistency)
+
         if (end_timestamp - begin_timestamp) > 48 * 3600:
             mn = TestDTW.Matrix_Completion_3(mn)
             # mn = Centralized_with_Outliers(mn)
@@ -1316,12 +1445,14 @@ class TestDTW:
             col_std_all = [0] * sensor_length_all
             col_mean_all = [1] * sensor_length_all
             col_accuracy = [0] * sensor_length_all
+            col_inconsistency_all = [-5] * sensor_length_all
 
             have_value_sensors = {}
             for i in range(sensor_len):
                 have_value_sensors[sensors_title[i]] = {"cluster": cluster_label[i], "mean": col_mean[i],
                                                         "std": col_std[i], "nan": col_nan[i] / a,
-                                                        "accuracy": mn_accuracy_count[i]}
+                                                        "accuracy": mn_accuracy_count[i],
+                                                        "inconsistency": col_inconsistency[i]}
             # print(have_value_sensors)
 
             for i in range(sensor_length_all):
@@ -1331,6 +1462,7 @@ class TestDTW:
                     col_std_all[i] = have_value_sensors[sensors_title_all[i]]["std"]
                     col_mean_all[i] = have_value_sensors[sensors_title_all[i]]["mean"]
                     col_accuracy[i] = have_value_sensors[sensors_title_all[i]]["accuracy"]
+                    col_inconsistency_all[i] = have_value_sensors[sensors_title_all[i]]["inconsistency"]
             if -2 in cluster_label_all:
                 class_type = [-2] + class_type
 
@@ -1343,7 +1475,7 @@ class TestDTW:
                         tmp = j
                 tree["children"][tmp]["children"].append(
                     {"name": sensors_title_all[i], "mean": col_mean_all[i], "std": col_std_all[i],
-                     "nan": col_nan_all[i], "accuracy": col_accuracy[i]})
+                     "nan": col_nan_all[i], "accuracy": col_accuracy[i], "inconsistency": col_inconsistency_all[i]})
             print(tree)
             return tree
         else:
@@ -1365,14 +1497,14 @@ class TestDTW:
             col_std_all = [0] * sensor_length_all
             col_mean_all = [1] * sensor_length_all
             col_accuracy = [0] * sensor_length_all
+            col_inconsistency_all = [-5] * sensor_length_all
 
             have_value_sensors = {}
             for i in range(sensor_len):
                 have_value_sensors[sensors_title[i]] = {"cluster": cluster_label[i], "mean": col_mean[i],
-
                                                         "std": col_std[i], "nan": col_nan[i] / a,
-                                                        "accuracy": mn_accuracy_count[i]}
-
+                                                        "accuracy": mn_accuracy_count[i],
+                                                        "inconsistency": col_inconsistency[i]}
             # print(have_value_sensors)
 
             for i in range(sensor_length_all):
@@ -1382,6 +1514,7 @@ class TestDTW:
                     col_std_all[i] = have_value_sensors[sensors_title_all[i]]["std"]
                     col_mean_all[i] = have_value_sensors[sensors_title_all[i]]["mean"]
                     col_accuracy[i] = have_value_sensors[sensors_title_all[i]]["accuracy"]
+                    col_inconsistency_all[i] = have_value_sensors[sensors_title_all[i]]["inconsistency"]
             if -2 in cluster_label_all:
                 class_type = [-2] + class_type
 
@@ -1394,7 +1527,7 @@ class TestDTW:
                         tmp = j
                 tree["children"][tmp]["children"].append(
                     {"name": sensors_title_all[i], "mean": col_mean_all[i], "std": col_std_all[i],
-                     "nan": col_nan_all[i], "accuracy": col_accuracy[i]})
+                     "nan": col_nan_all[i], "accuracy": col_accuracy[i], "inconsistency": col_inconsistency_all[i]})
             print(tree)
             return tree
 
@@ -1402,6 +1535,6 @@ class TestDTW:
 
 if __name__ == "__main__":
     # TestDTW.test_cluster_effect_agg()
-    tree = TestDTW.static_mobile_cluster('2020-04-06 00:00:00', '2020-04-11 00:00:00')
-    # tree = TestDTW.static_cluster('2020-04-06 06:34:02', '2020-04-10 22:12:12')
-    # tree = TestDTW.mobile_cluster('2020-04-06 04:10:10', '2020-04-10 10:00:10')
+    # tree = TestDTW.static_mobile_cluster('2020-04-07 00:00:00', '2020-04-08 22:00:00')
+    # tree = TestDTW.static_cluster('2020-04-06 06:34:02', '2020-04-06 22:12:12')
+    tree = TestDTW.mobile_cluster('2020-04-09 04:10:10', '2020-04-10 10:00:10')

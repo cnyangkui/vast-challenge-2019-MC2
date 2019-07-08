@@ -102,7 +102,7 @@ export default {
         var xAxis = d3.axisBottom(x)
                       .tickSizeInner(-chartHeight).tickSizeOuter(0).tickPadding(10).ticks(10),//.tickFormat(d => d.getHours()),
             yAxis = d3.axisLeft(y)
-                      .tickSizeInner(-chartWidth).tickSizeOuter(0).tickPadding(10);
+                      .tickSizeInner(-chartWidth).tickSizeOuter(0).tickPadding(10).ticks(10);
 
         var g = this.svg.append('g')
             .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
@@ -206,7 +206,7 @@ export default {
         .attr('d', upperInnerArea)
         .style('fill', (d) =>{
         if (this.originData.category =='static')
-            return "#c43c2f"
+            return "#996600"
         else
             return "#385e8a"
         })
