@@ -219,6 +219,31 @@ export default {
       this.map.addLayer(this.layers.staticPointLayer);
       this.layers.staticPointLayer.setVisible(this.mapControl.icon_s_check);
     },
+    drawMobilePointLayer() {
+      let vectorSource = new VectorSource();
+      this.layers.mobilePointLayer = new VectorLayer({
+        source: vectorSource,
+      });
+      axios.post("/getLastCoordByTimeRange/", (this.timeRange || this.defaultTimeRange)).then((response) => {
+        let pointData = response.data;
+        pointData.forEach(point => {
+          let feature = new Feature({
+            geometry: new Point([parseFloat(point.lnglat[0]), parseFloat(point.lnglat[1])])
+          });
+          feature.setStyle(new Style({
+            image: new Icon({
+                // radius: 2,
+                // fill: new Fill({ color: "#00F" })
+                src: require("../assets/img/mobile.png"),
+                scale: 0.1,
+            })
+          }));
+          vectorSource.addFeature(feature);
+        })
+        this.layers.mobilePointLayer.setVisible(this.mapControl.icon_m_check);
+        this.map.addLayer(this.layers.mobilePointLayer);
+      })
+    },
     drawSRLayer() {
       let _this = this;
       let colorScale = d3.scaleLinear().domain([12, 25]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
@@ -446,16 +471,20 @@ export default {
         })
 
         let features = [];
-        let colorScale = d3.scaleLinear().domain([0, 200]).range(["rgb(0,255,0)", "rgb(255,0,0)"])
-        let scale = d3.scaleLinear().domain([0,200]).range([0,10])
+        // let colorScale = d3.scaleLinear().domain([0, 200]).range(["rgb(0,255,0)", "rgb(255,0,0)"])
+        let uncertaintyScale = d3.scaleLinear().domain([0,200]).range([0,1])
 
         idwdata.forEach(d => {
           let polygon = new Polygon([[[d.lngEx[0], d.latEx[0]], [d.lngEx[0], d.latEx[1]], [d.lngEx[1], d.latEx[1]], [d.lngEx[1], d.latEx[0]], [d.lngEx[0], d.latEx[0]]]]);
           let polygonFeature = new Feature(polygon);
           let style = new Style({
               fill: new Fill({
-                color: colorScale(d.mean),//[0, 0, 255, 0.6]
-              })
+                color: [0, 0, 0,uncertaintyScale(Math.sqrt(d.variance))]
+              }),
+              // stroke: new Stroke({
+              //   width: scale(Math.sqrt(d.variance)),
+              //   color: 'white'
+              // })
             })
             if(d.flag) {
               style.stroke_ = new Stroke({
@@ -469,7 +498,7 @@ export default {
         _this.layers.mobileIdwLayer.setSource(new VectorSource({
           features: features
         }))
-        _this.layers.mobileIdwLayer.setOpacity(0.3);
+        _this.layers.mobileIdwLayer.setOpacity(0.8);
         _this.map.addLayer(_this.layers.mobileIdwLayer);
         _this.layers.mobileIdwLayer.setVisible(_this.mapControl.mi_idw_check);
       }
@@ -500,16 +529,132 @@ export default {
         })
 
         let features = [];
-        let colorScale = d3.scaleLinear().domain([0, 30]).range(["rgb(0,255,0)", "rgb(255,0,0)"])
-        // let scale = d3.scaleLinear().domain([0,200]).range([0,10])
+        let radiationScale = d3.scaleLinear().domain([0, 30]).range(["rgb(0,255,0)", "rgb(255,0,0)"])
+        let uncertaintyScale = d3.scaleLinear().domain([0,20]).range([0,1])
 
         idwdata.forEach(d => {
           let polygon = new Polygon([[[d.lngEx[0], d.latEx[0]], [d.lngEx[0], d.latEx[1]], [d.lngEx[1], d.latEx[1]], [d.lngEx[1], d.latEx[0]], [d.lngEx[0], d.latEx[0]]]]);
           let polygonFeature = new Feature(polygon);
+          
           let style = new Style({
               fill: new Fill({
-                color: colorScale(d.mean),//[0, 0, 255, 0.6]
-              })
+                color: [0, 0, 0, uncertaintyScale(Math.sqrt(d.variance))]
+              }),
+              // stroke: new Stroke({
+              //   width: scale(Math.sqrt(d.variance)),
+              //   color: 'white'
+              // })
+            })
+            // if(d.flag) {
+            //   style.stroke_ = new Stroke({
+            //     color: 'white',
+            //     width: 1
+            //   })
+            // } 
+            polygonFeature.setStyle(style);
+            features.push(polygonFeature)
+          })
+        _this.layers.staticIdwLayer.setSource(new VectorSource({
+          features: features
+        }))
+        _this.layers.staticIdwLayer.setOpacity(0.8);
+        _this.map.addLayer(_this.layers.staticIdwLayer);
+        _this.layers.staticIdwLayer.setVisible(_this.mapControl.si_idw_check);
+      }
+    },
+    drawIdwRUSLayer() { //包含辐射和不确定性
+      let _this = this;
+      
+      if(this.dataCollection.staticSensorGridData != null) {
+        render(this.dataCollection.staticSensorGridData);
+      } else {
+        axios.post("/getStaticIdwDataByTimeRange/", this.timeRange || this.defaultTimeRange)
+          .then((response) => {
+            this.dataCollection.staticSensorGridData = response.data;
+            render(this.dataCollection.staticSensorGridData);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+
+      function render(idwdata) {
+        _this.layers.staticIdwLayer = new VectorLayer({
+          style: new Style({
+            stroke: new Stroke({
+              width: 1,
+              color: "white"
+            })
+          })
+        })
+
+        let features = [];
+        let radiationScale = d3.scaleLinear().domain([12, 20]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
+        let uncertaintyScale = d3.scaleLinear().domain([0,20]).range([0,1])
+
+        idwdata.forEach(d => {
+          let polygon = new Polygon([[[d.lngEx[0], d.latEx[0]], [d.lngEx[0], d.latEx[1]], [d.lngEx[1], d.latEx[1]], [d.lngEx[1], d.latEx[0]], [d.lngEx[0], d.latEx[0]]]]);
+          let polygonFeature = new Feature(polygon);
+          let color = radiationScale(d.mean).replace('rgb(', '').replace(')', '').split(',')
+          let style = new Style({
+              fill: new Fill({
+                color: [parseInt(color[0]), parseInt(color[1]), parseInt(color[2]), uncertaintyScale(Math.sqrt(d.variance))]//[0, 0, 255, 0.6]
+              }),
+            })
+            // if(d.flag) {
+            //   style.stroke_ = new Stroke({
+            //     color: 'white',
+            //     width: 1
+            //   })
+            // } 
+            polygonFeature.setStyle(style);
+            features.push(polygonFeature)
+          })
+        _this.layers.staticIdwLayer.setSource(new VectorSource({
+          features: features
+        }))
+        _this.layers.staticIdwLayer.setOpacity(0.9);
+        _this.map.addLayer(_this.layers.staticIdwLayer);
+        _this.layers.staticIdwLayer.setVisible(_this.mapControl.si_idw_check);
+      }
+    },
+    drawIdwRUMLayer() { //包含辐射和不确定性
+      let _this = this;
+      
+      if(this.dataCollection.mobileSensorGridData != null) {
+        render(this.dataCollection.mobileSensorGridData);
+      } else {
+        axios.post("/getMobileIdwDataByTimeRange/", this.timeRange || this.defaultTimeRange)
+          .then((response) => {
+            this.dataCollection.mobileSensorGridData = response.data;
+            render(this.dataCollection.mobileSensorGridData);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+
+      function render(idwdata) {
+        _this.layers.mobileIdwLayer = new VectorLayer({
+          style: new Style({
+            stroke: new Stroke({
+              width: 1,
+              color: "white"
+            })
+          })
+        })
+        let features = [];
+        let radiationScale = d3.scaleLinear().domain([20, 100]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
+        let uncertaintyScale = d3.scaleLinear().domain([0,200]).range([0,1])
+
+        idwdata.forEach(d => {
+          let polygon = new Polygon([[[d.lngEx[0], d.latEx[0]], [d.lngEx[0], d.latEx[1]], [d.lngEx[1], d.latEx[1]], [d.lngEx[1], d.latEx[0]], [d.lngEx[0], d.latEx[0]]]]);
+          let polygonFeature = new Feature(polygon);
+          let color = radiationScale(d.mean);//.replace('rgb(', '').replace(')', '').split(',')
+          let style = new Style({
+              fill: new Fill({
+                color: `${color.substring(0, color.length-1)}, ${uncertaintyScale(Math.sqrt(d.variance))})`
+              }),
             })
             if(d.flag) {
               style.stroke_ = new Stroke({
@@ -520,39 +665,15 @@ export default {
             polygonFeature.setStyle(style);
             features.push(polygonFeature)
           })
-        _this.layers.staticIdwLayer.setSource(new VectorSource({
+        _this.layers.mobileIdwLayer.setSource(new VectorSource({
           features: features
         }))
-        _this.layers.staticIdwLayer.setOpacity(0.3);
-        _this.map.addLayer(_this.layers.staticIdwLayer);
-        _this.layers.staticIdwLayer.setVisible(_this.mapControl.si_idw_check);
+        _this.layers.mobileIdwLayer.setOpacity(0.9);
+        _this.map.addLayer(_this.layers.mobileIdwLayer);
+        _this.layers.mobileIdwLayer.setVisible(_this.mapControl.mi_idw_check);
       }
     },
-    drawMobilePointLayer() {
-      let vectorSource = new VectorSource();
-      this.layers.mobilePointLayer = new VectorLayer({
-        source: vectorSource,
-      });
-      axios.post("/getLastCoordByTimeRange/", (this.timeRange || this.defaultTimeRange)).then((response) => {
-        let pointData = response.data;
-        pointData.forEach(point => {
-          let feature = new Feature({
-            geometry: new Point([parseFloat(point.lnglat[0]), parseFloat(point.lnglat[1])])
-          });
-          feature.setStyle(new Style({
-            image: new Icon({
-                // radius: 2,
-                // fill: new Fill({ color: "#00F" })
-                src: require("../assets/img/mobile.png"),
-                scale: 0.1,
-            })
-          }));
-          vectorSource.addFeature(feature);
-        })
-        this.layers.mobilePointLayer.setVisible(this.mapControl.icon_m_check);
-        this.map.addLayer(this.layers.mobilePointLayer);
-      })
-    },
+    
     drawPies() {
       let _this = this;
 
@@ -783,10 +904,10 @@ export default {
       
       if(this.datatype.length == 2) { //radiation和uncertainty都选中时的插值
         if(this.mapControl.si_idw_check) {
-
+          this.drawIdwRUSLayer();
         }
         if(this.mapControl.mi_idw_check) {
-
+          this.drawIdwRUMLayer();
         }
       }
       if(this.datatype.length == 1 && this.datatype[0] == 'radiation') {
@@ -833,7 +954,6 @@ export default {
         if(this.timeRange == null) {
           return;
         }
-        console.log(newValue, this.datatype)
         if(this.mapControl.icon_s_check && this.layers.staticPointLayer == null) {
           this.drawStaticPointLayer();
         }
@@ -842,11 +962,11 @@ export default {
         }
         
         if(this.datatype.length == 2) { //radiation和uncertainty都选中时的插值
-          if(this.mapControl.si_idw_check) {
-
+          if(this.mapControl.si_idw_check && this.layers.staticPointLayer == null) {
+            this.drawIdwRUSLayer();
           }
           if(this.mapControl.mi_idw_check) {
-
+            this.drawIdwRUMLayer();
           }
         }
         if(this.datatype.length == 1 && this.datatype[0] == 'radiation') {
@@ -873,9 +993,8 @@ export default {
       if(this.timeRange == null) {
           return;
       }
-      console.log(this.datatype)
       this.clearLayers();
-      console.log(this.mapControl.icon_s_check, this.layers.staticPointLayer)
+      console.log(this.layers.mobileIdwLayer)
       if(this.mapControl.icon_s_check && this.layers.staticPointLayer == null) {
         this.drawStaticPointLayer();
       }
@@ -884,11 +1003,11 @@ export default {
       }
       
       if(this.datatype.length == 2) { //radiation和uncertainty都选中时的插值
-        if(this.mapControl.si_idw_check) {
-
+        if(this.mapControl.si_idw_check && this.layers.staticPointLayer == null) {
+          this.drawIdwRUSLayer();
         }
-        if(this.mapControl.mi_idw_check) {
-
+        if(this.mapControl.mi_idw_check && this.layers.mobilePointLayer == null) {
+          this.drawIdwRUMLayer();
         }
       }
       if(this.datatype.length == 1 && this.datatype[0] == 'radiation') {

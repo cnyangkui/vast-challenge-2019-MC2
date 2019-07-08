@@ -147,7 +147,6 @@ export default {
             return colorScale(d.data.mean)
           })
           .attr("opacity", 0.3);
-          // .attr("fill", function(d) { return color(d.parent.data.id); });
 
       cluster.children.forEach((d, i) => {
         this.drawLineBySid(d3.select(cell.nodes()[i]))
@@ -227,13 +226,9 @@ export default {
           .style("opacity", 0.3);
 
       cell.append("text")
-          .attr("clip-path", function(d) { return "url(#clip-" + d.data.id + ")"; })
-        .selectAll(".treemap tspan")
-          .data(function(d) { return d.data.name.split(/(?=[A-Z][^A-Z])/g); })
-        .enter().append("tspan")
           .attr("x", 4)
-          .attr("y", function(d, i) { return 13 + i * 10; })
-          .text(function(d) { return d; })
+          .attr("y", 15)
+          .text(function(d) { return d.data.id.startsWith('s') ? 'SS-'+d.data.id.substring(1) :'MS-'+d.data.id.substring(1)  ; })
 
     },
     drawUncertaintyMeasure(g, sensor_info){

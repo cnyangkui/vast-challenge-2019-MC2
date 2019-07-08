@@ -200,8 +200,7 @@ export default {
 
       treemap(root);
 
-      let std_img = require('../assets/img/star.png');
-      let completeness_img = require('../assets/img/star_null.png');
+      let img = require('../assets/img/star.png');
       var cell = g.selectAll("g")
         .data(root.leaves())
         .enter().append("g")
@@ -229,36 +228,76 @@ export default {
           .style("filter", (d) => `url(#filter-${d.data.id})`)
 
       cell.append("text")
-          .attr("clip-path", function(d) { return "url(#clip-" + d.data.id + ")"; })
-        .selectAll(".treemap tspan")
-          .data(function(d) { return d.data.name.split(/(?=[A-Z][^A-Z])/g); })
-        .enter().append("tspan")
           .attr("x", 4)
-          .attr("y", function(d, i) { return 13 + i * 10; })
-          .text(function(d) { return d; })
+          .attr("y", 15)
+          .text(function(d) { return d.data.id.startsWith('s') ? 'SS-'+d.data.id.substring(1) :'MS-'+d.data.id.substring(1)  ; })
 
       let stdScale = d3.scaleQuantize().domain([0, 400]).range([1,2,3,4,5]);
       let completenessScale = d3.scaleQuantize().domain([0, 1]).range([1,2,3,4,5])
-      
+      let accuracyScale = d3.scaleQuantize().domain([0, 7]).range([1,2,3,4,5])
+      let inconsistencyScale = d3.scaleQuantize().domain([0, 27.36]).range([0,1,2,3,4,5])
+
 
       cell.nodes().forEach(d => {
         let cell_ele = d3.select(d);
         let cell_data = cell_ele.datum();
         let std = stdScale(cell_data.data.std);
+        let accuracy = accuracyScale(cell_data.data.accuracy);
         let completeness = completenessScale(cell_data.data.nan);
-        for(let m=0; m<std; m++) {
+        let inconsistency = inconsistencyScale(cell_data.data.inconsistency)
+        cell_ele.append("text")
+            .attr("x", "4px")
+            .attr("y", "20px")
+            .attr("dy",".5em")
+            .text('u1:')
+            .style('font-size', 12);
+        cell_ele.append("text")
+            .attr("x", "4px")
+            .attr("y", "30px")
+            .attr("dy",".5em")
+            .text('u2:')
+            .style('font-size', 12);
+        cell_ele.append("text")
+            .attr("x", "4px")
+            .attr("y", "40px")
+            .attr("dy",".5em")
+            .text('u3:')
+            .style('font-size', 12);
+        cell_ele.append("text")
+            .attr("x", "4px")
+            .attr("y", "50px")
+            .attr("dy",".5em")
+            .text('u4:')
+            .style('font-size', 12);
+        for(let m=1; m<=std; m++) {
             cell_ele.append("image")
-              .attr("xlink:href", std_img)
-              .attr("x", (d, i) => `${m*15}px`)
+              .attr("xlink:href", img)
+              .attr("x", (d, i) => `${15+m*10}px`)
               .attr("y", "20px")
               .attr("width", "10px")
               .attr("height", "10px");
         }
-        for(let m=0; m<completeness; m++) {
+        for(let m=1; m<=completeness; m++) {
             cell_ele.append("image")
-              .attr("xlink:href", completeness_img)
-              .attr("x", (d, i) => `${m*15}px`)
+              .attr("xlink:href", img)
+              .attr("x", (d, i) => `${15+m*10}px`)
               .attr("y", "30px")
+              .attr("width", "10px")
+              .attr("height", "10px");
+        }
+        for(let m=1; m<=accuracy; m++) {
+            cell_ele.append("image")
+              .attr("xlink:href", img)
+              .attr("x", (d, i) => `${15+m*10}px`)
+              .attr("y", "40px")
+              .attr("width", "10px")
+              .attr("height", "10px");
+        }
+        for(let m=1; m<=inconsistency; m++) {
+            cell_ele.append("image")
+              .attr("xlink:href", img)
+              .attr("x", (d, i) => `${15+m*10}px`)
+              .attr("y", "50px")
               .attr("width", "10px")
               .attr("height", "10px");
         }
