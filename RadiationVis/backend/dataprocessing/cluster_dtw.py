@@ -757,15 +757,12 @@ class TestDTW:
             for j in range(len(uniques)):
                 col_nan[uniques[j]] = nan_result[j]
 
-        mn_accuracy = TestDTW.Matrix_Completion_4(mn_accuracy)
-        mn_accuracy_count = []
+        # mn_accuracy = TestDTW.Matrix_Completion_4(mn_accuracy)
         [a,b] = mn_accuracy.shape
-        for i in range(b):
-            tmp = np.unique(mn_accuracy[:,i])
-            print(tmp)
-            mn_accuracy_count.append(len(tmp))
+        print(a,b)
+        mn_accuracy_count = np.nanmean(mn_accuracy, axis = 0)
+        mn_accuracy_count = np.around(mn_accuracy_count).tolist()
         print(mn_accuracy_count)
-        print(len(mn_accuracy_count))
 
         col_mean = np.nanmean(mn, axis=0).tolist()  # 均值
         col_std = np.nanstd(mn, axis=0).tolist()  # 标准差
@@ -1053,15 +1050,20 @@ class TestDTW:
             for j in range(len(uniques)):
                 col_nan[uniques[j]] = nan_result[j]
 
-        mn_accuracy = TestDTW.Matrix_Completion_4(mn_accuracy)
-        mn_accuracy_count = []
+        # mn_accuracy = TestDTW.Matrix_Completion_4(mn_accuracy)
         [a, b] = mn_accuracy.shape
-        for i in range(b):
-            tmp = np.unique(mn_accuracy[:, i])
-            print(tmp)
-            mn_accuracy_count.append(len(tmp))
+        print(a, b)
+        mn_accuracy_count = np.nanmean(mn_accuracy, axis=0)
+        mn_accuracy_count = np.around(mn_accuracy_count).tolist()
         print(mn_accuracy_count)
-        print(len(mn_accuracy_count))
+        # mn_accuracy_count = []
+        # [a, b] = mn_accuracy.shape
+        # for i in range(b):
+        #     tmp = np.unique(mn_accuracy[:, i])
+        #     print(tmp)
+        #     mn_accuracy_count.append(len(tmp))
+        # print(mn_accuracy_count)
+        # print(len(mn_accuracy_count))
 
         col_mean = np.nanmean(mn, axis=0).tolist()  # 均值
         col_std = np.nanstd(mn, axis=0).tolist()  # 标准差
@@ -1393,15 +1395,20 @@ class TestDTW:
             for j in range(len(uniques)):
                 col_nan[uniques[j]] = nan_result[j]
 
-        mn_accuracy = TestDTW.Matrix_Completion_4(mn_accuracy)
-        mn_accuracy_count = []
+        # mn_accuracy = TestDTW.Matrix_Completion_4(mn_accuracy)
         [a, b] = mn_accuracy.shape
-        for i in range(b):
-            tmp = np.unique(mn_accuracy[:, i])
-            print(tmp)
-            mn_accuracy_count.append(len(tmp))
+        print(a, b)
+        mn_accuracy_count = np.nanmean(mn_accuracy, axis=0)
+        mn_accuracy_count = np.around(mn_accuracy_count).tolist()
         print(mn_accuracy_count)
-        print(len(mn_accuracy_count))
+        # mn_accuracy_count = []
+        # [a, b] = mn_accuracy.shape
+        # for i in range(b):
+        #     tmp = np.unique(mn_accuracy[:, i])
+        #     print(tmp)
+        #     mn_accuracy_count.append(len(tmp))
+        # print(mn_accuracy_count)
+        # print(len(mn_accuracy_count))
 
         col_mean = np.nanmean(mn, axis=0).tolist()  # 均值
         col_std = np.nanstd(mn, axis=0).tolist()  # 标准差
@@ -1535,6 +1542,6 @@ class TestDTW:
 
 if __name__ == "__main__":
     # TestDTW.test_cluster_effect_agg()
-    # tree = TestDTW.static_mobile_cluster('2020-04-07 00:00:00', '2020-04-08 22:00:00')
-    # tree = TestDTW.static_cluster('2020-04-06 06:34:02', '2020-04-06 22:12:12')
-    tree = TestDTW.mobile_cluster('2020-04-09 04:10:10', '2020-04-10 10:00:10')
+    tree = TestDTW.static_mobile_cluster('2020-04-06 00:00:00', '2020-04-06 22:00:00')
+    # tree = TestDTW.static_cluster('2020-04-06 06:34:02', '2020-04-09 22:12:12')
+    # tree = TestDTW.mobile_cluster('2020-04-06 04:10:10', '2020-04-10 10:00:10')
