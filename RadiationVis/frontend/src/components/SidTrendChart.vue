@@ -80,7 +80,7 @@ export default {
           begin = new Date(this.defaultTimeRange.begintime);
           end = new Date(this.defaultTimeRange.endtime);
         }
-
+        console.log(this.originData)
         let max = d3.max(this.originData.data, d => d.upper95);
 
         let x, y;
@@ -201,17 +201,38 @@ export default {
         .attr('cy', (d, i) => y(d.avg))
         .attr('r', 1);
 
+      var a = this.originData.data.category
       g.append('path')
         .attr('d', upperInnerArea)
-        .style('fill', 'steelblue')
+        .style('fill', (d) =>{
+        if (this.originData.category =='static')
+            return "#c43c2f"
+        else
+            return "#385e8a"
+        })
         .style("opacity", 0.5)
-        .style('stroke', 'steelblue');
+        .style('stroke', (d) => {
+        if (this.originData.category =='static')
+            return "#c43c2f"
+        else
+            return "#385e8a"
+        });
 
       g.append('path')
         .attr('d', lowerInnerArea)
-        .style('fill', 'steelblue')
+        .style('fill', (d) => {
+        if (this.originData.category =='static')
+            return "#c43c2f"
+        else
+            return "#385e8a"
+        })
         .style("opacity", 0.5)
-        .style('stroke', 'steelblue');
+        .style('stroke', (d) => {
+        if (this.originData.category =='static')
+            return "#c43c2f"
+        else
+            return "#385e8a"
+        });
         
 
       g.append('path')
