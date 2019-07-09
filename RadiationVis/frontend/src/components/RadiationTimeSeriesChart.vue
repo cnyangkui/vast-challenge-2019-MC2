@@ -265,15 +265,15 @@ export default {
         _this.addX(g, xAxis, margin, chartWidth, chartHeight);
         // _this.addY(g, yAxis, margin, chartWidth, chartHeight);
         _this.addLegend(g, chartWidth);
-        _this.drawPath(g, static_data, x, y, "rgba(255,182,193, 0.8)");
-        _this.drawPath(g, mobile_data, x, y, "rgba(127, 127, 255, 0.8)");
+        _this.drawPath(g, static_data, x, y, "rgba(224, 4, 255, 0.6)");
+        _this.drawPath(g, mobile_data, x, y, "rgba(54,95,139, 0.6)");
         _this.drawBaseline(g, basedata, x, y);
       } else {
         if(this.checkedItem[0] == 'static') {
           _this.addX(g, xAxis, margin, chartWidth, chartHeight);
           _this.addY(g, yAxis, margin, chartWidth, chartHeight);
           // _this.addLegend(g, chartWidth);
-          _this.drawPath(g, static_data, x, y, "rgba(255,182,193, 0.8)");
+          _this.drawPath(g, static_data, x, y, "rgba(224, 4, 255, 0.6)");
           // _this.drawPath(g, mobile_data, x, y, "mobile_uncertainty");
           _this.drawBaseline(g, basedata, x, y);
         } else if(this.checkedItem[0] == 'mobile') {
@@ -281,7 +281,7 @@ export default {
           _this.addY(g, yAxis, margin, chartWidth, chartHeight);
           // _this.addLegend(g, chartWidth);
           // _this.drawPath(g, static_data, x, y, "static_uncertainty");
-          _this.drawPath(g, mobile_data, x, y, "rgba(127, 127, 255, 0.8)");
+          _this.drawPath(g, mobile_data, x, y, "rgba(54,95,139, 0.6)");
           _this.drawBaseline(g, basedata, x, y);
         }
       }
@@ -333,13 +333,13 @@ export default {
 }
 
 .radiation_times_series_chart >>> .mobile_uncertainty {
-  fill: rgba(127, 127, 255, 0.8);
-  stroke: rgba(96, 96, 255, 0.8);
+  fill: #41709e;
+  stroke: #385e8a;
 }
 
 .radiation_times_series_chart >>> .static_uncertainty {
-  fill: rgba(255,182,193, 0.8);
-  stroke: rgba(255,182,193, 0.8);
+  fill: #e004ff;
+  stroke: #9e08b3;
 }
 
 .radiation_times_series_chart >>> .median-line,

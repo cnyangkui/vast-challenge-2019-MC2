@@ -103,7 +103,7 @@ export default {
         var xAxis = d3.axisBottom(x)
                       .tickSizeInner(-chartHeight).tickSizeOuter(0).tickPadding(10).ticks(10),//.tickFormat(d => d.getHours()),
             yAxis = d3.axisLeft(y)
-                      .tickSizeInner(-chartWidth).tickSizeOuter(0).tickPadding(10);
+                      .tickSizeInner(-chartWidth).tickSizeOuter(0).tickPadding(10).ticks(5);
 
         var g = this.svg.append('g')
             .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
@@ -161,9 +161,9 @@ export default {
         .attr('r', 2)
         .style("fill", (d) => {
           if(this.originData.category == 'static') {
-            return "rgba(196, 60, 48, 0.8)"
+            return "rgba(224, 4, 255, 0.6)"
           } else {
-            return "rgba(54,95,139, 0.8)";
+            return "rgba(54,95,139, 0.6)";
           }
         })
 
@@ -172,9 +172,9 @@ export default {
         .attr('d', medianLine)
         .style('stroke', () => {
           if(this.originData.category == 'static') {
-            return "rgba(196, 60, 48, 0.8)"
+            return "rgba(224, 4, 255, 0.9)"
           } else {
-            return "rgba(54,95,139, 0.8)";
+            return "rgba(54,95,139, 0.9)";
           }
         })
         .style('fill', 'none');
@@ -264,14 +264,14 @@ export default {
 }
 
 .trendchart >>> .mobile_uncertainty {
-  fill: rgba(127, 127, 255, 0.8);
-  stroke: rgba(96, 96, 255, 0.8);
+  fill: rgba(54,95,139, 0.6);
+  stroke: rgba(54,95,139, 0.9);
   opacity: 0.6;
 }
 
 .trendchart >>> .static_uncertainty {
-  fill: rgba(255,182,193, 0.8);
-  stroke: rgba(255,182,193, 0.8);
+  fill: rgba(224, 4, 255, 0.6);
+  stroke: rgba(224, 4, 255, 0.9);
   opacity: 0.6;
 }
 

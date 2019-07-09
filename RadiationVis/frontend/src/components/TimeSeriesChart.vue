@@ -310,7 +310,7 @@ export default {
         });
 
       let yAxis = d3.axisLeft(y)
-        .tickSizeInner(-5).tickSizeOuter(0).tickPadding(10).ticks(3);
+        .tickSizeInner(-5).tickSizeOuter(0).tickPadding(10).ticks(0);
 
       let g = _this.svg.append('g')
           .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
@@ -336,17 +336,17 @@ export default {
 
       if(this.checkedItem.length == 2) {
         _this.addX(g, xAxis, margin, chartWidth, chartHeight);
-        // _this.addY(g, yAxis, margin, chartWidth, chartHeight);
+        //_this.addY(g, yAxis, margin, chartWidth, chartHeight);
         _this.addLegend(g, chartWidth);
-        _this.drawPathAndArea(g, static_data, x, y, "rgba(224, 4, 255, 0.8)");
-        _this.drawPathAndArea(g, mobile_data, x, y, "rgba(54,95,139, 0.8)");
+        _this.drawPathAndArea(g, static_data, x, y, "rgba(224, 4, 255, 0.6)");
+        _this.drawPathAndArea(g, mobile_data, x, y, "rgba(54,95,139, 0.6)");
         _this.drawBaseline(g, basedata, x, y);
       } else {
         if(this.checkedItem[0] == 'static') {
           _this.addX(g, xAxis, margin, chartWidth, chartHeight);
           _this.addY(g, yAxis, margin, chartWidth, chartHeight);
           // _this.addLegend(g, chartWidth);
-          _this.drawPathAndArea(g, static_data, x, y, "rgba(224, 4, 255, 0.8)");
+          _this.drawPathAndArea(g, static_data, x, y, "rgba(224, 4, 255, 0.6)");
           // _this.drawPathAndArea(g, mobile_data, x, y, "mobile_uncertainty");
           _this.drawBaseline(g, basedata, x, y);
         } else if(this.checkedItem[0] == 'mobile') {
@@ -354,7 +354,7 @@ export default {
           _this.addY(g, yAxis, margin, chartWidth, chartHeight);
           // _this.addLegend(g, chartWidth);
           // _this.drawPathAndArea(g, static_data, x, y, "static_uncertainty");
-          _this.drawPathAndArea(g, mobile_data, x, y, "rgba(54,95,139, 0.8)");
+          _this.drawPathAndArea(g, mobile_data, x, y, "rgba(54,95,139, 0.6)");
           _this.drawBaseline(g, basedata, x, y);
         }
       }

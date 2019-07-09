@@ -103,7 +103,7 @@ export default {
         var xAxis = d3.axisBottom(x)
                       .tickSizeInner(-chartHeight).tickSizeOuter(0).tickPadding(10).ticks(10),//.tickFormat(d => d.getHours()),
             yAxis = d3.axisLeft(y)
-                      .tickSizeInner(-chartWidth).tickSizeOuter(0).tickPadding(10).ticks(10);
+                      .tickSizeInner(-chartWidth).tickSizeOuter(0).tickPadding(10).ticks(5);
 
         var g = this.svg.append('g')
             .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
@@ -197,7 +197,7 @@ export default {
         .attr('r', 2)
         .style("fill", (d) => {
           if(this.originData.category == 'static') {
-            return "rgba(196, 60, 48, 0.8)"
+            return "rgba(224, 4, 255, 0.8)"
           } else {
             return "rgba(54,95,139, 0.8)";
           }
@@ -215,14 +215,14 @@ export default {
         .attr('d', upperInnerArea)
         .style('fill', (d) =>{
         if (this.originData.category =='static')
-            return "#996600"
+            return "#e004ff"
         else
-            return "#385e8a"
+            return "#41709e"
         })
         .style("opacity", 0.5)
         .style('stroke', (d) => {
         if (this.originData.category =='static')
-            return "#c43c2f"
+            return "#9e08b3"
         else
             return "#385e8a"
         });
@@ -231,14 +231,14 @@ export default {
         .attr('d', lowerInnerArea)
         .style('fill', (d) => {
         if (this.originData.category =='static')
-            return "#c43c2f"
+            return "#e004ff"
         else
-            return "#385e8a"
+            return "#41709e"
         })
         .style("opacity", 0.5)
         .style('stroke', (d) => {
         if (this.originData.category =='static')
-            return "#c43c2f"
+            return "#9e08b3"
         else
             return "#385e8a"
         });

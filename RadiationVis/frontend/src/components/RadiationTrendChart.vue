@@ -225,7 +225,7 @@ export default {
         //     }
         // }),
       yAxis = d3.axisLeft(y)
-        .tickSizeInner(-chartWidth).tickSizeOuter(0).tickPadding(10).ticks(3);
+        .tickSizeInner(-chartWidth).tickSizeOuter(0).tickPadding(10).ticks(5);
 
       let g = _this.svg.append('g')
           .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
@@ -233,17 +233,17 @@ export default {
       if(this.checkedItem.length == 2) {
         _this.addAxes(g, xAxis, yAxis, margin, chartWidth, chartHeight);
         _this.addLegend(g, chartWidth);
-        _this.drawPaths(g, this.originData.data.staticData, x, y, "rgba(255,182,193, 0.8)");
-        _this.drawPaths(g, this.originData.data.mobileData, x, y, "rgba(127, 127, 255, 0.8)");
+        _this.drawPaths(g, this.originData.data.staticData, x, y, "rgba(54,95,139, 0.6)");
+        _this.drawPaths(g, this.originData.data.mobileData, x, y, "rgba(224, 4, 255, 0.6)");
         _this.drawBaseline(g, basedata, x, y);
       } else {
         if(this.checkedItem[0] == 'static') {
           _this.addAxes(g, xAxis, yAxis, margin, chartWidth, chartHeight);
-         _this.drawPaths(g, this.originData.data.staticData, x, y, "rgba(255,182,193, 0.8)");
+         _this.drawPaths(g, this.originData.data.staticData, x, y, "rgba(54,95,139, 0.6)");
           _this.drawBaseline(g, basedata, x, y);
         } else {
           _this.addAxes(g, xAxis, yAxis, margin, chartWidth, chartHeight);
-          _this.drawPaths(g, this.originData.data.mobileData, x, y, "rgba(127, 127, 255, 0.8)");
+          _this.drawPaths(g, this.originData.data.mobileData, x, y, "rgba(224, 4, 255, 0.6)");
           _this.drawBaseline(g, basedata, x, y);
         }
       }
@@ -310,14 +310,14 @@ export default {
 }
 
 .trendchart >>> .mobile_uncertainty {
-  fill: rgba(127, 127, 255, 0.8);
-  stroke: rgba(96, 96, 255, 0.8);
+  fill: rgba(54,95,139, 0.6);
+  stroke: rgba(54,95,139, 0.9);
   opacity: 0.6;
 }
 
 .trendchart >>> .static_uncertainty {
-  fill: rgba(255,182,193, 0.8);
-  stroke: rgba(255,182,193, 0.8);
+  fill: rgba(224, 4, 255, 0.6);
+  stroke: rgba(224, 4, 255, 0.9);
   opacity: 0.6;
 }
 
