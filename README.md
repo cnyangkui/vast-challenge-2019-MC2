@@ -42,9 +42,9 @@ npm run test
 npm run lint
 ```
 
-## sql.zip
-SQL 文件，用于创建数据库和添加数据。
-
 **Customize configuration**
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## sql.zip
+SQL 文件，用于创建数据库和添加数据。
 
