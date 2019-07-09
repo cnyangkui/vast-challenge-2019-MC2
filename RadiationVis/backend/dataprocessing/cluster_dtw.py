@@ -279,7 +279,7 @@ class TestDTW:
                         min_samples=2,
                         metric=lambda a, b: DTW.distance(a, b))  # 可以自定义距离函数
         cluster = dbscan.fit_predict(X)
-        print(cluster)
+        
         plt.rcParams.update({'figure.autolayout': True})
         for i in range(len(s)):
             size = (len(s)+1)*100 + 10 + (i+1)
@@ -500,8 +500,7 @@ class TestDTW:
             for i in range(1, obs_len):
                 t = np.array(tmp[i])
                 m = np.vstack((m, t))  # 120 * 50
-            print(m.shape)
-            print(m_accuracy.shape)
+            
         else:
             cursor.execute(
                 '''select DATE_ADD(CONCAT(DATE_FORMAT(timestamp,'%Y-%m-%d %H:'),FLOOR(MINUTE(timestamp)/10),"0"),INTERVAL 10 MINUTE), sid, avg(value), AVG(LENGTH(SUBSTR(CAST(`value` AS CHAR),LOCATE('.',`value`)+1))) from mobilesensorreadings where timestamp between '{}' and '{}' GROUP BY DATE_ADD(CONCAT(DATE_FORMAT(timestamp,'%Y-%m-%d %H:'),FLOOR(MINUTE(timestamp)/10),"0"),INTERVAL 10 MINUTE),sid'''.format(
@@ -564,8 +563,7 @@ class TestDTW:
             for i in range(1, obs_len):
                 t = np.array(tmp[i])
                 m = np.vstack((m, t))  # 120 * 50
-            print(m.shape)
-            print(m_accuracy.shape)
+            
 
         '''
             load staticsensor
@@ -669,8 +667,7 @@ class TestDTW:
             for i in range(1, obs_len):
                 t = np.array(tmp[i])
                 n = np.vstack((n, t))  # 120 * 50
-            print(n.shape)
-            print(n_accuracy.shape)
+            
         else:
             cursor.execute(
                 '''select DATE_ADD(CONCAT(DATE_FORMAT(timestamp,'%Y-%m-%d %H:'),FLOOR(MINUTE(timestamp)/10),"0"),INTERVAL 10 MINUTE), sid, avg(value),AVG(LENGTH(SUBSTR(CAST(`value` AS CHAR),LOCATE('.',`value`)+1))) from staticsensorreadings where timestamp between '{}' and '{}' GROUP BY DATE_ADD(CONCAT(DATE_FORMAT(timestamp,'%Y-%m-%d %H:'),FLOOR(MINUTE(timestamp)/10),"0"),INTERVAL 10 MINUTE),sid'''.format(
@@ -737,8 +734,6 @@ class TestDTW:
 
         mn = np.hstack((m, n))
         mn_accuracy = np.hstack((m_accuracy, n_accuracy))
-        print(mn.shape)
-        print(mn_accuracy.shape)
 
         '''
         不确定性指标计算
@@ -759,10 +754,8 @@ class TestDTW:
 
         # mn_accuracy = TestDTW.Matrix_Completion_4(mn_accuracy)
         [a,b] = mn_accuracy.shape
-        print(a,b)
         mn_accuracy_count = np.nanmean(mn_accuracy, axis = 0)
         mn_accuracy_count = np.around(mn_accuracy_count).tolist()
-        print(mn_accuracy_count)
 
         col_mean = np.nanmean(mn, axis=0).tolist()  # 均值
         col_std = np.nanstd(mn, axis=0).tolist()  # 标准差
@@ -782,7 +775,6 @@ class TestDTW:
                 col_inconsistency[i+1] = inconsistency_data[i]
         col_inconsistency = list(col_inconsistency.values())
         col_inconsistency = col_inconsistency + [0] * sl
-        print(col_inconsistency)
 
 
         if (end_timestamp - begin_timestamp) > 48 * 3600:
@@ -838,7 +830,7 @@ class TestDTW:
                         tmp = j
                 tree["children"][tmp]["children"].append(
                     {"name": sensors_title_all[i], "mean": col_mean_all[i], "std": col_std_all[i],"nan":col_nan_all[i], "accuracy": col_accuracy[i], "inconsistency": col_inconsistency_all[i]})
-            print(tree)
+            
             return tree
         else:
             mn = mn.T
@@ -890,7 +882,7 @@ class TestDTW:
                 tree["children"][tmp]["children"].append(
                     {"name": sensors_title_all[i], "mean": col_mean_all[i], "std": col_std_all[i],
                      "nan": col_nan_all[i], "accuracy": col_accuracy[i], "inconsistency": col_inconsistency_all[i]})
-            print(tree)
+            
             return tree
 
     @staticmethod
@@ -965,8 +957,7 @@ class TestDTW:
             for i in range(1, obs_len):
                 t = np.array(tmp[i])
                 n = np.vstack((n, t))  # 120 * 50
-            print(n.shape)
-            print(n_accuracy.shape)
+            
         else:
             cursor.execute(
                 '''select DATE_ADD(CONCAT(DATE_FORMAT(timestamp,'%Y-%m-%d %H:'),FLOOR(MINUTE(timestamp)/10),"0"),INTERVAL 10 MINUTE), sid, avg(value),AVG(LENGTH(SUBSTR(CAST(`value` AS CHAR),LOCATE('.',`value`)+1))) from staticsensorreadings where timestamp between '{}' and '{}' GROUP BY DATE_ADD(CONCAT(DATE_FORMAT(timestamp,'%Y-%m-%d %H:'),FLOOR(MINUTE(timestamp)/10),"0"),INTERVAL 10 MINUTE),sid'''.format(
@@ -1052,7 +1043,6 @@ class TestDTW:
 
         # mn_accuracy = TestDTW.Matrix_Completion_4(mn_accuracy)
         [a, b] = mn_accuracy.shape
-        print(a, b)
         mn_accuracy_count = np.nanmean(mn_accuracy, axis=0)
         mn_accuracy_count = np.around(mn_accuracy_count).tolist()
         print(mn_accuracy_count)

@@ -46,6 +46,8 @@ export default {
         mobilePointLayer: null,
         staticIdwLayer: null,
         mobileIdwLayer: null,
+        inconsistencyLayer: null,
+        pathsLayer: null,
       },
       dataCollection: {
         staticSensorGridData: null,
@@ -55,7 +57,7 @@ export default {
         mobileUncertaintyGridData: null,
         mobilePathData: null,
       },
-      zoom: 1.4,
+      zoom: 2.25,
       sid: null,
       timeRange: null,
       mapTimeRange: null,
@@ -111,8 +113,8 @@ export default {
         view: new View({
           projection: this.getProjection(),
           center: getCenter(this.imageExtent),
-          zoom: 1.4,
-          minZoom: 1.4,
+          zoom: 2.25,
+          minZoom: 2.25,
           maxZoom: 4,
         })
       });
@@ -224,11 +226,12 @@ export default {
       this.layers.mobilePointLayer = new VectorLayer({
         source: vectorSource,
       });
-      axios.post("/getLastCoordByTimeRange/", (this.timeRange || this.defaultTimeRange)).then((response) => {
+      let endtime = this.timeRange.endtime;
+      axios.post("/getLastCoordByTimeRange/", {endtime: endtime.substring(0,17) + Math.floor(new Date(endtime).getSeconds() / 5) * 5}).then((response) => {
         let pointData = response.data;
         pointData.forEach(point => {
           let feature = new Feature({
-            geometry: new Point([parseFloat(point.lnglat[0]), parseFloat(point.lnglat[1])])
+            geometry: new Point([parseFloat(point.longitude), parseFloat(point.latitude)])
           });
           feature.setStyle(new Style({
             image: new Icon({
@@ -244,22 +247,19 @@ export default {
         this.map.addLayer(this.layers.mobilePointLayer);
       })
     },
-    drawSRLayer() {
+    drawInconsistencyLayer() {
       let _this = this;
-      let colorScale = d3.scaleLinear().domain([12, 25]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
-      if(this.dataCollection.staticSensorReadings) {
-        render(this.dataCollection.staticSensorReadings);
-      } else {
-        axios.post("/findAggSrrByTimeRange/", this.timeRange || this.defaultTimeRange).then(response => {
-          this.dataCollection.staticSensorReadings = response.data;
-          render(this.dataCollection.staticSensorReadings);
+      let colorScale = d3.scaleLinear().domain([0, 100]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
+      let endtime = this.timeRange.endtime;
+      axios.post("/getSensorReadingsByTime/", {endtime: endtime.substring(0,17) + Math.floor(new Date(endtime).getSeconds() / 5) * 5})
+        .then(response => {
+          render(response.data);
         })
-      }
       function render(data) {
         let vectorSource = new VectorSource();
-          _this.layers.SRLayer = new VectorLayer({
-            source: vectorSource,
-          });
+        _this.layers.inconsistencyLayer = new VectorLayer({
+          source: vectorSource,
+        });
         data.forEach(point => {
           let feature = new Feature({
             geometry: new Point([parseFloat(point.longitude), parseFloat(point.latitude)])
@@ -272,9 +272,9 @@ export default {
           }));
           vectorSource.addFeature(feature);
         })
-        _this.layers.SRLayer.setOpacity(0.3);
-        _this.layers.SRLayer.setVisible(_this.mapControl.r_s_check);
-        _this.map.addLayer(_this.layers.SRLayer);
+        _this.layers.inconsistencyLayer.setOpacity(0.3);
+        _this.layers.inconsistencyLayer.setVisible(_this.mapControl.inconsistency_check);
+        _this.map.addLayer(_this.layers.inconsistencyLayer);
       }
     },
     // 静态传感器插值层
@@ -364,7 +364,7 @@ export default {
         })
 
         let features = [];
-        let colorScale = d3.scaleLinear().domain([20, 100]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
+        let colorScale = d3.scaleLinear().domain([15, 80]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
 
         idwdata.forEach(d => {
           let polygon = new Polygon([[[d.lngEx[0], d.latEx[0]], [d.lngEx[0], d.latEx[1]], [d.lngEx[1], d.latEx[1]], [d.lngEx[1], d.latEx[0]], [d.lngEx[0], d.latEx[0]]]]);
@@ -644,7 +644,7 @@ export default {
           })
         })
         let features = [];
-        let radiationScale = d3.scaleLinear().domain([20, 100]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
+        let radiationScale = d3.scaleLinear().domain([15, 80]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
         let uncertaintyScale = d3.scaleLinear().domain([0,200]).range([0,1])
 
         idwdata.forEach(d => {
@@ -861,6 +861,14 @@ export default {
         this.map.removeLayer(this.layers.mobileIdwLayer);
         this.layers.mobileIdwLayer = null;
       }
+      if(this.layers.inconsistencyLayer) {
+        this.map.removeLayer(this.layers.inconsistencyLayer);
+        this.layers.inconsistencyLayer = null;
+      }
+      if(this.layers.pathsLayer) {
+        this.map.removeLayer(this.layers.pathsLayer);
+        this.layers.pathsLayer = null;
+      }
     },
     updateLayers() {
       if(this.layers.staticPointLayer) {
@@ -874,6 +882,9 @@ export default {
       }
       if(this.layers.mobileIdwLayer) {
         this.layers.mobileIdwLayer.setVisible(this.mapControl.mi_idw_check);
+      }
+      if(this.layers.inconsistencyLayer) {
+        this.layers.inconsistencyLayer.setVisible(this.mapControl.inconsistency_check);
       }
     },
     piesUpdate() {
@@ -893,13 +904,17 @@ export default {
       }
       this.clearDataCollection();
       this.clearLayers();
-      // this.addSelectEvent();
+      this.clearLayers();
+      this.addSelectEvent();
 
       if(this.mapControl.icon_s_check) {
         this.drawStaticPointLayer();
       }
       if(this.mapControl.icon_m_check) {
         this.drawMobilePointLayer();
+      }
+      if(this.mapControl.inconsistency_check) {
+        this.drawInconsistencyLayer();
       }
       
       if(this.datatype.length == 2) { //radiation和uncertainty都选中时的插值
@@ -960,6 +975,9 @@ export default {
         if(this.mapControl.icon_m_check && this.layers.mobilePointLayer == null) {
           this.drawMobilePointLayer();
         }
+        if(this.mapControl.inconsistency_check && this.layers.inconsistencyLayer == null) {
+          this.drawInconsistencyLayer();
+        }
         
         if(this.datatype.length == 2) { //radiation和uncertainty都选中时的插值
           if(this.mapControl.si_idw_check && this.layers.staticPointLayer == null) {
@@ -994,13 +1012,15 @@ export default {
           return;
       }
       this.clearLayers();
-      console.log(this.layers.mobileIdwLayer)
       if(this.mapControl.icon_s_check && this.layers.staticPointLayer == null) {
         this.drawStaticPointLayer();
       }
       if(this.mapControl.icon_m_check && this.layers.mobilePointLayer == null) {
         this.drawMobilePointLayer();
       }
+      if(this.mapControl.inconsistency_check && this.layers.inconsistencyLayer == null) {
+          this.drawInconsistencyLayer();
+        }
       
       if(this.datatype.length == 2) { //radiation和uncertainty都选中时的插值
         if(this.mapControl.si_idw_check && this.layers.staticPointLayer == null) {

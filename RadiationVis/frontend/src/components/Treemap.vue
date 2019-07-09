@@ -259,45 +259,44 @@ export default {
       let accuracyScale = d3.scaleQuantize().domain([0, 7]).range([1,2,3,4,5])
       let inconsistencyScale = d3.scaleQuantize().domain([0, 27.36]).range([0,1,2,3,4,5])
 
-      d3.csv('/static/data/final_outlier_pattern.csv').then(patternData => {
+      // d3.csv('/static/data/final_outlier_pattern.csv').then(patternData => {
 
-      Array.prototype.unique3 = function(){
-        var res = [];
-        var json = {};
-        for(var i=0;i<this.length;i++){
-            if(!json[this[i]]){
-                res.push(this[i]);
-                json[this[i]] = 1;
-            }
-        }
-        return res;
-      }
+      // Array.prototype.unique3 = function(){
+      //   var res = [];
+      //   var json = {};
+      //   for(var i=0;i<this.length;i++){
+      //       if(!json[this[i]]){
+      //           res.push(this[i]);
+      //           json[this[i]] = 1;
+      //       }
+      //   }
+      //   return res;
+      // }
 
-      let pattern_data = patternData.map(function (d) {
-        return {
-          sid:  d.sid,
-          type: d.type,
-        };
-      });
-      console.log(pattern_data)
-      var pattern_dic = {}
-      for(var i=0;i<pattern_data.length;i++){
-        if(pattern_data[i].sid in pattern_dic){
-          pattern_dic[pattern_data[i].sid].push(pattern_data[i].type)
-        }
-        else{
-          pattern_dic[pattern_data[i].sid] = []
-          pattern_dic[pattern_data[i].sid].push(pattern_data[i].type)
-        }
-      }
-      let ppp = []
-      console.log(pattern_dic)
-      Object.keys(pattern_dic).forEach(k => {
-        console.log(k)
-        ppp.push({sid: k, patterns: Array.from(new Set(pattern_dic[k]))})
-      })
-      console.log(ppp)
-      });
+      // let pattern_data = patternData.map(function (d) {
+      //   return {
+      //     sid:  d.sid,
+      //     type: d.type,
+      //   };
+      // });
+      // console.log(pattern_data)
+      // var pattern_dic = {}
+      // for(var i=0;i<pattern_data.length;i++){
+      //   if(pattern_data[i].sid in pattern_dic){
+      //     pattern_dic[pattern_data[i].sid].push(pattern_data[i].type)
+      //   }
+      //   else{
+      //     pattern_dic[pattern_data[i].sid] = []
+      //     pattern_dic[pattern_data[i].sid].push(pattern_data[i].type)
+      //   }
+      // }
+      // let ppp = []
+      // console.log(pattern_dic)
+      // Object.keys(pattern_dic).forEach(k => {
+      //   ppp.push({sid: k, patterns: Array.from(new Set(pattern_dic[k]))})
+      // })
+      // console.log(ppp)
+      // });
 
 
 

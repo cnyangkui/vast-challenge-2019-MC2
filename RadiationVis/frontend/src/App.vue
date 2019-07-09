@@ -18,38 +18,38 @@
               </div>
             </div>
           </div>
-          <div class="control-container" style="margin-top: 10px;">
+          <div class="control-container">
             <div class="control-header">
-              <label>All Sensor Temporal View Settings</label>
+              <label>Overall Radiation Trend View Settings</label>
             </div>
             <div class="control-content">
               <div class="input-ele-group">
-                <div class="input-ele"><input type="checkbox" value="static"  v-model="timeSeriesCheckedState"><label>SS</label></div>
-                <div class="input-ele"><input type="checkbox" value="mobile" v-model="timeSeriesCheckedState"><label>MS</label></div>
+                <div class="input-ele"><input type="checkbox" value="static"  v-model="timeSeriesCheckedState"><label>Static Sensors(SSs)</label></div>
+                <div class="input-ele"><input type="checkbox" value="mobile" v-model="timeSeriesCheckedState"><label>Mobile Sensors(MSs)</label></div>
               </div>
-              <div class="input-ele-group">
-                <div class="input-ele"><input type="radio" value="global" name="timeSeriesState" v-model="timeSeriesControl.state"><label>Global</label></div>
-                <div class="input-ele"><input type="radio" value="local" name="timeSeriesState" v-model="timeSeriesControl.state" :disabled="timeSeriesControl.localDisabled"><label>Local</label></div>
+              <div class="input-ele-group panup">
+                <div class="input-ele"><input type="radio" value="global" name="timeSeriesState" v-model="timeSeriesControl.state"><label>By hour</label></div>
+                <div class="input-ele"><input type="radio" value="local" name="timeSeriesState" v-model="timeSeriesControl.state" :disabled="timeSeriesControl.localDisabled"><label>By 1 mininutes</label></div>
               </div>
             </div>
           </div>
-          <div class="control-container" style="margin-top: 10px;">
+          <div class="control-container">
             <div class="control-header">
-              <label>Treemap View Settings</label>
+              <label>Sensor Clustering Treemap View Settings</label>
             </div>
             <div class="control-content">
               <div class="input-ele-group">
-                <div class="input-ele"><input type="checkbox" value="static" v-model="treemapCheckedState"><label>SS</label></div>
-                <div class="input-ele"><input type="checkbox" value="mobile" v-model="treemapCheckedState"><label>MS</label></div>
+                <div class="input-ele"><input type="checkbox" value="static" v-model="treemapCheckedState"><label>Static Sensors(SSs)</label></div>
+                <div class="input-ele"><input type="checkbox" value="mobile" v-model="treemapCheckedState"><label>Mobile Sensors(MSs)</label></div>
               </div>
-              <div class="input-ele-group">
-                <div class="input-ele" style="margin-top: 6px;"><input type="button" value="Back" @click="getTreemap1();"></div>
+              <div class="input-ele-group panup">
+                <div class="input-ele" style="margin-top: 6px;"><input class="button" type="button" value="Back" @click="getTreemap1();"></div>
               </div>
             </div>
           </div>
-          <div class="control-container" style="margin-top: 10px;">
+          <div class="control-container">
             <div class="control-header">
-              <label>Individual Sensor Temporal View</label>
+              <label>Individual Sensor Temporal View Settings</label>
             </div>
             <div class="control-content">
               <div class="input-ele-group">
@@ -58,24 +58,29 @@
               </div>
             </div>
           </div>
-          <div class="control-container" style="margin-top: 10px;">
+          <div class="control-container">
             <div class="control-header">
               <label>Gis View Settings</label>
             </div>
-            <div class="input-ele-group">
-              <div class="input-ele"><input type="checkbox" v-model="mapControl.icon_s_check"><label>SS</label>
-              <img :src="require('./assets/img/static.png')" alt="" width="20px;"></div>
-              <div class="input-ele"><input type="checkbox" v-model="mapControl.icon_m_check"><label>MS</label>
-              <img :src="require('./assets/img/mobile.png')" alt="" width="20px;"></div>
-            </div>
+              <div class="control-content">
+                <div class="input-ele-group">
+                  <div class="input-ele"><input type="checkbox" v-model="mapControl.icon_s_check"><label>Static Sensors(SSs)</label>
+                  <img :src="require('./assets/img/static.png')" alt="" width="20px;"></div>
+                  <div class="input-ele"><input type="checkbox" v-model="mapControl.icon_m_check"><label>Mobile Sensors(MSs)</label>
+                  <img :src="require('./assets/img/mobile.png')" alt="" width="20px;"></div>
+                </div>
+                <!-- <div class="input-ele-group">
+                  <div class="input-ele"><input type="checkbox" v-model="mapControl.r_si_idw_check"><label>SI</label></div>
+                  <div class="input-ele"><input type="checkbox" v-model="mapControl.r_mi_idw_check"><label>MI</label></div>
+                </div> -->
+                <div class="input-ele-group panup">
+                  <div class="input-ele"><input type="checkbox" v-model="mapControl.si_idw_check"><label>Static Interpolation</label></div>
+                  <div class="input-ele"><input type="checkbox" v-model="mapControl.mi_idw_check"><label>Mobile Interpolation</label></div>
+                </div>
+              </div>
             <!-- <div class="input-ele-group">
-              <div class="input-ele"><input type="checkbox" v-model="mapControl.r_si_idw_check"><label>SI</label></div>
-              <div class="input-ele"><input type="checkbox" v-model="mapControl.r_mi_idw_check"><label>MI</label></div>
+              <div class="input-ele"><input type="checkbox" v-model="mapControl.inconsistency_check"><label>Inconsistency</label></div>
             </div> -->
-            <div class="input-ele-group">
-              <div class="input-ele"><input type="checkbox" v-model="mapControl.si_idw_check"><label>SI</label></div>
-              <div class="input-ele"><input type="checkbox" v-model="mapControl.mi_idw_check"><label>MI</label></div>
-            </div>
             <!-- <div class="input-ele-group">
               <div class="input-ele"><input type="checkbox" v-model="mapControl.u_mi_check"><label>uncertainty(MI)</label></div>
               <div class="input-ele"><input type="checkbox" v-model="mapControl.u_pie_check"><label>Pie</label></div>
@@ -90,14 +95,16 @@
             </div>
             <div class="control-content">
               <div class="uncertainty-container">
-                <div><label>Uncertainty index system</label></div>
+                <label class="bold">Uncertainty index system</label>
                 <ul>
                   <li>U1: Inconsistency</li>
                   <li>U2: Credibility</li>
                   <li>U3: Precision</li>
                   <li>U4: Data completeness</li>
                 </ul>
-                <div><label>Uncertainty levels</label></div>
+              </div>
+              <div class="uncertainty-container">
+                <label class="bold">Uncertainty levels</label>
                 <ul>
                   <li>Level 1: <img :src="require('./assets/img/star.png')" alt="" width="20px;">low</li>
                   <li>Level 2: 
@@ -192,18 +199,12 @@
         </el-row>
       </el-col>
     </el-row>
-    <el-dialog
-      :visible.sync="srScatterVisible"
-      width="70%">
-      <div style="height: 400px;"><sr-scatter cid="Sr_scatter_container"></sr-scatter></div>
-      <span slot="footer" class="dialog-footer">
-      </span>
-    </el-dialog>
+
   </div>
 </template>
 
 <script>
-import SrScatter from './components/SrScatter.vue'
+// import SrScatter from './components/SrScatter.vue'
 import Openlayers from './components/Openlayers.vue'
 import TimeSeriesChart from './components/TimeSeriesChart.vue'
 import RadiationTimeSeriesChart from './components/RadiationTimeSeriesChart.vue'
@@ -226,7 +227,7 @@ export default {
   components: {
     // Openlayers,
     GisView,
-    SrScatter,
+    // SrScatter,
     TimeSeriesChart,
     RadiationTimeSeriesChart,
     UncertaintyTimeSeriesChart,
@@ -267,7 +268,8 @@ export default {
         icon_m_check: false,
         icon_s_check: false,
         si_idw_check: false,
-        mi_idw_check: false
+        mi_idw_check: false,
+        inconsistency_check: false,
       },
       trendChart: null,
       sidTrendCharts: [],
@@ -482,9 +484,6 @@ html, body, #app {
   border: 1px solid #ccc;
   height: 100%;
 }
-.control-container {
-  font-size: 15px;
-}
 .control-header {
   background-color: #ccc;
   height: 45px;
@@ -493,29 +492,40 @@ html, body, #app {
   line-height: 45px;
   font-size: 18px;
   margin-left: 5px;
+  font-weight:500;
 }
 .control-container .input-ele-group {
-  width: 92%;
-  margin-left: 4%;
-  height: 30px;
+  width: 95%;
+  margin-left: 2.5%;
+  height: 35px;
+}
+.control-content .panup {
+  margin-top: -10px;
 }
 .control-container .input-ele {
   width: 50%;
   display: inline-block;
 }
 .control-content label {
-  line-height: 30px;
+  line-height: 35px;
+  font-size: 15px;
+}
+.control-content .button {
+  display: inline-block;
+  height: 22px;
+  font-size: 13px;
 }
 .uncertainty-container {
-  margin-left: 5px;
+  margin-left: 2.5%;
+  font-size: 15px;
 }
-.uncertainty-container div{
-  height: 30px;
+.uncertainty-container .blod{
+  font-weight: 300;
 }
-/* .uncertainty-container li {
-  height: 0px;
-  list-style-type: circle;
-} */
+.uncertainty-container ul {
+  margin-top: -10px;
+}
+
 input :disabled {
   background-color: rgb(235, 235, 228);
 }

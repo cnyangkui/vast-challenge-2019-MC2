@@ -276,14 +276,34 @@ def getLastCoordByTimeRange(request):
 	if request.method == 'POST':
 		params = json.loads(request.body)
 		cursor = connection.cursor()
-		cursor.execute("select longitude, latitude, sid from mobilesensorreadings where timestamp > '{0}'  and timestamp < '{1}'".format(params['begintime'], params['endtime']))
+		# cursor.execute("select longitude, latitude, sid from mobilesensorreadings where timestamp > '{0}'  and timestamp < '{1}'".format(params['begintime'], params['endtime']))
+		cursor.execute("select latitude, longitude, sid from mobilesensorreadings where timestamp = '{0}'".format(params['endtime']))
 		desc = cursor.description
 		alldata = cursor.fetchall()
 		origin_data = [dict(zip([col[0] for col in desc], row)) for row in alldata]
-		dic = {}
-		data = []
-		for d in origin_data:
-			dic[d['sid']] = [d['longitude'], d['latitude']]
-		for k, v in dic.items():
-			data.append({'sid': k, 'lnglat': v})
+		# dic = {}
+		# data = []
+		# for d in origin_data:
+		# 	dic[d['sid']] = [d['longitude'], d['latitude']]
+		# for k, v in dic.items():
+		# 	data.append({'sid': k, 'lnglat': v})
+		return HttpResponse(json.dumps(origin_data), content_type='application/json')
+
+def getSensorReadingsByTime(request):
+	if request.method == 'POST':
+		params = json.loads(request.body)
+		cursor = connection.cursor()
+		cursor.execute("select latitude, longitude, avg(value) as value, concat('s', staticsensorreadings.sid) as sid from staticsensorreadings left join staticsensorlocations on staticsensorreadings.sid = staticsensorlocations.sid where timestamp = '{0}' group by staticsensorreadings.sid".format(params['endtime']))
+		desc1 = cursor.description
+		alldata1 = cursor.fetchall()
+		static_data = [dict(zip([col[0] for col in desc1], row)) for row in alldata1]
+		
+		cursor.execute("select latitude, longitude, avg(value) as value, concat('m', sid) from mobilesensorreadings where timestamp = '{0}' group by sid".format(params['endtime']))
+		desc2 = cursor.description
+		alldata2 = cursor.fetchall()
+		mobile_data = [dict(zip([col[0] for col in desc2], row)) for row in alldata2]
+
+		logger.info(static_data)
+		data = static_data + mobile_data
+
 		return HttpResponse(json.dumps(data), content_type='application/json')

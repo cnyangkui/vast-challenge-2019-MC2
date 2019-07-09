@@ -94,7 +94,7 @@ export default {
             }
         });
     },
-    addY(g, yAxis, margin, chartWidth, chartHeight) {
+    addY1(g, yAxis, margin, chartWidth, chartHeight) {
       g.append('g')
         .attr('class', 'y axis')
         .call(yAxis)
@@ -105,86 +105,66 @@ export default {
         .style('text-anchor', 'end')
         .text('(cpm)');
     },
-    addLegend (g, chartWidth) {
-      // let legendWidth  = 70,
-      //     legendHeight = 45;
+    addY2(g, yAxis, margin, chartWidth, chartHeight) {
+      g.append('g')
+        .attr('class', 'y axis')
+        .call(yAxis)
+        .append('text')
+        .attr('transform', 'rotate(-90)')
+        .attr('y', 6)
+        .attr('dy', '.71em')
+        .style('text-anchor', 'end')
+        .text('(cpm)');
+    },
+    addLegend (g) {
+      let legendWidth  = 70,
+          legendHeight = 45,
+          lineWidth = 30,
+          span = 10;
 
-      // let legend = g.append('g')
-      //   .attr('class', 'legend')
-      //   .attr('transform', 'translate(' + (chartWidth+5) + ', 0)');
+      let legendMargin = {left: 25, top: 5, right: 5, bottom: 5};
+
+      let legend = g.append('g')
+        .attr('class', 'legend')
+        .attr('transform', 'translate(0, -5)');
 
       // legend.append('rect')
       //   .attr('class', 'legend-bg')
       //   .attr('width',  legendWidth)
       //   .attr('height', legendHeight);
 
-      // legend.append('rect')
-      //   .attr('class', 'mobile_uncertainty')
-      //   .attr('width',  20)
-      //   .attr('height', 10)
-      //   .attr('x', 5)
-      //   .attr('y', 5);
-
-      // legend.append('text')
-      //   .attr('x', 30)
-      //   .attr('y', 15)
-      //   .text('mobile');
-
-      // legend.append('rect')
-      //   .attr('class', 'static_uncertainty')
-      //   .style('stroke-width',  20)
-      //   .attr('height', 10)
-      //   .attr('x', 5)
-      //   .attr('y', 25);
-
-      // legend.append('text')
-      //   .attr('x', 30)
-      //   .attr('y', 35)
-      //   .text('static');
-
-      let legendWidth  = 70,
-          legendHeight = 45,
-          rectWidth = 20,
-          rectHeight = 10;
-
-      let legendMargin = {left: 5, top: 5, right: 5, bottom: 5};
-
-      let legend = g.append('g')
-        .attr('class', 'legend')
-        .attr('transform', 'translate(' + (chartWidth - legendWidth) + ', -10)');
-
-      legend.append('rect')
-        .attr('class', 'legend-bg')
-        .attr('width',  legendWidth)
-        .attr('height', legendHeight);
-
-      legend.append('rect')
-        .attr('class', 'static_uncertainty')
-        .attr('width',  rectWidth)
-        .attr('height', rectHeight)
-        .attr('x', legendMargin.left)
-        .attr('y', legendMargin.top);
+      legend.append('line')
+        // .attr('class', 'static_uncertainty')
+        .attr('x1', legendMargin.left)
+        .attr('y1', legendMargin.top + span)
+        .attr('x2', legendMargin.left + lineWidth)
+        .attr('y2', legendMargin.top + span)
+        .style('stroke', 'rgba(224, 4, 255, 0.6)')
+        .style('stroke-width', 2);
+        
 
       legend.append('text')
-        .attr('x', legendMargin.left + rectWidth)
-        .attr('y', legendMargin.top)
+        .attr('x', legendMargin.left + lineWidth)
+        .attr('y', legendMargin.top + span)
         .attr('dx', '.5em')
-        .attr('dy', '1em')
-        .text('static');
+        .attr('dy', '.4em')
+        .text('Average radiation readings and 95 confidence interval of all SSs');
 
-      legend.append('rect')
-        .attr('class', 'mobile_uncertainty')
-        .attr('width',  rectWidth)
-        .attr('height', rectHeight)
-        .attr('x', legendMargin.left)
-        .attr('y', legendMargin.top + rectHeight * 2);
+      legend.append('line')
+        // .attr('class', 'mobile_uncertainty')
+        .attr('x1', legendMargin.left)
+        .attr('y1', legendMargin.top + span * 3)
+        .attr('x2', legendMargin.left + lineWidth)
+        .attr('y2', legendMargin.top + span * 3)
+        .style('stroke', 'rgba(54,95,139,0.5)')
+        .style('stroke-width', 2);
 
       legend.append('text')
-        .attr('x', legendMargin.left + rectWidth)
-        .attr('y', legendMargin.top + rectHeight * 2)
+        .attr('x', legendMargin.left + lineWidth)
+        .attr('y', legendMargin.top + span * 3)
         .attr('dx', '.5em')
-        .attr('dy', '1em')
-        .text('mobile');
+        .attr('dy', '.4em')
+        .text('Average radiation readings and 95 confidence interval of all MSs');
 
     },
     drawPathAndArea (g, data, x, y, color) {
@@ -212,19 +192,22 @@ export default {
         // .attr('class', 'area upper ' + styleClass)
         .attr('d', upperInnerArea)
         .style('fill', color)
-        .style('stroke', color);
+        // .style('stroke', color)
+        .style('stroke-width', 3);
 
       g.append('path')
         // .attr('class', 'area lower ' + styleClass)
         .attr('d', lowerInnerArea)
         .style('fill', color)
-        .style('stroke', color);
+        // .style('stroke', color)
+        .style('stroke-width', 3);
 
       g.append('path')
         // .attr('class', 'median-line')
         .attr('d', medianLine)
         .attr('fill', 'none')
-        .attr('stroke', 'black');
+        .attr('stroke', color)
+        .style('stroke-width', 1);
     },
     drawBaseline(g, data, x, y) {
       let baseline = d3.line()
@@ -234,21 +217,44 @@ export default {
       g.append('path')
         .attr('d', baseline)
         .style('stroke', 'grey')
-        .style('stroke-width', 1);
+        .style('stroke-width', 1)
+        .style('stroke-dasharray', 5);
+    },
+    drawTick(g, x, y, range) {
       g.append('text')
-        .attr('x', '0px')
-        .attr('y', y(15))
+        .attr('x', '10px')
+        .attr('y', y(14.6))
         .attr('dx', '0em')
         .attr('dy', '1em')
         .attr("font-size",10)
+        .attr("font-style", 'italic')
+        .attr("fill", '#999')
         .text('background');
       g.append('text')
-        .attr('x', '-15px')
-        .attr('y', y(15))
-        .attr('dx', '0em')
-        .attr('dy', '1em')
+        .attr('x', '0px')
+        .attr('y', y(14.6))
+        .attr('dx', '-2em')
+        .attr('dy', '.5em')
         .attr("font-size",10)
-        .text('15');
+        .attr("font-style", 'italic')
+        .attr("fill", '#999')
+        .text('14.6');
+      let domain = y.domain();
+      g.append('text')
+        .attr('x', '-0px')
+        .attr('y', y(range[0]))
+        .attr('dx', '-1.2em')
+        .attr('dy', '.5em')
+        .attr("font-size",10)
+        .text(range[0]);
+      g.append('text')
+        .attr('x', '0px')
+        .attr('y', y(domain[1]))
+        .attr('dx', '-2em')
+        .attr('dy', '.5em')
+        .attr("font-size",10)
+        .text(Math.round(range[1]));
+      
     },
     makeChart(static_data, mobile_data) {
       let _this = this;
@@ -257,6 +263,10 @@ export default {
       let max = 0;
         let max1 = d3.max(static_data, d => d.upper95);
         let max2 = d3.max(mobile_data, d => d.upper95);
+        let avg1 = d3.max(static_data, d => d.avg);
+      let avg2 = d3.max(mobile_data, d => d.avg);
+      let maxAvg = avg1 > avg2 ? avg1: avg2;
+        
         if(this.checkedItem.length == 2) {
           mobile_data = mobile_data.map(d => {
             if(d.avg > 80) {
@@ -284,10 +294,11 @@ export default {
             max = max2;
           }
         }
+      
 
       let begin = static_data[0].date;
       let end = static_data[static_data.length-1].date;
-      let basedata = [{date: begin, value: 15}, {date: end, value: 15}];
+      let basedata = [{date: begin, value: 14.6}, {date: end, value: 14.6}];
 
       let margin = { top: 10, right: 30, bottom: 30, left: 30 },
           chartWidth  = _this.svgWidth  - margin.left - margin.right,
@@ -296,7 +307,7 @@ export default {
       let x = d3.scaleTime().range([0, chartWidth])
                 .domain([begin, end]),
           y = d3.scaleLinear().range([chartHeight, 0])
-                .domain([0, max]);
+                .domain([8, max]);
 
       let xAxis = d3.axisBottom(x)
         .tickSize(5)
@@ -310,7 +321,9 @@ export default {
         });
 
       let yAxis = d3.axisLeft(y)
-        .tickSizeInner(-5).tickSizeOuter(0).tickPadding(10).ticks(0);
+        .tickSizeInner(-5).tickSizeOuter(0).tickPadding(10).ticks(5);
+      let yAxis1 = d3.axisLeft(y)
+        .tickSizeInner(0).tickSizeOuter(0).tickPadding(10).ticks(0);
 
       let g = _this.svg.append('g')
           .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
@@ -334,24 +347,27 @@ export default {
         .attr("class", "brush")
         .call(brush);
 
+      let range1 = [8, maxAvg] 
+
       if(this.checkedItem.length == 2) {
         _this.addX(g, xAxis, margin, chartWidth, chartHeight);
-        //_this.addY(g, yAxis, margin, chartWidth, chartHeight);
-        _this.addLegend(g, chartWidth);
+        _this.addY1(g, yAxis1, margin, chartWidth, chartHeight);
+        _this.addLegend(g);
         _this.drawPathAndArea(g, static_data, x, y, "rgba(224, 4, 255, 0.6)");
-        _this.drawPathAndArea(g, mobile_data, x, y, "rgba(54,95,139, 0.6)");
+        _this.drawPathAndArea(g, mobile_data, x, y, "rgba(54,95,139, 0.5)");
         _this.drawBaseline(g, basedata, x, y);
+        _this.drawTick(g, x, y, range1);
       } else {
         if(this.checkedItem[0] == 'static') {
           _this.addX(g, xAxis, margin, chartWidth, chartHeight);
-          _this.addY(g, yAxis, margin, chartWidth, chartHeight);
+          _this.addY2(g, yAxis, margin, chartWidth, chartHeight);
           // _this.addLegend(g, chartWidth);
           _this.drawPathAndArea(g, static_data, x, y, "rgba(224, 4, 255, 0.6)");
           // _this.drawPathAndArea(g, mobile_data, x, y, "mobile_uncertainty");
           _this.drawBaseline(g, basedata, x, y);
         } else if(this.checkedItem[0] == 'mobile') {
           _this.addX(g, xAxis, margin, chartWidth, chartHeight);
-          _this.addY(g, yAxis, margin, chartWidth, chartHeight);
+          _this.addY2(g, yAxis, margin, chartWidth, chartHeight);
           // _this.addLegend(g, chartWidth);
           // _this.drawPathAndArea(g, static_data, x, y, "static_uncertainty");
           _this.drawPathAndArea(g, mobile_data, x, y, "rgba(54,95,139, 0.6)");

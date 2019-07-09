@@ -1,18 +1,31 @@
 <template>
   <div :id="cid">
     <div class="control">
-      <label>{{originData.category == 'static' ? 'SS': 'MS'}}: {{originData.sid}}</label>
-      <!-- <input class="button" type="button" value="delete"> -->
+      <label>{{originData.category == 'static' ? 'SS': 'MS'}}-{{originData.sid}}</label>
+      <input class="button" type="button" value="detail" @click="showDetail();">
     </div>
     <div class="trendchart"></div>
+    <div class="dialog">
+      <el-dialog
+      :visible.sync="srScatterVisible"
+      width="70%">
+      <div style="height: 600px;"><SrScatter :cid="scatterCid" :category="originData.category" :sid="originData.sid"></SrScatter></div>
+      <span slot="footer" class="dialog-footer">
+      </span>
+    </el-dialog>
+    </div>
   </div>
 </template>
 
 <script>
+import SrScatter from './SrScatter.vue'
 import * as d3 from "d3"
 import axios from '../assets/js/http';
 export default {
   name: 'TrendChart',
+  components: {
+    SrScatter,
+  },
   props: {
     cid: String,
     originData: {
@@ -31,6 +44,7 @@ export default {
       timeRange: null,
       sid: null,
       category: null,
+      srScatterVisible: false,
       defaultTimeRange: {
         begintime: '2020-04-06 00:00:00',
         endtime: '2020-04-11 00:00:00'
@@ -183,6 +197,9 @@ export default {
     },
     clearAllg() {
       d3.select(`#${this.cid} svg`).selectAll('g').remove();
+    },
+    showDetail() {
+      this.srScatterVisible = !this.srScatterVisible;
     }
     // timeRangeUpdated(params) {
     //   this.timeRange = params;
@@ -218,12 +235,18 @@ export default {
         return Math.round(d3.mean(this.originData.data, d => d.std), 2)
       }
       return null;
+    },
+    scatterCid: function() {
+      return this.cid + '_scatter'
     }
   }
 }
 </script>
 
 <style scoped>
+.dialog >>> .el-dialog__header {
+  padding: 0px;
+}
 .control {
   background-color: #ccc;
   height: 28px;

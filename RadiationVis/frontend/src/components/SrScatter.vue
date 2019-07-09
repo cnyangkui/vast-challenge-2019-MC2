@@ -1,12 +1,11 @@
 <template>
   <div :id="cid">
     <div class="scatterControl">
-      <span>sid: {{sid}}, category: {{category}}, min: {{minValue}}, max: {{maxValue}}</span> &nbsp;<br>
-      <el-input size="mini" v-model="minInput" placeholder="min" @change="minChanged"></el-input> &nbsp;<span>-</span>&nbsp;
+      <span>{{category == 'static' ? 'SS': 'MS'}}-{{sid}}, min: {{minValue}}, max: {{maxValue}}</span> &nbsp;<br>
+      filter: <el-input size="mini" v-model="minInput" placeholder="min" @change="minChanged"></el-input> &nbsp;<span>-</span>&nbsp;
       <el-input size="mini" v-model="maxInput" placeholder="max" @change="maxChanged"></el-input>
     </div>
-    <div class="scatterplot">
-    </div>
+    <div class="scatterplot"></div>
   </div>
 </template>
 
@@ -16,7 +15,9 @@ import axios from '../assets/js/http'
 export default {
   name: 'SrScatter',
   props: {
-    cid: String
+    cid: String,
+    category: String,
+    sid: [String, Number]
   },
   data() {
     return {
@@ -25,18 +26,14 @@ export default {
       minValue: null,
       maxValue: null,
       svgWidth: 0,
-      svgHeight: 0,
-      category: 'mobile',
-      sid: 1,
+      svgHeight: 0
     }
   },
   created: function () {
-      this.$root.eventHub.$on('sensorSelected', this.sensorSelected);
    },
    // 最好在组件销毁前
    // 清除事件监听
    beforeDestroy: function () {
-      this.$root.eventHub.$off('sensorSelected', this.sensorSelected);
    },
   mounted() {
     this.$nextTick(() => {
@@ -47,7 +44,7 @@ export default {
     loadChart() {
       this.selfAdaptionSvgSize();
       this.drawSvg();
-      this.drawScatter(this.sid)
+      this.drawScatter()
     },
     selfAdaptionSvgSize() {
       let parentNode = document.querySelector(`#${this.cid}`).parentNode;
@@ -82,6 +79,7 @@ export default {
 
       let context = canvasChart.node().getContext('2d');
       let _this = this;
+      console.log(this.category, this.sid)
       axios.post("/findSrBySid/", {
         category: this.category,
         sid: this.sid,
@@ -93,24 +91,20 @@ export default {
         _this.minValue = d3.min(responseData, d => d.value);
         
         // Init Scales
-        let x = d3.scaleTime().domain([new Date(2020, 3, 6), new Date(2020, 3, 10)]).range([0, width]);
+        let x = d3.scaleTime().domain([new Date(2020, 3, 6), new Date(2020, 3, 11)]).range([0, width]);
         let y = d3.scaleLinear().domain([0, _this.maxInput]).range([height, 0]);
 
         // Init Axis
         let tmp = null;
-        let xAxis = d3.axisBottom(x).ticks(120).tickFormat((d, i) => {
-                        if(i % 4 == 0) {
-                          if(i == 0) {
-                            return `${d.getMonth()+1}/${d.getDate()}`;
-                          } else if(tmp && tmp.getDate() != d.getDate()) {
-                            return `${d.getMonth()+1}/${d.getDate()}`;
-                          } else {
-                            return `${d.getHours()}`
-                          }
-                        }
-
+        let xAxis = d3.axisBottom(x).ticks(d3.timeHour.every(6)).tickFormat((d, i) => {
+                        var formatMonth = d3.timeFormat("%B %d")
+          if(d.getHours() %24 == 0) {
+              return formatMonth(d);
+            } else {
+              return `${d.getHours()}:00`
+            }
                         tmp = d;
-                      });;
+                      });
         let yAxis = d3.axisLeft(y);
 
         // // Add Axis
@@ -156,15 +150,22 @@ export default {
       d3.select(`#${this.cid} .scatterplot svg`).selectAll('g').remove();
       d3.select(`#${this.cid} .scatterplot`).selectAll('canvas').remove();
       this.drawScatter();
-    },
-    sensorSelected(params) {
-      this.sid = params.sid;
-      this.category = params.category;
-      d3.select(`#${this.cid} .scatterplot svg`).selectAll('g').remove();
-      d3.select(`#${this.cid} .scatterplot`).selectAll('canvas').remove();
-      this.drawScatter();
     }
-  }
+  },
+  // watch: {
+  //   category(n, o) {
+  //     console.log(n)
+  //     d3.select(`#${this.cid} .scatterplot svg`).selectAll('g').remove();
+  //     d3.select(`#${this.cid} .scatterplot`).selectAll('canvas').remove();
+  //     this.drawScatter();
+  //   },
+  //   sid(n, o) {
+  //     console.log(n)
+  //     d3.select(`#${this.cid} .scatterplot svg`).selectAll('g').remove();
+  //     d3.select(`#${this.cid} .scatterplot`).selectAll('canvas').remove();
+  //     this.drawScatter();
+  //   }
+  // }
 }
 </script>
 

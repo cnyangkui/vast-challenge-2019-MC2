@@ -163,20 +163,20 @@ export default {
         .attr('d', baseline)
         .style('stroke', 'grey')
         .style('stroke-width', 1);
-     g.append('text')
-        .attr('x', '0px')
-        .attr('y', y(15))
-        .attr('dx', '0em')
-        .attr('dy', '1em')
-        .attr("font-size",10)
-        .text('background');
-      g.append('text')
-        .attr('x', '-15px')
-        .attr('y', y(15))
-        .attr('dx', '0em')
-        .attr('dy', '1em')
-        .attr("font-size",10)
-        .text('15');
+    //  g.append('text')
+    //     .attr('x', '0px')
+    //     .attr('y', y(15))
+    //     .attr('dx', '0em')
+    //     .attr('dy', '1em')
+    //     .attr("font-size",10)
+    //     .text('background');
+    //   g.append('text')
+    //     .attr('x', '-15px')
+    //     .attr('y', y(15))
+    //     .attr('dx', '0em')
+    //     .attr('dy', '1em')
+    //     .attr("font-size",10)
+    //     .text('15');
      
     },
     makeChart(static_data, mobile_data) {
@@ -216,7 +216,7 @@ export default {
 
       let begin = static_data[0].date;
       let end = static_data[static_data.length-1].date;
-      let basedata = [{date: begin, value: 15}, {date: end, value: 15}];
+      let basedata = [{date: begin, value: 14.6}, {date: end, value: 14.6}];
 
       let margin = { top: 10, right: 30, bottom: 30, left: 30 },
           chartWidth  = _this.svgWidth  - margin.left - margin.right,
@@ -225,7 +225,7 @@ export default {
       let x = d3.scaleTime().range([0, chartWidth])
                 .domain([begin, end]),
           y = d3.scaleLinear().range([chartHeight, 0])
-                .domain([0, max]);
+                .domain([10, max]);
 
       let xAxis = d3.axisBottom(x)
         .tickSize(5).ticks(d3.timeHour.every(6)).tickFormat((d, i) => {
