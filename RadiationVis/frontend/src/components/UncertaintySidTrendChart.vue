@@ -9,7 +9,7 @@
       <el-dialog
       :visible.sync="srScatterVisible"
       width="70%">
-      <div style="height: 600px;"><SrScatter :cid="scatterCid" :category="originData.category" :sid="originData.sid"></SrScatter></div>
+      <div style="height: 500px;"><SrScatter :cid="scatterCid" :category="originData.category" :sid="originData.sid"></SrScatter></div>
       <span slot="footer" class="dialog-footer">
       </span>
     </el-dialog>

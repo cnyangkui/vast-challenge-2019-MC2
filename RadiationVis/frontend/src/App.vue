@@ -495,8 +495,8 @@ html, body, #app {
   font-weight:500;
 }
 .control-container .input-ele-group {
-  width: 95%;
-  margin-left: 2.5%;
+  width: 96%;
+  margin-left: 2%;
   height: 35px;
 }
 .control-content .panup {
@@ -516,7 +516,7 @@ html, body, #app {
   font-size: 13px;
 }
 .uncertainty-container {
-  margin-left: 2.5%;
+  margin-left: 2%;
   font-size: 15px;
 }
 .uncertainty-container .blod{
