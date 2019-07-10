@@ -238,18 +238,16 @@ export default {
       g.append('path')
         .attr('d', upperInnerArea)
         .style('fill', color)
-        .style('stroke-width', 3);
 
       g.append('path')
         .attr('d', lowerInnerArea)
         .style('fill', color)
-        .style('stroke-width', 3);
 
       g.append('path')
         .attr('d', medianLine)
         .attr('fill', 'none')
         .attr('stroke', color)
-        .style('stroke-width', 1);
+        .style('stroke-width', 2);
     },
     drawBaseline(g, data, x, y) {
       let baseline = d3.line()
@@ -299,15 +297,14 @@ export default {
       
     },
     makeChart(static_data, mobile_data) {
-      let _this = this;
-
-
+      let _this= this;
       let max = 0;
       let max1 = d3.max(static_data, d => d.upper95);
       let max2 = d3.max(mobile_data, d => d.upper95);
-      let avg1 = d3.max(static_data, d => d.avg);
-      let avg2 = d3.max(mobile_data, d => d.avg);
-      let maxAvg = avg1 > avg2 ? avg1: avg2;
+      // let avg1 = d3.max(static_data, d => d.avg);
+      // let avg2 = d3.max(mobile_data, d => d.avg);
+      // let maxAvg = avg1 > avg2 ? avg1: avg2;
+      let realMax = max = max1 > max2 ? max1: max2;
         
         if(this.checkedItem.length == 2) {
           mobile_data = mobile_data.map(d => {
@@ -319,12 +316,7 @@ export default {
                 upper95: 80 + (parseFloat(d.avg) - 80) * 0.03 + 1.96 * d.sem
               }
             } else {
-              return {
-                date:  d.date,
-                lower95: parseFloat(d.lower95),
-                avg: parseFloat(d.avg),
-                upper95: parseFloat(d.upper95)
-              }
+              return d
             }
           })
           max2 = d3.max(mobile_data, d => d.upper95);
@@ -367,9 +359,9 @@ export default {
             }
         });
 
+      // let yAxis = d3.axisLeft(y)
+      //   .tickSizeInner(-5).tickSizeOuter(0).tickPadding(10).ticks(5);
       let yAxis = d3.axisLeft(y)
-        .tickSizeInner(-5).tickSizeOuter(0).tickPadding(10).ticks(5);
-      let yAxis1 = d3.axisLeft(y)
         .tickSizeInner(0).tickSizeOuter(0).tickPadding(10).ticks(0);
       let yAxis_static = d3.axisLeft(static_y)
         .tickSizeInner(0).tickSizeOuter(0).tickPadding(10).ticks(0);
@@ -399,28 +391,28 @@ export default {
         .call(brush);
 
       if(this.checkedItem.length == 2) {
-        _this.addX(g, xAxis, margin, chartWidth, chartHeight);
-        _this.addY(g, yAxis1, margin, chartWidth, chartHeight);
-        _this.addLegend(g);
-        _this.drawPathAndArea(g, static_data, x, y, "rgba(224, 4, 255, 0.6)");
-        _this.drawPathAndArea(g, mobile_data, x, y, "rgba(54,95,139, 0.5)");
-        _this.drawBaseline(g, basedata, x, y);
-        _this.drawTick(g, x, y, maxAvg);
+        this.addX(g, xAxis, margin, chartWidth, chartHeight);
+        this.addY(g, yAxis, margin, chartWidth, chartHeight);
+        this.addLegend(g);
+        this.drawPathAndArea(g, static_data, x, y, "rgba(224, 4, 255, 0.6)");
+        this.drawPathAndArea(g, mobile_data, x, y, "rgba(54,95,139, 0.5)");
+        this.drawBaseline(g, basedata, x, y);
+        this.drawTick(g, x, y, realMax);
       } else {
         if(this.checkedItem[0] == 'static') {
-          _this.addX(g, xAxis, margin, chartWidth, chartHeight);
-          _this.addY(g, yAxis_static, margin, chartWidth, chartHeight);
-          _this.addStaticLegend(g);
-          _this.drawPathAndArea(g, static_data, x, static_y, "rgba(224, 4, 255, 0.6)");
-          _this.drawBaseline(g, basedata, x, static_y);
-          _this.drawTick(g, x, static_y);
+          this.addX(g, xAxis, margin, chartWidth, chartHeight);
+          this.addY(g, yAxis_static, margin, chartWidth, chartHeight);
+          this.addStaticLegend(g);
+          this.drawPathAndArea(g, static_data, x, static_y, "rgba(224, 4, 255, 0.6)");
+          this.drawBaseline(g, basedata, x, static_y);
+          this.drawTick(g, x, static_y);
         } else if(this.checkedItem[0] == 'mobile') {
-          _this.addX(g, xAxis, margin, chartWidth, chartHeight);
-          _this.addY(g, yAxis_mobile, margin, chartWidth, chartHeight);
-          _this.addMobileLegend(g);
-          _this.drawPathAndArea(g, mobile_data, x, y, "rgba(54,95,139, 0.6)");
-          _this.drawBaseline(g, basedata, x, y);
-          _this.drawTick(g, x, mobile_y);
+          this.addX(g, xAxis, margin, chartWidth, chartHeight);
+          this.addY(g, yAxis_mobile, margin, chartWidth, chartHeight);
+          this.addMobileLegend(g);
+          this.drawPathAndArea(g, mobile_data, x, mobile_y, "rgba(54,95,139, 0.6)");
+          this.drawBaseline(g, basedata, x, mobile_y);
+          this.drawTick(g, x, mobile_y);
         }
       }
     },
@@ -471,15 +463,15 @@ export default {
 }
 
 .times_series_chart >>> .mobile_uncertainty {
-  //fill: rgba(127, 127, 255, 0.8);
-  //stroke: rgba(96, 96, 255, 0.8);
+  fill: rgba(127, 127, 255, 0.8);
+  stroke: rgba(96, 96, 255, 0.8);
   fill: #41709e;
   stroke: #385e8a;
 }
 
 .times_series_chart >>> .static_uncertainty {
-  //fill: rgba(255,182,193, 0.8);
-  //stroke: rgba(255,182,193, 0.8);
+  fill: rgba(255,182,193, 0.8);
+  stroke: rgba(255,182,193, 0.8);
   fill: #e004ff;
   stroke: #9e08b3;
 }

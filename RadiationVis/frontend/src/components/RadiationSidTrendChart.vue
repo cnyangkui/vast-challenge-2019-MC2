@@ -1,7 +1,9 @@
 <template>
   <div :id="cid">
     <div class="control">
-      <label>{{originData.category == 'static' ? 'SS': 'MS'}}-{{originData.sid}}</label>
+      <label style="margin-left:5px;">{{originData.category == 'static' ? 'SS': 'MS'}}-{{originData.sid}}</label>
+      <label style="margin-left:20px;">Time: {{originData.timeRange.begintime}} - {{originData.timeRange.endtime}}</label>
+      <label style="margin-left:20px;">Inteval: {{interval == 'hour'? 'By 1 hour': 'By 1 minute'}}</label>
       <input class="button" type="button" value="detail" @click="showDetail();">
     </div>
     <div class="radiationSidTrendChart"></div>
@@ -97,27 +99,45 @@ export default {
         }
 
         let max = d3.max(this.originData.data, d => d.avg);
+        let min = d3.min(this.originData.data, d => d.lower95);
 
         let x, y;
 
+        let s, e;
+
         if(end.getTime() - begin.getTime() > 12 * 3600 * 1000) {
+          s = new Date(begin.getFullYear(), begin.getMonth(), begin.getDate(), begin.getHours());
+          e = new Date(end.getFullYear(), end.getMonth(), end.getDate(), end.getHours());
           x = d3.scaleTime()
             .range([0, chartWidth])
-            .domain([new Date(begin.getFullYear(), begin.getMonth(), begin.getDate(), begin.getHours()), new Date(end.getFullYear(), end.getMonth(), end.getDate(), end.getHours())]);
+            .domain([s, e]);
         } else {
+          s = new Date(begin.getFullYear(), begin.getMonth(), begin.getDate(), begin.getHours(), begin.getMinutes());
+          e = new Date(end.getFullYear(), end.getMonth(), end.getDate(), end.getHours(), end.getMinutes());
           x = d3.scaleTime()
             .range([0, chartWidth])
-            .domain([new Date(begin.getFullYear(), begin.getMonth(), begin.getDate(), begin.getHours(), begin.getMinutes()), new Date(end.getFullYear(), end.getMonth(), end.getDate(), end.getHours(), end.getMinutes())]);
+            .domain([s, e]);
         }
 
+        let basedata = [{date: s, value: 14.6}, {date: e, value: 14.6}];
+
         y = d3.scaleLinear().range([chartHeight, 0])
-              .domain([0, max]);
+              .domain([min < 10 ? min:10, max]);
 
 
-        var xAxis = d3.axisBottom(x)
-                      .tickSizeInner(-chartHeight).tickSizeOuter(0).tickPadding(10).ticks(10),//.tickFormat(d => d.getHours()),
-            yAxis = d3.axisLeft(y)
-                      .tickSizeInner(-chartWidth).tickSizeOuter(0).tickPadding(10).ticks(5);
+       var xAxis = d3.axisBottom(x)
+                      .tickSizeInner(-chartHeight).tickSizeOuter(0).tickPadding(10).ticks(10)
+                      .tickFormat((d, i) => {
+                        var formatMonth = d3.timeFormat("%B %d")
+                        var formatTime = d3.timeFormat("%H:%M")
+                        if(d.getHours() %24 == 0) {
+                            return formatMonth(d);
+                          } else {
+                            return formatTime(d);
+                          }
+                      });
+        var yAxis = d3.axisLeft(y)
+                      .tickSizeInner(-chartWidth).tickSizeOuter(0).tickPadding(10).ticks(3);
 
         var g = this.svg.append('g')
             .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
@@ -127,6 +147,8 @@ export default {
         let color = d3.scaleOrdinal(d3.schemeCategory10);
 
         this.drawSidPath(g, this.originData.data, x, y);
+        this.drawBaseline(g, basedata, x, y);
+        this.drawTick(g, x, y);
       
     },
     addAxes(g, xAxis, yAxis, margin, chartWidth, chartHeight) {
@@ -197,27 +219,51 @@ export default {
         .style('fill', 'none');
       }
     },
+    drawBaseline(g, data, x, y) {
+      let baseline = d3.line()
+        .x(function (d) { return x(d.date); })
+        .y(function (d) { return y(d.value); });
+      g.datum(data);
+      g.append('path')
+        .attr('d', baseline)
+        .style('stroke', 'grey')
+        .style('stroke-width', 1)
+        .style('stroke-dasharray', 5);
+    },
+    drawTick(g, x, y, max) {
+      g.append('text')
+        .attr('x', '10px')
+        .attr('y', y(14.6))
+        .attr('dx', '0em')
+        .attr('dy', '-.5em')
+        .attr("font-size",10)
+        .attr("font-style", 'italic')
+        .attr("fill", '#999')
+        .text('background');
+      g.append('text')
+        .attr('x', '-10')
+        .attr('y', y(14.6))
+        .attr('dy', '.5em')
+        .attr("font-size",10)
+        .attr("font-style", 'italic')
+        .attr("fill", '#999')
+        .style('text-anchor', 'end')
+        .text('14.6');
+      // let domain = y.domain();
+      // g.append('text')
+      //   .attr('x', '-10')
+      //   .attr('y', y(domain[0]))
+      //   .attr('dy', '.5em')
+      //   .attr("font-size",10)
+      //   .style('text-anchor', 'end')
+      //   .text(domain[0]);
+    },
     clearAllg() {
       d3.select(`#${this.cid} svg`).selectAll('g').remove();
     },
     showDetail() {
       this.srScatterVisible = !this.srScatterVisible;
     }
-    // timeRangeUpdated(params) {
-    //   this.timeRange = params;
-    //   console.log(this.timeRange)
-    //   d3.select(`#${this.cid} svg`).selectAll('g').remove();
-    //   this.drawChartBySid();
-    // },
-    // sensorSelected(params) {
-    //   if(this.sidList.length >= 5) {
-    //     this.sidList = [];
-    //     this.sidDataList = [];
-    //   }
-    //   this.sidList.push(params)
-    //   d3.select(`#${this.cid} svg`).selectAll('g').remove();
-    //   this.drawChartBySid();
-    // }
   },
   watch: {
     componentStyle(n, o) {
@@ -240,6 +286,17 @@ export default {
     },
     scatterCid: function() {
       return this.cid + '_scatter'
+    },
+    interval: function() {
+      let begin = this.originData.timeRange.begintime || this.defaultTimeRange.begintime;
+      let end = this.originData.timeRange.endtime || this.defaultTimeRange.endtime;
+      begin = new Date(begin);
+      end = new Date(end);
+      if(end.getTime() - begin.getTime() > 12 * 3600 * 1000) {
+        return 'hour'
+      } else {
+        return 'minute'
+      }
     }
   }
 }
@@ -258,7 +315,6 @@ export default {
   line-height: 28px;
 }
 .control .button {
-  border-radius: 5px;
   float: right;
   margin-right: 5px;
   margin-top: 2px;

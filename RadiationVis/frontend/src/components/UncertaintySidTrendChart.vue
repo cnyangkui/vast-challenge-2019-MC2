@@ -1,7 +1,9 @@
 <template>
   <div :id="cid">
     <div class="control">
-      <label>{{originData.category == 'static' ? 'SS': 'MS'}}-{{originData.sid}}</label>
+      <label style="margin-left:5px;">{{originData.category == 'static' ? 'SS': 'MS'}}-{{originData.sid}}</label>
+      <label style="margin-left:20px;">Time: {{originData.timeRange.begintime}} - {{originData.timeRange.endtime}}</label>
+      <label style="margin-left:20px;">Inteval: {{interval == 'hour'? 'By 1 hour': 'By 1 minute'}}</label>
       <input class="button" type="button" value="detail" @click="showDetail();">
     </div>
     <div class="trendchart"></div>
@@ -115,10 +117,18 @@ export default {
 
 
         var xAxis = d3.axisBottom(x)
-                      .tickSizeInner(-chartHeight).tickSizeOuter(0).tickPadding(10).ticks(10),//.tickFormat(d => d.getHours()),
-            yAxis = d3.axisLeft(y)
-                      .tickSizeInner(-chartWidth).tickSizeOuter(0).tickPadding(10).ticks(5);
-
+                      .tickSizeInner(-chartHeight).tickSizeOuter(0).tickPadding(10).ticks(10)
+                      .tickFormat((d, i) => {
+                        var formatMonth = d3.timeFormat("%B %d")
+                        var formatTime = d3.timeFormat("%H:%M")
+                        if(d.getHours() %24 == 0) {
+                            return formatMonth(d);
+                          } else {
+                            return formatTime(d);
+                          }
+                      });
+        var yAxis = d3.axisLeft(y)
+                      .tickSizeInner(-chartWidth).tickSizeOuter(0).tickPadding(10).ticks(3);
         var g = this.svg.append('g')
             .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
@@ -145,7 +155,7 @@ export default {
         .attr('y', 6)
         .attr('dy', '.71em')
         .style('text-anchor', 'end')
-        .text('(std)');
+        .text('(STD)');
     },
     drawSidPath(g, data, x, y) {
       let medianLine = d3.line()
@@ -238,6 +248,17 @@ export default {
     },
     scatterCid: function() {
       return this.cid + '_scatter'
+    },
+    interval: function() {
+      let begin = this.originData.timeRange.begintime || this.defaultTimeRange.begintime;
+      let end = this.originData.timeRange.endtime || this.defaultTimeRange.endtime;
+      begin = new Date(begin);
+      end = new Date(end);
+      if(end.getTime() - begin.getTime() > 12 * 3600 * 1000) {
+        return 'hour'
+      } else {
+        return 'minute'
+      }
     }
   }
 }

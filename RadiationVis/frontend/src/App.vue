@@ -24,12 +24,12 @@
             </div>
             <div class="control-content">
               <div class="input-ele-group">
-                <div class="input-ele"><input type="checkbox" value="static"  v-model="timeSeriesCheckedState"><label>Static Sensors(SSs)</label></div>
-                <div class="input-ele"><input type="checkbox" value="mobile" v-model="timeSeriesCheckedState"><label>Mobile Sensors(MSs)</label></div>
+                <div class="input-ele"><input type="checkbox" value="static"  v-model="timeSeriesCheckedState"><label>Static Sensors (SSs)</label></div>
+                <div class="input-ele"><input type="checkbox" value="mobile" v-model="timeSeriesCheckedState"><label>Mobile Sensors (MSs)</label></div>
               </div>
               <div class="input-ele-group panup">
-                <div class="input-ele"><input type="radio" value="global" name="timeSeriesState" v-model="timeSeriesControl.state"><label>By hour</label></div>
-                <div class="input-ele"><input type="radio" value="local" name="timeSeriesState" v-model="timeSeriesControl.state" :disabled="timeSeriesControl.localDisabled"><label>By 1 mininutes</label></div>
+                <div class="input-ele"><input type="radio" value="global" name="timeSeriesState" v-model="timeSeriesControl.state"><label>By 1 hour</label></div>
+                <div class="input-ele"><input type="radio" value="local" name="timeSeriesState" v-model="timeSeriesControl.state" :disabled="timeSeriesControl.localDisabled"><label>By 1 minute</label></div>
               </div>
             </div>
           </div>
@@ -39,11 +39,11 @@
             </div>
             <div class="control-content">
               <div class="input-ele-group">
-                <div class="input-ele"><input type="checkbox" value="static" v-model="treemapCheckedState"><label>Static Sensors(SSs)</label></div>
-                <div class="input-ele"><input type="checkbox" value="mobile" v-model="treemapCheckedState"><label>Mobile Sensors(MSs)</label></div>
+                <div class="input-ele"><input type="checkbox" value="static" v-model="treemapCheckedState"><label>Static Sensors (SSs)</label></div>
+                <div class="input-ele"><input type="checkbox" value="mobile" v-model="treemapCheckedState"><label>Mobile Sensors (MSs)</label></div>
               </div>
               <div class="input-ele-group panup">
-                <div class="input-ele" style="margin-top: 6px;"><input class="button" type="button" value="Back" @click="getTreemap1();"></div>
+                <div class="input-ele" style="margin-top: 6px;"><input class="button" type="button" value="Back to root" @click="getTreemap1();"></div>
               </div>
             </div>
           </div>
@@ -64,9 +64,19 @@
             </div>
               <div class="control-content">
                 <div class="input-ele-group">
-                  <div class="input-ele"><input type="checkbox" v-model="mapControl.icon_s_check"><label>Static Sensors(SSs)</label>
+                  <label>Map layers:</label>
+                  <select style="margin-left: 5px;" v-model="mapControl.image" @change="changeMapImage">
+                    <option v-for="(item, index) in mapImages" :key="index" :value="item">{{item}}</option>
+                    <!-- <option value ="volvo">Volvo</option>
+                    <option value ="saab">Saab</option>
+                    <option value="opel">Opel</option>
+                    <option value="audi">Audi</option> -->
+                  </select>
+                </div>
+                <div class="input-ele-group panup">
+                  <div class="input-ele"><input type="checkbox" v-model="mapControl.icon_s_check"><label>Static Sensors (SSs)</label>
                   <img :src="require('./assets/img/static.png')" alt="" width="20px;"></div>
-                  <div class="input-ele"><input type="checkbox" v-model="mapControl.icon_m_check"><label>Mobile Sensors(MSs)</label>
+                  <div class="input-ele"><input type="checkbox" v-model="mapControl.icon_m_check"><label>Mobile Sensors (MSs)</label>
                   <img :src="require('./assets/img/mobile.png')" alt="" width="20px;"></div>
                 </div>
                 <!-- <div class="input-ele-group">
@@ -93,7 +103,7 @@
             <div class="control-header">
               <label>Uncertainty Settings</label>
             </div>
-            <div class="control-content">
+            <div>
               <div class="uncertainty-container">
                 <label class="bold">Uncertainty index system</label>
                 <ul>
@@ -270,7 +280,9 @@ export default {
         si_idw_check: false,
         mi_idw_check: false,
         inconsistency_check: false,
+        image: 'himark'
       },
+      mapImages: ['himark', 'poi'],
       trendChart: null,
       sidTrendCharts: [],
       sidTrendChartStyle: null,
@@ -434,10 +446,14 @@ export default {
       }  else {
         this.timeSeriesControl.localDisabled = true;
       }
+    },
+    changeMapImage() {
+      console.log(this.mapControl)
     }
   },
   watch: {
     treemapCheckedState(n, o) {
+      this.treemapState = 'treemap1';
       this.getTreemapDataByTimeRange(this.timeRange);
     },
     datatype(n, o) {
@@ -519,11 +535,11 @@ html, body, #app {
   margin-left: 2%;
   font-size: 15px;
 }
-.uncertainty-container .blod{
-  font-weight: 300;
+.uncertainty-container .bold{
+  font-weight: 500;
 }
 .uncertainty-container ul {
-  margin-top: -10px;
+  margin-top: -5px;
 }
 
 input :disabled {

@@ -156,14 +156,14 @@ export default {
           // .attr("clip-path", function(d) { return "url(#clip-" + d.data.id + ")"; })
         .selectAll(".treemap tspan")
           .data(function(d) { 
-            return `SS: ${d.data.static.length},MS: ${d.data.mobile.length}`.split(',')
+            return `SSs: ${d.data.static.length},MSs: ${d.data.mobile.length}`.split(',')
             // return d.data.name.split(/(?=[A-Z][^A-Z])/g); })
           })
         .enter().append("tspan")
           .attr("x", 4)
           .attr("y", function(d, i) { return 13 + i * 18; })
           .text(function(d, i) {  return d;})
-          .style("font-size", 15);
+          .style("font-size", 12);
       
     },
     drawTreemap2() {
@@ -229,6 +229,7 @@ export default {
           .attr("x", 4)
           .attr("y", 15)
           .text(function(d) { return d.data.id.startsWith('s') ? 'SS-'+d.data.id.substring(1) :'MS-'+d.data.id.substring(1)  ; })
+          .style("font-size", 12);
 
     },
     drawUncertaintyMeasure(g, sensor_info){
@@ -291,8 +292,9 @@ export default {
         line_g.datum(data);
 
         line_g.append('path')
-          .attr("class", "line")
-          .attr('d', medianLine);
+          .attr('d', medianLine)
+          .style('fill', 'none')
+          .style('stroke', '#999');
 
       }
       

@@ -166,14 +166,14 @@ export default {
           // .attr("clip-path", function(d) { return "url(#clip-" + d.data.id + ")"; })
         .selectAll(".treemap tspan")
           .data(function(d) { 
-            return `SS: ${d.data.static.length},MS: ${d.data.mobile.length}`.split(',')
+            return `SSs: ${d.data.static.length},MSs: ${d.data.mobile.length}`.split(',')
             // return d.data.name.split(/(?=[A-Z][^A-Z])/g); })
           })
         .enter().append("tspan")
           .attr("x", 4)
           .attr("y", function(d, i) { return 13 + i * 18; })
           .text(function(d, i) {  return d;})
-          .style("font-size", 15);
+          .style("font-size", 12);
       
     },
     drawTreemap2() {
@@ -253,6 +253,7 @@ export default {
           .attr("x", 4)
           .attr("y", 15)
           .text(function(d) { return d.data.id.startsWith('s') ? 'SS-'+d.data.id.substring(1) :'MS-'+d.data.id.substring(1)  ; })
+          .style('font-size', 12);
 
       let stdScale = d3.scaleQuantize().domain([0, 400]).range([1,2,3,4,5]);
       let completenessScale = d3.scaleQuantize().domain([0, 1]).range([1,2,3,4,5])
@@ -304,35 +305,35 @@ export default {
       cell.nodes().forEach(d => {
         let cell_ele = d3.select(d);
         let cell_data = cell_ele.datum();
-        let std = stdScale(cell_data.data.std);
-        let accuracy = accuracyScale(cell_data.data.accuracy);
+        let credibility = stdScale(cell_data.data.std);
+        let precision = accuracyScale(cell_data.data.accuracy);
         let completeness = completenessScale(cell_data.data.nan);
         let inconsistency = inconsistencyScale(cell_data.data.inconsistency)
         cell_ele.append("text")
-            .attr("x", "4px")
+            .attr("x", "5px")
             .attr("y", "20px")
-            .attr("dy",".5em")
+            .attr("dy",".8em")
             .text('u1:')
             .style('font-size', 12);
         cell_ele.append("text")
-            .attr("x", "4px")
+            .attr("x", "5px")
             .attr("y", "30px")
-            .attr("dy",".5em")
+            .attr("dy",".8em")
             .text('u2:')
             .style('font-size', 12);
         cell_ele.append("text")
-            .attr("x", "4px")
+            .attr("x", "5px")
             .attr("y", "40px")
-            .attr("dy",".5em")
+            .attr("dy",".8em")
             .text('u3:')
             .style('font-size', 12);
         cell_ele.append("text")
-            .attr("x", "4px")
+            .attr("x", "5px")
             .attr("y", "50px")
-            .attr("dy",".5em")
+            .attr("dy",".8em")
             .text('u4:')
             .style('font-size', 12);
-        for(let m=1; m<=std; m++) {
+        for(let m=1; m<=inconsistency; m++) {
             cell_ele.append("image")
               .attr("xlink:href", img)
               .attr("x", (d, i) => `${15+m*10}px`)
@@ -340,7 +341,7 @@ export default {
               .attr("width", "10px")
               .attr("height", "10px");
         }
-        for(let m=1; m<=completeness; m++) {
+        for(let m=1; m<=credibility; m++) {
             cell_ele.append("image")
               .attr("xlink:href", img)
               .attr("x", (d, i) => `${15+m*10}px`)
@@ -348,7 +349,7 @@ export default {
               .attr("width", "10px")
               .attr("height", "10px");
         }
-        for(let m=1; m<=accuracy; m++) {
+        for(let m=1; m<=precision; m++) {
             cell_ele.append("image")
               .attr("xlink:href", img)
               .attr("x", (d, i) => `${15+m*10}px`)
@@ -356,7 +357,7 @@ export default {
               .attr("width", "10px")
               .attr("height", "10px");
         }
-        for(let m=1; m<=inconsistency; m++) {
+        for(let m=1; m<=completeness; m++) {
             cell_ele.append("image")
               .attr("xlink:href", img)
               .attr("x", (d, i) => `${15+m*10}px`)
@@ -427,8 +428,9 @@ export default {
         line_g.datum(data);
 
         line_g.append('path')
-          .attr("class", "line")
-          .attr('d', medianLine);
+          .attr('d', medianLine)
+          .style('fill', 'none')
+          .style('stroke', '#999');
 
       }
       

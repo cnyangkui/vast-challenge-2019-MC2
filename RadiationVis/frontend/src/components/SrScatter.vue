@@ -1,7 +1,9 @@
 <template>
   <div :id="cid">
     <div class="scatterControl">
-      <span>{{category == 'static' ? 'SS': 'MS'}}-{{sid}}, min: {{minValue}}, max: {{maxValue}}</span> &nbsp;<br>
+      <span>{{category == 'static' ? 'SS': 'MS'}}-{{sid}}</span>
+      <span style="margin-left: 15px;">min: {{minValue}}</span>
+      <span style="margin-left: 15px;">max: {{maxValue}}</span> &nbsp;<br>
       filter: <el-input size="mini" v-model="minInput" placeholder="min" @change="minChanged"></el-input> &nbsp;<span>-</span>&nbsp;
       <el-input size="mini" v-model="maxInput" placeholder="max" @change="maxChanged"></el-input>
     </div>
@@ -79,7 +81,6 @@ export default {
 
       let context = canvasChart.node().getContext('2d');
       let _this = this;
-      console.log(this.category, this.sid)
       axios.post("/findSrBySid/", {
         category: this.category,
         sid: this.sid,

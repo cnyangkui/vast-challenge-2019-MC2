@@ -42,6 +42,7 @@ export default {
       imageExtent: [-120.0, 0, -119.711751, 0.238585], //[left, bottom, right, top]
       map: null, 
       layers: {
+        imageLayer: null,
         staticPointLayer: null, //静态传感器层
         mobilePointLayer: null,
         staticIdwLayer: null,
@@ -92,23 +93,24 @@ export default {
     selfAdaptionSize() {
       let width = document.querySelector("#openlayers_container").clientWidth;
       let img = document.createElement("img");
-      img.src = require('../assets/img/StHimarkMapBlank_with_road.png');
+      img.src = require(`../assets/img/${this.mapControl.image}.png`);
       document.querySelector("#himarkmap").style.height = width * img.height / img.width  + "px";
 
     },
     initMap() {
+      this.layers.imageLayer = new Image({
+        source: new ImageStatic({
+          url: require(`../assets/img/${this.mapControl.image}.png`),
+          imageExtent: this.imageExtent,
+        })
+      })
       this.map = new Map({
         // controls: defaultControls().extend([
         //   new FullScreen()
         // ]),
         target: 'himarkmap',
         layers: [
-          new Image({
-            source: new ImageStatic({
-              url: require('../assets/img/StHimarkMapBlank_with_road.png'),
-              imageExtent: this.imageExtent,
-            })
-          })
+          this.layers.imageLayer
         ],
         view: new View({
           projection: this.getProjection(),
@@ -472,26 +474,32 @@ export default {
 
         let features = [];
         // let colorScale = d3.scaleLinear().domain([0, 200]).range(["rgb(0,255,0)", "rgb(255,0,0)"])
-        let uncertaintyScale = d3.scaleLinear().domain([0,200]).range([0,1])
+        let uncertaintyScale = d3.scaleLinear().domain([0,200]).range([0,12])
 
         idwdata.forEach(d => {
           let polygon = new Polygon([[[d.lngEx[0], d.latEx[0]], [d.lngEx[0], d.latEx[1]], [d.lngEx[1], d.latEx[1]], [d.lngEx[1], d.latEx[0]], [d.lngEx[0], d.latEx[0]]]]);
           let polygonFeature = new Feature(polygon);
           let style = new Style({
               fill: new Fill({
-                color: [0, 0, 0,uncertaintyScale(Math.sqrt(d.variance))]
+                color: [0, 0, 0, 0.3]//[0, 0, 0,uncertaintyScale(Math.sqrt(d.variance))]
               }),
               // stroke: new Stroke({
-              //   width: scale(Math.sqrt(d.variance)),
+              //   width: uncertaintyScale(Math.sqrt(d.variance)),
               //   color: 'white'
               // })
             })
-            if(d.flag) {
+            if(Math.sqrt(d.variance) > 40) {
               style.stroke_ = new Stroke({
                 color: 'white',
-                width: 1
+                width: uncertaintyScale(Math.sqrt(d.variance)),
               })
-            } 
+            }
+            // if(d.flag) {
+            //   style.stroke_ = new Stroke({
+            //     color: 'white',
+            //     width: 1
+            //   })
+            // } 
             polygonFeature.setStyle(style);
             features.push(polygonFeature)
           })
@@ -530,7 +538,7 @@ export default {
 
         let features = [];
         let radiationScale = d3.scaleLinear().domain([0, 30]).range(["rgb(0,255,0)", "rgb(255,0,0)"])
-        let uncertaintyScale = d3.scaleLinear().domain([0,20]).range([0,1])
+        let uncertaintyScale = d3.scaleLinear().domain([0,20]).range([0,12])
 
         idwdata.forEach(d => {
           let polygon = new Polygon([[[d.lngEx[0], d.latEx[0]], [d.lngEx[0], d.latEx[1]], [d.lngEx[1], d.latEx[1]], [d.lngEx[1], d.latEx[0]], [d.lngEx[0], d.latEx[0]]]]);
@@ -538,13 +546,15 @@ export default {
           
           let style = new Style({
               fill: new Fill({
-                color: [0, 0, 0, uncertaintyScale(Math.sqrt(d.variance))]
+                color: [0, 0, 0, 0.3]//[0, 0, 0, uncertaintyScale(Math.sqrt(d.variance))]
               }),
-              // stroke: new Stroke({
-              //   width: scale(Math.sqrt(d.variance)),
-              //   color: 'white'
-              // })
             })
+            if(Math.sqrt(d.variance) > 3) {
+              style.stroke_ = new Stroke({
+                color: 'white',
+                width: uncertaintyScale(Math.sqrt(d.variance)),
+              })
+            }
             // if(d.flag) {
             //   style.stroke_ = new Stroke({
             //     color: 'white',
@@ -580,17 +590,17 @@ export default {
 
       function render(idwdata) {
         _this.layers.staticIdwLayer = new VectorLayer({
-          style: new Style({
-            stroke: new Stroke({
-              width: 1,
-              color: "white"
-            })
-          })
+          // style: new Style({
+          //   stroke: new Stroke({
+          //     width: 1,
+          //     color: "white"
+          //   })
+          // })
         })
 
         let features = [];
         let radiationScale = d3.scaleLinear().domain([12, 20]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
-        let uncertaintyScale = d3.scaleLinear().domain([0,20]).range([0,1])
+        let uncertaintyScale = d3.scaleLinear().domain([0,20]).range([0,12])
 
         idwdata.forEach(d => {
           let polygon = new Polygon([[[d.lngEx[0], d.latEx[0]], [d.lngEx[0], d.latEx[1]], [d.lngEx[1], d.latEx[1]], [d.lngEx[1], d.latEx[0]], [d.lngEx[0], d.latEx[0]]]]);
@@ -598,7 +608,7 @@ export default {
           let color = radiationScale(d.mean).replace('rgb(', '').replace(')', '').split(',')
           let style = new Style({
               fill: new Fill({
-                color: [parseInt(color[0]), parseInt(color[1]), parseInt(color[2]), uncertaintyScale(Math.sqrt(d.variance))]//[0, 0, 255, 0.6]
+                color: radiationScale(d.mean)//[parseInt(color[0]), parseInt(color[1]), parseInt(color[2]), uncertaintyScale(Math.sqrt(d.variance))]
               }),
             })
             // if(d.flag) {
@@ -607,13 +617,19 @@ export default {
             //     width: 1
             //   })
             // } 
+            if(Math.sqrt(d.variance) > 3) {
+              style.stroke_ = new Stroke({
+                color: 'white',
+                width: uncertaintyScale(Math.sqrt(d.variance)),
+              })
+            }
             polygonFeature.setStyle(style);
             features.push(polygonFeature)
           })
         _this.layers.staticIdwLayer.setSource(new VectorSource({
           features: features
         }))
-        _this.layers.staticIdwLayer.setOpacity(0.9);
+        _this.layers.staticIdwLayer.setOpacity(0.3);
         _this.map.addLayer(_this.layers.staticIdwLayer);
         _this.layers.staticIdwLayer.setVisible(_this.mapControl.si_idw_check);
       }
@@ -636,16 +652,16 @@ export default {
 
       function render(idwdata) {
         _this.layers.mobileIdwLayer = new VectorLayer({
-          style: new Style({
-            stroke: new Stroke({
-              width: 1,
-              color: "white"
-            })
-          })
+          // style: new Style({
+          //   stroke: new Stroke({
+          //     width: 1,
+          //     color: "white"
+          //   })
+          // })
         })
         let features = [];
         let radiationScale = d3.scaleLinear().domain([15, 80]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
-        let uncertaintyScale = d3.scaleLinear().domain([0,200]).range([0,1])
+        let uncertaintyScale = d3.scaleLinear().domain([0,200]).range([0,12])
 
         idwdata.forEach(d => {
           let polygon = new Polygon([[[d.lngEx[0], d.latEx[0]], [d.lngEx[0], d.latEx[1]], [d.lngEx[1], d.latEx[1]], [d.lngEx[1], d.latEx[0]], [d.lngEx[0], d.latEx[0]]]]);
@@ -653,22 +669,28 @@ export default {
           let color = radiationScale(d.mean);//.replace('rgb(', '').replace(')', '').split(',')
           let style = new Style({
               fill: new Fill({
-                color: `${color.substring(0, color.length-1)}, ${uncertaintyScale(Math.sqrt(d.variance))})`
+                color: radiationScale(d.mean)//`${color.substring(0, color.length-1)}, ${uncertaintyScale(Math.sqrt(d.variance))})`
               }),
             })
-            if(d.flag) {
+            // if(d.flag) {
+            //   style.stroke_ = new Stroke({
+            //     color: 'white',
+            //     width: 1
+            //   })
+            // } 
+            if(Math.sqrt(d.variance) > 40) {
               style.stroke_ = new Stroke({
                 color: 'white',
-                width: 1
+                width: uncertaintyScale(Math.sqrt(d.variance)),
               })
-            } 
+            }
             polygonFeature.setStyle(style);
             features.push(polygonFeature)
           })
         _this.layers.mobileIdwLayer.setSource(new VectorSource({
           features: features
         }))
-        _this.layers.mobileIdwLayer.setOpacity(0.9);
+        _this.layers.mobileIdwLayer.setOpacity(0.3);
         _this.map.addLayer(_this.layers.mobileIdwLayer);
         _this.layers.mobileIdwLayer.setVisible(_this.mapControl.mi_idw_check);
       }
@@ -966,6 +988,14 @@ export default {
     },
     mapControl: {
       handler(newValue,oldValue){
+        this.map.removeLayer(this.layers.imageLayer)
+        this.layers.imageLayer = new Image({
+          source: new ImageStatic({
+            url: require(`../assets/img/${this.mapControl.image}.png`),
+            imageExtent: this.imageExtent,
+          })
+        })
+        this.map.addLayer(this.layers.imageLayer)
         if(this.timeRange == null) {
           return;
         }
@@ -1004,6 +1034,7 @@ export default {
           }
         }
         this.updateLayers();
+        
       },
       deep:true
     },
