@@ -133,7 +133,7 @@ export default {
     selfAdaptionSize() {
       let width = document.querySelector("#openlayers_container").clientWidth;
       let img = document.createElement("img");
-      img.src = require('../assets/img/StHimarkMapBlank_with_road.png');
+      img.src = require('../assets/img/StHimarkMapRoad.png');
       document.querySelector("#himarkmap").style.height = width * img.height / img.width  + "px";
 
     },
@@ -146,7 +146,7 @@ export default {
         layers: [
           new Image({
             source: new ImageStatic({
-              url: require('../assets/img/StHimarkMapBlank_with_road.png'),
+              url: require('../assets/img/StHimarkMapRoad.png'),
               imageExtent: this.imageExtent,
             })
           })

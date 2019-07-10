@@ -280,9 +280,9 @@ export default {
         si_idw_check: false,
         mi_idw_check: false,
         inconsistency_check: false,
-        image: 'himark'
+        image: 'StHimarkMapRoad'
       },
-      mapImages: ['himark', 'poi'],
+      mapImages: ['StHimarkMapRoad', 'StHimarkMapBlank', 'StHimarkMapPoi', 'StHimarkMapHouse'],
       trendChart: null,
       sidTrendCharts: [],
       sidTrendChartStyle: null,
@@ -513,7 +513,7 @@ html, body, #app {
 .control-container .input-ele-group {
   width: 96%;
   margin-left: 2%;
-  height: 35px;
+  height: 55px;
 }
 .control-content .panup {
   margin-top: -10px;
@@ -523,7 +523,7 @@ html, body, #app {
   display: inline-block;
 }
 .control-content label {
-  line-height: 35px;
+  line-height: 55px;
   font-size: 15px;
 }
 .control-content .button {

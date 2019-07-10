@@ -63,6 +63,7 @@ def idw(griddata):
 				nullPoints[i]['mean'] = points[j - m0 * i]['mean']
 				nullPoints[i]['variance'] = points[j - m0 * i]['variance']
 				nullPoints[i]['max'] = points[j - m0 * i]['max']
+				nullPoints[i]['std'] = points[j - m0 * i]['std']
 				ifFind = True
 				break
 		if ifFind:
@@ -71,15 +72,19 @@ def idw(griddata):
 		numerator = 0
 		numerator1= 0
 		numerator2= 0
+		numerator3= 0
+
 		denominator = 0
 		for j in range(m0*i, m0*i+m0):
 			numerator += points[j - m0 * i]['mean'] / (r[j] * r[j])
 			numerator1 += points[j - m0 * i]['variance'] / (r[j] * r[j])
 			numerator2 += points[j - m0 * i]['max'] / (r[j] * r[j])
+			numerator3 += points[j - m0 * i]['std'] / (r[j] * r[j])
 			denominator += 1 / (r[j] * r[j])
 		nullPoints[i]['mean'] = numerator / denominator
 		nullPoints[i]['variance'] = numerator1 / denominator
 		nullPoints[i]['max'] = numerator2 / denominator
+		nullPoints[i]['std'] = numerator3 / denominator
 	
 	return points + nullPoints
 
@@ -111,14 +116,15 @@ def add_grid_info(origin_data):
 		for j in range(n):
 			lngEx = [left + j*span, left + (j+1)*span]
 			latEx = [top - (i+1)*span, top - i*span]
-			mean, variance, maxValue = None, None, None
+			mean, variance, std, maxValue = None, None, None, None
 			flag = False
 			if len(dim2Arr[i][j]['list']) > 0:
 				mean = np.mean(dim2Arr[i][j]['list'])
 				variance = np.var(dim2Arr[i][j]['list'])
+				std = math.sqrt(variance)
 				maxValue = max(dim2Arr[i][j]['list'])
 				flag = True
-			obj = {'i':i, 'j':j, 'lat': np.mean(latEx), 'lng': np.mean(lngEx), 'latEx': latEx, 'lngEx': lngEx, 'max': maxValue, 'mean': mean, 'variance': variance, 'flag': flag}
+			obj = {'i':i, 'j':j, 'lat': np.mean(latEx), 'lng': np.mean(lngEx), 'latEx': latEx, 'lngEx': lngEx, 'max': maxValue, 'std':std, 'mean': mean, 'variance': variance, 'flag': flag}
 			griddata.append(obj)
 
 	return griddata

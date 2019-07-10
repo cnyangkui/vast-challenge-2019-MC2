@@ -216,7 +216,6 @@ export default {
             this.$root.eventHub.$emit("sensorSelected", Object.assign({}, {category: category, sid: sid}, this.originData.timeRange||this.defaultTimeRange));
           })
       
-      let colorScale = d3.scaleLinear().domain([0, 100]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
 
       cell.append("rect")
           .attr("id", function(d) { return d.data.id; })
@@ -232,7 +231,7 @@ export default {
           .text(function(d) { return d.data.id.startsWith('s') ? 'SS-'+d.data.id.substring(1) :'MS-'+d.data.id.substring(1)  ; })
           .style("font-size", 12);
 
-      let stdScale = d3.scaleQuantize().domain([0, 400]).range([1,2,3,4,5]);
+      let stdScale = d3.scaleQuantize().domain([0, 60]).range([1,2,3,4,5]);
       let completenessScale = d3.scaleQuantize().domain([0, 1]).range([1,2,3,4,5])
       let accuracyScale = d3.scaleQuantize().domain([0, 7]).range([1,2,3,4,5])
       let inconsistencyScale = d3.scaleQuantize().domain([0, 27.36]).range([0,1,2,3,4,5])

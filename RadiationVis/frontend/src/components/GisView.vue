@@ -41,6 +41,7 @@ export default {
       himarkmap: new CityMap(),
       imageExtent: [-120.0, 0, -119.711751, 0.238585], //[left, bottom, right, top]
       map: null, 
+      image: null,
       layers: {
         imageLayer: null,
         staticPointLayer: null, //静态传感器层
@@ -98,6 +99,7 @@ export default {
 
     },
     initMap() {
+      this.image = this.mapControl.image;
       this.layers.imageLayer = new Image({
         source: new ImageStatic({
           url: require(`../assets/img/${this.mapControl.image}.png`),
@@ -366,8 +368,8 @@ export default {
         })
 
         let features = [];
-        let colorScale = d3.scaleLinear().domain([15, 80]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
-
+        let colorScale = d3.scaleLinear().domain([25, 80]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
+        console.log('mobile', d3.max(idwdata, d=>d.mean), d3.mean(idwdata,d=>d.mean), d3.min(idwdata, d=>d.mean))
         idwdata.forEach(d => {
           let polygon = new Polygon([[[d.lngEx[0], d.latEx[0]], [d.lngEx[0], d.latEx[1]], [d.lngEx[1], d.latEx[1]], [d.lngEx[1], d.latEx[0]], [d.lngEx[0], d.latEx[0]]]]);
           let polygonFeature = new Feature(polygon);
@@ -420,8 +422,8 @@ export default {
         })
 
         let features = [];
-        let colorScale = d3.scaleLinear().domain([12, 20]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
-
+        let colorScale = d3.scaleLinear().domain([14, 20]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
+        
         idwdata.forEach(d => {
           let polygon = new Polygon([[[d.lngEx[0], d.latEx[0]], [d.lngEx[0], d.latEx[1]], [d.lngEx[1], d.latEx[1]], [d.lngEx[1], d.latEx[0]], [d.lngEx[0], d.latEx[0]]]]);
           let polygonFeature = new Feature(polygon);
@@ -474,8 +476,9 @@ export default {
 
         let features = [];
         // let colorScale = d3.scaleLinear().domain([0, 200]).range(["rgb(0,255,0)", "rgb(255,0,0)"])
-        let uncertaintyScale = d3.scaleLinear().domain([0,200]).range([0,12])
-
+        let uncertaintyScale = d3.scaleLinear().domain([0,60]).range([0,10])
+         console.log('mobile,max', d3.max(idwdata, d=>d.std), d3.mean(idwdata, d=>d.std))
+        let meanstd = d3.mean(idwdata, d => d.std)
         idwdata.forEach(d => {
           let polygon = new Polygon([[[d.lngEx[0], d.latEx[0]], [d.lngEx[0], d.latEx[1]], [d.lngEx[1], d.latEx[1]], [d.lngEx[1], d.latEx[0]], [d.lngEx[0], d.latEx[0]]]]);
           let polygonFeature = new Feature(polygon);
@@ -488,10 +491,10 @@ export default {
               //   color: 'white'
               // })
             })
-            if(Math.sqrt(d.variance) > 40) {
+            if(d.std > meanstd) {
               style.stroke_ = new Stroke({
-                color: 'white',
-                width: uncertaintyScale(Math.sqrt(d.variance)),
+                color: [255,255,255,0.8],
+                width: uncertaintyScale(d.std),
               })
             }
             // if(d.flag) {
@@ -537,9 +540,10 @@ export default {
         })
 
         let features = [];
-        let radiationScale = d3.scaleLinear().domain([0, 30]).range(["rgb(0,255,0)", "rgb(255,0,0)"])
-        let uncertaintyScale = d3.scaleLinear().domain([0,20]).range([0,12])
-
+        // let radiationScale = d3.scaleLinear().domain([14, 20]).range(["rgb(0,255,0)", "rgb(255,0,0)"])
+        let uncertaintyScale = d3.scaleLinear().domain([0,10]).range([0,10])
+        console.log('static,max', d3.max(idwdata, d=>d.std), d3.mean(idwdata, d=>d.std))
+        let meanstd = d3.mean(idwdata, d => d.std)
         idwdata.forEach(d => {
           let polygon = new Polygon([[[d.lngEx[0], d.latEx[0]], [d.lngEx[0], d.latEx[1]], [d.lngEx[1], d.latEx[1]], [d.lngEx[1], d.latEx[0]], [d.lngEx[0], d.latEx[0]]]]);
           let polygonFeature = new Feature(polygon);
@@ -549,10 +553,10 @@ export default {
                 color: [0, 0, 0, 0.3]//[0, 0, 0, uncertaintyScale(Math.sqrt(d.variance))]
               }),
             })
-            if(Math.sqrt(d.variance) > 3) {
+            if(d.std > meanstd) {
               style.stroke_ = new Stroke({
                 color: 'white',
-                width: uncertaintyScale(Math.sqrt(d.variance)),
+                width: uncertaintyScale(d.std),
               })
             }
             // if(d.flag) {
@@ -599,8 +603,10 @@ export default {
         })
 
         let features = [];
-        let radiationScale = d3.scaleLinear().domain([12, 20]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
-        let uncertaintyScale = d3.scaleLinear().domain([0,20]).range([0,12])
+        let radiationScale = d3.scaleLinear().domain([14, 20]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
+        let uncertaintyScale = d3.scaleLinear().domain([0,10]).range([0,10])
+        // console.log('static,max', d3.max(idwdata, d=>d.std), d3.mean(idwdata, d=>d.std))
+        let meanstd = d3.mean(idwdata, d => d.std)
 
         idwdata.forEach(d => {
           let polygon = new Polygon([[[d.lngEx[0], d.latEx[0]], [d.lngEx[0], d.latEx[1]], [d.lngEx[1], d.latEx[1]], [d.lngEx[1], d.latEx[0]], [d.lngEx[0], d.latEx[0]]]]);
@@ -617,10 +623,10 @@ export default {
             //     width: 1
             //   })
             // } 
-            if(Math.sqrt(d.variance) > 3) {
+            if(d.std > meanstd) {
               style.stroke_ = new Stroke({
                 color: 'white',
-                width: uncertaintyScale(Math.sqrt(d.variance)),
+                width: uncertaintyScale(d.std),
               })
             }
             polygonFeature.setStyle(style);
@@ -660,8 +666,9 @@ export default {
           // })
         })
         let features = [];
-        let radiationScale = d3.scaleLinear().domain([15, 80]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
-        let uncertaintyScale = d3.scaleLinear().domain([0,200]).range([0,12])
+        let radiationScale = d3.scaleLinear().domain([25, 80]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
+        let uncertaintyScale = d3.scaleLinear().domain([0,60]).range([0,10])
+        let meanstd = d3.mean(idwdata, d => d.std);
 
         idwdata.forEach(d => {
           let polygon = new Polygon([[[d.lngEx[0], d.latEx[0]], [d.lngEx[0], d.latEx[1]], [d.lngEx[1], d.latEx[1]], [d.lngEx[1], d.latEx[0]], [d.lngEx[0], d.latEx[0]]]]);
@@ -678,10 +685,10 @@ export default {
             //     width: 1
             //   })
             // } 
-            if(Math.sqrt(d.variance) > 40) {
+            if(d.std > meanstd) {
               style.stroke_ = new Stroke({
                 color: 'white',
-                width: uncertaintyScale(Math.sqrt(d.variance)),
+                width: uncertaintyScale(d.std),
               })
             }
             polygonFeature.setStyle(style);
@@ -988,14 +995,18 @@ export default {
     },
     mapControl: {
       handler(newValue,oldValue){
-        this.map.removeLayer(this.layers.imageLayer)
-        this.layers.imageLayer = new Image({
-          source: new ImageStatic({
-            url: require(`../assets/img/${this.mapControl.image}.png`),
-            imageExtent: this.imageExtent,
+        if(this.image !== this.mapControl.image) {
+          this.map.removeLayer(this.layers.imageLayer);
+          this.layers.imageLayer = new Image({
+            source: new ImageStatic({
+              url: require(`../assets/img/${this.mapControl.image}.png`),
+              imageExtent: this.imageExtent,
+            })
           })
-        })
-        this.map.addLayer(this.layers.imageLayer)
+          this.image = this.mapControl.image;
+          this.map.addLayer(this.layers.imageLayer);
+          this.clearLayers();
+        }
         if(this.timeRange == null) {
           return;
         }
@@ -1010,10 +1021,10 @@ export default {
         }
         
         if(this.datatype.length == 2) { //radiation和uncertainty都选中时的插值
-          if(this.mapControl.si_idw_check && this.layers.staticPointLayer == null) {
+          if(this.mapControl.si_idw_check && this.layers.staticIdwLayer == null) {
             this.drawIdwRUSLayer();
           }
-          if(this.mapControl.mi_idw_check) {
+          if(this.mapControl.mi_idw_check && this.layers.mobileIdwLayer == null) {
             this.drawIdwRUMLayer();
           }
         }
@@ -1034,6 +1045,7 @@ export default {
           }
         }
         this.updateLayers();
+        
         
       },
       deep:true
@@ -1083,7 +1095,7 @@ export default {
   computed: {
     coords: function() {
       return [[[this.imageExtent[0], this.imageExtent[3]], [this.imageExtent[2], this.imageExtent[3]], [this.imageExtent[2], this.imageExtent[1]], [this.imageExtent[0], this.imageExtent[1]]]]
-    }
+    },
   },
 }
 </script>
