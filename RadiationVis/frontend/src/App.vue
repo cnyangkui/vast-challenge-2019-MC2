@@ -104,10 +104,10 @@
               <label>Uncertainty Settings</label>
             </div>
             <div>
-              <div class="uncertainty-container">
+              <div class="uncertainty-container" style="margin-top: 15px;">
                 <label class="bold">Uncertainty index system</label>
                 <ul>
-                  <li>U1: Inconsistency</li>
+                  <li>U1: Inconsistency <div style="display: inline-block; float: right; margin-right: 90px;">weight: <input type="text" style="width:30px;" value="1"></div></li>
                   <li>U2: Credibility</li>
                   <li>U3: Precision</li>
                   <li>U4: Data completeness</li>
@@ -513,7 +513,7 @@ html, body, #app {
 .control-container .input-ele-group {
   width: 96%;
   margin-left: 2%;
-  height: 55px;
+  height: 50px;
 }
 .control-content .panup {
   margin-top: -10px;
@@ -523,7 +523,7 @@ html, body, #app {
   display: inline-block;
 }
 .control-content label {
-  line-height: 55px;
+  line-height: 50px;
   font-size: 15px;
 }
 .control-content .button {
