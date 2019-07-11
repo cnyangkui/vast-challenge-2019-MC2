@@ -302,7 +302,7 @@ export default {
       let x;
       let basedata;
 
-      if(end.getTime() - begin.getTime() > 12 * 3600 * 1000) {
+      if(end.getTime() - begin.getTime() > 6 * 3600 * 1000) {
         let s = new Date(begin.getFullYear(), begin.getMonth(), begin.getDate(), begin.getHours());
         let e = new Date(end.getFullYear(), end.getMonth(), end.getDate(), end.getHours())
         x = d3.scaleTime()

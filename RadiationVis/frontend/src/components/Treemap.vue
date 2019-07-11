@@ -11,7 +11,7 @@ export default {
   name: 'Treemap',
   props: {
     cid: String,
-    originData: Object
+    originData: Object,
   },
   data() {
     return {
@@ -115,14 +115,19 @@ export default {
         // cluster.children[i].sensors = data.children[i].children;
       }
 
-      let blurScale = d3.scaleLinear().domain([0, 400]).range([0, 36]);
+      let strokeScale;
+      if(this.originData.sensorType == 'static') {
+        strokeScale = d3.scaleLinear().domain([0, 10]).range([0, 10]);
+      } else{
+        strokeScale = d3.scaleLinear().domain([0, 60]).range([0, 10]);
+      }
 
-      let blur_g = this.svg.append("g");
-      // console.log(this.originData.data.children)
-      cluster.children.forEach(d => {
-        let defs = blur_g.append("defs").append('filter').attr("id", `filter-${d.name}`).attr("x", 0).attr("y", 0);
-        defs.append("feGaussianBlur").attr("in", "SourceGraphic").attr("stdDeviation", blurScale(d.std))
-      })
+      // let blur_g = this.svg.append("g");
+      // // console.log(this.originData.data.children)
+      // cluster.children.forEach(d => {
+      //   let defs = blur_g.append("defs").append('filter').attr("id", `filter-${d.name}`).attr("x", 0).attr("y", 0);
+      //   defs.append("feGaussianBlur").attr("in", "SourceGraphic").attr("stdDeviation", strokeScale(d.std))
+      // })
 
       var root = d3.hierarchy(cluster)
           .eachBefore(function(d) { d.data.id = d.data.name; })
@@ -156,7 +161,11 @@ export default {
             return colorScale(d.data.mean);
           })
           .attr("opacity", 0.3)
-          .style("filter", (d) => `url(#filter-${d.data.name})`);
+          .attr("stroke", "white")
+          .attr("stroke-opacity", 0.3)
+          .attr("stroke-width", d => strokeScale(d.data.std))
+          
+          // .style("filter", (d) => `url(#filter-${d.data.name})`);
 
       cluster.children.forEach((d, i) => {
         this.drawLineBySid(d3.select(cell.nodes()[i]))
@@ -185,14 +194,19 @@ export default {
       let g = this.svg.append("g").attr("transform", "translate(" + (margin.left) + "," + (margin.top) + ")");
 
       
-      let blurScale = d3.scaleLinear().domain([0, 400]).range([0, 36]);
+      let strokeScale;
+      if(this.originData.sensorType == 'static') {
+        strokeScale = d3.scaleLinear().domain([0, 10]).range([0, 10]);
+      } else{
+        strokeScale = d3.scaleLinear().domain([0, 60]).range([0, 10]);
+      }
 
-      let blur_g = this.svg.append("g");
-      // console.log(this.originData.data.children)
-      this.originData.data.children.forEach(d => {
-        let defs = blur_g.append("defs").append('filter').attr("id", `filter-${d.name}`).attr("x", 0).attr("y", 0);
-        defs.append("feGaussianBlur").attr("in", "SourceGraphic").attr("stdDeviation", blurScale(d.std))
-      })
+      // let blur_g = this.svg.append("g");
+      // // console.log(this.originData.data.children)
+      // this.originData.data.children.forEach(d => {
+      //   let defs = blur_g.append("defs").append('filter').attr("id", `filter-${d.name}`).attr("x", 0).attr("y", 0);
+      //   defs.append("feGaussianBlur").attr("in", "SourceGraphic").attr("stdDeviation", strokeScale(d.std))
+      // })
 
       var fader = function(color) { return d3.interpolateRgb(color, "#fff")(0.2); },
         color = d3.scaleOrdinal(d3.schemeCategory10.map(fader)),
@@ -240,10 +254,13 @@ export default {
           .attr("id", function(d) { return d.data.id; })
           .attr("width", function(d) { return d.x1 - d.x0; })
           .attr("height", function(d) { return d.y1 - d.y0; })
-          // .attr("fill", "steelblue");
           .attr("fill", d => colorScale(d.data.mean))
           .style("opacity", 0.3)
-          .style("filter", (d) => `url(#filter-${d.data.name})`)
+          .attr("stroke", "white")
+          .attr("stroke-opacity", 0.3)
+          .attr("stroke-width", d => strokeScale(d.data.std))
+          
+          // .style("filter", (d) => `url(#filter-${d.data.name})`)
 
       cell.append("text")
           // .attr("clip-path", function(d) { return "url(#clip-" + d.data.id + ")"; })
@@ -402,7 +419,7 @@ export default {
 
         let x, y;
 
-        if(end.getTime() - begin.getTime() > 12 * 3600 * 1000) {
+        if(end.getTime() - begin.getTime() > 6 * 3600 * 1000) {
           x = d3.scaleTime()
             .range([0, chartWidth])
             .domain([new Date(begin.getFullYear(), begin.getMonth(), begin.getDate(), begin.getHours()), new Date(end.getFullYear(), end.getMonth(), end.getDate(), end.getHours())]);

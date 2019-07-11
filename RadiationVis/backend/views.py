@@ -134,8 +134,8 @@ def calTimeSeries(request):
 		mobile_data = None
 		cursor = connection.cursor()
 
-		# 如果时间间隔超过三小时，按小时聚合，否则按分钟聚合
-		if (end_timestamp - begin_timestamp) > 12 * 3600:
+		# 如果时间间隔超过6小时，按小时聚合，否则按分钟聚合
+		if (end_timestamp - begin_timestamp) > 6 * 3600:
 			# 查询动态数据
 			cursor.execute("select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'),':00:00') as time, avg(value) as avg, std(value) as std, std(value)/sqrt(count(*)) as standarderror from mobilesensorreadings where timestamp >= '{0}' and timestamp < '{1}' and value < 15000 group by DATE_FORMAT(timestamp, '%Y-%m-%d %H')".format(begintime_str, endtime_str))
 			
@@ -182,7 +182,7 @@ def calTimeSeriesBySid(request):
 		cursor = connection.cursor()
 
 		# 如果时间间隔超过三小时，按小时聚合，否则按分钟聚合
-		if (end_timestamp - begin_timestamp) > 12 * 3600:
+		if (end_timestamp - begin_timestamp) > 6 * 3600:
 			if category == 'mobile':
 				# 查询动态数据
 				cursor.execute("select concat(DATE_FORMAT(timestamp, '%Y-%m-%d %H'),':00:00') as time, avg(value) as avg, std(value)/sqrt(count(*)) as standarderror, std(value) as std from mobilesensorreadings where timestamp >= '{0}' and timestamp < '{1}' and sid = {2} and value < 15000 group by DATE_FORMAT(timestamp, '%Y-%m-%d %H')".format(begintime_str, endtime_str, sid))

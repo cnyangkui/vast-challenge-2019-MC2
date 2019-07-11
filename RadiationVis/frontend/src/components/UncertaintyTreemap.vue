@@ -115,14 +115,19 @@ export default {
         // cluster.children[i].sensors = data.children[i].children;
       }
 
-      let blurScale = d3.scaleLinear().domain([0, 400]).range([0, 36]);
+      let strokeScale;
+      if(this.originData.sensorType == 'static') {
+        strokeScale = d3.scaleLinear().domain([0, 10]).range([0, 10]);
+      } else{
+        strokeScale = d3.scaleLinear().domain([0, 60]).range([0, 10]);
+      }
 
-      let blur_g = this.svg.append("g");
-      // console.log(this.originData.data.children)
-      cluster.children.forEach(d => {
-        let defs = blur_g.append("defs").append('filter').attr("id", `filter-${d.name}`).attr("x", 0).attr("y", 0);
-        defs.append("feGaussianBlur").attr("in", "SourceGraphic").attr("stdDeviation", blurScale(d.std))
-      })
+      // let blur_g = this.svg.append("g");
+      // // console.log(this.originData.data.children)
+      // cluster.children.forEach(d => {
+      //   let defs = blur_g.append("defs").append('filter').attr("id", `filter-${d.name}`).attr("x", 0).attr("y", 0);
+      //   defs.append("feGaussianBlur").attr("in", "SourceGraphic").attr("stdDeviation", strokeScale(d.std))
+      // })
 
       var root = d3.hierarchy(cluster)
           .eachBefore(function(d) { d.data.id = d.data.name; })
@@ -145,7 +150,9 @@ export default {
           .attr("width", function(d) { return d.x1 - d.x0; })
           .attr("height", function(d) { return d.y1 - d.y0; })
           .attr("fill", "#ccc")
-          .style("filter", (d) => `url(#filter-${d.data.name})`);
+          .attr("stroke", "white")
+          .attr("stroke-opacity", 0.3)
+          .attr("stroke-width", d => strokeScale(d.data.std))
 
       cluster.children.forEach((d, i) => {
         this.drawLineBySid(d3.select(cell.nodes()[i]))
@@ -174,13 +181,18 @@ export default {
       let g = this.svg.append("g").attr("transform", "translate(" + (margin.left) + "," + (margin.top) + ")");
 
       
-      let blurScale = d3.scaleLinear().domain([0, 400]).range([0, 36]);
+      let strokeScale;
+      if(this.originData.sensorType == 'static') {
+        strokeScale = d3.scaleLinear().domain([0, 10]).range([0, 15]);
+      } else{
+        strokeScale = d3.scaleLinear().domain([0, 60]).range([0, 15]);
+      }
 
-      let blur_g = this.svg.append("g");
-      this.originData.data.children.forEach(d => {
-        let defs = blur_g.append("defs").append('filter').attr("id", `filter-${d.name}`).attr("x", 0).attr("y", 0);
-        defs.append("feGaussianBlur").attr("in", "SourceGraphic").attr("stdDeviation", blurScale(d.std))
-      })
+      // let blur_g = this.svg.append("g");
+      // this.originData.data.children.forEach(d => {
+      //   let defs = blur_g.append("defs").append('filter').attr("id", `filter-${d.name}`).attr("x", 0).attr("y", 0);
+      //   defs.append("feGaussianBlur").attr("in", "SourceGraphic").attr("stdDeviation", strokeScale(d.std))
+      // })
 
       var fader = function(color) { return d3.interpolateRgb(color, "#fff")(0.2); },
         color = d3.scaleOrdinal(d3.schemeCategory10.map(fader)),
@@ -221,9 +233,10 @@ export default {
           .attr("id", function(d) { return d.data.id; })
           .attr("width", function(d) { return d.x1 - d.x0; })
           .attr("height", function(d) { return d.y1 - d.y0; })
-          // .attr("fill", "steelblue");
-          .attr("fill", '#ccc')
-          .style("filter", (d) => `url(#filter-${d.data.id})`)
+          .attr("opacity", 0.3)
+          .attr("stroke", "white")
+          .attr("stroke-opacity", 0.3)
+          .attr("stroke-width", d => strokeScale(d.data.std))
 
       cell.append("text")
           .attr("x", 4)
@@ -250,24 +263,6 @@ export default {
             .attr("dy",".8em")
             .text('u1:')
             .style('font-size', 12);
-        cell_ele.append("text")
-            .attr("x", "5px")
-            .attr("y", "30px")
-            .attr("dy",".8em")
-            .text('u2:')
-            .style('font-size', 12);
-        cell_ele.append("text")
-            .attr("x", "5px")
-            .attr("y", "40px")
-            .attr("dy",".8em")
-            .text('u3:')
-            .style('font-size', 12);
-        cell_ele.append("text")
-            .attr("x", "5px")
-            .attr("y", "50px")
-            .attr("dy",".8em")
-            .text('u4:')
-            .style('font-size', 12);
         for(let m=1; m<=inconsistency; m++) {
             cell_ele.append("image")
               .attr("xlink:href", img)
@@ -276,30 +271,50 @@ export default {
               .attr("width", "10px")
               .attr("height", "10px");
         }
+        cell_ele.append("text")
+            .attr("x", "5px")
+            .attr("y", "30px")
+            .attr("dy",".8em")
+            .text('u2:')
+            .style('font-size', 12);
         for(let m=1; m<=credibility; m++) {
-            cell_ele.append("image")
-              .attr("xlink:href", img)
-              .attr("x", (d, i) => `${15+m*10}px`)
-              .attr("y", "30px")
-              .attr("width", "10px")
-              .attr("height", "10px");
+          cell_ele.append("image")
+            .attr("xlink:href", img)
+            .attr("x", (d, i) => `${15+m*10}px`)
+            .attr("y", "30px")
+            .attr("width", "10px")
+            .attr("height", "10px");
         }
+        cell_ele.append("text")
+            .attr("x", "5px")
+            .attr("y", "40px")
+            .attr("dy",".8em")
+            .text('u3:')
+            .style('font-size', 12);
         for(let m=1; m<=precision; m++) {
-            cell_ele.append("image")
-              .attr("xlink:href", img)
-              .attr("x", (d, i) => `${15+m*10}px`)
-              .attr("y", "40px")
-              .attr("width", "10px")
-              .attr("height", "10px");
+          cell_ele.append("image")
+            .attr("xlink:href", img)
+            .attr("x", (d, i) => `${15+m*10}px`)
+            .attr("y", "40px")
+            .attr("width", "10px")
+            .attr("height", "10px");
         }
+        cell_ele.append("text")
+            .attr("x", "5px")
+            .attr("y", "50px")
+            .attr("dy",".8em")
+            .text('u4:')
+            .style('font-size', 12);
         for(let m=1; m<=completeness; m++) {
-            cell_ele.append("image")
-              .attr("xlink:href", img)
-              .attr("x", (d, i) => `${15+m*10}px`)
-              .attr("y", "50px")
-              .attr("width", "10px")
-              .attr("height", "10px");
-        }
+          cell_ele.append("image")
+            .attr("xlink:href", img)
+            .attr("x", (d, i) => `${15+m*10}px`)
+            .attr("y", "50px")
+            .attr("width", "10px")
+            .attr("height", "10px");
+        } 
+        
+        
       })
 
     },
@@ -333,7 +348,7 @@ export default {
 
         let x, y;
 
-        if(end.getTime() - begin.getTime() > 12 * 3600 * 1000) {
+        if(end.getTime() - begin.getTime() > 6 * 3600 * 1000) {
           x = d3.scaleTime()
             .range([0, chartWidth])
             .domain([new Date(begin.getFullYear(), begin.getMonth(), begin.getDate(), begin.getHours()), new Date(end.getFullYear(), end.getMonth(), end.getDate(), end.getHours())]);

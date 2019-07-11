@@ -104,7 +104,7 @@ export default {
 
         let x, y;
 
-        if(end.getTime() - begin.getTime() > 12 * 3600 * 1000) {
+        if(end.getTime() - begin.getTime() > 6 * 3600 * 1000) {
           x = d3.scaleTime()
             .range([0, chartWidth])
             .domain([new Date(begin.getFullYear(), begin.getMonth(), begin.getDate(), begin.getHours()), new Date(end.getFullYear(), end.getMonth(), end.getDate(), end.getHours())]);
@@ -352,7 +352,7 @@ export default {
       let end = this.originData.timeRange.endtime || this.defaultTimeRange.endtime;
       begin = new Date(begin);
       end = new Date(end);
-      if(end.getTime() - begin.getTime() > 12 * 3600 * 1000) {
+      if(end.getTime() - begin.getTime() > 6 * 3600 * 1000) {
         return 'hour'
       } else {
         return 'minute'

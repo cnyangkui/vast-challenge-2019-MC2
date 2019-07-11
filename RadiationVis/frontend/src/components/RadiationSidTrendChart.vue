@@ -105,7 +105,7 @@ export default {
 
         let s, e;
 
-        if(end.getTime() - begin.getTime() > 12 * 3600 * 1000) {
+        if(end.getTime() - begin.getTime() > 6 * 3600 * 1000) {
           s = new Date(begin.getFullYear(), begin.getMonth(), begin.getDate(), begin.getHours());
           e = new Date(end.getFullYear(), end.getMonth(), end.getDate(), end.getHours());
           x = d3.scaleTime()
@@ -292,7 +292,7 @@ export default {
       let end = this.originData.timeRange.endtime || this.defaultTimeRange.endtime;
       begin = new Date(begin);
       end = new Date(end);
-      if(end.getTime() - begin.getTime() > 12 * 3600 * 1000) {
+      if(end.getTime() - begin.getTime() > 6 * 3600 * 1000) {
         return 'hour'
       } else {
         return 'minute'

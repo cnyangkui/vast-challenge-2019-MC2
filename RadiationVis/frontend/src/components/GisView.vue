@@ -59,7 +59,7 @@ export default {
         mobileUncertaintyGridData: null,
         mobilePathData: null,
       },
-      zoom: 2.25,
+      zoom: 2.4,
       sid: null,
       timeRange: null,
       mapTimeRange: null,
@@ -83,6 +83,7 @@ export default {
    },
   mounted() {
     this.$nextTick(() => {
+      
       this.loadMap();
     })
   },
@@ -91,13 +92,13 @@ export default {
       this.initMap();
       this.addSelectEvent();
     },
-    selfAdaptionSize() {
-      let width = document.querySelector("#openlayers_container").clientWidth;
-      let img = document.createElement("img");
-      img.src = require(`../assets/img/${this.mapControl.image}.png`);
-      document.querySelector("#himarkmap").style.height = width * img.height / img.width  + "px";
+    // selfAdaptionSize() {
+    //   let width = document.querySelector("#openlayers_container").clientWidth;
+    //   let img = document.createElement("img");
+    //   img.src = require(`../assets/img/${this.mapControl.image}.png`);
+    //   // document.querySelector("#himarkmap").style.height = width * img.height / img.width  + "px";
 
-    },
+    // },
     initMap() {
       this.image = this.mapControl.image;
       this.layers.imageLayer = new Image({
@@ -117,8 +118,8 @@ export default {
         view: new View({
           projection: this.getProjection(),
           center: getCenter(this.imageExtent),
-          zoom: 2.25,
-          minZoom: 2.25,
+          zoom: 2.4,
+          minZoom: 2.4,
           maxZoom: 4,
         })
       });
@@ -1108,7 +1109,7 @@ export default {
 #himarkmap {
   width: 100%;
   height: 100%;
-  margin-top: 5px;
+  /* margin-top: 5px; */
   /* position: absolute;
   top: 10%; */
 }
