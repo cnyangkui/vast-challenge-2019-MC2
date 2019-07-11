@@ -180,7 +180,7 @@ export default {
 
       let g = this.svg.append("g").attr("transform", "translate(" + (margin.left) + "," + (margin.top) + ")");
 
-      
+      console.log(this.originData.sensorType)
       let strokeScale;
       if(this.originData.sensorType == 'static') {
         strokeScale = d3.scaleLinear().domain([0, 10]).range([0, 15]);
@@ -246,7 +246,7 @@ export default {
 
       let stdScale = d3.scaleQuantize().domain([0, 60]).range([1,2,3,4,5]);
       let completenessScale = d3.scaleQuantize().domain([0, 1]).range([1,2,3,4,5])
-      let accuracyScale = d3.scaleQuantize().domain([0, 7]).range([1,2,3,4,5])
+      let accuracyScale = d3.scaleQuantize().domain([0, 7]).range([5,4,3,2,1])
       let inconsistencyScale = d3.scaleQuantize().domain([0, 27.36]).range([0,1,2,3,4,5])
 
 

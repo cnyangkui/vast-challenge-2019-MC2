@@ -1,6 +1,7 @@
 <template>
   <div :id="cid">
     <div class="uncertainty_times_series_chart"></div>
+    <div class="mytooltip" ></div>
   </div>
 </template>
 
@@ -217,14 +218,48 @@ export default {
         .y(function (d) { return y(d.std); })
         .curve(d3.curveMonotoneX);
 
-      g.datum(data);
+      g.datum(data.displaydata);
+      let bisectDate = d3.bisector(function(d) { return d.date; }).left;
 
       g.append('path')
-        // .attr('class', 'median-line')
         .attr('d', medianLine)
         .style('fill', 'none')
         .style('stroke', color)
-        .style('stroke-width', 2);
+        .style('stroke-width', 2)
+        .style('cursor', 'pointer')
+        .on('mousemove', mouseover)
+        .on('mouseout', mouseout)
+      
+      let _this = this;
+      let mytooltip = d3.select(`#${this.cid} .mytooltip`);
+      function mouseover() {
+        let realdata = data.realdata;
+        let x0 = x.invert(d3.mouse(this)[0]);
+        let i = bisectDate(realdata, x0, 1);
+        let d0 = realdata[i - 1], d1 = realdata[i], 
+          d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+        let timeFormat = d3.timeFormat("%Y-%m-%d %H:%M")
+        mytooltip
+            .html(`time: ${timeFormat(d.date)} <br/>standard deviation: ${d.std.toFixed(2)}`)
+            .style('left', () => {
+              if(d3.event.offsetX + 150 > _this.svgWidth) {
+                return (d3.event.offsetX - 150) + 'px'
+              } else {
+                return (d3.event.offsetX) + 'px'
+              }
+            })
+            .style('top', () => {
+              if(d3.event.offsetY + 80 > _this.svgHeight) {
+                return (d3.event.offsetY -80 ) + 'px'
+              } else {
+                return (d3.event.offsetY ) + 'px'
+              }
+            })
+            .style('display', 'inline-block');
+      }
+      function mouseout() {
+        mytooltip.style('display', 'none');
+      }
     },
     drawTick(g, x, y, max) {
       let domain = y.domain();
@@ -250,6 +285,8 @@ export default {
       let max1 = d3.max(static_data, d => d.std);
       let max2 = d3.max(mobile_data, d => d.std);
       let realMax = max = max1 > max2 ? max1: max2;
+      let staticData = {realdata: static_data, displaydata: static_data};
+      let mobileData = {realdata: mobile_data, displaydata: mobile_data};
       if(this.checkedItem.length == 2) {
         // mobile_data = mobile_data.map(d => {
         //   if(d.std > 300) {
@@ -273,7 +310,6 @@ export default {
           max = max2;
         }
       }
-      console.log(max)
 
       let begin = static_data[0].date;
       let end = static_data[static_data.length-1].date;
@@ -335,21 +371,21 @@ export default {
         this.addX(g, xAxis, margin, chartWidth, chartHeight);
         this.addY(g, yAxis, margin, chartWidth, chartHeight);
         this.addLegend(g);
-        this.drawPath(g, static_data, x, y, "rgba(224, 4, 255, 0.6)");
-        this.drawPath(g, mobile_data, x, y, "rgba(54,95,139, 0.6)");
+        this.drawPath(g, staticData, x, y, "rgba(224, 4, 255, 0.6)");
+        this.drawPath(g, mobileData, x, y, "rgba(54,95,139, 0.6)");
         this.drawTick(g, x, y, realMax);
       } else {
         if(this.checkedItem[0] == 'static') {
           this.addX(g, xAxis, margin, chartWidth, chartHeight);
           this.addY(g, yAxis, margin, chartWidth, chartHeight);
           this.addStaticLegend(g);
-          this.drawPath(g, static_data, x, y, "rgba(224, 4, 255, 0.6)");
+          this.drawPath(g, staticData, x, y, "rgba(224, 4, 255, 0.6)");
           this.drawTick(g, x, y);
         } else if(this.checkedItem[0] == 'mobile') {
           this.addX(g, xAxis, margin, chartWidth, chartHeight);
           this.addY(g, yAxis, margin, chartWidth, chartHeight);
           this.addMobileLegend(g);
-          this.drawPath(g, mobile_data, x, y, "rgba(54,95,139, 0.6)");
+          this.drawPath(g, mobileData, x, y, "rgba(54,95,139, 0.6)");
           this.drawTick(g, x, y);
         }
       }
@@ -427,5 +463,16 @@ export default {
 .uncertainty_times_series_chart >>> .legend text {
   font-size: 10px;
 }
-
+.mytooltip {
+	position: absolute;
+  display: none;
+  min-width: 80px;
+  height: auto;
+  background    : #ccc;
+  border        : none;
+  border-radius : 8px;
+  padding: 14px;
+  text-align: start;
+  font-size: 10px;
+}
 </style>

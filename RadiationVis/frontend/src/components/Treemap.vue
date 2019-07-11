@@ -274,7 +274,7 @@ export default {
 
       let stdScale = d3.scaleQuantize().domain([0, 60]).range([1,2,3,4,5]);
       let completenessScale = d3.scaleQuantize().domain([0, 1]).range([1,2,3,4,5])
-      let accuracyScale = d3.scaleQuantize().domain([0, 7]).range([1,2,3,4,5])
+      let accuracyScale = d3.scaleQuantize().domain([0, 7]).range([5,4,3,2,1])
       let inconsistencyScale = d3.scaleQuantize().domain([0, 27.36]).range([0,1,2,3,4,5])
 
       // d3.csv('/static/data/final_outlier_pattern.csv').then(patternData => {

@@ -418,7 +418,7 @@ export default {
             data: response.data,
             timeRange: params,
             checkedState: this.treemapCheckedState,
-            sensorType: 'mpbile'
+            sensorType: 'mobile'
           }
         })
 
@@ -430,11 +430,34 @@ export default {
     },
     getTreemap2(params) {
       this.treemapState = 'treemap2';
-      this.treemap2 = {
-        state: this.treemapState,
-        data: params,
-        timeRange: this.timeRange,
-        checkedState: this.treemapCheckedState
+
+      if(this.treemapCheckedState.length == 2) {
+        this.treemap2 = {
+          state: this.treemapState,
+          data: params,
+          timeRange: this.timeRange,
+          checkedState: this.treemapCheckedState,
+          sensorType: 'both'
+        }
+      }
+      if(this.treemapCheckedState.length == 1 && this.treemapCheckedState[0] == 'static') {
+        this.treemap2 = {
+          state: this.treemapState,
+          data: params,
+          timeRange: this.timeRange,
+          checkedState: this.treemapCheckedState,
+          sensorType: 'static'
+        }
+      }
+      if(this.treemapCheckedState.length == 1 && this.treemapCheckedState[0] == 'mobile') {
+        this.treemap2 = {
+          state: this.treemapState,
+          data: params,
+          timeRange: this.timeRange,
+          checkedState: this.treemapCheckedState,
+          sensorType: 'mobile'
+        }
+
       }
     },
     timeRangeUpdated(params) {
@@ -459,6 +482,7 @@ export default {
   },
   watch: {
     treemapCheckedState(n, o) {
+      console.log(n)
       this.treemapState = 'treemap1';
       this.getTreemapDataByTimeRange(this.timeRange);
     },

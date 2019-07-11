@@ -478,8 +478,9 @@ export default {
         let features = [];
         // let colorScale = d3.scaleLinear().domain([0, 200]).range(["rgb(0,255,0)", "rgb(255,0,0)"])
         let uncertaintyScale = d3.scaleLinear().domain([0,60]).range([0,10])
-         console.log('mobile,max', d3.max(idwdata, d=>d.std), d3.mean(idwdata, d=>d.std))
+        //  console.log('mobile,max', d3.max(idwdata, d=>d.std), d3.mean(idwdata, d=>d.std))
         let meanstd = d3.mean(idwdata, d => d.std)
+        let quantile75 = d3.quantile(idwdata.map(d => d.std), 0.75);
         idwdata.forEach(d => {
           let polygon = new Polygon([[[d.lngEx[0], d.latEx[0]], [d.lngEx[0], d.latEx[1]], [d.lngEx[1], d.latEx[1]], [d.lngEx[1], d.latEx[0]], [d.lngEx[0], d.latEx[0]]]]);
           let polygonFeature = new Feature(polygon);
@@ -492,7 +493,7 @@ export default {
               //   color: 'white'
               // })
             })
-            if(d.std > meanstd) {
+            if(d.std > quantile75 && d.std > meanstd) {
               style.stroke_ = new Stroke({
                 color: [255,255,255,0.8],
                 width: uncertaintyScale(d.std),
@@ -543,8 +544,9 @@ export default {
         let features = [];
         // let radiationScale = d3.scaleLinear().domain([14, 20]).range(["rgb(0,255,0)", "rgb(255,0,0)"])
         let uncertaintyScale = d3.scaleLinear().domain([0,10]).range([0,10])
-        console.log('static,max', d3.max(idwdata, d=>d.std), d3.mean(idwdata, d=>d.std))
+        // console.log('static,max', d3.max(idwdata, d=>d.std), d3.mean(idwdata, d=>d.std))
         let meanstd = d3.mean(idwdata, d => d.std)
+        let quantile75 = d3.quantile(idwdata.map(d => d.std), 0.75);
         idwdata.forEach(d => {
           let polygon = new Polygon([[[d.lngEx[0], d.latEx[0]], [d.lngEx[0], d.latEx[1]], [d.lngEx[1], d.latEx[1]], [d.lngEx[1], d.latEx[0]], [d.lngEx[0], d.latEx[0]]]]);
           let polygonFeature = new Feature(polygon);
@@ -554,7 +556,7 @@ export default {
                 color: [0, 0, 0, 0.3]//[0, 0, 0, uncertaintyScale(Math.sqrt(d.variance))]
               }),
             })
-            if(d.std > meanstd) {
+            if(d.std > quantile75 && d.std > meanstd) {
               style.stroke_ = new Stroke({
                 color: 'white',
                 width: uncertaintyScale(d.std),
@@ -608,7 +610,7 @@ export default {
         let uncertaintyScale = d3.scaleLinear().domain([0,10]).range([0,10])
         // console.log('static,max', d3.max(idwdata, d=>d.std), d3.mean(idwdata, d=>d.std))
         let meanstd = d3.mean(idwdata, d => d.std)
-
+        let quantile75 = d3.quantile(idwdata.map(d => d.std), 0.75);
         idwdata.forEach(d => {
           let polygon = new Polygon([[[d.lngEx[0], d.latEx[0]], [d.lngEx[0], d.latEx[1]], [d.lngEx[1], d.latEx[1]], [d.lngEx[1], d.latEx[0]], [d.lngEx[0], d.latEx[0]]]]);
           let polygonFeature = new Feature(polygon);
@@ -624,7 +626,7 @@ export default {
             //     width: 1
             //   })
             // } 
-            if(d.std > meanstd) {
+            if(d.std > quantile75 && d.std > meanstd) {
               style.stroke_ = new Stroke({
                 color: 'white',
                 width: uncertaintyScale(d.std),
@@ -670,7 +672,7 @@ export default {
         let radiationScale = d3.scaleLinear().domain([25, 80]).range(["rgb(0,255,0)", "rgb(255,0,0)"]);
         let uncertaintyScale = d3.scaleLinear().domain([0,60]).range([0,10])
         let meanstd = d3.mean(idwdata, d => d.std);
-
+        let quantile75 = d3.quantile(idwdata.map(d => d.std), 0.75);
         idwdata.forEach(d => {
           let polygon = new Polygon([[[d.lngEx[0], d.latEx[0]], [d.lngEx[0], d.latEx[1]], [d.lngEx[1], d.latEx[1]], [d.lngEx[1], d.latEx[0]], [d.lngEx[0], d.latEx[0]]]]);
           let polygonFeature = new Feature(polygon);
@@ -686,7 +688,7 @@ export default {
             //     width: 1
             //   })
             // } 
-            if(d.std > meanstd) {
+            if(d.std > quantile75 && d.std > meanstd) {
               style.stroke_ = new Stroke({
                 color: 'white',
                 width: uncertaintyScale(d.std),
@@ -979,7 +981,7 @@ export default {
       return axios.post('/findAggSrrByTimeRange/', params);
     },
     sensorSelected(params) {
-    //  this.drawPath(params);
+     this.drawPath(params);
     }
   },
   watch: {

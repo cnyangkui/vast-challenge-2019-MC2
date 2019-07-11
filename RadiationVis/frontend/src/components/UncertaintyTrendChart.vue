@@ -1,6 +1,7 @@
 <template>
   <div :id="cid">
     <div class="trendchart"></div>
+    <div class="mytooltip" ></div>
   </div>
 </template>
 
@@ -209,13 +210,46 @@ export default {
         .curve(d3.curveMonotoneX);
 
       g.datum(data);
+      let bisectDate = d3.bisector(function(d) { return d.time; }).left;
 
       g.append('path')
         .attr('class', 'median-line')
         .attr('d', medianLine)
-        // .style('fill', color)
         .style('stroke', color)
-        .style('stroke-width', 2);
+        .style('stroke-width', 2)
+        .style('cursor', 'pointer')
+        .on('mousemove', mouseover)
+        .on('mouseout', mouseout)
+
+      let _this = this;
+      let mytooltip = d3.select(`#${this.cid} .mytooltip`);
+      function mouseover() {
+        let x0 = x.invert(d3.mouse(this)[0]);
+        let i = bisectDate(data, x0, 1);
+        let d0 = data[i - 1], d1 = data[i], 
+          d = x0 - d0.time > d1.time - x0 ? d1 : d0;
+        let timeFormat = d3.timeFormat("%Y-%m-%d %H:%M")
+        mytooltip
+            .html(`time: ${timeFormat(d.time)} <br/>standard deviation: ${d.std.toFixed(2)}`)
+            .style('left', () => {
+              if(d3.event.offsetX + 150 > _this.svgWidth) {
+                return (d3.event.offsetX - 150) + 'px'
+              } else {
+                return (d3.event.offsetX) + 'px'
+              }
+            })
+            .style('top', () => {
+              if(d3.event.offsetY + 80 > _this.svgHeight) {
+                return (d3.event.offsetY -80 ) + 'px'
+              } else {
+                return (d3.event.offsetY ) + 'px'
+              }
+            })
+            .style('display', 'inline-block');
+      }
+      function mouseout() {
+        mytooltip.style('display', 'none');
+      }
     },
     drawTick(g, x, y, max) {
       let domain = y.domain();
@@ -418,6 +452,18 @@ export default {
 
 
 .trendchart >>> .legend text {
+  font-size: 10px;
+}
+.mytooltip {
+	position: absolute;
+  display: none;
+  min-width: 80px;
+  height: auto;
+  background    : #ccc;
+  border        : none;
+  border-radius : 8px;
+  padding: 14px;
+  text-align: start;
   font-size: 10px;
 }
 </style>

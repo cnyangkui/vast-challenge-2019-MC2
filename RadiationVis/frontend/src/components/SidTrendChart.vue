@@ -7,6 +7,7 @@
       <input class="button" type="button" value="detail" @click="showDetail();">
     </div>
     <div class="trendchart"></div>
+    <div class="mytooltip" ></div>
     <div class="dialog">
       <el-dialog
       :visible.sync="srScatterVisible"
@@ -82,6 +83,7 @@ export default {
       this.svg = d3.select(`#${this.cid} .trendchart`).append("svg")
         .attr("width", this.svgWidth)
         .attr("height", this.svgHeight);
+        d3.select(`#${this.cid}`).style("position", "relative");
     },
     // params: {begintime: xxx, endtime: xxx}
     drawChartBySid() {
@@ -215,6 +217,7 @@ export default {
         // });
 
       g.datum(data);
+      let bisectDate = d3.bisector(function(d) { return d.time; }).left;
       
       if(this.componentStyle == 'point') {
         g.append('g')
@@ -244,6 +247,9 @@ export default {
             return "rgba(54,95,139, 0.8)";
           }
         })
+        // .style('cursor', 'pointer')
+        // .on('mousemove', mouseover)
+        // .on('mouseout', mouseout)
       }
 
       g.append('path')
@@ -260,23 +266,59 @@ export default {
             return "#9e08b3"
         else
             return "#385e8a"
-        });
+        })
+        .style('cursor', 'pointer')
+        .on('mousemove', mouseover)
+        .on('mouseout', mouseout)
 
       g.append('path')
         .attr('d', lowerInnerArea)
         .style('fill', (d) => {
-        if (this.originData.category =='static')
-            return "#e004ff"
-        else
-            return "#41709e"
-        })
+          if (this.originData.category =='static')
+              return "#e004ff"
+          else
+              return "#41709e"
+          })
         .style("opacity", 0.5)
         .style('stroke', (d) => {
         if (this.originData.category =='static')
             return "#9e08b3"
         else
             return "#385e8a"
-        });
+        })
+        .style('cursor', 'pointer')
+        .on('mousemove', mouseover)
+        .on('mouseout', mouseout)
+
+      let _this = this;
+      let mytooltip = d3.select(`#${this.cid} .mytooltip`);
+      function mouseover() {
+        let x0 = x.invert(d3.mouse(this)[0]);
+        let i = bisectDate(data, x0, 1);
+        let d0 = data[i - 1], d1 = data[i], 
+          d = x0 - d0.time > d1.time - x0 ? d1 : d0;
+        let timeFormat = d3.timeFormat("%Y-%m-%d %H:%M")
+        mytooltip
+            .html(`time: ${timeFormat(d.time)} <br/>average radiation readings: ${d.avg.toFixed(2)}<br/>95% confidence interval: [${d.lower95.toFixed(2)}, ${d.upper95.toFixed(2)}]`)
+            .style('left', () => {
+              if(d3.event.offsetX + 150 > _this.svgWidth) {
+                return (d3.event.offsetX - 150) + 'px'
+              } else {
+                return (d3.event.offsetX) + 'px'
+              }
+            })
+            .style('top', () => {
+              if(d3.event.offsetY + 80 > _this.svgHeight) {
+                return (d3.event.offsetY -80 ) + 'px'
+              } else {
+                return (d3.event.offsetY ) + 'px'
+              }
+            })
+            .style('display', 'inline-block');
+      }
+      function mouseout() {
+        mytooltip.style('display', 'none');
+      }
 
     },
     drawBaseline(g, data, x, y) {
@@ -432,6 +474,18 @@ export default {
 
 
 .trendchart >>> .legend text {
+  font-size: 10px;
+}
+.mytooltip {
+	position: absolute;
+  display: none;
+  min-width: 80px;
+  height: auto;
+  background    : #ccc;
+  border        : none;
+  border-radius : 8px;
+  padding: 14px;
+  text-align: start;
   font-size: 10px;
 }
 </style>
