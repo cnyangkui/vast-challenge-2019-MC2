@@ -468,7 +468,7 @@ export default {
   display: none;
   min-width: 80px;
   height: auto;
-  background    : #ccc;
+  background    : rgb(229, 226, 226);
   border        : none;
   border-radius : 8px;
   padding: 14px;

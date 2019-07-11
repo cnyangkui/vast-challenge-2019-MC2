@@ -2,8 +2,8 @@
   <div :id="cid">
     <div class="control">
       <label style="margin-left:5px;">{{originData.category == 'static' ? 'SS': 'MS'}}-{{originData.sid}}</label>
-      <label style="margin-left:20px;">Time: {{originData.timeRange.begintime}} - {{originData.timeRange.endtime}}</label>
-      <label style="margin-left:20px;">Inteval: {{interval == 'hour'? 'By 1 hour': 'By 1 minute'}}</label>
+      <label style="margin-left:10px;">Time: {{originData.timeRange.begintime}} - {{originData.timeRange.endtime}}</label>
+      <label style="margin-left:10px;">Inteval: {{interval == 'hour'? 'By 1 hour': 'By 1 minute'}}</label>
       <input class="button" type="button" value="detail" @click="showDetail();">
     </div>
     <div class="trendchart"></div>
@@ -230,11 +230,34 @@ export default {
         .attr('r', 2)
         .style("fill", (d) => {
           if(this.originData.category == 'static') {
-            return "rgba(224, 4, 255, 0.8)"
+            return "rgba(224, 4, 255, 0.6)"
           } else {
-            return "rgba(54,95,139, 0.8)";
+            return "rgba(54,95,139, 0.6)";
           }
         })
+        .style('cursor', 'pointer')
+        .on('mouseover', (d) => {
+          let mytooltip = d3.select(`#${this.cid} .mytooltip`);
+          let timeFormat = d3.timeFormat("%Y-%m-%d %H:%M")
+        mytooltip
+            .html(`time: ${timeFormat(d.time)} <br/>average radiation reading: ${d.avg.toFixed(2)}<br/>95% confidence interval: [${d.lower95.toFixed(2)}, ${d.upper95.toFixed(2)}]`)
+            .style('left', () => {
+              if(d3.event.offsetX + 200 > _this.svgWidth) {
+                return (d3.event.offsetX - 200) + 'px'
+              } else {
+                return (d3.event.offsetX + 30) + 'px'
+              }
+            })
+            .style('top', () => {
+              if(d3.event.offsetY + 50 > _this.svgHeight) {
+                return (d3.event.offsetY -50 ) + 'px'
+              } else {
+                return (d3.event.offsetY ) + 'px'
+              }
+            })
+            .style('display', 'inline-block');
+        })
+        .on('mouseout', mouseout)
 
       } else {
         g.append('path')
@@ -242,14 +265,14 @@ export default {
         .style('fill', 'none')
         .style("stroke", (d) => {
           if(this.originData.category == 'static') {
-            return "rgba(224, 4, 255, 0.8)"
+            return "rgba(224, 4, 255, 0.6)"
           } else {
-            return "rgba(54,95,139, 0.8)";
+            return "rgba(54,95,139, 0.6)";
           }
         })
-        // .style('cursor', 'pointer')
-        // .on('mousemove', mouseover)
-        // .on('mouseout', mouseout)
+        .style('cursor', 'pointer')
+        .on('mousemove', mouseover)
+        .on('mouseout', mouseout)
       }
 
       g.append('path')
@@ -263,9 +286,9 @@ export default {
         .style("opacity", 0.5)
         .style('stroke', (d) => {
         if (this.originData.category =='static')
-            return "#9e08b3"
+            return "rgba(224, 4, 255, 0.6)"
         else
-            return "#385e8a"
+            return "rgba(54,95,139, 0.6)";
         })
         .style('cursor', 'pointer')
         .on('mousemove', mouseover)
@@ -275,16 +298,16 @@ export default {
         .attr('d', lowerInnerArea)
         .style('fill', (d) => {
           if (this.originData.category =='static')
-              return "#e004ff"
+              return "rgba(224, 4, 255, 0.6)"
           else
-              return "#41709e"
+              return "rgba(54,95,139, 0.6)";
           })
         .style("opacity", 0.5)
         .style('stroke', (d) => {
         if (this.originData.category =='static')
-            return "#9e08b3"
+            return "rgba(224, 4, 255, 0.6)"
         else
-            return "#385e8a"
+            return "rgba(54,95,139, 0.6)";
         })
         .style('cursor', 'pointer')
         .on('mousemove', mouseover)
@@ -299,7 +322,7 @@ export default {
           d = x0 - d0.time > d1.time - x0 ? d1 : d0;
         let timeFormat = d3.timeFormat("%Y-%m-%d %H:%M")
         mytooltip
-            .html(`time: ${timeFormat(d.time)} <br/>average radiation readings: ${d.avg.toFixed(2)}<br/>95% confidence interval: [${d.lower95.toFixed(2)}, ${d.upper95.toFixed(2)}]`)
+            .html(`time: ${timeFormat(d.time)} <br/>average radiation reading: ${d.avg.toFixed(2)}<br/>95% confidence interval: [${d.lower95.toFixed(2)}, ${d.upper95.toFixed(2)}]`)
             .style('left', () => {
               if(d3.event.offsetX + 150 > _this.svgWidth) {
                 return (d3.event.offsetX - 150) + 'px'
@@ -308,8 +331,8 @@ export default {
               }
             })
             .style('top', () => {
-              if(d3.event.offsetY + 80 > _this.svgHeight) {
-                return (d3.event.offsetY -80 ) + 'px'
+              if(d3.event.offsetY + 50 > _this.svgHeight) {
+                return (d3.event.offsetY -50 ) + 'px'
               } else {
                 return (d3.event.offsetY ) + 'px'
               }
@@ -481,7 +504,7 @@ export default {
   display: none;
   min-width: 80px;
   height: auto;
-  background    : #ccc;
+  background    : rgb(229, 226, 226);
   border        : none;
   border-radius : 8px;
   padding: 14px;

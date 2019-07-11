@@ -272,7 +272,7 @@ export default {
           d = x0 - d0.date > d1.date - x0 ? d1 : d0;
         let timeFormat = d3.timeFormat("%Y-%m-%d %H:%M")
         mytooltip
-            .html(`time: ${timeFormat(d.date)} <br/>average radiation readings: ${d.avg.toFixed(2)}`)
+            .html(`time: ${timeFormat(d.date)} <br/>average radiation reading: ${d.avg.toFixed(2)}`)
             .style('left', () => {
               if(d3.event.offsetX + 150 > _this.svgWidth) {
                 return (d3.event.offsetX - 150) + 'px'
@@ -506,7 +506,7 @@ export default {
   display: none;
   min-width: 80px;
   height: auto;
-  background    : #ccc;
+  background    : rgb(229, 226, 226);
   border        : none;
   border-radius : 8px;
   padding: 14px;

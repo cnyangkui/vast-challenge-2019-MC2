@@ -2,8 +2,8 @@
   <div :id="cid">
     <div class="control">
       <label style="margin-left:5px;">{{originData.category == 'static' ? 'SS': 'MS'}}-{{originData.sid}}</label>
-      <label style="margin-left:20px;">Time: {{originData.timeRange.begintime}} - {{originData.timeRange.endtime}}</label>
-      <label style="margin-left:20px;">Inteval: {{interval == 'hour'? 'By 1 hour': 'By 1 minute'}}</label>
+      <label style="margin-left:10px;">Time: {{originData.timeRange.begintime}} - {{originData.timeRange.endtime}}</label>
+      <label style="margin-left:10px;">Inteval: {{interval == 'hour'? 'By 1 hour': 'By 1 minute'}}</label>
       <input class="button" type="button" value="detail" @click="showDetail();">
     </div>
     <div class="trendchart"></div>
@@ -196,9 +196,9 @@ export default {
         .attr('d', medianLine)
         .style('stroke', () => {
           if(this.originData.category == 'static') {
-            return "rgba(224, 4, 255, 0.9)"
+            return "rgba(224, 4, 255, 0.6)"
           } else {
-            return "rgba(54,95,139, 0.9)";
+            return "rgba(54,95,139, 0.6)";
           }
         })
         .style('fill', 'none');

@@ -1,6 +1,7 @@
 <template>
   <div :id="cid">
     <div class="treemap"></div>
+    <div class="mytooltip" ></div>
   </div>
 </template>
 
@@ -61,6 +62,7 @@ export default {
       this.svg = d3.select(`#${this.cid} .treemap`).append("svg")
         .attr("width", this.svgWidth)
         .attr("height", this.svgHeight);
+      d3.select(`#${this.cid}`).style("position", "relative");
     },
     drawTreemap1() {
       let margin = { top: 5, right: 5, bottom: 5, left: 5 },
@@ -164,6 +166,36 @@ export default {
           .attr("stroke", "white")
           .attr("stroke-opacity", 0.3)
           .attr("stroke-width", d => strokeScale(d.data.std))
+          .style('cursor', 'pointer')
+          .on('mousemove', d => mousemove(d))
+          .on('mouseout', d => mouseout(d))
+
+      let _this = this;
+      let mytooltip = d3.select(`#${this.cid} .mytooltip`);
+      function mousemove(d) {
+        mytooltip
+            .html(`SSs: ${d.data.static.map(s => s.name.substring(1)).toString() || 'null'} <br/>MSs: ${d.data.mobile.map(s => s.name.substring(1)).toString() || 'null'}<br/>average radiation reading: ${d.data.mean.toFixed(2)}<br/>standard deviation: ${d.data.std.toFixed(2)}`)
+            .style('left', () => {
+              if(d3.event.offsetX + 200 > _this.svgWidth) {
+                return  (d3.event.offsetX - 200) + 'px'
+              } else {
+                return (d3.event.offsetX) + 'px'
+              }
+              // return (d3.event.offsetX) + 'px'
+            })
+            .style('top', () => {
+              if(d3.event.offsetY + 90 > _this.svgHeight) {
+                return (d3.event.offsetY -90 ) + 'px'
+              } else {
+                return (d3.event.offsetY ) + 'px'
+              }
+            })
+            .style('display', 'inline-block');
+      }
+      function mouseout() {
+        mytooltip.style('display', 'none');
+      }
+
           
           // .style("filter", (d) => `url(#filter-${d.data.name})`);
 
@@ -259,8 +291,34 @@ export default {
           .attr("stroke", "white")
           .attr("stroke-opacity", 0.3)
           .attr("stroke-width", d => strokeScale(d.data.std))
-          
-          // .style("filter", (d) => `url(#filter-${d.data.name})`)
+              .style('cursor', 'pointer')
+          .on('mousemove', d => mousemove(d))
+          .on('mouseout', d => mouseout(d))
+
+      let _this = this;
+      let mytooltip = d3.select(`#${this.cid} .mytooltip`);
+      function mousemove(d) {
+        mytooltip
+            .html(`average radiation reading: ${d.data.mean.toFixed(2)}<br/>standard deviation: ${d.data.std.toFixed(2)}`)
+            .style('left', () => {
+              if(d3.event.offsetX + 180 > _this.svgWidth) {
+                return  (d3.event.offsetX - 180) + 'px'
+              } else {
+                return (d3.event.offsetX) + 'px'
+              }
+            })
+            .style('top', () => {
+              if(d3.event.offsetY + 90 > _this.svgHeight) {
+                return (d3.event.offsetY -90 ) + 'px'
+              } else {
+                return (d3.event.offsetY ) + 'px'
+              }
+            })
+            .style('display', 'inline-block');
+      }
+      function mouseout() {
+        mytooltip.style('display', 'none');
+      }
 
       cell.append("text")
           // .attr("clip-path", function(d) { return "url(#clip-" + d.data.id + ")"; })
@@ -509,5 +567,17 @@ export default {
   fill: none;
   stroke: black;
   stroke-width: 1;
+}
+.mytooltip {
+	position: absolute;
+  display: none;
+  min-width: 80px;
+  height: auto;
+  background    : rgb(229, 226, 226);
+  border        : none;
+  border-radius : 8px;
+  padding: 14px;
+  text-align: start;
+  font-size: 10px;
 }
 </style>
