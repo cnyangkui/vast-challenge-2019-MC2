@@ -86,10 +86,13 @@
               <label>Animation Settings</label>
             </div>
             <div class="control-content">
-              <div class="input-ele-group first last">
-                <label>Timeline:</label>
-                
+              <div class="input-ele-group first">
+                <div class="input-ele"><input type="radio" value="hour" v-model="playerSpeed"><label>By 1 hour</label></div>
+                <div class="input-ele"><input type="radio" value="minute" v-model="playerSpeed" :disabled="timeSeriesControl.localDisabled"><label>By 1 minute</label></div>
               </div>
+              <div class="input-ele-group last">
+                <div class="input-ele"><input class="button" type="button" :value="playerState==true?'Pause':'Play'" @click="animationPlayer();"></div>
+             </div>
             </div>
           <!-- </div> -->
           <!-- <div> -->
@@ -297,6 +300,10 @@ export default {
         begintime: '2020-04-06 00:00:00',
         endtime: '2020-04-11 00:00:00'
       },
+      playerState: false,
+      playerSpeed: 'hour',
+      currentPlayerTime: null,
+      inteval: null,
     }
   },
   created: function () {
@@ -318,6 +325,7 @@ export default {
     this.$nextTick(() => {
       this.getTreemapDataByTimeRange(this.defaultTimeRange);
       this.sidTrendChartStyle = this.datatype.length == 2? 'line':'point';
+      this.currentPlayerTime = this.timeRange || this.defaultTimeRange.begintime;
     })
   },
   methods: {
@@ -478,6 +486,21 @@ export default {
     },
     changeMapImage() {
       console.log(this.mapControl)
+    },
+    animationPlayer() {
+      this.playerState = !this.playerState;
+      if(this.playerState) {
+        this.inteval = setInterval(() => {
+          let beginDate = new Date(this.currentPlayerTime);
+          let endDate = new Date(beginDate.getFullYear(), beginDate.getMonth(), beginDate.getDate(), beginDate.getHours()+1);
+          let timeFormat = d3.timeFormat("%Y-%m-%d %H:%M:%S")
+          let endtime = timeFormat(endDate);
+          this.$root.eventHub.$emit("timeRangeUpdated", {begintime: this.currentPlayerTime, endtime: endtime});
+          this.currentPlayerTime = endtime;
+        }, 5000)
+      } else {
+        clearInterval(this.inteval);
+      }
     }
   },
   watch: {
