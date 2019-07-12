@@ -495,8 +495,6 @@ export default {
         .style("stroke", "#ccc")
         .style("stroke-width", 2)
       brush_g.selectAll(".handle").style("display", "none");
-
-
     }
   },
   watch: {

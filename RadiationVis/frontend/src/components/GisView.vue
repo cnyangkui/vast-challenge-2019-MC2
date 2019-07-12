@@ -1089,10 +1089,10 @@ export default {
         }
       
       if(this.datatype.length == 2) { //radiation和uncertainty都选中时的插值
-        if(this.mapControl.si_idw_check && this.layers.staticPointLayer == null) {
+        if(this.mapControl.si_idw_check && this.layers.staticIdwLayer == null) {
           this.drawIdwRUSLayer();
         }
-        if(this.mapControl.mi_idw_check && this.layers.mobilePointLayer == null) {
+        if(this.mapControl.mi_idw_check && this.layers.mobileIdwLayer == null) {
           this.drawIdwRUMLayer();
         }
       }
