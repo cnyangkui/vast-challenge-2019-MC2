@@ -235,7 +235,7 @@ export default {
               if(d3.event.offsetX + 180 > _this.svgWidth) {
                 return (d3.event.offsetX - 180) + 'px'
               } else {
-                return (d3.event.offsetX) + 'px'
+                return (d3.event.offsetX + 5) + 'px'
               }
             })
             .style('top', () => {

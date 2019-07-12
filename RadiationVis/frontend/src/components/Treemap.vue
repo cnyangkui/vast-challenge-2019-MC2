@@ -179,9 +179,8 @@ export default {
               if(d3.event.offsetX + 200 > _this.svgWidth) {
                 return  (d3.event.offsetX - 200) + 'px'
               } else {
-                return (d3.event.offsetX) + 'px'
+                return (d3.event.offsetX + 5) + 'px'
               }
-              // return (d3.event.offsetX) + 'px'
             })
             .style('top', () => {
               if(d3.event.offsetY + 90 > _this.svgHeight) {
@@ -204,11 +203,9 @@ export default {
       })
 
       cell.append("text")
-          // .attr("clip-path", function(d) { return "url(#clip-" + d.data.id + ")"; })
         .selectAll(".treemap tspan")
           .data(function(d) { 
             return `SSs: ${d.data.static.length},MSs: ${d.data.mobile.length}`.split(',')
-            // return d.data.name.split(/(?=[A-Z][^A-Z])/g); })
           })
         .enter().append("tspan")
           .attr("x", 4)
@@ -301,10 +298,10 @@ export default {
         mytooltip
             .html(`average radiation reading: ${d.data.mean.toFixed(2)}<br/>standard deviation: ${d.data.std.toFixed(2)}`)
             .style('left', () => {
-              if(d3.event.offsetX + 180 > _this.svgWidth) {
-                return  (d3.event.offsetX - 180) + 'px'
+              if(d3.event.offsetX + 200 > _this.svgWidth) {
+                return  (d3.event.offsetX - 200) + 'px'
               } else {
-                return (d3.event.offsetX) + 'px'
+                return (d3.event.offsetX + 5) + 'px'
               }
             })
             .style('top', () => {
@@ -519,18 +516,21 @@ export default {
           maxMeanSensor = clusterSensors[i];
         }
       }
-      let sensorInfo = {category: maxMeanSensor.name.startsWith('s')?'static':'mobile', sid: maxMeanSensor.name.substring(1)};
-      let parseDate = d3.timeParse('%Y-%m-%d %H:%M:%S');
-      axios.post("/calTimeSeriesBySid/", Object.assign({}, this.originData.timeRange || this.defaultTimeRange, sensorInfo))
-        .then((response) => {
-          var data = response.data.map(function (d) {
-            return {
-              time:  parseDate(d.time),
-              avg: parseFloat(d.avg),
-            };
-          });
-          makeChartBySid(data);
-        })
+      if(maxMeanSensor) {
+        let sensorInfo = {category: maxMeanSensor.name.startsWith('s')?'static':'mobile', sid: maxMeanSensor.name.substring(1)};
+        let parseDate = d3.timeParse('%Y-%m-%d %H:%M:%S');
+        axios.post("/calTimeSeriesBySid/", Object.assign({}, this.originData.timeRange || this.defaultTimeRange, sensorInfo))
+          .then((response) => {
+            var data = response.data.map(function (d) {
+              return {
+                time:  parseDate(d.time),
+                avg: parseFloat(d.avg),
+              };
+            });
+            makeChartBySid(data);
+          })
+      }
+      
     },
     clearAllg() {
       d3.select(`#${this.cid} svg`).selectAll('g').remove();

@@ -162,7 +162,7 @@ export default {
               if(d3.event.offsetX + 180 > _this.svgWidth) {
                 return  (d3.event.offsetX - 180) + 'px'
               } else {
-                return (d3.event.offsetX) + 'px'
+                return (d3.event.offsetX + 5) + 'px'
               }
             })
             .style('top', () => {
@@ -267,12 +267,12 @@ export default {
               if(d3.event.offsetX + 180 > _this.svgWidth) {
                 return  (d3.event.offsetX - 180) + 'px'
               } else {
-                return (d3.event.offsetX) + 'px'
+                return (d3.event.offsetX + 5) + 'px'
               }
             })
             .style('top', () => {
-              if(d3.event.offsetY + 80 > _this.svgHeight) {
-                return (d3.event.offsetY -80 ) + 'px'
+              if(d3.event.offsetY + 60 > _this.svgHeight) {
+                return (d3.event.offsetY -60 ) + 'px'
               } else {
                 return (d3.event.offsetY ) + 'px'
               }
@@ -366,18 +366,20 @@ export default {
           maxMeanSensor = clusterSensors[i];
         }
       }
-      let sensorInfo = {category: maxMeanSensor.name.startsWith('s')?'static':'mobile', sid: maxMeanSensor.name.substring(1)};
-      let parseDate = d3.timeParse('%Y-%m-%d %H:%M:%S');
-      axios.post("/calTimeSeriesBySid/", Object.assign({}, this.originData.timeRange || this.defaultTimeRange, sensorInfo))
-        .then((response) => {
-          var data = response.data.map(function (d) {
-            return {
-              time:  parseDate(d.time),
-              avg: parseFloat(d.avg),
-            };
-          });
-          makeChartBySid(data);
-        })
+      if(maxMeanSensor) {
+        let sensorInfo = {category: maxMeanSensor.name.startsWith('s')?'static':'mobile', sid: maxMeanSensor.name.substring(1)};
+        let parseDate = d3.timeParse('%Y-%m-%d %H:%M:%S');
+        axios.post("/calTimeSeriesBySid/", Object.assign({}, this.originData.timeRange || this.defaultTimeRange, sensorInfo))
+          .then((response) => {
+            var data = response.data.map(function (d) {
+              return {
+                time:  parseDate(d.time),
+                avg: parseFloat(d.avg),
+              };
+            });
+            makeChartBySid(data);
+          })
+      }
     },
     clearAllg() {
       d3.select(`#${this.cid} svg`).selectAll('g').remove();

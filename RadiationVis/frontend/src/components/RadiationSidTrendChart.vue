@@ -215,10 +215,10 @@ export default {
         mytooltip
             .html(`time: ${timeFormat(d.time)} <br/>average radiation reading: ${d.avg.toFixed(2)}`)
             .style('left', () => {
-              if(d3.event.offsetX + 180 > _this.svgWidth) {
-                return (d3.event.offsetX - 180) + 'px'
+              if(d3.event.offsetX + 200 > _this.svgWidth) {
+                return (d3.event.offsetX - 200) + 'px'
               } else {
-                return (d3.event.offsetX + 5) + 'px'
+                return (d3.event.offsetX + 10) + 'px'
               }
             })
             .style('top', () => {
@@ -259,10 +259,10 @@ export default {
         mytooltip
             .html(`time: ${timeFormat(d.time)} <br/>average radiation reading: ${d.avg.toFixed(2)}`)
             .style('left', () => {
-              if(d3.event.offsetX + 150 > _this.svgWidth) {
-                return (d3.event.offsetX - 150) + 'px'
+              if(d3.event.offsetX + 200 > _this.svgWidth) {
+                return (d3.event.offsetX - 200) + 'px'
               } else {
-                return (d3.event.offsetX) + 'px'
+                return (d3.event.offsetX + 10) + 'px'
               }
             })
             .style('top', () => {
@@ -376,6 +376,7 @@ export default {
 .control .button {
   float: right;
   margin-right: 5px;
+  font-size: 12px;
   margin-top: 2px;
 }
 .radiationSidTrendChart >>> .axis path, 

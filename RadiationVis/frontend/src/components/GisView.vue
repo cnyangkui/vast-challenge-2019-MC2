@@ -73,12 +73,14 @@ export default {
   },
   created: function () {
       this.$root.eventHub.$on('timeRangeUpdated', this.timeRangeUpdated);
+      this.$root.eventHub.$on('minuteTimeRangeUpdated', this.timeRangeUpdated);
       this.$root.eventHub.$on('sensorSelected', this.sensorSelected);
    },
    // 最好在组件销毁前
    // 清除事件监听
    beforeDestroy: function () {
       this.$root.eventHub.$off('timeRangeUpdated', this.timeRangeUpdated);
+      this.$root.eventHub.$off('minuteTimeRangeUpdated', this.timeRangeUpdated);
       this.$root.eventHub.$off('sensorSelected', this.sensorSelected);
    },
   mounted() {
@@ -360,12 +362,12 @@ export default {
 
       function render(idwdata) {
         _this.layers.mobileIdwLayer = new VectorLayer({
-          style: new Style({
-            stroke: new Stroke({
-              width: 1,
-              color: "red"
-            })
-          })
+          // style: new Style({
+          //   stroke: new Stroke({
+          //     width: 1,
+          //     color: "red"
+          //   })
+          // })
         })
 
         let features = [];
@@ -414,12 +416,12 @@ export default {
 
       function render(idwdata) {
         _this.layers.staticIdwLayer = new VectorLayer({
-          style: new Style({
-            stroke: new Stroke({
-              width: 1,
-              color: "white"
-            })
-          })
+          // style: new Style({
+          //   stroke: new Stroke({
+          //     width: 1,
+          //     color: "white"
+          //   })
+          // })
         })
 
         let features = [];
@@ -433,12 +435,12 @@ export default {
                 color: colorScale(d.mean),//[0, 0, 255, 0.6]
               })
             })
-            if(d.flag) {
-              style.stroke_ = new Stroke({
-                color: 'white',
-                width: 1
-              })
-            } 
+            // if(d.flag) {
+            //   style.stroke_ = new Stroke({
+            //     color: 'white',
+            //     width: 1
+            //   })
+            // } 
             polygonFeature.setStyle(style);
             features.push(polygonFeature)
           })
@@ -501,7 +503,7 @@ export default {
             }
             // if(d.flag) {
             //   style.stroke_ = new Stroke({
-            //     color: 'white',
+            //     color: 'black',
             //     width: 1
             //   })
             // } 

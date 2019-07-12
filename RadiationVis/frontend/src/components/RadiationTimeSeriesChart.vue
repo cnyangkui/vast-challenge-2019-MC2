@@ -19,10 +19,19 @@ export default {
       svg: null,
       svgWidth: null,
       svgHeight: null,
-      // defaultTimeRange: {begintime: '2020-04-06 00:00:00', endtime: '2020-04-11 00:00:00'},
+      defaultTimeRange: {begintime: '2020-04-06 00:00:00', endtime: '2020-04-11 00:00:00'},
       timeRange: null,
     }
   },
+  created: function () {
+    this.$root.eventHub.$on('timeSliceUpdated', this.timeSliceUpdated);
+   },
+   // 最好在组件销毁前
+   // 清除事件监听
+   beforeDestroy: function () {
+     this.$root.eventHub.$off('timeSliceUpdated', this.timeSliceUpdated);
+     
+   },
   mounted() {
     this.$nextTick(() => {
       this.loadChart();
@@ -277,7 +286,7 @@ export default {
               if(d3.event.offsetX + 150 > _this.svgWidth) {
                 return (d3.event.offsetX - 150) + 'px'
               } else {
-                return (d3.event.offsetX) + 'px'
+                return (d3.event.offsetX + 5) + 'px'
               }
             })
             .style('top', () => {
@@ -430,6 +439,29 @@ export default {
     },
     clearAllg() {
       d3.select(`#${this.cid} svg`).selectAll('g').remove();
+    },
+    timeSliceUpdated(params) {
+      let margin = { top: 10, right: 30, bottom: 30, left: 30 },
+          chartWidth  = this.svgWidth  - margin.left - margin.right,
+          chartHeight = this.svgHeight - margin.top  - margin.bottom;
+
+      let begin = new Date(this.defaultTimeRange.begintime);
+      let end = new Date(this.defaultTimeRange.endtime);
+      let x = d3.scaleTime().range([0, chartWidth])
+                .domain([begin, end]);
+      let x0 = x(new Date(params.begintime));
+      let x1 = x(new Date(params.endtime));
+      let rectWidth = x1 - x0;
+      let brush_g = d3.select(`#${this.cid} svg`).select(".brush");
+      brush_g.select('.selection')
+        .attr("x", x0)
+        .attr("width", rectWidth)
+        .attr("height", chartHeight)
+        .style("display", "inline-block")
+        .style("stroke", "#ccc")
+        .style("stroke-width", 2)
+      brush_g.selectAll(".handle").style("display", "none");
+
     }
   },
   watch: {

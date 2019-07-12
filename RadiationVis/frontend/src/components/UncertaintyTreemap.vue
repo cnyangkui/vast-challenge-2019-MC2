@@ -168,7 +168,7 @@ export default {
               if(d3.event.offsetX + 150 > _this.svgWidth) {
                 return  (d3.event.offsetX - 150) + 'px'
               } else {
-                return (d3.event.offsetX) + 'px'
+                return (d3.event.offsetX + 5) + 'px'
               }
             })
             .style('top', () => {
@@ -211,12 +211,11 @@ export default {
 
       let g = this.svg.append("g").attr("transform", "translate(" + (margin.left) + "," + (margin.top) + ")");
 
-      console.log(this.originData.sensorType)
       let strokeScale;
       if(this.originData.sensorType == 'static') {
-        strokeScale = d3.scaleLinear().domain([0, 10]).range([0, 15]);
+        strokeScale = d3.scaleLinear().domain([0, 10]).range([0, 10]);
       } else{
-        strokeScale = d3.scaleLinear().domain([0, 60]).range([0, 15]);
+        strokeScale = d3.scaleLinear().domain([0, 60]).range([0, 10]);
       }
 
       // let blur_g = this.svg.append("g");
@@ -264,7 +263,7 @@ export default {
           .attr("id", function(d) { return d.data.id; })
           .attr("width", function(d) { return d.x1 - d.x0; })
           .attr("height", function(d) { return d.y1 - d.y0; })
-          .attr("opacity", 0.3)
+          .attr("fill", "#ccc")
           .attr("stroke", "white")
           .attr("stroke-opacity", 0.3)
           .attr("stroke-width", d => strokeScale(d.data.std))
@@ -281,12 +280,12 @@ export default {
               if(d3.event.offsetX + 150 > _this.svgWidth) {
                 return  (d3.event.offsetX - 150) + 'px'
               } else {
-                return (d3.event.offsetX) + 'px'
+                return (d3.event.offsetX + 5) + 'px'
               }
             })
             .style('top', () => {
-              if(d3.event.offsetY + 80 > _this.svgHeight) {
-                return (d3.event.offsetY -80 ) + 'px'
+              if(d3.event.offsetY + 60 > _this.svgHeight) {
+                return (d3.event.offsetY -60 ) + 'px'
               } else {
                 return (d3.event.offsetY ) + 'px'
               }
@@ -449,18 +448,20 @@ export default {
           maxMeanSensor = clusterSensors[i];
         }
       }
-      let sensorInfo = {category: maxMeanSensor.name.startsWith('s')?'static':'mobile', sid: maxMeanSensor.name.substring(1)};
-      let parseDate = d3.timeParse('%Y-%m-%d %H:%M:%S');
-      axios.post("/calTimeSeriesBySid/", Object.assign({}, this.originData.timeRange || this.defaultTimeRange, sensorInfo))
-        .then((response) => {
-          var data = response.data.map(function (d) {
-            return {
-              time:  parseDate(d.time),
-              avg: parseFloat(d.avg),
-            };
-          });
-          makeChartBySid(data);
-        })
+      if(maxMeanSensor) {
+        let sensorInfo = {category: maxMeanSensor.name.startsWith('s')?'static':'mobile', sid: maxMeanSensor.name.substring(1)};
+        let parseDate = d3.timeParse('%Y-%m-%d %H:%M:%S');
+        axios.post("/calTimeSeriesBySid/", Object.assign({}, this.originData.timeRange || this.defaultTimeRange, sensorInfo))
+          .then((response) => {
+            var data = response.data.map(function (d) {
+              return {
+                time:  parseDate(d.time),
+                avg: parseFloat(d.avg),
+              };
+            });
+            makeChartBySid(data);
+          })
+      }
     },
     clearAllg() {
       d3.select(`#${this.cid} svg`).selectAll('g').remove();

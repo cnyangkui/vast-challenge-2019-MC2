@@ -279,9 +279,9 @@ export default {
         .attr('d', upperInnerArea)
         .style('fill', (d) =>{
         if (this.originData.category =='static')
-            return "#e004ff"
+            return "rgba(224, 4, 255, 0.6)"
         else
-            return "#41709e"
+            return "rgba(54,95,139, 0.6)";
         })
         .style("opacity", 0.5)
         .style('stroke', (d) => {
@@ -324,10 +324,10 @@ export default {
         mytooltip
             .html(`time: ${timeFormat(d.time)} <br/>average radiation reading: ${d.avg.toFixed(2)}<br/>95% confidence interval: [${d.lower95.toFixed(2)}, ${d.upper95.toFixed(2)}]`)
             .style('left', () => {
-              if(d3.event.offsetX + 150 > _this.svgWidth) {
-                return (d3.event.offsetX - 150) + 'px'
+              if(d3.event.offsetX + 230 > _this.svgWidth) {
+                return (d3.event.offsetX - 230) + 'px'
               } else {
-                return (d3.event.offsetX) + 'px'
+                return (d3.event.offsetX + 10) + 'px'
               }
             })
             .style('top', () => {
@@ -440,9 +440,9 @@ export default {
   line-height: 28px;
 }
 .control .button {
-  /* border-radius: 5px; */
   float: right;
   margin-right: 5px;
+  font-size: 12px;
   margin-top: 2px;
 }
 .trendchart >>> .axis path, 
