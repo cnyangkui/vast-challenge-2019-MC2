@@ -4,7 +4,9 @@
       <label style="margin-left:5px;">{{originData.category == 'static' ? 'SS': 'MS'}}-{{originData.sid}}</label>
       <label style="margin-left:10px;">Time: {{originData.timeRange.begintime}} - {{originData.timeRange.endtime}}</label>
       <label style="margin-left:10px;">Inteval: {{interval == 'hour'? 'By 1 hour': 'By 1 minute'}}</label>
+      <input class="button" type="button" value="delete" @click="remove();">
       <input class="button" type="button" value="detail" @click="showDetail();">
+      <input class="button" type="button" value="position" @click="showGeoInfo();">
     </div>
     <div class="radiationSidTrendChart"></div>
     <div class="mytooltip" ></div>
@@ -322,6 +324,12 @@ export default {
     },
     showDetail() {
       this.srScatterVisible = !this.srScatterVisible;
+    },
+    remove() {
+      this.$root.eventHub.$emit("removeSidTrendChart", {category: this.originData.category, sid: this.originData.sid});
+    },
+    showGeoInfo() {
+      this.$root.eventHub.$emit("showPosition", {category: this.originData.category, sid: this.originData.sid});
     }
   },
   watch: {

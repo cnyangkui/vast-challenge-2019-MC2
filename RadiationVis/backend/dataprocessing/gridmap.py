@@ -59,7 +59,7 @@ def idw(griddata):
 	for i in range(m1):
 		ifFind = False
 		for j in range(m0*i, m0*i+m0):
-			if abs(r[j]) < 0.0001:
+			if abs(r[j]) < 10:
 				nullPoints[i]['mean'] = points[j - m0 * i]['mean']
 				nullPoints[i]['variance'] = points[j - m0 * i]['variance']
 				nullPoints[i]['max'] = points[j - m0 * i]['max']
@@ -76,11 +76,11 @@ def idw(griddata):
 
 		denominator = 0
 		for j in range(m0*i, m0*i+m0):
-			numerator += points[j - m0 * i]['mean'] / (r[j] * r[j])
-			numerator1 += points[j - m0 * i]['variance'] / (r[j] * r[j])
-			numerator2 += points[j - m0 * i]['max'] / (r[j] * r[j])
-			numerator3 += points[j - m0 * i]['std'] / (r[j] * r[j])
-			denominator += 1 / (r[j] * r[j])
+			numerator += (points[j - m0 * i]['mean'] / (r[j] * r[j]))
+			numerator1 += (points[j - m0 * i]['variance'] / (r[j] * r[j]))
+			numerator2 += (points[j - m0 * i]['max'] / (r[j] * r[j]))
+			numerator3 += (points[j - m0 * i]['std'] / (r[j] * r[j]))
+			denominator += (1 / (r[j] * r[j]))
 		nullPoints[i]['mean'] = numerator / denominator
 		nullPoints[i]['variance'] = numerator1 / denominator
 		nullPoints[i]['max'] = numerator2 / denominator
@@ -154,8 +154,8 @@ if __name__ == "__main__":
 	data = [dict(zip([col[0] for col in desc], row)) for row in alldata]
 	griddata = add_grid_info(data)
 
-	# idwdata = idw(griddata)
-	# print(idwdata)
+	idwdata = idw(griddata)
+	print(idwdata)
 
 	# params = {'begintime': '2020-04-08 17:46:03', 'endtime': '2020-04-08 18:46:13'}
 	# cursor = connection.cursor()

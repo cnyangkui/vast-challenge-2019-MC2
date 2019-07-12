@@ -74,14 +74,14 @@ export default {
   created: function () {
       this.$root.eventHub.$on('timeRangeUpdated', this.timeRangeUpdated);
       this.$root.eventHub.$on('minuteTimeRangeUpdated', this.timeRangeUpdated);
-      this.$root.eventHub.$on('sensorSelected', this.sensorSelected);
+      this.$root.eventHub.$on('showPosition', this.showPosition);
    },
    // 最好在组件销毁前
    // 清除事件监听
    beforeDestroy: function () {
       this.$root.eventHub.$off('timeRangeUpdated', this.timeRangeUpdated);
       this.$root.eventHub.$off('minuteTimeRangeUpdated', this.timeRangeUpdated);
-      this.$root.eventHub.$off('sensorSelected', this.sensorSelected);
+      this.$root.eventHub.$off('showPosition', this.showPosition);
    },
   mounted() {
     this.$nextTick(() => {
@@ -94,13 +94,6 @@ export default {
       this.initMap();
       this.addSelectEvent();
     },
-    // selfAdaptionSize() {
-    //   let width = document.querySelector("#openlayers_container").clientWidth;
-    //   let img = document.createElement("img");
-    //   img.src = require(`../assets/img/${this.mapControl.image}.png`);
-    //   // document.querySelector("#himarkmap").style.height = width * img.height / img.width  + "px";
-
-    // },
     initMap() {
       this.image = this.mapControl.image;
       this.layers.imageLayer = new Image({
@@ -164,21 +157,39 @@ export default {
         
         this.map.addOverlay(popup);
       }
+
+      // var changeStyle = function(feature){
+      //   var ftype=feature.get("featuretype");
+      //     if(ftype=='line'){
+      //       return new Style({
+      //         fill:new Fill({
+      //           color: [255, 255, 255, 0]
+      //         })
+      //       });
+      //     }
+      //   };
       let _this = this;
-      let selectSingleClick = new Select();
+      let selectSingleClick = new Select({
+        style: new Style({
+          fill: new Fill({
+            color: [255, 255, 255, 0]
+          })
+        })
+      });
       this.map.addInteraction(selectSingleClick);
       selectSingleClick.on('select', function(e) {
         let features = e.target.getFeatures().getArray();
+        console.log(features)
         if(features.length > 0) {
           let geo = features[0].getGeometry();
           console.log(geo)
           let extent = geo.getExtent()
-          // console.log(extent)
+          console.log(extent)
           axios.post('/findSensorByTimeRangeAndCoords/', Object.assign({}, _this.timeRange, {coords: extent}))
             .then((response) => {
               let coordinates = geo.getCoordinates();
               popup.setPosition(coordinates[0][1]);
-              _this.popup.content.innerHTML = JSON.stringify(response.data)
+              _this.popup.content.innerHTML = `SSs: ${response.data.static.length == 0 ? 'Null': response.data.static}<br/>MSs: ${response.data.mobile.length == 0 ? 'Null': response.data.mobile}`
             })
             .catch((error) => {
               console.log(error);
@@ -245,7 +256,7 @@ export default {
                 // radius: 2,
                 // fill: new Fill({ color: "#00F" })
                 src: require("../assets/img/mobile.png"),
-                scale: 0.1,
+                scale: 0.15,
             })
           }));
           vectorSource.addFeature(feature);
@@ -472,7 +483,7 @@ export default {
           style: new Style({
             stroke: new Stroke({
               width: 1,
-              color: "white"
+              color: "rgb(255, 255, 255, 0.5)",
             })
           })
         })
@@ -538,7 +549,7 @@ export default {
           style: new Style({
             stroke: new Stroke({
               width: 1,
-              color: "white"
+              color: "rgb(255, 255, 255, 0.5)",
             })
           })
         })
@@ -630,7 +641,7 @@ export default {
             // } 
             if(d.std > quantile75 && d.std > meanstd) {
               style.stroke_ = new Stroke({
-                color: 'white',
+                color: "rgb(255, 255, 255, 0.5)",
                 width: uncertaintyScale(d.std),
               })
             }
@@ -692,7 +703,7 @@ export default {
             // } 
             if(d.std > quantile75 && d.std > meanstd) {
               style.stroke_ = new Stroke({
-                color: 'white',
+                color: "rgb(255, 255, 255, 0.5)",
                 width: uncertaintyScale(d.std),
               })
             }
@@ -804,10 +815,16 @@ export default {
           source: vectorSource,
         });
         
-        for(let j=0, pathLen=data.length; j<pathLen-1; j++) {
+        for(let j=0, len=data.length; j<len; j++) {
           let feature = new Feature({
-            geometry: new LineString([[data[j].longitude, data[j].latitude], [data[j+1].longitude, data[j+1].latitude]])
+            geometry: new Point([parseFloat(data[j].longitude), parseFloat(data[j].latitude)])
           });
+          feature.setStyle(new Style({
+            image: new Circle({
+                radius: 3 * _this.zoom,
+                fill: new Fill({ color: 'steelblue' })
+            })
+          }));
           vectorSource.addFeature(feature);
         }
         _this.layers.pathsLayer.setVisible(true);
@@ -982,7 +999,8 @@ export default {
     getAggSrrByTimeRange(params) {
       return axios.post('/findAggSrrByTimeRange/', params);
     },
-    sensorSelected(params) {
+    showPosition(params) {
+      console.log(params)
      this.drawPath(params);
     }
   },

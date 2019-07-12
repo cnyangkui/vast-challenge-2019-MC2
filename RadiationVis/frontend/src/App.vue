@@ -80,7 +80,7 @@
                 <div class="input-ele"><input type="radio" value="minute" v-model="playerSpeed" :disabled="timeSeriesControl.localDisabled"><label>By 1 minute</label></div>
               </div>
               <div class="input-ele-group last">
-                <div class="input-ele"><input class="button" type="button" :value="playerState==true?'Pause':'Play'" @click="animationPlayer();"></div>
+                <div class="input-ele"><input class="button" type="button" :value="playerState==true?'Pause':'Play'" @click="animationPlayer();" style="width: 80px;"></div>
              </div>
             </div>
             <div class="control-header">
@@ -96,7 +96,7 @@
                 </ul> -->
                 <table>
                   <tr>
-                    <td width="220px">U1: Inconsistency</td>
+                    <td width="240px">U1: Inconsistency</td>
                     <td width="300px">weight: <input type="text" style="width:30px; text-align:center" value="1"></td>
                   </tr>
                   <tr>
@@ -295,6 +295,7 @@ export default {
       this.$root.eventHub.$on('sensorSelected', this.sensorSelected);
       this.$root.eventHub.$on('defaultSensors', this.defaultSensors);
       this.$root.eventHub.$on('getTreemap2', this.getTreemap2);
+      this.$root.eventHub.$on('removeSidTrendChart', this.removeSidTrendChart);
    },
    // 最好在组件销毁前
    // 清除事件监听
@@ -303,6 +304,7 @@ export default {
       this.$root.eventHub.$off('sensorSelected', this.sensorSelected);
       this.$root.eventHub.$off('defaultSensors', this.defaultSensors);
       this.$root.eventHub.$off('getTreemap2', this.getTreemap2);
+      this.$root.eventHub.$on('removeSidTrendChart', this.removeSidTrendChart);
    },
   mounted() {
     // this.layout();
@@ -315,14 +317,16 @@ export default {
   methods: {
     sensorSelected(params) {
       // 如果该传感器已经存在，则不添加
-      if(this.sidTrendCharts.filter(d => d.category==params.category && d.sid==params.sid).length > 0) {
+      let index = this.sidTrendCharts.findIndex(d => d.category==params.category && d.sid==params.sid)
+      if(index != -1) {
         return;
       }
       this.getSidTrendChartData(params);
     },
     defaultSensors(params) {
       // 如果该传感器已经存在，则不添加
-      if(this.sidTrendCharts.filter(d => d.category==params.category && d.sid==params.sid).length > 0) {
+      let index = this.sidTrendCharts.findIndex(d => d.category==params.category && d.sid==params.sid)
+      if(index != -1) {
         return;
       }
       this.getSidTrendChartData(params);
@@ -484,6 +488,9 @@ export default {
             let beginDate = new Date(this.currentPlayerTime);
             console.log(this.currentPlayerTime)
             let endDate = new Date(beginDate.getFullYear(), beginDate.getMonth(), beginDate.getDate(), beginDate.getHours()+1);
+            if(endDate.getTime() > new Date(this.defaultSensors.endtime).getTime()) {
+              clearInterval(this.inteval);
+            }
             let timeFormat = d3.timeFormat("%Y-%m-%d %H:%M:%S")
             let endtime = timeFormat(endDate);
             this.$root.eventHub.$emit("timeRangeUpdated", {begintime: this.currentPlayerTime, endtime: endtime});
@@ -495,6 +502,9 @@ export default {
             let beginDate = new Date(this.currentPlayerTime);
             console.log(this.currentPlayerTime)
             let endDate = new Date(beginDate.getFullYear(), beginDate.getMonth(), beginDate.getDate(), beginDate.getHours(), beginDate.getMinutes()+1);
+            if(endDate.getTime() > new Date(this.defaultSensors.endtime).getTime()) {
+              clearInterval(this.inteval);
+            }
             let timeFormat = d3.timeFormat("%Y-%m-%d %H:%M:%S")
             let endtime = timeFormat(endDate);
             this.$root.eventHub.$emit("minuteTimeRangeUpdated", {begintime: this.currentPlayerTime, endtime: endtime});
@@ -505,19 +515,29 @@ export default {
       } else {
         clearInterval(this.inteval);
       }
+    },
+    removeSidTrendChart(params) {
+      let index = this.sidTrendCharts.findIndex(d => d.category == params.category && d.sid == params.sid);
+      console.log(index)
+      if(index != -1) {
+        this.sidTrendCharts.splice(index, 1);
+        console.log(this.sidTrendCharts)
+      }
     }
   },
   watch: {
     treemapCheckedState(n, o) {
       this.treemapState = 'treemap1';
-      this.getTreemapDataByTimeRange(this.timeRange);
+      this.getTreemapDataByTimeRange(this.timeRange || this.defaultTimeRange);
+
+      this.sidTrendCharts = [];
     },
     datatype(n, o) {
       this.sidTrendChartStyle = this.datatype.length == 2? 'line':'point';
       this.treemap1 = null;
       this.treemap2 = null;
       this.treemapState = 'treemap1';
-      this.getTreemapDataByTimeRange(this.timeRange);
+      this.getTreemapDataByTimeRange(this.timeRange || this.defaultTimeRange);
     }
   }
 }
@@ -585,6 +605,8 @@ html, body, #app {
 }
 .control-header {
   background-color: #ccc;
+  height: 40px;
+  line-height: 40px;
 }
 .control-header label {
   margin-left: 1%;
@@ -603,7 +625,7 @@ html, body, #app {
   display: inline-block;
 }
 .control-content label, input.button, select.select, ul, table {
-  font-size: 15px;
+  font-size: 18px;
 }
 .control-content .input-ele-group, .input-ele, label {
   height: 32px;
@@ -617,9 +639,12 @@ html, body, #app {
   vertical-align: middle;
 }
 .first {
-  margin-top: 8px;
+  margin-top: 10px;
 }
 .last {
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+}
+.bold {
+  font-weight: 600;
 }
 </style>
