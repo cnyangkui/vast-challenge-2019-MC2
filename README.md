@@ -53,8 +53,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 **Dependencies**
 
-```[vue](https://cn.vuejs.org/v2/guide/), [axios](https://www.kancloud.cn/yunye/axios/234845), [element-ui](http://element-cn.eleme.io/#/zh-CN), [d3](https://d3js.org/), [OpenLayers](https://openlayers.org/)
-```
+[vue](https://cn.vuejs.org/v2/guide/), [axios](https://www.kancloud.cn/yunye/axios/234845), [element-ui](http://element-cn.eleme.io/#/zh-CN), [d3](https://d3js.org/), [OpenLayers](https://openlayers.org/)
 
 ### sql.zip
 SQL 文件，用于创建数据库和添加数据。
