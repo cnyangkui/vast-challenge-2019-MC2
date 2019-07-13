@@ -1,9 +1,14 @@
 # vast-challenge-2019-MC2
 VAST Challenge 2019: Mini-Challenge 2
 
+挑战赛背景和题目介绍：[https://vast-challenge.github.io/2019/MC2.html](https://vast-challenge.github.io/2019/MC2.html)
+
+
+## 项目结构介绍
+
 使用 Django 和 Vue 实现前后端分离。
 
-## backend - 后台
+### backend - 后台
 
 1. 根据 Excel 表头创建数据
 2. 将 csv 文件导入 MySQL 数据库
@@ -14,8 +19,7 @@ load data infile 'csvfilename.csv' into table tablename fields terminated by ','
 ```
 python manage.py inspectdb > appname/models.py
 ```
-
-## frontend - 前端
+### frontend - 前端
 
 **Project setup**
 ```
@@ -45,6 +49,9 @@ npm run lint
 **Customize configuration**
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-## sql.zip
+**Dependencies**
+[vue](https://cn.vuejs.org/v2/guide/), [axios](https://www.kancloud.cn/yunye/axios/234845), [element-ui](http://element-cn.eleme.io/#/zh-CN), [d3](https://d3js.org/), [OpenLayers](https://openlayers.org/)
+
+### sql.zip
 SQL 文件，用于创建数据库和添加数据。
 
