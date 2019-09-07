@@ -17,6 +17,10 @@ VAST Challenge 2019: Mini-Challenge 2
 
 ![avatar](/images/Case3.jpg)
 
+**Animation**
+
+![avatar](/images/animation.gif)
+
 ## 项目结构介绍
 
 使用 Django 和 Vue 实现前后端分离。
