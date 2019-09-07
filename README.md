@@ -7,15 +7,15 @@ VAST Challenge 2019: Mini-Challenge 2
 
 **Case study 1**
 
-![avatar](/images/case1.jpg)
+![avatar](/images/Case1.jpg)
 
 **Case study 2**
 
-![avatar](/images/case2.jpg)
+![avatar](/images/Case2.jpg)
 
 **Case study 3**
 
-![avatar](/images/case3.jpg)
+![avatar](/images/Case3.jpg)
 
 ## 项目结构介绍
 
