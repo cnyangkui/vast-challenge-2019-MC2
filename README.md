@@ -3,6 +3,19 @@ VAST Challenge 2019: Mini-Challenge 2
 
 挑战赛背景和题目介绍：[https://vast-challenge.github.io/2019/MC2.html](https://vast-challenge.github.io/2019/MC2.html)
 
+## 界面展示
+
+**Case study 1**
+
+![avatar](/images/case1.jpg)
+
+**Case study 2**
+
+![avatar](/images/case2.jpg)
+
+**Case study 3**
+
+![avatar](/images/case3.jpg)
 
 ## 项目结构介绍
 
