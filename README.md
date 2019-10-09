@@ -7,7 +7,7 @@ VAST Challenge 2019: Mini-Challenge 2
 
 **Video**
 
-<video src="assets/video.wmv" controls="controls" width="800"></video> 
+![avatar](/assets/video.gif)
 
 **Case study 1**
 
@@ -37,6 +37,7 @@ load data infile 'csvfilename.csv' into table tablename fields terminated by ','
 ```
 python manage.py inspectdb > appname/models.py
 ```
+
 ### frontend - 前端
 
 **Project setup**
