@@ -5,25 +5,26 @@ VAST Challenge 2019: Mini-Challenge 2
 
 ## 界面展示
 
+**Video**
+
+<video src="assets/video.wmv" controls="controls" width="800"></video> 
+
 **Case study 1**
 
-![avatar](/images/Case1.jpg)
+![avatar](/assets/Case1.jpg)
 
 **Case study 2**
 
-![avatar](/images/Case2.jpg)
+![avatar](/assets/Case2.jpg)
 
 **Case study 3**
 
-![avatar](/images/Case3.jpg)
-
-**Animation**
-
-![avatar](/images/animation.gif)
+![avatar](/assets/Case3.jpg)
 
 ## 项目结构介绍
 
-使用 Django 和 Vue 实现前后端分离。
+* assets：展示项目的图片和视频。
+* RadiationVis：源代码，backend为后端代码，fronted为前端代码，使用 Django 和 Vue 实现前后端分离。
 
 ### backend - 后台
 
