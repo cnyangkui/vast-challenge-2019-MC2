@@ -7,7 +7,7 @@ VAST Challenge 2019: Mini-Challenge 2
 
 **Animation**
 
-![avatar](/assets/video-mini.gif)
+![avatar](/assets/animation.gif)
 
 **Case study 1**
 
