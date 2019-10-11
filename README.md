@@ -5,7 +5,7 @@ VAST Challenge 2019: Mini-Challenge 2
 
 ## 界面展示
 
-**Video**
+**Animation**
 
 ![avatar](/assets/video.gif)
 
