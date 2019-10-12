@@ -1286,45 +1286,16 @@ style='mso-spacerun:yes'>   </span>PRIMARY<o:p></o:p></span></p>
 
 <p class=MsoNormal><span lang=EN-US style='font-size:11.0pt;font-family:"Calibri",sans-serif;
 mso-ascii-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:
-Calibri;mso-bidi-theme-font:minor-latin;color:black;mso-themecolor:text1;
-mso-bidi-font-style:italic'>Kui Yang, Central South Universit</span><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:11.0pt;
-font-family:"Calibri",sans-serif;mso-ascii-theme-font:minor-latin;mso-hansi-theme-font:
-minor-latin;mso-bidi-font-family:Calibri;mso-bidi-theme-font:minor-latin;
-color:black;mso-themecolor:text1'>y</span></i><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='font-size:11.0pt;font-family:"Calibri",sans-serif;
-mso-ascii-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:
-Calibri;mso-bidi-theme-font:minor-latin'>,</span></i><span class=MsoHyperlink><span
-lang=EN-US style='mso-fareast-font-family:"Times New Roman";mso-bidi-font-style:
-italic'> </span></span><span class=MsoHyperlink><span lang=EN-US
-style='font-size:11.0pt;font-family:"Calibri",sans-serif;mso-ascii-theme-font:
-minor-latin;mso-fareast-font-family:"Times New Roman";mso-hansi-theme-font:
-minor-latin;mso-bidi-font-family:Calibri;mso-bidi-theme-font:minor-latin;
-mso-bidi-font-style:italic'>kuiyang@csu.edu.cn </span></span><span
-class=MsoHyperlink><span lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
-style='mso-spacerun:yes'> </span></span></span><span lang=EN-US
-style='font-family:SimSun;mso-bidi-font-family:SimSun;color:windowtext'><o:p></o:p></span></p>
+Calibri;mso-bidi-theme-font:minor-latin;mso-bidi-font-style:italic'>Kui Yang, Central South University, <a href="mailto:kuiyang@csu.edu.cn">kuiyang@csu.edu.cn</a><span
+style='mso-spacerun:yes'>   </span><o:p></o:p></span></p>
 
 <p class=MsoNormal><span lang=EN-US style='font-size:11.0pt;font-family:"Calibri",sans-serif;
 mso-ascii-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:
-Calibri;mso-bidi-theme-font:minor-latin;color:black;mso-themecolor:text1;
-mso-bidi-font-style:italic'>Yaqi Qin, Central South University,</span><span
-class=MsoHyperlink><span lang=EN-US style='mso-fareast-font-family:"Times New Roman"'>
-</span></span><span class=MsoHyperlink><span lang=EN-US style='font-size:11.0pt;
-font-family:"Calibri",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-family:
-"Times New Roman";mso-hansi-theme-font:minor-latin;mso-bidi-font-family:Calibri;
-mso-bidi-theme-font:minor-latin;mso-bidi-font-style:italic'><a
-href="mailto:614067608@qq.com">614067608@qq.com</a><o:p></o:p></span></span></p>
+Calibri;mso-bidi-theme-font:minor-latin;mso-bidi-font-style:italic'>Yaqi Qin, Central South University, <a href="mailto:614067608@qq.com">614067608@qq.com</a><span style='mso-spacerun:yes'>   </span><o:p></o:p></span></p>
 
 <p class=MsoNormal><span lang=EN-US style='font-size:11.0pt;font-family:"Calibri",sans-serif;
 mso-ascii-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:
-Calibri;mso-bidi-theme-font:minor-latin;color:black;mso-themecolor:text1;
-mso-bidi-font-style:italic'>Yifei Yang, Central South University,</span><span
-lang=EN-US style='color:black;mso-themecolor:text1'> </span><span
-class=MsoHyperlink><span lang=EN-US style='font-size:11.0pt;font-family:"Calibri",sans-serif;
-mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Times New Roman";
-mso-hansi-theme-font:minor-latin;mso-bidi-font-family:Calibri;mso-bidi-theme-font:
-minor-latin;mso-bidi-font-style:italic'>3901160307@csu.edu.cn</span></span></p>
+Calibri;mso-bidi-theme-font:minor-latin;mso-bidi-font-style:italic'>Yifei Yang, Central South University, <a href="mailto:3901160307@csu.edu.cn">3901160307@csu.edu.cn</a><span style='mso-spacerun:yes'>   </span><o:p></o:p></span></p>
 
 <p class=MsoNormal><span lang=EN-US style='font-size:11.0pt;font-family:"Calibri",sans-serif;
 mso-ascii-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:
