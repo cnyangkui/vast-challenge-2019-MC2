@@ -1,7 +1,8 @@
 # vast-challenge-2019-MC2
 VAST Challenge 2019: Mini-Challenge 2
 
-挑战赛背景和题目介绍：[https://vast-challenge.github.io/2019/MC2.html](https://vast-challenge.github.io/2019/MC2.html)
+* [挑战赛背景和题目介绍](https://vast-challenge.github.io/2019/MC2.html)
+* [我们的分析结果](/analysis/index.md)
 
 ## 界面展示
 
@@ -22,11 +23,11 @@ VAST Challenge 2019: Mini-Challenge 2
 ![avatar](/assets/Case3.jpg)
 
 ## 项目结构介绍
-
+* analysis：答卷。
 * assets：展示项目的图片和视频。
 * RadiationVis：源代码，backend为后端代码，fronted为前端代码，使用 Django 和 Vue 实现前后端分离。
 
-### backend - 后台
+### backend
 
 1. 根据 Excel 表头创建数据表
 2. 将 csv 文件导入 MySQL 数据库
@@ -38,7 +39,7 @@ load data infile 'csvfilename.csv' into table tablename fields terminated by ','
 python manage.py inspectdb > appname/models.py
 ```
 
-### frontend - 前端
+### frontend
 
 **Project setup**
 ```
