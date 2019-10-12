@@ -1277,24 +1277,12 @@ mso-bidi-font-family:Calibri;mso-bidi-theme-font:minor-latin'><o:p>&nbsp;</o:p><
 11.0pt;font-family:"Calibri",sans-serif;mso-ascii-theme-font:minor-latin;
 mso-fareast-font-family:"Times New Roman";mso-hansi-theme-font:minor-latin;
 mso-bidi-font-family:Calibri;mso-bidi-theme-font:minor-latin'>Team Members:<i><br>
-</i></span><span lang=EN-US style='font-size:11.0pt;font-family:"Calibri",sans-serif;
-mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Times New Roman";
-mso-hansi-theme-font:minor-latin;mso-bidi-font-family:Calibri;mso-bidi-theme-font:
-minor-latin;color:windowtext;font-weight:normal;mso-bidi-font-style:italic'>Haojin
-Jiang, Central South University</span><span lang=EN-US style='font-size:11.0pt;
-font-family:"Calibri",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-family:
-"Times New Roman";mso-hansi-theme-font:minor-latin;mso-bidi-font-family:Calibri;
-mso-bidi-theme-font:minor-latin;font-weight:normal;mso-bidi-font-style:italic'>,
-<a href="mailto:1316918731@qq.com">1316918731@qq.com</a></span><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:11.0pt;
-font-family:"Calibri",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-family:
-"Times New Roman";mso-hansi-theme-font:minor-latin;mso-bidi-font-family:Calibri;
-mso-bidi-theme-font:minor-latin;font-weight:normal'> </span></i><span
-lang=EN-US style='font-size:11.0pt;font-family:"Calibri",sans-serif;mso-ascii-theme-font:
-minor-latin;mso-fareast-font-family:"Times New Roman";mso-hansi-theme-font:
-minor-latin;mso-bidi-font-family:Calibri;mso-bidi-theme-font:minor-latin;
-font-weight:normal;mso-bidi-font-style:italic'><span
-style='mso-spacerun:yes'>  </span>PRIMARY<o:p></o:p></span></h3>
+</i></span></h3>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:11.0pt;font-family:"Calibri",sans-serif;
+mso-ascii-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:
+Calibri;mso-bidi-theme-font:minor-latin;mso-bidi-font-style:italic'>Haojin Jiang, Central South University, <a href="mailto:1316918731@qq.com">1316918731@qq.com</a><span
+style='mso-spacerun:yes'>   </span>PRIMARY<o:p></o:p></span></p>
 
 <p class=MsoNormal><span lang=EN-US style='font-size:11.0pt;font-family:"Calibri",sans-serif;
 mso-ascii-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:
