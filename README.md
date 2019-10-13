@@ -24,4 +24,4 @@ VAST Challenge 2019: Mini-Challenge 2
 
 ## 项目结构
 
-[项目结构详情](/project structure.md)
+[项目结构详情](/project-structure.md)
