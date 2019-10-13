@@ -21,3 +21,5 @@ VAST Challenge 2019: Mini-Challenge 2
 **Case study 3**
 
 ![avatar](/assets/Case3.jpg)
+
+## [项目结构](/project structure.md)
