@@ -1,10 +1,10 @@
 # vast-challenge-2019-MC2
 VAST Challenge 2019: Mini-Challenge 2
 
-* [挑战赛背景和题目介绍](https://vast-challenge.github.io/2019/MC2.html)
-* [我们的分析结果](/analysis/index.md)
+* [Tasks and Questions](https://vast-challenge.github.io/2019/MC2.html)
+* [Our Answers](/analysis/index.md)
 
-## 界面展示
+## Interface
 
 **Animation**
 
@@ -22,6 +22,6 @@ VAST Challenge 2019: Mini-Challenge 2
 
 ![avatar](/assets/Case3.jpg)
 
-## 项目结构
+## Project Structure
 
-[项目结构详情](/project-structure.md)
+[Detail](/project-structure.md)
