@@ -1,4 +1,5 @@
-## 项目结构介绍
+## Project Structure
+
 * analysis：Our answers.
 * assets：Images for display.
 * RadiationVis：The source code. `Backend` is back-end code and `frontend` is front-end code. We use Django and Vue to separate the front and back ends.
