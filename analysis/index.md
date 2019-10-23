@@ -1281,33 +1281,29 @@ mso-bidi-font-family:Calibri;mso-bidi-theme-font:minor-latin'>Team Members:<i><b
 
 <p class=MsoNormal><span lang=EN-US style='font-size:11.0pt;font-family:"Calibri",sans-serif;
 mso-ascii-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:
-Calibri;mso-bidi-theme-font:minor-latin;mso-bidi-font-style:italic'>Haojin Jiang, Central South University, <a href="mailto:1316918731@qq.com">1316918731@qq.com</a><span
-style='mso-spacerun:yes'>   </span>PRIMARY<o:p></o:p></span></p>
+Calibri;mso-bidi-theme-font:minor-latin;mso-bidi-font-style:italic'>Haojin Jiang, Central South University<span style='mso-spacerun:yes'>   </span>PRIMARY<o:p></o:p></span></p>
 
 <p class=MsoNormal><span lang=EN-US style='font-size:11.0pt;font-family:"Calibri",sans-serif;
 mso-ascii-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:
-Calibri;mso-bidi-theme-font:minor-latin;mso-bidi-font-style:italic'>Kui Yang, Central South University, <a href="mailto:kuiyang@csu.edu.cn">kuiyang@csu.edu.cn</a><span
-style='mso-spacerun:yes'>   </span><o:p></o:p></span></p>
+Calibri;mso-bidi-theme-font:minor-latin;mso-bidi-font-style:italic'>Kui Yang, Central South University<span style='mso-spacerun:yes'>   </span><o:p></o:p></span></p>
 
 <p class=MsoNormal><span lang=EN-US style='font-size:11.0pt;font-family:"Calibri",sans-serif;
 mso-ascii-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:
-Calibri;mso-bidi-theme-font:minor-latin;mso-bidi-font-style:italic'>Yaqi Qin, Central South University, <a href="mailto:614067608@qq.com">614067608@qq.com</a><span style='mso-spacerun:yes'>   </span><o:p></o:p></span></p>
+Calibri;mso-bidi-theme-font:minor-latin;mso-bidi-font-style:italic'>Yaqi Qin, Central South University<span style='mso-spacerun:yes'>   </span><o:p></o:p></span></p>
 
 <p class=MsoNormal><span lang=EN-US style='font-size:11.0pt;font-family:"Calibri",sans-serif;
 mso-ascii-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:
-Calibri;mso-bidi-theme-font:minor-latin;mso-bidi-font-style:italic'>Yifei Yang, Central South University, <a href="mailto:3901160307@csu.edu.cn">3901160307@csu.edu.cn</a><span style='mso-spacerun:yes'>   </span><o:p></o:p></span></p>
+Calibri;mso-bidi-theme-font:minor-latin;mso-bidi-font-style:italic'>Yifei Yang, Central South University<span style='mso-spacerun:yes'>   </span><o:p></o:p></span></p>
 
 <p class=MsoNormal><span lang=EN-US style='font-size:11.0pt;font-family:"Calibri",sans-serif;
 mso-ascii-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:
 Calibri;mso-bidi-theme-font:minor-latin;mso-bidi-font-style:italic'>Ying Zhao,
-Central South University, <a href="mailto:zhaoying@csu.edu.cn">zhaoying@csu.edu.cn</a><span
-style='mso-spacerun:yes'>   </span>SUPERVISOR<o:p></o:p></span></p>
+Central South University<span style='mso-spacerun:yes'>   </span>SUPERVISOR<o:p></o:p></span></p>
 
 <p class=MsoNormal><span lang=EN-US style='font-size:11.0pt;font-family:"Calibri",sans-serif;
 mso-ascii-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:
 Calibri;mso-bidi-theme-font:minor-latin;mso-bidi-font-style:italic'>Fangfang
-Zhou, Central South University, <a href="mailto:zff@csu.edu.cn">zff@csu.edu.cn</a><span
-style='mso-spacerun:yes'>   </span>SUPERVISOR<o:p></o:p></span></p>
+Zhou, Central South University<span style='mso-spacerun:yes'>   </span>SUPERVISOR<o:p></o:p></span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:11.0pt;font-family:"Calibri",sans-serif;mso-ascii-theme-font:
