@@ -59,7 +59,7 @@ export default {
         mobileUncertaintyGridData: null,
         mobilePathData: null,
       },
-      zoom: 2.4,
+      zoom: 1.9,
       sid: null,
       timeRange: null,
       mapTimeRange: null,
@@ -113,8 +113,8 @@ export default {
         view: new View({
           projection: this.getProjection(),
           center: getCenter(this.imageExtent),
-          zoom: 2.4,
-          minZoom: 2.4,
+          zoom: 1.9,
+          minZoom: 1.9,
           maxZoom: 4,
         })
       });

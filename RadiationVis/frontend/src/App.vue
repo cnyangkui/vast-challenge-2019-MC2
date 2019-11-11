@@ -80,7 +80,7 @@
                 <div class="input-ele"><input type="radio" value="minute" v-model="playerSpeed" :disabled="timeSeriesControl.localDisabled"><label>By 1 minute</label></div>
               </div>
               <div class="input-ele-group last">
-                <div class="input-ele"><input class="button" type="button" :value="playerState==true?'Pause':'Play'" @click="animationPlayer();" style="width: 80px;"></div>
+                <div class="input-ele"><input class="button" type="button" :value="playerState==true?'Pause':'Play'" @click="animationPlayer();" style="width: 50px;"></div>
              </div>
             </div>
             <div class="control-header">
@@ -610,7 +610,7 @@ html, body, #app {
 }
 .control-header label {
   margin-left: 1%;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
 }
 .control-content img {
@@ -625,24 +625,24 @@ html, body, #app {
   display: inline-block;
 }
 .control-content label, input.button, select.select, ul, table {
-  font-size: 18px;
+  font-size: 12px;
 }
 .control-content .input-ele-group, .input-ele, label {
-  height: 32px;
-  line-height: 32px;
+  height: 18px;
+  line-height: 18px;
 }
 .control-content input.button, select.select {
-  height: 30px;
-  line-height: 30px;
+  height: 18px;
+  line-height: 18px;
 }
 .control-content label {
   vertical-align: middle;
 }
 .first {
-  margin-top: 10px;
+  margin-top: 5px;
 }
 .last {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 .bold {
   font-weight: 600;
