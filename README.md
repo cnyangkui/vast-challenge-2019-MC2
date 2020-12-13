@@ -25,3 +25,6 @@ VAST Challenge 2019: Mini-Challenge 2
 ## Project Structure
 
 [Detail](/project-structure.md)
+
+## Reference Paper
+* H. Jiang, K. Yang, Y. Qin, Y. Yang, Y. Zhao and F. Zhou, "Visual Analytics of Spatio-Temporal Uncertainties for Radiation Monitoring in a Nuclear Leakage Crisis," 2019 IEEE Conference on Visual Analytics Science and Technology (VAST), Vancouver, BC, Canada, 2019, pp. 132-133, doi: 10.1109/VAST47406.2019.8986925.
